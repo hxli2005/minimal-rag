@@ -1,0 +1,83 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>搜到文档，不代表模型读到了证据 — Minimal RAG</title><meta name="description" content="同一 BM25 检索实现与核心循环，历史同题 230 题对照：search/read 答对 217 题，标准 search 答对 194 题。"><link rel="canonical" href="https://hxli2005.github.io/minimal-rag/notes/search-read/zh/"><link rel="alternate" hreflang="en" href="https://hxli2005.github.io/minimal-rag/notes/search-read/"><link rel="alternate" hreflang="zh-CN" href="https://hxli2005.github.io/minimal-rag/notes/search-read/zh/"><meta property="og:type" content="article"><meta property="og:title" content="搜到文档，不代表模型读到了证据"><meta property="og:description" content="同一 BM25 检索实现与核心循环，历史同题 230 题对照：search/read 答对 217 题，标准 search 答对 194 题。"><meta property="og:url" content="https://hxli2005.github.io/minimal-rag/notes/search-read/zh/"><meta property="og:image" content="https://hxli2005.github.io/minimal-rag/assets/browsecomp-paired230.png"><meta name="twitter:card" content="summary_large_image"><link rel="stylesheet" href="../../notes.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "搜到文档，不代表模型读到了证据", "datePublished": "2026-10-18", "dateModified": "2026-10-18", "author": {"@type": "Person", "name": "Haoxiang Li"}, "inLanguage": "zh-CN", "mainEntityOfPage": "https://hxli2005.github.io/minimal-rag/notes/search-read/zh/", "image": "https://hxli2005.github.io/minimal-rag/assets/browsecomp-paired230.png"}</script></head><body><nav><a href="https://hxli2005.github.io/minimal-rag/">← Minimal RAG</a><a lang="en" href="https://hxli2005.github.io/minimal-rag/notes/search-read/">English</a></nav><main><h1>搜到文档，不代表模型读到了证据</h1>
+<p><em>同一 BM25 检索实现、两种工具接口，一次 230 题配对实验。</em></p>
+<p>本文由 AI 辅助整理，依据 Minimal RAG 已有实验记录写作；文中数字已对照下方公开记录核查。</p>
+<p>如果继续开发这个项目，我优先优化证据如何被模型找到和读到。一次 BrowseComp-Plus 同题 230 题对照给了我最直接的理由：相同 BM25 检索实现与核心循环下，项目的 search/read 工具组合答对 217 题，标准 search 接口答对 194 题。</p>
+<p>这支持认真设计取证接口，但还不能将全部 23 题净收益单独归给 read。两组的返回文本、工具参数和提示同时不同，正确的结论是工具组合有效，而不是已经完成每个组件的独立消融。</p>
+<h2>极简核心如何留下足够的决策空间</h2>
+<p>Minimal RAG 的核心循环只做几件事：把消息和工具定义交给模型，执行模型请求的工具，将观察返回，再等待下一步。模型返回最终答案时结束。检索器负责能力，模型负责决定下一步。</p>
+<pre><code class="language-text">问题 → 模型 → search 或 read → 原文观察 → 模型 → 答案
+</code></pre>
+<p>索引用约 1600 字符的片段定位内容，重叠 200 字符，源文档保留完整。BM25 命中的片段可以帮助找到入口，而实际读取位置与范围由工具和模型共同决定。索引切块长度、搜索摘录长度和 read 长度是三个不同的参数，不能统称为一个“chunk size”。</p>
+<h2>两种接口给模型的机会不同</h2>
+<p>这次历史对照中的 A 是项目 search/read：search 可返回 1 到 20 篇不同文档及 2000 字符摘录，提供字符位置与文档长度，支持分页和文档内查找；read 默认读取 4000 字符，并允许继续读取。</p>
+<p>B 则是在同一 BM25 检索实现上实现的标准 search 接口：每次固定五篇，返回文档开头最多 512 token，没有独立 read。这里的 2000 是字符，512 是 token，两者不能直接进行长度倍数换算。</p>
+<p>这种设计差异意味着，B 即使命中正确文档，也可能只获得文档开头；A 则有机会从命中位置进入，再继续获取缺失段落。与此同时，A 也拥有更多控制参数和不同的提示，这些全部属于处理变量。</p>
+<h2>同样的 230 题提供了什么证据</h2>
+<p>两组使用同一生成模型 <code>gpt-6.1-sol</code> high、最多 30 次模型调用，读取固定语料，不调用外部网页。结果按固定官方脚本与 Qwen3-32B BF16 在本地复核，尚未成为维护方确认的榜单成绩。</p>
+<table>
+<thead>
+<tr>
+<th>同题 230 题</th>
+<th style="text-align: right;">项目 search/read</th>
+<th style="text-align: right;">标准 search</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>正确数</td>
+<td style="text-align: right;">217</td>
+<td style="text-align: right;">194</td>
+</tr>
+<tr>
+<td>正确率</td>
+<td style="text-align: right;">94.35%</td>
+<td style="text-align: right;">84.35%</td>
+</tr>
+<tr>
+<td>平均 search 次数</td>
+<td style="text-align: right;">12.16</td>
+<td style="text-align: right;">19.84</td>
+</tr>
+<tr>
+<td>平均 read 次数</td>
+<td style="text-align: right;">3.33</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>官方 search-only 参考召回宏平均</td>
+<td style="text-align: right;">86.12%</td>
+<td style="text-align: right;">89.71%</td>
+</tr>
+</tbody>
+</table>
+<p>配对中，项目工具组合为 28 胜、5 负、197 平，正确率差 +10.00 个百分点，原配对区间为 +5.22 到 +14.78。这里所有行都使用同一批 230 题，避免把 A 的全体 830 题与 B 的 230 题直接横比。</p>
+<p><img alt="同题 230 题的正确率和参考召回" src="../../../assets/browsecomp-paired230.png" /></p>
+<p>最值得注意的是最后一行：标准 search 的参考召回反而更高。这个指标主要记录搜索返回的文档 ID，无法描述命中后是否读到了关键段落，也不能完整表示通过 read 获得的证据。</p>
+<p>因此，“检索到更多参考 ID”并没有在本次比较中转化为“答对更多题”。工具的交付方式和后续取证机会，至少值得与排名质量同等认真地评测。这里依然不能凭汇总表证明具体是哪一种接口能力贡献了全部收益。</p>
+<h2>我会保留的接口信息</h2>
+<p>我更看重四种能帮助模型继续判断的信息：稳定的文档 ID，实际返回的原文区间，全文长度或截断状态，以及继续定位的参数。它们共同让“我现在看到的内容是否足够”变成可操作的问题。</p>
+<p>例如，返回正确文档的前 4000 字符时，工具应该能够表达后面仍有内容；模型也应该能够指定 offset 继续读。遇到相似来源时，可以在指定文档内定位关键词，而不是每次重新全库搜索。发现相关结果却缺少完整覆盖时，可以探索下一页，而不必不断猜新查询。</p>
+<p>这些能力不要求一个按题型分支的固定规划器。它们扩大可用动作空间，让更好的模型有机会作出更好的选择。不过“未来模型升级会自然提高分数”仍是设计目标，当前项目尚未通过只替换模型、其余条件冻结的受控实验来证明这一点。</p>
+<h2>分数要留在对应的实验里</h2>
+<p>217/230 对 194/230 属于历史工具接口实验，不是新版全量结果。这些题目在开发中使用过，并非对所有设计决策保密的留出集；配对区间也没有覆盖选型效应和重复生成的波动。</p>
+<p>另一个较晚的冻结 Codex 全量运行是 781/830（94.10%）。判分使用官方脚本，由本项目运行，仍等待维护方复核。8 道技术故障题在同配置下重跑；若将这些重跑题直接算错，为 775/830（93.37%）。</p>
+<p>当前直连 Responses API 后端只有 Enterprise 30 题的迁移检查。历史接口结果和后来的 Codex 全量成绩，都不能自动迁移到 API 后端或开放调用预算后的版本。</p>
+<p>这组实验支持把取证接口和检索器一起评测，不能证明 BM25 普遍胜过向量检索，也不能把全部收益单独归给 read。</p>
+<h2>直接运行这个小循环</h2>
+<p>仓库包含不调用模型的离线演示：用内置文档建立真实 SQLite 索引，再回放搜索、原文读取和带来源的回答。它不是实时模型问答，也不是新一轮基准测试。需要 Python 3.12 或更新版本：</p>
+<pre><code class="language-bash">git clone https://github.com/hxli2005/minimal-rag.git
+cd minimal-rag
+python3.12 -m venv .venv
+.venv/bin/python -m pip install -e .
+.venv/bin/python -m minimal_rag demo
+</code></pre>
+<p><a href="https://hxli2005.github.io/minimal-rag/">项目与录制演示</a> · <a href="https://github.com/hxli2005/minimal-rag">代码仓库</a></p>
+<h2>公开证据</h2>
+<ul>
+<li><a href="https://github.com/hxli2005/minimal-rag/blob/a615b3313dce7bf1cc98801c4ba1993f25f2803a/experiments/reports/browsecomp-final-20261015.md">历史同题对照与评测口径</a></li>
+<li><a href="https://github.com/hxli2005/minimal-rag/blob/a615b3313dce7bf1cc98801c4ba1993f25f2803a/experiments/browsecomp-final-20261015/summary.json">配对胜负、bootstrap 设置和用量记录</a></li>
+<li><a href="https://github.com/hxli2005/minimal-rag/blob/a615b3313dce7bf1cc98801c4ba1993f25f2803a/experiments/browsecomp-full-20261015/standard_tools.py">对照组的标准 search 实现</a></li>
+<li><a href="https://github.com/hxli2005/minimal-rag/blob/a615b3313dce7bf1cc98801c4ba1993f25f2803a/experiments/browsecomp-frozen-judge-20261017/result.json">后续 781/830 冻结运行判分记录</a></li>
+<li><a href="https://github.com/hxli2005/minimal-rag/blob/a615b3313dce7bf1cc98801c4ba1993f25f2803a/REPRODUCE.md">复现指南与后端边界</a></li>
+</ul>
+<p>证据核查日期：2026-10-18。本次写作没有新增模型评测。</p></main><footer>Haoxiang Li · Minimal RAG · <a href="https://github.com/hxli2005/minimal-rag">Source & evidence</a></footer></body></html>

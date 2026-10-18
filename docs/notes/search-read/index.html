@@ -1,0 +1,83 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>The RAG result list is not the evidence — Minimal RAG</title><meta name="description" content="A historical 230-question paired experiment: 217 correct with search/read versus 194 with standard search over the same BM25 implementation."><link rel="canonical" href="https://hxli2005.github.io/minimal-rag/notes/search-read/"><link rel="alternate" hreflang="en" href="https://hxli2005.github.io/minimal-rag/notes/search-read/"><link rel="alternate" hreflang="zh-CN" href="https://hxli2005.github.io/minimal-rag/notes/search-read/zh/"><meta property="og:type" content="article"><meta property="og:title" content="The RAG result list is not the evidence"><meta property="og:description" content="A historical 230-question paired experiment: 217 correct with search/read versus 194 with standard search over the same BM25 implementation."><meta property="og:url" content="https://hxli2005.github.io/minimal-rag/notes/search-read/"><meta property="og:image" content="https://hxli2005.github.io/minimal-rag/assets/browsecomp-paired230.png"><meta name="twitter:card" content="summary_large_image"><link rel="stylesheet" href="../notes.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "The RAG result list is not the evidence", "datePublished": "2026-10-18", "dateModified": "2026-10-18", "author": {"@type": "Person", "name": "Haoxiang Li"}, "inLanguage": "en", "mainEntityOfPage": "https://hxli2005.github.io/minimal-rag/notes/search-read/", "image": "https://hxli2005.github.io/minimal-rag/assets/browsecomp-paired230.png"}</script></head><body><nav><a href="https://hxli2005.github.io/minimal-rag/">← Minimal RAG</a><a lang="zh-CN" href="https://hxli2005.github.io/minimal-rag/notes/search-read/zh/">中文</a></nav><main><h1>The RAG result list is not the evidence</h1>
+<p><em>A 230-question experiment with the same BM25 implementation and two different tool interfaces.</em></p>
+<p>This article was prepared with AI assistance from Minimal RAG’s recorded experiments. The numbers were checked against the linked project records.</p>
+<p>I would prioritize how evidence is located and delivered before adding another retrieval component to this project. In a historical paired comparison on 230 BrowseComp-Plus questions, Minimal RAG's search/read interface answered 217 correctly, versus 194 for a standard search interface over the same BM25 ranking implementation and core loop.</p>
+<p>That is evidence for taking the tool interface seriously. It is not an isolated estimate of the read tool's effect: returned text, tool parameters, and prompts differed together.</p>
+<h2>A small loop can leave meaningful choices to the model</h2>
+<p>The core loop passes messages and tool definitions to the model, executes requested tools, returns observations, and stops when the model answers. The model chooses queries, sources, reading ranges, and continuation.</p>
+<pre><code class="language-text">Question → Model → Search or Read → Source observation → Model → Answer
+</code></pre>
+<p>The index uses approximately 1,600-character chunks with 200-character overlap while preserving full source documents. An indexed chunk is a locator. Index chunk size, search excerpt length, and read length are distinct controls, even though all are often discussed loosely as “chunk size.”</p>
+<h2>The interfaces exposed different opportunities</h2>
+<p>Arm A offered the project's search/read tools. Search could return one to twenty distinct documents with 2,000-character excerpts, offsets, and document lengths. It supported pagination and searches scoped to a document. Read defaulted to 4,000 characters and allowed continuation.</p>
+<p>Arm B implemented the standard search interface over the same BM25 ranking implementation: five results per query, each containing the beginning of the document capped at 512 tokens, with no separate read tool. Two thousand characters and 512 tokens are different units and cannot be turned directly into a length ratio.</p>
+<p>A correct document in B's result list could still expose only an irrelevant opening. A could enter near a match and read further. However, A also had more controls and a different prompt environment. The experiment tested that combination.</p>
+<h2>Compare the same 230 questions</h2>
+<p>Both arms used <code>gpt-6.1-sol</code> with high reasoning effort, at most 30 model calls, and a fixed corpus without external web access. Answers were scored locally with a pinned official script and Qwen3-32B BF16. This was not a maintainer-verified leaderboard result.</p>
+<table>
+<thead>
+<tr>
+<th>Paired230 measurement</th>
+<th style="text-align: right;">Project search/read</th>
+<th style="text-align: right;">Standard search</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Correct answers</td>
+<td style="text-align: right;">217</td>
+<td style="text-align: right;">194</td>
+</tr>
+<tr>
+<td>Accuracy</td>
+<td style="text-align: right;">94.35%</td>
+<td style="text-align: right;">84.35%</td>
+</tr>
+<tr>
+<td>Mean searches</td>
+<td style="text-align: right;">12.16</td>
+<td style="text-align: right;">19.84</td>
+</tr>
+<tr>
+<td>Mean reads</td>
+<td style="text-align: right;">3.33</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>Mean official search-only reference recall</td>
+<td style="text-align: right;">86.12%</td>
+<td style="text-align: right;">89.71%</td>
+</tr>
+</tbody>
+</table>
+<p>The project interface had 28 wins, five losses, and 197 ties. The original paired-bootstrap interval for its +10.00-point accuracy difference was +5.22 to +14.78 points. Every row above uses the same 230 questions; it does not compare A's full 830-question population with B's subset.</p>
+<p><img alt="Accuracy and search-only recall on paired questions" src="../../assets/browsecomp-paired230.png" /></p>
+<p>The last row is revealing: standard search had higher reference-document recall. That metric records search-returned document IDs. It does not say whether the relevant passage was delivered, nor fully characterize evidence obtained through reading.</p>
+<p>More returned reference IDs did not correspond to more correct answers in this comparison. Delivery and continuation deserve evaluation alongside ranking quality. Aggregate results alone still cannot identify which interface feature caused the entire improvement.</p>
+<h2>Keep continuation explicit</h2>
+<p>The interface information I value most is a stable source ID, the actual returned source span, document length or truncation state, and parameters for continuing. Together they let the model act on whether the visible evidence is sufficient.</p>
+<p>If a passage ends after 4,000 characters, the tool can indicate that more text exists and allow reading from an explicit offset. If a source is relevant but the necessary condition is missing, scoped search can locate it without restarting a global search. If relevant candidates do not cover the whole question, pagination offers another action besides guessing new keywords.</p>
+<p>These capabilities need not impose a planner with category-specific branches. They provide actions the model can choose. The hope that future models will use those actions better remains a design goal: this project has not yet established it through a controlled model-only upgrade experiment.</p>
+<h2>Keep the score attached to its experiment</h2>
+<p>The 217/230 versus 194/230 comparison is a historical interface experiment. It is not the newer full-benchmark result. Its questions were used during development, rather than held out from all design decisions, and the interval does not capture selection effects or generation variability.</p>
+<p>A separate, later frozen Codex run answered 781/830 BrowseComp-Plus questions correctly (94.10%), using the official scoring script run by this project. Maintainer verification is still pending. Eight technical generation failures were retried with the same configuration; treating those retries as failures gives 775/830 (93.37%).</p>
+<p>The current direct Responses API backend has only a 30-question Enterprise migration check. Neither the historical interface result nor the later full Codex score transfers automatically to that backend or an open call budget.</p>
+<p>This experiment supports evaluating the evidence interface alongside the retriever. It does not establish that BM25 universally beats dense retrieval, nor that the read tool alone produced the entire improvement.</p>
+<h2>Try the small loop</h2>
+<p>The repository includes an offline demo. It builds a real SQLite index from bundled sample documents and replays search, read, and a cited answer. It does not call a model and is not a live benchmark run. With Python 3.12 or newer:</p>
+<pre><code class="language-bash">git clone https://github.com/hxli2005/minimal-rag.git
+cd minimal-rag
+python3.12 -m venv .venv
+.venv/bin/python -m pip install -e .
+.venv/bin/python -m minimal_rag demo
+</code></pre>
+<p><a href="https://hxli2005.github.io/minimal-rag/">Project and recorded walkthrough</a> · <a href="https://github.com/hxli2005/minimal-rag">Source repository</a></p>
+<h2>Inspect the evidence</h2>
+<ul>
+<li><a href="https://github.com/hxli2005/minimal-rag/blob/a615b3313dce7bf1cc98801c4ba1993f25f2803a/experiments/reports/browsecomp-final-20261015.md">Historical paired comparison and evaluation protocol</a></li>
+<li><a href="https://github.com/hxli2005/minimal-rag/blob/a615b3313dce7bf1cc98801c4ba1993f25f2803a/experiments/browsecomp-final-20261015/summary.json">Paired counts, bootstrap setup, and budget accounting</a></li>
+<li><a href="https://github.com/hxli2005/minimal-rag/blob/a615b3313dce7bf1cc98801c4ba1993f25f2803a/experiments/browsecomp-full-20261015/standard_tools.py">The standard search interface used in the comparison</a></li>
+<li><a href="https://github.com/hxli2005/minimal-rag/blob/a615b3313dce7bf1cc98801c4ba1993f25f2803a/experiments/browsecomp-frozen-judge-20261017/result.json">Later 781/830 frozen-run scoring record</a></li>
+<li><a href="https://github.com/hxli2005/minimal-rag/blob/a615b3313dce7bf1cc98801c4ba1993f25f2803a/REPRODUCE.md">Reproduction guide and backend boundaries</a></li>
+</ul>
+<p>Evidence checked October 18, 2026. No new model evaluations were run for this article.</p></main><footer>Haoxiang Li · Minimal RAG · <a href="https://github.com/hxli2005/minimal-rag">Source & evidence</a></footer></body></html>
