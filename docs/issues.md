@@ -17,6 +17,9 @@
 - **历史 v3/A 的 dev 错题分层（2026-10-16 按轨迹统计）。** Enterprise v3 dev 18 错：13 题全部参考文档已在 search／read 中出现（其中 8 题为 project_related 多条款漏写或写错），参考文档完全没找到的 2 题均为 semantic，部分找到 2 题，无参考 1 题。BrowseComp A dev 7 错：答案文档已出现 4 题，完全没找到 2 题、部分找到 1 题。检索改进的上限约 7/200 题，回答层约 17/200 题。文档级出现不等于逐条事实已读到。
 - `models/hybrid-rag/models-qwen3.json` 实际只替换 reranker，embedding 仍是 BGE-small，不能称作 Qwen embedding 配置；历史 0.6B 结果也不能替代本轮或全库结论，见[编码器对照](../experiments/reports/offline-encoder-granularity-20261012.md)及[扩库实验](../experiments/reports/qwen-scale-gate-20261013.md)。
 - **随模型升级受益仍缺受控验证。** 历史 Enterprise test 对比同时更换模型与检索栈，同 cascade 的 dev 对比也未显示稳定提升；尚不能证明固定工具、提示、预算和裁判后，仅升级模型即可稳定提分。见[模型切换评测](../experiments/reports/sota-20261014.md)。
+- **Codex 适配的未测影响。** 工具请求走结构化输出里的 JSON 协议（非原生函数调用），并替换了 Codex 基础指令；在 630 题里格式错误为 0，但对答题质量的影响方向未知，只能用同协议 API 适配器做等价核对，再测原生函数调用。
+- **Codex 会话实测注入隐藏上下文且固定 `text.verbosity=low`。** 关闭功能开关后仍注入约3.4k token的内置工具（exec、request_user_input、sleep、spawn_agent等多智能体工具）和两段多智能体developer说明；我们的提示作为developer消息发送。verbosity=low可能压短答案（与CDL答案长度差29倍相关，未验证因果）。冻结成绩均在此条件下产生；再试约20个开关后，只有sleep工具（`features.sleep_tool=false`）和verbosity（`model_verbosity`）可控，exec、request_user_input、6个协作工具和两段多智能体说明无法通过配置去掉；彻底去除只能走直连API。API版本应显式设定verbosity并不注入这些内容。见[探测记录](../evidence/codex-hidden-context-20261017.json)。
+- **12 轮上限吃掉近四成错题。** 冻结版 Enterprise test400 有 45 题用满 12 次模型调用被强制作答，其中仅 10 题判对；91 道错题中 35 道属于此类（dev100 A：9 题仅 1 对）。难题本身也更易用满轮次，未证明放宽预算可提分。
 - **BrowseComp 提交文件已备好、未上传**，待用户决定是否提交维护方核实：[submission.json](../experiments/browsecomp-final-20261015/submission.json)。
 - **云实例停止计费须核对平台状态。** 2026-10-16 AutoDL 下载脚本完成并发出容器内关机命令后，控制台仍显示无卡运行；已从控制台关机。后续不能将进程退出或容器 `shutdown` 当作实例已停，须用平台定时关机并核实。
 
@@ -44,3 +47,6 @@
 - 官方 BrowseComp 脚本 0469490 的 `calib_err` 漏算最后一箱；其 `uv.lock` 锁定的 pypdfium2 4.30.1 已被 PyPI 撤回。均按官方原样使用。
 - 独立向量工具实验的 BrowseComp A（2026-10-16）题969、979、985出现SDK `no active turn to interrupt` 运行错误；本轮冻结适配器和超时设置，不补生成，原始轨迹及错误清单保存在runs/semantic-tool-20261016，后续单独检查取消请求时的错误处理。
 - semantic-tool-20261016 transport_control.py matches any `429` substring: the user-requested BrowseComp SIGINT at UTC2026-10-17 07:32:47 was misclassified from digits in a shell-snapshot filename inside TransportClosedError. This caused one30-second cooldown; retain the raw event but exclude it from actual HTTP429 counts. Tighten classification in a later transport change; it does not block the active Enterprise run.
+- API v2小样本请求80（qst_0368）出现HTTP分块响应中断，客户端未收到完整响应，但OpenRouter标记cancelled并收费$0.079958；费用守卫已阻止下一请求，对账后依协议只原样恢复最后一轮，未重做检索或替换有效答案。不能把连接异常直接当作零费用；原始失败、账单及恢复决定保存在runs/api-validation-20261017/recovery-001，见[实验报告](../experiments/reports/api-validation-20261017.md)。
+- API v2固定证据verbosity对照的qst_0375存在同事实向量异判：low/high均为13项事实支持11项，解释提到相近遗漏，却分别判对/错；本轮仅标记裁判边界不一致，保留23/30对22/30和所有首次有效判决，不选择性重判。见`runs/api-validation-20261017/stage2/{low,high}/qst_0375.json`与`drafts/technical-series-20261017/zh/04-verbosity-and-api.md`。
+- BrowseComp Qwen3-32B BF16在单卡A800 80GB上，默认40960上下文的vLLM启动失败（KV需10GiB、可用4.07GiB）；本轮保留官方原文件，另存仅加max_model_len=8192的运行副本，830题最长裁判输入1216 token，输出上限4096，不截断输入或减少输出预算。见experiments/browsecomp-frozen-judge-20261017/engine-adjustment.json。

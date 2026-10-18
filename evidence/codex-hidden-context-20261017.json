@@ -1,0 +1,82 @@
+{
+ "kind": "codex_hidden_context_probe",
+ "date": "2026-10-17",
+ "codex_cli": "0.160.0",
+ "model": "gpt-6.1-sol",
+ "model_calls": 1,
+ "method": "One dev question through the unchanged CodexModel + rag_codex_config with RUST_LOG=trace; the permessage-deflate websocket frame was decompressed into the exact response.create body.",
+ "reported_input_tokens": 4269,
+ "matches_benchmark_runs": "Benchmark first calls show the same fixed 3,481 unexplained tokens (dev100 A, 100/100 identical), consistent with this injection.",
+ "request_parameters": {
+  "tool_choice": "auto",
+  "parallel_tool_calls": false,
+  "reasoning": {
+   "effort": "high",
+   "summary": "auto",
+   "context": "all_turns"
+  },
+  "store": false,
+  "include": [
+   "reasoning.encrypted_content"
+  ],
+  "text.verbosity": "low",
+  "top_level_instructions_field": false
+ },
+ "input_items": [
+  {
+   "item": "additional_tools (developer)",
+   "o200k_tokens_json": 3661,
+   "tools": [
+    "functions.exec",
+    "functions.wait",
+    "functions.request_user_input",
+    "functions.request_user_input_async",
+    "clock.sleep",
+    "collaboration.followup_task",
+    "collaboration.interrupt_agent",
+    "collaboration.list_agents",
+    "collaboration.send_message",
+    "collaboration.spawn_agent",
+    "collaboration.wait_agent"
+   ]
+  },
+  {
+   "item": "developer message: our SYSTEM_PROMPT + PROTOCOL (sent as developer, not instructions)",
+   "o200k_tokens_json": 228
+  },
+  {
+   "item": "developer message: <multi_agent_role>",
+   "o200k_tokens_json": 685,
+   "text": "<multi_agent_role>You are `/root`, the primary agent in a team of agents collaborating to fulfill the user's goals.\n\nAt the start of your turn, you are the active agent.\nYou can spawn sub-agents to handle subtasks, and those sub-agents can spawn their own sub-agents.\nAll agents in the team, including the agents that you can assign tasks to, are equally intelligent and capable, and have access to the same set of tools.\n\nYou can use `spawn_agent` to create a new agent, `followup_task` to give an existing agent a new task and trigger a turn, and `send_message` to pass a message to a running agent without triggering a turn.\n`send_message` calls may be read by a human, so ensure they are legible. Always put proper spaces between words and/or numbers.\nChild agents can also spawn their own sub-agents.\nYou can decide how much context you want to propagate to your sub-agents with the `fork_turns` parameter.\n\nYou will receive messages in the analysis channel in the form:\n```\nMessage Type: MESSAGE | FINAL_ANSWER\nTask name: <recipient>\nSender: <author>\nPayload:\n<payload text>\n```\nThey may be addressed as to=/root\n\nNote that collaboration tools cannot be called from inside `functions.exec`. Call `spawn_agent`, `send_message`, `followup_task`, `wait_agent`, `interrupt_agent`, and `list_agents` only as direct tool calls using the recipient shown in their tool definitions, such as `to=functions.collaboration.spawn_agent`, since they are intentionally absent from the `functions.exec` `tools.*` namespace. Available tools in `functions.exec` are explicitly described with a `tools` namespace in the developer message.\n\nAll agents share the same directory. In detail:\n- All agents have access to the same container and filesystem as you.\n- All agents use the same current working directory.\n- As a result, edits made by one agent are immediately visible to all other agents.\n\nWhen calling `wait_agent`, prefer longer waits (minutes) to avoid busy polling.\n\nThere are 4 available concurrency slots, meaning that up to 4 agents can be active at once, including you.\n\nFull-history forks (`fork_turns` omitted or `\"all\"`) inherit the parent model and reasoning effort and do not accept overrides. Only set `model` or `reasoning_effort` when explicitly requested by the user, applicable `AGENTS.md` instructions, or skill instructions; when doing so, set `fork_turns` to `\"none\"` or a positive integer string.</multi_agent_role>"
+  },
+  {
+   "item": "developer message: <multi_agent_mode>",
+   "o200k_tokens_json": 170,
+   "text": "<multi_agent_mode>Any earlier instruction enabling proactive multi-agent delegation no longer applies. Do not spawn sub-agents unless the user or applicable AGENTS.md/skill instructions explicitly ask for sub-agents, delegation, or parallel agent work.</multi_agent_mode>"
+  },
+  {
+   "item": "user message: our JSON payload (question + tool specs)",
+   "o200k_tokens_json": 637
+  }
+ ],
+ "omitted": "client_metadata (session/installation IDs) and full tool descriptions are not published; raw request kept only in the session scratchpad.",
+ "request_sha256": "29ae716452587525433d4192f83782ef5013bd3c78630ebca836632c07785c57",
+ "removal_attempts": {
+  "model_calls": 2,
+  "settings_tried": "process-level -c and thread config: features.{multi_agent,multi_agent_v2,code_mode,code_mode_host,code_mode_only,sleep_tool,goals,default_mode_request_user_input,send_message_to_user_async,request_permissions_tool,tool_suggest,unified_exec,shell_tool,view_image}=false; agents.max_threads=1; multi_agent_v2.* hint/limit keys (reported as unrecognized); model_verbosity",
+  "removable": {
+   "clock.sleep tool": "features.sleep_tool=false (input 4269 -> 4182 tokens)",
+   "text.verbosity": "model_verbosity=\"medium\" is honored"
+  },
+  "not_removable": [
+   "functions.exec",
+   "functions.wait",
+   "functions.request_user_input",
+   "functions.request_user_input_async",
+   "collaboration.{followup_task,interrupt_agent,list_agents,send_message,spawn_agent,wait_agent}",
+   "<multi_agent_role> developer message",
+   "<multi_agent_mode> developer message"
+  ],
+  "note": "agents.max_threads changes only the concurrency-slot number inside <multi_agent_role>. No config switch found that removes the rest in codex-cli 0.160.0 via the Python SDK app-server; only a direct API transport avoids them."
+ }
+}

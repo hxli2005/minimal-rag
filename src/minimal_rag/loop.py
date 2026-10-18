@@ -28,14 +28,16 @@ class Reply(StrictModel):
     sources: list[str] = Field(default_factory=list, max_length=100)
 
 
-async def run_agent(complete, tools, question, max_turns=12, emit=lambda _: None):
+async def run_agent(complete, tools, question, max_turns=None, emit=lambda _: None):
     """complete(messages, tools)返回Reply的JSON；循环只传消息、执行工具。"""
-    if not question.strip() or max_turns < 1:
+    if not question.strip() or (max_turns is not None and max_turns < 1):
         raise ValueError("question must be nonempty and max_turns positive")
     messages = [{"role": "user", "content": question}]
     specs = [{"name": name, "description": t.description, "parameters": t.arguments.model_json_schema()}
              for name, t in tools.items()]
-    for _ in range(max_turns):
+    turns = 0
+    while max_turns is None or turns < max_turns:
+        turns += 1
         raw = await complete(messages, specs)
         try:
             reply = Reply.model_validate_json(raw)

@@ -1,0 +1,18 @@
+{
+  "reason": "Observed vLLM startup failure: 40960 context requires 10 GiB KV cache, available 4.07 GiB. No judge responses produced.",
+  "only_change": {
+    "before": "llm = LLM(model=args.model, tensor_parallel_size=args.tensor_parallel_size)",
+    "after": "llm = LLM(model=args.model, tensor_parallel_size=args.tensor_parallel_size, max_model_len=8192)"
+  },
+  "unchanged": [
+    "BF16 weights",
+    "tokenizer",
+    "judge prompt",
+    "sampling",
+    "output cap 4096",
+    "batch size 64",
+    "scoring/parsing"
+  ],
+  "original_sha256": "1a21233937c377ab6323c98ff9af67742756a57fbacab4ebf9bc30852eae530a",
+  "patched_sha256": "5b874e887673d136ed5f65a5cc5edb48961d205d2a6f8a9544df66ca1fc6a609"
+}

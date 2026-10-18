@@ -1,0 +1,32 @@
+[
+  {
+    "type": "file",
+    "oid": "e637c54b3c81e59f7b6e37419c436c3c821a9d10",
+    "size": 6932,
+    "path": "README.md"
+  },
+  {
+    "type": "file",
+    "oid": "7fd95fecae2818058000f9da7550d6e26553e5e3",
+    "size": 1409893131,
+    "lfs": {
+      "oid": "6b0747bf160af9427b12101537d53056ac592ada9831c1a98ae01fa50a8d2a9f",
+      "size": 1409893131,
+      "pointerSize": 135
+    },
+    "xetHash": "55e9c3181068cccd353ad064367395337570f71dd80f0fb16273a29bf1534d47",
+    "path": "data/documents/test.parquet"
+  },
+  {
+    "type": "file",
+    "oid": "ca06ccf4ea70cf34130c8d2bf5a837fb89f6ac5e",
+    "size": 408737,
+    "lfs": {
+      "oid": "e25066f4eff3843dd0f3df0d1348113471e072e75007ffe390a0aa83f2a80af2",
+      "size": 408737,
+      "pointerSize": 131
+    },
+    "xetHash": "dfa4183702bb93ee2bfbc3e8d798c18a2c434ec58d96711188c34d8635ec543d",
+    "path": "data/questions/test.parquet"
+  }
+]

@@ -1,0 +1,972 @@
+{
+  "kind": "fixed_api_development_validation",
+  "date": "2026-10-17",
+  "protocol": "api-validation-20261017-v2",
+  "result": {
+    "protocol": "api-validation-20261017-v2",
+    "requests": 192,
+    "known_cost_usd": 7.5109163,
+    "unresolved_costs": 0,
+    "key_usage": {
+      "limit": 20,
+      "limit_reset": null,
+      "limit_remaining": 12.4890837,
+      "usage": 7.5109163,
+      "byok_usage": 0,
+      "include_byok_in_limit": false,
+      "expires_at": "2026-10-24T15:42:00.002Z"
+    },
+    "stop": null,
+    "smoke_gate": {
+      "passed": true,
+      "cost_usd": 0.1069676,
+      "reasoning_roundtrip_verified": true,
+      "cache_is_not_a_functional_gate": true
+    },
+    "migration_gate": {
+      "passed": true,
+      "correct": 24,
+      "finished": 30,
+      "n": 30,
+      "baseline_correct": 22,
+      "screen_not_equivalence": true,
+      "amendment": "User-authorized replacement of key-query failures with first actual model runs; old records retained."
+    },
+    "stages": {
+      "0": {
+        "low": {
+          "requested": 2,
+          "generated": 2,
+          "graded": 2,
+          "correct": 1,
+          "complete": true,
+          "finished": 2,
+          "completeness_macro": 0.5,
+          "completeness_micro": 0.5,
+          "model_calls": 8,
+          "tool_calls": {
+            "search": 4,
+            "read": 3
+          },
+          "cost_usd": 0.1069676,
+          "usage": {
+            "input_tokens": 89728,
+            "output_tokens": 621,
+            "total_tokens": 90349,
+            "cached_input_tokens": 51246,
+            "reasoning_tokens": 28,
+            "cache_write_tokens": 37338
+          },
+          "cache_write_usage_missing_calls": 2,
+          "usage_from_cancelled_generation_receipt": 0,
+          "usage_missing_calls": 0,
+          "encrypted_reasoning_returned": 1,
+          "requests_replaying_encrypted_reasoning": 1,
+          "incomplete_reasons": {},
+          "answer_chars": {
+            "qst_0044": 279,
+            "qst_0222": 638
+          },
+          "cases": [
+            {
+              "id": "qst_0044",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0222",
+              "result_status": "finished",
+              "correct": false,
+              "error": null
+            }
+          ],
+          "median_answer_chars": 458.5
+        }
+      },
+      "1": {
+        "low": {
+          "requested": 30,
+          "generated": 30,
+          "graded": 30,
+          "correct": 24,
+          "complete": true,
+          "finished": 30,
+          "completeness_macro": 0.9296153846153846,
+          "completeness_micro": 0.8857142857142857,
+          "model_calls": 124,
+          "tool_calls": {
+            "search": 128,
+            "read": 32
+          },
+          "cost_usd": 3.6600137,
+          "usage": {
+            "input_tokens": 3761277,
+            "output_tokens": 17968,
+            "total_tokens": 3779245,
+            "cached_input_tokens": 2456632,
+            "reasoning_tokens": 3836,
+            "cache_write_tokens": 1250761
+          },
+          "cache_write_usage_missing_calls": 32,
+          "usage_from_cancelled_generation_receipt": 1,
+          "usage_missing_calls": 0,
+          "encrypted_reasoning_returned": 44,
+          "requests_replaying_encrypted_reasoning": 35,
+          "incomplete_reasons": {},
+          "answer_chars": {
+            "qst_0403": 386,
+            "qst_0481": 1057,
+            "qst_0470": 343,
+            "qst_0446": 569,
+            "qst_0075": 245,
+            "qst_0474": 931,
+            "qst_0033": 105,
+            "qst_0180": 244,
+            "qst_0375": 3776,
+            "qst_0309": 132,
+            "qst_0143": 336,
+            "qst_0003": 886,
+            "qst_0468": 136,
+            "qst_0105": 541,
+            "qst_0060": 338,
+            "qst_0318": 215,
+            "qst_0368": 2498,
+            "qst_0253": 232,
+            "qst_0176": 253,
+            "qst_0449": 159,
+            "qst_0136": 237,
+            "qst_0013": 2222,
+            "qst_0197": 2728,
+            "qst_0476": 1044,
+            "qst_0300": 163,
+            "qst_0492": 326,
+            "qst_0409": 852,
+            "qst_0413": 415,
+            "qst_0423": 154,
+            "qst_0228": 1660
+          },
+          "cases": [
+            {
+              "id": "qst_0403",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0481",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0470",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0446",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0075",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0474",
+              "result_status": "finished",
+              "correct": false,
+              "error": null
+            },
+            {
+              "id": "qst_0033",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0180",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0375",
+              "result_status": "finished",
+              "correct": false,
+              "error": null
+            },
+            {
+              "id": "qst_0309",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0143",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0003",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0468",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0105",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0060",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0318",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0368",
+              "result_status": "finished",
+              "correct": false,
+              "error": null
+            },
+            {
+              "id": "qst_0253",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0176",
+              "result_status": "finished",
+              "correct": false,
+              "error": null
+            },
+            {
+              "id": "qst_0449",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0136",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0013",
+              "result_status": "finished",
+              "correct": false,
+              "error": null
+            },
+            {
+              "id": "qst_0197",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0476",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0300",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0492",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0409",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0413",
+              "result_status": "finished",
+              "correct": false,
+              "error": null
+            },
+            {
+              "id": "qst_0423",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0228",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            }
+          ],
+          "median_answer_chars": 340.5
+        },
+        "paired": {
+          "wins": 3,
+          "losses": 1,
+          "ties": 26,
+          "mean": 0.06666666666666667,
+          "bootstrap95": [
+            -0.06666666666666667,
+            0.2
+          ],
+          "completeness_delta": {
+            "mean": 0.0823076923076923,
+            "bootstrap95": [
+              0.014529914529914527,
+              0.16461538461538464
+            ]
+          }
+        }
+      },
+      "2": {
+        "low": {
+          "requested": 30,
+          "generated": 30,
+          "graded": 30,
+          "correct": 23,
+          "complete": true,
+          "finished": 30,
+          "completeness_macro": 0.8687606837606837,
+          "completeness_micro": 0.8285714285714286,
+          "model_calls": 30,
+          "tool_calls": {},
+          "cost_usd": 1.8476625,
+          "usage": {
+            "input_tokens": 673771,
+            "output_tokens": 16328,
+            "total_tokens": 690099,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 673681,
+            "reasoning_tokens": 7837
+          },
+          "cache_write_usage_missing_calls": 0,
+          "usage_from_cancelled_generation_receipt": 0,
+          "usage_missing_calls": 0,
+          "encrypted_reasoning_returned": 28,
+          "requests_replaying_encrypted_reasoning": 0,
+          "incomplete_reasons": {},
+          "answer_chars": {
+            "qst_0403": 402,
+            "qst_0481": 901,
+            "qst_0470": 301,
+            "qst_0446": 464,
+            "qst_0075": 205,
+            "qst_0474": 1004,
+            "qst_0033": 128,
+            "qst_0180": 201,
+            "qst_0375": 4149,
+            "qst_0309": 92,
+            "qst_0143": 218,
+            "qst_0003": 966,
+            "qst_0468": 14,
+            "qst_0105": 516,
+            "qst_0060": 341,
+            "qst_0318": 178,
+            "qst_0368": 3091,
+            "qst_0253": 237,
+            "qst_0176": 463,
+            "qst_0449": 181,
+            "qst_0136": 216,
+            "qst_0013": 2544,
+            "qst_0197": 3813,
+            "qst_0476": 1139,
+            "qst_0300": 129,
+            "qst_0492": 431,
+            "qst_0409": 940,
+            "qst_0413": 287,
+            "qst_0423": 153,
+            "qst_0228": 1680
+          },
+          "cases": [
+            {
+              "id": "qst_0403",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0481",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0470",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0446",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0075",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0474",
+              "result_status": "finished",
+              "correct": false,
+              "error": null
+            },
+            {
+              "id": "qst_0033",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0180",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0375",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0309",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0143",
+              "result_status": "finished",
+              "correct": false,
+              "error": null
+            },
+            {
+              "id": "qst_0003",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0468",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0105",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0060",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0318",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0368",
+              "result_status": "finished",
+              "correct": false,
+              "error": null
+            },
+            {
+              "id": "qst_0253",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0176",
+              "result_status": "finished",
+              "correct": false,
+              "error": null
+            },
+            {
+              "id": "qst_0449",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0136",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0013",
+              "result_status": "finished",
+              "correct": false,
+              "error": null
+            },
+            {
+              "id": "qst_0197",
+              "result_status": "finished",
+              "correct": false,
+              "error": null
+            },
+            {
+              "id": "qst_0476",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0300",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0492",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0409",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0413",
+              "result_status": "finished",
+              "correct": false,
+              "error": null
+            },
+            {
+              "id": "qst_0423",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0228",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            }
+          ],
+          "median_answer_chars": 371.5
+        },
+        "high": {
+          "requested": 30,
+          "generated": 30,
+          "graded": 30,
+          "correct": 22,
+          "complete": true,
+          "finished": 30,
+          "completeness_macro": 0.8857051282051283,
+          "completeness_micro": 0.85,
+          "model_calls": 30,
+          "tool_calls": {},
+          "cost_usd": 1.8962725,
+          "usage": {
+            "input_tokens": 673771,
+            "output_tokens": 21189,
+            "total_tokens": 694960,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 673681,
+            "reasoning_tokens": 7598
+          },
+          "cache_write_usage_missing_calls": 0,
+          "usage_from_cancelled_generation_receipt": 0,
+          "usage_missing_calls": 0,
+          "encrypted_reasoning_returned": 28,
+          "requests_replaying_encrypted_reasoning": 0,
+          "incomplete_reasons": {},
+          "answer_chars": {
+            "qst_0403": 709,
+            "qst_0481": 2103,
+            "qst_0470": 489,
+            "qst_0446": 1037,
+            "qst_0075": 304,
+            "qst_0474": 1860,
+            "qst_0033": 201,
+            "qst_0180": 299,
+            "qst_0375": 7164,
+            "qst_0309": 192,
+            "qst_0143": 405,
+            "qst_0003": 1213,
+            "qst_0468": 157,
+            "qst_0105": 900,
+            "qst_0060": 683,
+            "qst_0318": 281,
+            "qst_0368": 4778,
+            "qst_0253": 287,
+            "qst_0176": 693,
+            "qst_0449": 1218,
+            "qst_0136": 405,
+            "qst_0013": 4594,
+            "qst_0197": 5745,
+            "qst_0476": 2053,
+            "qst_0300": 289,
+            "qst_0492": 800,
+            "qst_0409": 1743,
+            "qst_0413": 634,
+            "qst_0423": 197,
+            "qst_0228": 3440
+          },
+          "cases": [
+            {
+              "id": "qst_0403",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0481",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0470",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0446",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0075",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0474",
+              "result_status": "finished",
+              "correct": false,
+              "error": null
+            },
+            {
+              "id": "qst_0033",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0180",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0375",
+              "result_status": "finished",
+              "correct": false,
+              "error": null
+            },
+            {
+              "id": "qst_0309",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0143",
+              "result_status": "finished",
+              "correct": false,
+              "error": null
+            },
+            {
+              "id": "qst_0003",
+              "result_status": "finished",
+              "correct": false,
+              "error": null
+            },
+            {
+              "id": "qst_0468",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0105",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0060",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0318",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0368",
+              "result_status": "finished",
+              "correct": false,
+              "error": null
+            },
+            {
+              "id": "qst_0253",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0176",
+              "result_status": "finished",
+              "correct": false,
+              "error": null
+            },
+            {
+              "id": "qst_0449",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0136",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0013",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0197",
+              "result_status": "finished",
+              "correct": false,
+              "error": null
+            },
+            {
+              "id": "qst_0476",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0300",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0492",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0409",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0413",
+              "result_status": "finished",
+              "correct": false,
+              "error": null
+            },
+            {
+              "id": "qst_0423",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            },
+            {
+              "id": "qst_0228",
+              "result_status": "finished",
+              "correct": true,
+              "error": null
+            }
+          ],
+          "median_answer_chars": 701.0
+        },
+        "paired": {
+          "wins": 1,
+          "losses": 2,
+          "ties": 27,
+          "mean": -0.03333333333333333,
+          "bootstrap95": [
+            -0.13333333333333333,
+            0.06666666666666667
+          ],
+          "completeness_delta": {
+            "mean": 0.016944444444444446,
+            "bootstrap95": [
+              -0.015277777777777776,
+              0.05999999999999999
+            ]
+          }
+        }
+      }
+    },
+    "limits": [
+      "Known development sample, rare types oversampled.",
+      "Migration comparison changes more than one factor; no causal attribution to native tools alone.",
+      "Local Codex judge; not an official leaderboard score.",
+      "Fixed-evidence verbosity comparison is not full-agent performance."
+    ],
+    "technical_recoveries": [
+      {
+        "kind": "same_config_pre_complete_output_transport_recovery",
+        "time": 1792253880.567903,
+        "recovery_source_sha256": "9f38dc69630f6728c44e2a7736ec7a610975fce4fe0d58c229fa9fce28007e50",
+        "original_request": 80,
+        "original_generation_id": "gen-1792253486-rwOxHweNqDMZwEb1yyJj",
+        "cancelled": true,
+        "delivered_complete_response": false,
+        "valid_answer_resampled": false,
+        "charged_usd": 0.079958,
+        "key_usage_reconciled_usd": 2.3138379,
+        "policy": "No automatic retries; preserve terminal outcome and denominator. A pre-output transport outage may be resumed only under a recorded same-config recovery decision after cost reconciliation.",
+        "retry": "Exactly the saved pending request body, once; keep previous model and tool history.",
+        "judge": "Original automatic failed-generation zero is archived; no valid model judgement existed.",
+        "never_sent_placeholder": "qst_0253 is archived and will be generated for the first time.",
+        "status": "recovered_original_question_without_restart"
+      }
+    ],
+    "key_query_retry_authorization": {
+      "time": 1792255151.4327512,
+      "source": "User explicitly authorized all same-class key-information connection failures before any model request to be rerun, not counted incorrect.",
+      "scope": "Only zero-paid-request key-query connection failures; no valid answer or model judgement may be replaced.",
+      "budget": "unchanged v2 $14 stop / $20 key cap / 200 RMB"
+    },
+    "key_query_retries": [
+      {
+        "time": 1792256606.018322,
+        "stage": 1,
+        "id": "qst_0492",
+        "arm": "low",
+        "billable_requests_before_retry": 0,
+        "valid_answer_resampled": false,
+        "source_sha256": "774f4dd65540a48629d615bfae3cd32326aa4fcc6c4924f13a0b8be9f44c7987",
+        "authorization": "key-query-retries/authorization.json",
+        "status": "completed",
+        "result_status": "finished",
+        "correct": true
+      },
+      {
+        "time": 1792256718.544074,
+        "stage": 2,
+        "id": "qst_0075",
+        "arm": "low",
+        "billable_requests_before_retry": 0,
+        "valid_answer_resampled": false,
+        "source_sha256": "774f4dd65540a48629d615bfae3cd32326aa4fcc6c4924f13a0b8be9f44c7987",
+        "authorization": "key-query-retries/authorization.json",
+        "status": "completed",
+        "result_status": "finished",
+        "correct": true
+      }
+    ],
+    "budget_rmb_including_fee": 63.392133572,
+    "migration_reference": {
+      "correct": 22,
+      "n": 30,
+      "completeness_macro": 0.8473076923076923
+    },
+    "complete": true,
+    "high_directional_gate_passed": false,
+    "decision": "API migration screening passed; retain API as a portable backend. High verbosity did not pass the preregistered benefit gate. Keep Codex full-run submission provenance separate. No more runs launched."
+  },
+  "validation": {
+    "protocol": "api-validation-20261017-v2",
+    "complete_answers": 92,
+    "complete_judgements": 92,
+    "first_valid_judgement_preserved": true,
+    "judge_model_calls": 92,
+    "api_requests": 192,
+    "completed_api_requests": 191,
+    "cancelled_api_requests": 1,
+    "all_costs_reconciled": true,
+    "cost_usd": 7.5109163,
+    "key_usage_usd": 7.5109163,
+    "budget_rmb_including_fee": 63.392133572,
+    "key_limit_usd": 20,
+    "runner_stop_usd": 14,
+    "unresolved_requests": 0,
+    "stage_request_counts": {
+      "0": 8,
+      "1": 124,
+      "2": 60
+    },
+    "source_config_unchanged": true,
+    "actual_provider_models": [
+      "openai/gpt-6.1-sol-20260929"
+    ],
+    "tool_calls": {
+      "search": 132,
+      "read": 35
+    },
+    "tool_errors": 0,
+    "protocol_errors": 0,
+    "unseen_citations": [],
+    "paired_request_bodies_differ_only_in_verbosity": true,
+    "output_limit_hits": 0,
+    "user_authorized_zero_request_reruns": 2,
+    "valid_model_answers_resampled": 0,
+    "raw_encrypted_reasoning_published": false
+  },
+  "sha256": {
+    "experiments/api-validation-20261017/protocol.json": "55981f0e779699e3c7cf2b786f04a19f7785833f5f460350b0f957e5d75f3388",
+    "experiments/api-validation-20261017/sample.json": "ef2b0eba8fa5b4054a9f797a920f2ec04f67f61caa66cac622c9e290e4eed0ef",
+    "experiments/api-validation-20261017/result.json": "75e296ab5cd43d2a8456416a34ca96ada4d123b777d5db810a0ef21568104dce",
+    "experiments/api-validation-20261017/validation.json": "9b2d21f54a75929e0b88cb0dfe2a41b74c3d135b8b77868c3652a119e1c844eb",
+    "experiments/api-validation-20261017/run.py": "aab66c43177a2f9ba474dbd8ed4a3414e2629cefe701f8e457ce80c0e34203fa",
+    "experiments/api-validation-20261017/recover_transport.py": "9f38dc69630f6728c44e2a7736ec7a610975fce4fe0d58c229fa9fce28007e50",
+    "experiments/api-validation-20261017/retry_key_queries.py": "774f4dd65540a48629d615bfae3cd32326aa4fcc6c4924f13a0b8be9f44c7987",
+    "experiments/api-validation-20261017/report.py": "2c42b0cd5896c434cdc6cbc2c3a6640c959710632f023f6581ef60e3295a8964"
+  }
+}

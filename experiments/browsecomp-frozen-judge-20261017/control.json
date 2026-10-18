@@ -1,0 +1,12 @@
+{
+  "inference_deadline": 1792275600.0,
+  "groups": {
+    "frozen-20261017": 830
+  },
+  "smoke_ids": [
+    "131",
+    "1257"
+  ],
+  "budget_stop_cny": 30,
+  "platform_shutdown": "2026-10-17 15:30 America/Los_Angeles"
+}

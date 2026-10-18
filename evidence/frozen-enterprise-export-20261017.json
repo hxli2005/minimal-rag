@@ -1,0 +1,69 @@
+{
+  "kind": "frozen_official_format_export",
+  "date": "2026-10-17",
+  "variant": "frozen-20261017",
+  "generation_model": "gpt-6.1-sol high (existing answers, no new generation)",
+  "model_calls": 0,
+  "questions": 500,
+  "cited_local_documents": 816,
+  "cited_official_ids": 815,
+  "bound_document_versions": 822,
+  "finished": 500,
+  "missing_as_empty_answer": true,
+  "unobserved_citation_cases": 0,
+  "unknown_citation_ids": [],
+  "unbound_parquet_versions": [],
+  "parquet": {
+    "path": "data/benchmarks/enterprise/source/data/documents/test.parquet",
+    "sha256": "6b0747bf160af9427b12101537d53056ac592ada9831c1a98ae01fa50a8d2a9f"
+  },
+  "alias_citation_cases": {
+    "count": 1,
+    "detail": "See raw_detail"
+  },
+  "answers": {
+    "path": "runs/frozen-20261017/enterprise-500-answers.jsonl",
+    "sha256": "c749f10f447603b9580277d14b9dfc28630cff597d0ff9c3b16bf05d50207280"
+  },
+  "sources": [
+    {
+      "path": "data/benchmarks/enterprise/dev.json",
+      "sha256": "423486e3ff043405c3c9a0e958fe903b43a57c55703b64753b39a90fe8f7d23f"
+    },
+    {
+      "path": "runs/code-tools-20261017/config.json",
+      "sha256": "04db4844f22a5b341833397dd3144cb87df8ebd43c26f79763693bb68c9494aa"
+    },
+    {
+      "path": "runs/code-tools-20261017/A/summary.json",
+      "sha256": "74ebde91890a6e25052c3650cfe0da8bd0621ebecb541a46e74f2aaac1550c8e"
+    },
+    {
+      "path": "data/benchmarks/enterprise/test.json",
+      "sha256": "15128ac27b0463f08f14433bd122755bf94956b3c25bce1e20b8260d0eea9d28"
+    },
+    {
+      "path": "runs/search-description-20261016/enterprise-test/config.json",
+      "sha256": "c0a6cc65439168aaf591c298745d6141bf8bee9d391caf3c505726b25f6d02ad"
+    },
+    {
+      "path": "runs/search-description-20261016/enterprise-test/summary.json",
+      "sha256": "e6bd87270be34e3707de6295d38ba5bdf2ad5eb8a39070cb31b73faa0d0fa030"
+    },
+    {
+      "path": "data/benchmarks/enterprise/duplicate-id-aliases.json",
+      "sha256": "75c103812f3614d64ddc95842f81ee8fec880343435457a080604c199604101c"
+    }
+  ],
+  "limits": [
+    "No new score, official evaluation or submission; historical local scores unchanged.",
+    "Retains the exact native answer, including in-text citations. Upstream citation removal has not run.",
+    "Canonical export collapses four aliases; each mapped text is bound to its release-Parquet row, not an upstream Git JSON filename.",
+    "The upstream UUID traversal mapping must still be aligned before evaluation; this is the local corpus mapping.",
+    "All500 questions are now known regression questions, not an untouched holdout."
+  ],
+  "raw_detail": {
+    "path": "runs/evidence/frozen-enterprise-export-20261017.json",
+    "sha256": "e15ff0e8a9630f7ab6dffc953680a27dc1c8e6be87471d9e86011fbeceb87d69"
+  }
+}

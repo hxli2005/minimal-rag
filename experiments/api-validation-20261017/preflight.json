@@ -1,0 +1,427 @@
+{
+  "baseline": "runs/code-tools-20261017/A",
+  "n": 30,
+  "correct": 22,
+  "migration_screen_min_correct": 19,
+  "categories": {
+    "constrained": 2,
+    "info_not_found": 2,
+    "miscellaneous": 2,
+    "completeness": 2,
+    "basic": 8,
+    "high_level": 2,
+    "semantic": 6,
+    "project_related": 2,
+    "intra_document_reasoning": 2,
+    "conflicting_info": 2
+  },
+  "correct_by_category": {
+    "constrained": 2,
+    "info_not_found": 2,
+    "miscellaneous": 2,
+    "completeness": 2,
+    "basic": 6,
+    "semantic": 4,
+    "intra_document_reasoning": 2,
+    "high_level": 1,
+    "conflicting_info": 1
+  },
+  "cases": [
+    {
+      "id": "qst_0403",
+      "category": "constrained",
+      "correct": true,
+      "completeness": 1.0,
+      "model_calls": 3
+    },
+    {
+      "id": "qst_0481",
+      "category": "info_not_found",
+      "correct": true,
+      "completeness": 1.0,
+      "model_calls": 8
+    },
+    {
+      "id": "qst_0470",
+      "category": "miscellaneous",
+      "correct": true,
+      "completeness": 1.0,
+      "model_calls": 2
+    },
+    {
+      "id": "qst_0446",
+      "category": "completeness",
+      "correct": true,
+      "completeness": 0.5,
+      "model_calls": 2
+    },
+    {
+      "id": "qst_0075",
+      "category": "basic",
+      "correct": true,
+      "completeness": 1.0,
+      "model_calls": 2
+    },
+    {
+      "id": "qst_0474",
+      "category": "high_level",
+      "correct": false,
+      "completeness": 0.4,
+      "model_calls": 10
+    },
+    {
+      "id": "qst_0033",
+      "category": "basic",
+      "correct": true,
+      "completeness": 1.0,
+      "model_calls": 3
+    },
+    {
+      "id": "qst_0180",
+      "category": "semantic",
+      "correct": true,
+      "completeness": 1.0,
+      "model_calls": 4
+    },
+    {
+      "id": "qst_0375",
+      "category": "project_related",
+      "correct": false,
+      "completeness": 0.7692307692307693,
+      "model_calls": 4
+    },
+    {
+      "id": "qst_0309",
+      "category": "intra_document_reasoning",
+      "correct": true,
+      "completeness": 1.0,
+      "model_calls": 4
+    },
+    {
+      "id": "qst_0143",
+      "category": "basic",
+      "correct": false,
+      "completeness": 0.25,
+      "model_calls": 7
+    },
+    {
+      "id": "qst_0003",
+      "category": "basic",
+      "correct": false,
+      "completeness": 0.8333333333333334,
+      "model_calls": 2
+    },
+    {
+      "id": "qst_0468",
+      "category": "miscellaneous",
+      "correct": true,
+      "completeness": 1.0,
+      "model_calls": 2
+    },
+    {
+      "id": "qst_0105",
+      "category": "basic",
+      "correct": true,
+      "completeness": 1.0,
+      "model_calls": 4
+    },
+    {
+      "id": "qst_0060",
+      "category": "basic",
+      "correct": true,
+      "completeness": 1.0,
+      "model_calls": 2
+    },
+    {
+      "id": "qst_0318",
+      "category": "intra_document_reasoning",
+      "correct": true,
+      "completeness": 1.0,
+      "model_calls": 3
+    },
+    {
+      "id": "qst_0368",
+      "category": "project_related",
+      "correct": false,
+      "completeness": 0.6,
+      "model_calls": 4
+    },
+    {
+      "id": "qst_0253",
+      "category": "semantic",
+      "correct": true,
+      "completeness": 1.0,
+      "model_calls": 2
+    },
+    {
+      "id": "qst_0176",
+      "category": "semantic",
+      "correct": false,
+      "completeness": 0.6666666666666666,
+      "model_calls": 5
+    },
+    {
+      "id": "qst_0449",
+      "category": "completeness",
+      "correct": true,
+      "completeness": 1.0,
+      "model_calls": 4
+    },
+    {
+      "id": "qst_0136",
+      "category": "basic",
+      "correct": true,
+      "completeness": 1.0,
+      "model_calls": 3
+    },
+    {
+      "id": "qst_0013",
+      "category": "basic",
+      "correct": true,
+      "completeness": 0.9,
+      "model_calls": 3
+    },
+    {
+      "id": "qst_0197",
+      "category": "semantic",
+      "correct": false,
+      "completeness": 0.0,
+      "model_calls": 7
+    },
+    {
+      "id": "qst_0476",
+      "category": "high_level",
+      "correct": true,
+      "completeness": 1.0,
+      "model_calls": 3
+    },
+    {
+      "id": "qst_0300",
+      "category": "semantic",
+      "correct": true,
+      "completeness": 1.0,
+      "model_calls": 3
+    },
+    {
+      "id": "qst_0492",
+      "category": "info_not_found",
+      "correct": true,
+      "completeness": 1.0,
+      "model_calls": 8
+    },
+    {
+      "id": "qst_0409",
+      "category": "constrained",
+      "correct": true,
+      "completeness": 1.0,
+      "model_calls": 3
+    },
+    {
+      "id": "qst_0413",
+      "category": "conflicting_info",
+      "correct": false,
+      "completeness": 0.5,
+      "model_calls": 2
+    },
+    {
+      "id": "qst_0423",
+      "category": "conflicting_info",
+      "correct": true,
+      "completeness": 1.0,
+      "model_calls": 2
+    },
+    {
+      "id": "qst_0228",
+      "category": "semantic",
+      "correct": true,
+      "completeness": 1.0,
+      "model_calls": 3
+    }
+  ],
+  "fixed_evidence": [
+    {
+      "id": "qst_0403",
+      "documents": 12,
+      "spans": 12,
+      "characters": 54702
+    },
+    {
+      "id": "qst_0481",
+      "documents": 56,
+      "spans": 58,
+      "characters": 252238
+    },
+    {
+      "id": "qst_0470",
+      "documents": 5,
+      "spans": 5,
+      "characters": 20000
+    },
+    {
+      "id": "qst_0446",
+      "documents": 10,
+      "spans": 10,
+      "characters": 32760
+    },
+    {
+      "id": "qst_0075",
+      "documents": 5,
+      "spans": 5,
+      "characters": 20000
+    },
+    {
+      "id": "qst_0474",
+      "documents": 92,
+      "spans": 92,
+      "characters": 361786
+    },
+    {
+      "id": "qst_0033",
+      "documents": 5,
+      "spans": 7,
+      "characters": 31707
+    },
+    {
+      "id": "qst_0180",
+      "documents": 13,
+      "spans": 13,
+      "characters": 55222
+    },
+    {
+      "id": "qst_0375",
+      "documents": 13,
+      "spans": 15,
+      "characters": 71575
+    },
+    {
+      "id": "qst_0309",
+      "documents": 22,
+      "spans": 22,
+      "characters": 62828
+    },
+    {
+      "id": "qst_0143",
+      "documents": 51,
+      "spans": 51,
+      "characters": 183103
+    },
+    {
+      "id": "qst_0003",
+      "documents": 5,
+      "spans": 5,
+      "characters": 20000
+    },
+    {
+      "id": "qst_0468",
+      "documents": 5,
+      "spans": 5,
+      "characters": 12347
+    },
+    {
+      "id": "qst_0105",
+      "documents": 20,
+      "spans": 22,
+      "characters": 93293
+    },
+    {
+      "id": "qst_0060",
+      "documents": 5,
+      "spans": 5,
+      "characters": 16890
+    },
+    {
+      "id": "qst_0318",
+      "documents": 5,
+      "spans": 5,
+      "characters": 21567
+    },
+    {
+      "id": "qst_0368",
+      "documents": 11,
+      "spans": 14,
+      "characters": 62117
+    },
+    {
+      "id": "qst_0253",
+      "documents": 5,
+      "spans": 5,
+      "characters": 17582
+    },
+    {
+      "id": "qst_0176",
+      "documents": 42,
+      "spans": 42,
+      "characters": 122899
+    },
+    {
+      "id": "qst_0449",
+      "documents": 56,
+      "spans": 56,
+      "characters": 199585
+    },
+    {
+      "id": "qst_0136",
+      "documents": 5,
+      "spans": 5,
+      "characters": 22189
+    },
+    {
+      "id": "qst_0013",
+      "documents": 6,
+      "spans": 6,
+      "characters": 28689
+    },
+    {
+      "id": "qst_0197",
+      "documents": 36,
+      "spans": 37,
+      "characters": 179951
+    },
+    {
+      "id": "qst_0476",
+      "documents": 6,
+      "spans": 6,
+      "characters": 27800
+    },
+    {
+      "id": "qst_0300",
+      "documents": 18,
+      "spans": 18,
+      "characters": 70094
+    },
+    {
+      "id": "qst_0492",
+      "documents": 83,
+      "spans": 83,
+      "characters": 318146
+    },
+    {
+      "id": "qst_0409",
+      "documents": 5,
+      "spans": 5,
+      "characters": 22586
+    },
+    {
+      "id": "qst_0413",
+      "documents": 6,
+      "spans": 6,
+      "characters": 22755
+    },
+    {
+      "id": "qst_0423",
+      "documents": 5,
+      "spans": 5,
+      "characters": 15446
+    },
+    {
+      "id": "qst_0228",
+      "documents": 8,
+      "spans": 8,
+      "characters": 33274
+    }
+  ],
+  "new_model_calls": 0,
+  "paid_api_requests": 0,
+  "generation_input_contains": "question; only observed corpus excerpts for answer-only arm; no old answers, reasoning, gold or judgement",
+  "readiness": "design and inputs ready; dedicated key, spend guard and provider preflight required before live execution"
+}

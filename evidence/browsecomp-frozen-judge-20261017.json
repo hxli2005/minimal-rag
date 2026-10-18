@@ -1,0 +1,134 @@
+{
+  "result": {
+    "questions": 830,
+    "correct": 781,
+    "accuracy_percent": 94.09638554216868,
+    "historical_correct": 772,
+    "wins": [
+      "1018",
+      "1090",
+      "1110",
+      "1141",
+      "1201",
+      "1218",
+      "1222",
+      "171",
+      "241",
+      "276",
+      "490",
+      "610",
+      "611",
+      "614",
+      "619",
+      "670",
+      "754",
+      "961"
+    ],
+    "losses": [
+      "1004",
+      "1021",
+      "1117",
+      "1213",
+      "1236",
+      "525",
+      "71",
+      "851",
+      "856"
+    ],
+    "ties": 803,
+    "new_generation_calls": 0,
+    "valid_judge_responses": 830,
+    "backfill_judge_responses": 0,
+    "accuracy_delta_pp": 1.0843373493975903,
+    "engine_adjustment": {
+      "before": "llm = LLM(model=args.model, tensor_parallel_size=args.tensor_parallel_size)",
+      "after": "llm = LLM(model=args.model, tensor_parallel_size=args.tensor_parallel_size, max_model_len=8192)"
+    },
+    "hardware": "NVIDIA A800 80GB PCIe, 81920 MiB, 595.58.03",
+    "evaluation_date_client": "2026-10-17",
+    "execution_attempts": [
+      {
+        "group": "frozen-20261017",
+        "label": "smoke",
+        "started": 1792260350.8524873,
+        "log": "smoke.log",
+        "exit_code": 1,
+        "ended": 1792260563.233412
+      },
+      {
+        "group": "frozen-20261017",
+        "label": "smoke",
+        "started": 1792260664.0808246,
+        "log": "smoke.log",
+        "exit_code": 0,
+        "ended": 1792260928.808207
+      },
+      {
+        "group": "frozen-20261017",
+        "label": "frozen-20261017-full",
+        "started": 1792260928.8716516,
+        "log": "frozen-20261017-full.log",
+        "exit_code": 0,
+        "ended": 1792261456.0376759
+      }
+    ],
+    "official_summary": {
+      "LLM": "change me when submitting",
+      "Accuracy (%)": 94.1,
+      "Recall (%)": 88.13,
+      "avg_tool_stats": {
+        "search": 12.665060240963856,
+        "read": 3.440963855421687
+      },
+      "Calibration Error (%)": 1.44,
+      "Retriever": "change me when submitting",
+      "Link": "change me when submitting",
+      "Evaluation Date": "2026-10-18"
+    },
+    "protocol_sha256": "0ec3260562fdf691cfccec4ef1aaf811c65f9e13aeb8e00c936fd27c410c1fed",
+    "limitations": [
+      "Known regression set; not an untouched holdout.",
+      "Eight original generation failures were technically retried; preserve original accounting.",
+      "Different GPU/TP may introduce numerical and sampling differences; not a controlled prompt-only ablation.",
+      "Official scoring logic with disclosed one-line engine context adjustment; not yet maintainer verified."
+    ]
+  },
+  "collection": {
+    "result_sha256": "135c4303e65d0905da7ac038e9e0fac44e14df91c94803099c42d2758d306a95",
+    "bytes": 1273818,
+    "metadata": {
+      "gpu": "NVIDIA A800 80GB PCIe, 81920 MiB, 595.58.03",
+      "source_sha256": {
+        "scripts_evaluation/evaluate_run.py": "1a21233937c377ab6323c98ff9af67742756a57fbacab4ebf9bc30852eae530a",
+        "scripts_evaluation/evaluate_run_single_gpu.py": "5b874e887673d136ed5f65a5cc5edb48961d205d2a6f8a9544df66ca1fc6a609",
+        "uv.lock": "45d3e6d00719dbf732160b25e3419ed4599121e5d832723357ff2fea01477c43"
+      },
+      "original_bundle_sha256": "c581e00cd8f4f058fb17de9e35a9345f30c908c998ce5eb27eccf68ce242604f",
+      "model_config_sha256": "97e295b63283935788fac5e4f8860862a56d4089538cafc93f0431f2ebe483bb"
+    }
+  },
+  "cleanup": {
+    "private_payload_removed": true,
+    "time": 1792261521.550742,
+    "retained": "public environment/model cache and runtime metadata"
+  },
+  "shutdown": {
+    "verified": false,
+    "instance": "c4f24fa8a4-5130b677",
+    "platform_auto_shutdown": "2026-10-17T15:30:00-07:00",
+    "status": "stopped_reported_by_user",
+    "source": "User explicitly confirmed manual shutdown in this conversation",
+    "verification_note": "No independent platform readback; local browser tool remains unavailable"
+  },
+  "billing": {
+    "hourly_cny": 5.59,
+    "budget_stop_cny": 30,
+    "settled_cost": null
+  },
+  "files_sha256": {
+    "experiments/browsecomp-frozen-judge-20261017/protocol.json": "0ec3260562fdf691cfccec4ef1aaf811c65f9e13aeb8e00c936fd27c410c1fed",
+    "experiments/browsecomp-frozen-judge-20261017/result.json": "83c4879b866b914301995ad8b06f6492e9ef1b415acc24494236ea65d170d5aa",
+    "experiments/browsecomp-frozen-judge-20261017/submission.json": "bca54fde492dd2a71955487a0e1f63aaa607145d4ac3985c28222b37447c7447",
+    "experiments/browsecomp-frozen-judge-20261017/engine-adjustment.json": "750f734e91a47af9eecfb4b50a6a328111a1e22f2c88be6ebae0cf41096114b0"
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "questions": 830,
+  "correct": 781,
+  "accuracy_percent": 94.09638554216868,
+  "historical_correct": 772,
+  "wins": [
+    "1018",
+    "1090",
+    "1110",
+    "1141",
+    "1201",
+    "1218",
+    "1222",
+    "171",
+    "241",
+    "276",
+    "490",
+    "610",
+    "611",
+    "614",
+    "619",
+    "670",
+    "754",
+    "961"
+  ],
+  "losses": [
+    "1004",
+    "1021",
+    "1117",
+    "1213",
+    "1236",
+    "525",
+    "71",
+    "851",
+    "856"
+  ],
+  "ties": 803,
+  "new_generation_calls": 0,
+  "valid_judge_responses": 830,
+  "backfill_judge_responses": 0,
+  "accuracy_delta_pp": 1.0843373493975903,
+  "engine_adjustment": {
+    "before": "llm = LLM(model=args.model, tensor_parallel_size=args.tensor_parallel_size)",
+    "after": "llm = LLM(model=args.model, tensor_parallel_size=args.tensor_parallel_size, max_model_len=8192)"
+  },
+  "hardware": "NVIDIA A800 80GB PCIe, 81920 MiB, 595.58.03",
+  "evaluation_date_client": "2026-10-17",
+  "execution_attempts": [
+    {
+      "group": "frozen-20261017",
+      "label": "smoke",
+      "started": 1792260350.8524873,
+      "log": "smoke.log",
+      "exit_code": 1,
+      "ended": 1792260563.233412
+    },
+    {
+      "group": "frozen-20261017",
+      "label": "smoke",
+      "started": 1792260664.0808246,
+      "log": "smoke.log",
+      "exit_code": 0,
+      "ended": 1792260928.808207
+    },
+    {
+      "group": "frozen-20261017",
+      "label": "frozen-20261017-full",
+      "started": 1792260928.8716516,
+      "log": "frozen-20261017-full.log",
+      "exit_code": 0,
+      "ended": 1792261456.0376759
+    }
+  ],
+  "official_summary": {
+    "LLM": "change me when submitting",
+    "Accuracy (%)": 94.1,
+    "Recall (%)": 88.13,
+    "avg_tool_stats": {
+      "search": 12.665060240963856,
+      "read": 3.440963855421687
+    },
+    "Calibration Error (%)": 1.44,
+    "Retriever": "change me when submitting",
+    "Link": "change me when submitting",
+    "Evaluation Date": "2026-10-18"
+  },
+  "protocol_sha256": "0ec3260562fdf691cfccec4ef1aaf811c65f9e13aeb8e00c936fd27c410c1fed",
+  "limitations": [
+    "Known regression set; not an untouched holdout.",
+    "Eight original generation failures were technically retried; preserve original accounting.",
+    "Different GPU/TP may introduce numerical and sampling differences; not a controlled prompt-only ablation.",
+    "Official scoring logic with disclosed one-line engine context adjustment; not yet maintainer verified."
+  ]
+}

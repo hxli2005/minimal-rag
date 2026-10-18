@@ -1,0 +1,267 @@
+{
+  "seed": 20261017,
+  "population": "enterprise/dev100",
+  "quotas": {
+    "basic": 8,
+    "semantic": 6,
+    "completeness": 2,
+    "conflicting_info": 2,
+    "constrained": 2,
+    "high_level": 2,
+    "info_not_found": 2,
+    "intra_document_reasoning": 2,
+    "miscellaneous": 2,
+    "project_related": 2
+  },
+  "selection": "random.Random(seed), sorted categories and IDs, sample each quota, shuffle",
+  "migration_ids": [
+    "qst_0403",
+    "qst_0481",
+    "qst_0470",
+    "qst_0446",
+    "qst_0075",
+    "qst_0474",
+    "qst_0033",
+    "qst_0180",
+    "qst_0375",
+    "qst_0309",
+    "qst_0143",
+    "qst_0003",
+    "qst_0468",
+    "qst_0105",
+    "qst_0060",
+    "qst_0318",
+    "qst_0368",
+    "qst_0253",
+    "qst_0176",
+    "qst_0449",
+    "qst_0136",
+    "qst_0013",
+    "qst_0197",
+    "qst_0476",
+    "qst_0300",
+    "qst_0492",
+    "qst_0409",
+    "qst_0413",
+    "qst_0423",
+    "qst_0228"
+  ],
+  "smoke_ids": [
+    "qst_0044",
+    "qst_0222"
+  ],
+  "verbosity_schedule": [
+    {
+      "id": "qst_0403",
+      "arms": [
+        "high",
+        "low"
+      ]
+    },
+    {
+      "id": "qst_0481",
+      "arms": [
+        "high",
+        "low"
+      ]
+    },
+    {
+      "id": "qst_0470",
+      "arms": [
+        "low",
+        "high"
+      ]
+    },
+    {
+      "id": "qst_0446",
+      "arms": [
+        "high",
+        "low"
+      ]
+    },
+    {
+      "id": "qst_0075",
+      "arms": [
+        "low",
+        "high"
+      ]
+    },
+    {
+      "id": "qst_0474",
+      "arms": [
+        "low",
+        "high"
+      ]
+    },
+    {
+      "id": "qst_0033",
+      "arms": [
+        "low",
+        "high"
+      ]
+    },
+    {
+      "id": "qst_0180",
+      "arms": [
+        "high",
+        "low"
+      ]
+    },
+    {
+      "id": "qst_0375",
+      "arms": [
+        "low",
+        "high"
+      ]
+    },
+    {
+      "id": "qst_0309",
+      "arms": [
+        "high",
+        "low"
+      ]
+    },
+    {
+      "id": "qst_0143",
+      "arms": [
+        "high",
+        "low"
+      ]
+    },
+    {
+      "id": "qst_0003",
+      "arms": [
+        "low",
+        "high"
+      ]
+    },
+    {
+      "id": "qst_0468",
+      "arms": [
+        "high",
+        "low"
+      ]
+    },
+    {
+      "id": "qst_0105",
+      "arms": [
+        "low",
+        "high"
+      ]
+    },
+    {
+      "id": "qst_0060",
+      "arms": [
+        "high",
+        "low"
+      ]
+    },
+    {
+      "id": "qst_0318",
+      "arms": [
+        "high",
+        "low"
+      ]
+    },
+    {
+      "id": "qst_0368",
+      "arms": [
+        "high",
+        "low"
+      ]
+    },
+    {
+      "id": "qst_0253",
+      "arms": [
+        "low",
+        "high"
+      ]
+    },
+    {
+      "id": "qst_0176",
+      "arms": [
+        "high",
+        "low"
+      ]
+    },
+    {
+      "id": "qst_0449",
+      "arms": [
+        "high",
+        "low"
+      ]
+    },
+    {
+      "id": "qst_0136",
+      "arms": [
+        "low",
+        "high"
+      ]
+    },
+    {
+      "id": "qst_0013",
+      "arms": [
+        "low",
+        "high"
+      ]
+    },
+    {
+      "id": "qst_0197",
+      "arms": [
+        "low",
+        "high"
+      ]
+    },
+    {
+      "id": "qst_0476",
+      "arms": [
+        "low",
+        "high"
+      ]
+    },
+    {
+      "id": "qst_0300",
+      "arms": [
+        "low",
+        "high"
+      ]
+    },
+    {
+      "id": "qst_0492",
+      "arms": [
+        "low",
+        "high"
+      ]
+    },
+    {
+      "id": "qst_0409",
+      "arms": [
+        "high",
+        "low"
+      ]
+    },
+    {
+      "id": "qst_0413",
+      "arms": [
+        "low",
+        "high"
+      ]
+    },
+    {
+      "id": "qst_0423",
+      "arms": [
+        "high",
+        "low"
+      ]
+    },
+    {
+      "id": "qst_0228",
+      "arms": [
+        "high",
+        "low"
+      ]
+    }
+  ],
+  "selection_uses_answers_judgements_or_cost": false,
+  "limitations": "Known development cohort; rare categories oversampled; not representative full-benchmark accuracy."
+}

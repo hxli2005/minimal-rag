@@ -1,8 +1,14 @@
 # 实验索引
 
+**API固定小样本已完成（v2）：** 迁移API24/30、Codex22/30（3胜1负），通过筛查；固定证据low23/30、high22/30（high 1胜2负），high未通过收益门槛。实际API费用$7.5109163，预算换算约63.39元；192次请求、92份完整答案/判分，用户授权的两项零模型请求故障均补跑且判对。全部进程已结束，无新全量API或对外提交。[报告](reports/api-validation-20261017.md) · [结果](api-validation-20261017/result.json) · [核验](api-validation-20261017/validation.json)。
+
+**新增运行配置（2026-10-17）：** 用户授权直接Responses API后端与开放每题调用预算，CLI用 `--backend api --model MODEL`；Codex仍可选。新入口默认不设调用次数上限，不做末轮强制作答，可选时间/token/调用数停止。原冻结包和下方成绩保持原版本归属，API已有下述固定dev30验证，完整基准效果仍未评测。[安装与运行](../docs/runbook.md#直接api与开放调用预算2026-10-17)。
+
+API现采用原生工具调用，已移除Codex专用协议提示及用户消息里的工具定义包装；任务提示与最终answer/sources结构保留，默认verbosity显式low（v2实测后按用户决定固定）。配置中记录 `tool_protocol=responses-function-calling`；不是旧Codex输入的等价重放。
+
 2026-10-17 更新。当前统一实现与历史实验分开列出，旧成绩保留原装配归属。未解决问题见[待办](../docs/issues.md)。
 
-**当前阶段：已冻结纯 BM25＋search/read（不启用 Grep），停止探索性调优，转入官方评测与维护方复核。** [冻结清单](../evidence/frozen-bm25-20261017/manifest.json) · [源码包](../evidence/frozen-bm25-20261017/source.tar.gz) · [提交路线与差距](../docs/runbook.md#冻结与官方提交2026-10-17)。历史 BrowseComp 93.01% 单独准备提交，不冒充当前冻结版本成绩；Enterprise 当前77.25%仍是本地结果。尚未提交或获维护方认可。
+**当前阶段：已冻结纯 BM25＋search/read（不启用 Grep），停止探索性调优，转入官方评测与维护方复核。** [冻结清单](../evidence/frozen-bm25-20261017/manifest.json) · [源码包](../evidence/frozen-bm25-20261017/source.tar.gz) · [提交路线与差距](../docs/runbook.md#冻结与官方提交2026-10-17)。冻结版BrowseComp已完成判分：781/830＝94.10%，历史772/830＝93.01%保留；使用Qwen3-32B BF16单A800、官方评分逻辑及披露的8192引擎上下文调整。Enterprise 当前77.25%仍是本地结果。尚未提交或获维护方认可。
 
 ## 当前主实现：纯 BM25
 
@@ -18,7 +24,7 @@
 
 **新搜索说明保留在主实现中。** 与纯BM25原说明相比：298→309题正确（+2.75pp，33胜22负），search 3342→2469（−26.12%），生成调用2285→1977（−13.48%），输入token（含缓存）85.08M→66.00M。正确率差95%区间[−0.75,+6.50]pp，提分稳定性仍未确认，省搜索的证据更明确。中断开销单列，见[新说明报告](reports/search-description-20261016.md)与[摘要](search-description-20261016/summary.json)。原说明的298/400及各项历史记录保留在[统一BM25报告](reports/bm25-unified-20261016.md)。
 
-BrowseComp 的 BM25检索实现与参数未改，12题24次历史搜索重放逐字段一致。新搜索说明的BrowseComp A已完成830题生成，但未完成官方判分；FinanceBench和HotpotQA尚未重跑。其他成绩保留原说明归属，BrowseComp原有成绩保留在下方历史表。新入口与验证命令见[本轮记录](bm25-unified-20261016/brief.md)。
+BrowseComp 的 BM25检索实现与参数未改，12题24次历史搜索重放逐字段一致。新搜索说明的BrowseComp A已完成830题判分，**781/830＝94.10%**；相对历史772/830为18胜9负803平、净增9题（+1.08pp）。830个首次有效判决，无补判，未重新生成答案；单卡A800/TP=1，官方评分脚本仅增加引擎max_model_len=8192，完整披露见[结果](browsecomp-frozen-judge-20261017/result.json)与[运行记录](browsecomp-frozen-judge-20261017/notes.md)。不是仅改变提示词的受控实验，尚未获维护方认可。FinanceBench和HotpotQA尚未重跑。其他成绩保留原说明归属，BrowseComp原有成绩保留在下方历史表。新入口与验证命令见[本轮记录](bm25-unified-20261016/brief.md)。
 
 ## 当前开发候选：仅Grep（2026-10-17）
 

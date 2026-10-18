@@ -10,6 +10,7 @@ requires-python = ">=3.12"
 dependencies = ["pydantic==2.13.5"]
 
 [project.optional-dependencies]
+api = ["httpx==0.28.1"]
 codex = ["openai-codex==0.160.0"]
 benchmarks = ["httpx==0.28.1", "pymupdf==1.28.2", "pyarrow==26.0.0", "huggingface-hub==1.33.0"]
 test = ["pytest==9.1.1", "pytest-asyncio==1.4.0"]

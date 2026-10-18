@@ -1,0 +1,28 @@
+{
+  "date": "2026-10-17",
+  "protocol": "api-validation-20261017-v2",
+  "key_limit_usd": 20,
+  "key_limit_reset": null,
+  "key_expires_at": "2026-10-24T15:42:00.002Z",
+  "initial_usage_usd": 0,
+  "runner_stop_usd": 14,
+  "inflight_reserve_usd": 6,
+  "conservative_request_cost_usd": 5.74152,
+  "key_file_permissions": "0600",
+  "credential_content_published": false,
+  "byok_allowed": false,
+  "byok_note": "UI key has include_byok_in_limit=false; execution rejects any BYOK route and nonzero BYOK usage, so only capped OpenRouter credit spending is allowed.",
+  "offline_checks": [
+    "global14",
+    "stage limit",
+    "unresolved cost",
+    "verification failure",
+    "wrong key cap",
+    "monthly reset",
+    "inflight reserve",
+    "outgoing v2 caps",
+    "cost reconciliation"
+  ],
+  "core_and_experiment_tests": 150,
+  "paid_requests_before_smoke": 0
+}

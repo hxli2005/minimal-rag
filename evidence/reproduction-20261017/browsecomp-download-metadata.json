@@ -1,0 +1,80 @@
+{
+  "Tevatron/browsecomp-plus": {
+    "revision": "144cff8e35b5eaef7e526346aa60774a9deb941f",
+    "files": [
+      [
+        ".gitattributes",
+        2461
+      ],
+      [
+        "README.md",
+        6165
+      ],
+      [
+        "data/test-00000-of-00006.parquet",
+        508023004
+      ],
+      [
+        "data/test-00001-of-00006.parquet",
+        439458597
+      ],
+      [
+        "data/test-00002-of-00006.parquet",
+        447012029
+      ],
+      [
+        "data/test-00003-of-00006.parquet",
+        415470437
+      ],
+      [
+        "data/test-00004-of-00006.parquet",
+        473281326
+      ],
+      [
+        "data/test-00005-of-00006.parquet",
+        498182760
+      ]
+    ]
+  },
+  "Tevatron/browsecomp-plus-corpus": {
+    "revision": "b27b02bc3e45511b8b82a13e6f90ce761df726f6",
+    "files": [
+      [
+        ".gitattributes",
+        2461
+      ],
+      [
+        "README.md",
+        3232
+      ],
+      [
+        "data/train-00000-of-00007.parquet",
+        218510750
+      ],
+      [
+        "data/train-00001-of-00007.parquet",
+        271758203
+      ],
+      [
+        "data/train-00002-of-00007.parquet",
+        257605847
+      ],
+      [
+        "data/train-00003-of-00007.parquet",
+        239125125
+      ],
+      [
+        "data/train-00004-of-00007.parquet",
+        259072824
+      ],
+      [
+        "data/train-00005-of-00007.parquet",
+        257706279
+      ],
+      [
+        "data/train-00006-of-00007.parquet",
+        257801458
+      ]
+    ]
+  }
+}

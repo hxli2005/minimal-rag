@@ -1,0 +1,38 @@
+{
+  "protocol": "api-validation-20261017-v2",
+  "complete_answers": 92,
+  "complete_judgements": 92,
+  "first_valid_judgement_preserved": true,
+  "judge_model_calls": 92,
+  "api_requests": 192,
+  "completed_api_requests": 191,
+  "cancelled_api_requests": 1,
+  "all_costs_reconciled": true,
+  "cost_usd": 7.5109163,
+  "key_usage_usd": 7.5109163,
+  "budget_rmb_including_fee": 63.392133572,
+  "key_limit_usd": 20,
+  "runner_stop_usd": 14,
+  "unresolved_requests": 0,
+  "stage_request_counts": {
+    "0": 8,
+    "1": 124,
+    "2": 60
+  },
+  "source_config_unchanged": true,
+  "actual_provider_models": [
+    "openai/gpt-6.1-sol-20260929"
+  ],
+  "tool_calls": {
+    "search": 132,
+    "read": 35
+  },
+  "tool_errors": 0,
+  "protocol_errors": 0,
+  "unseen_citations": [],
+  "paired_request_bodies_differ_only_in_verbosity": true,
+  "output_limit_hits": 0,
+  "user_authorized_zero_request_reruns": 2,
+  "valid_model_answers_resampled": 0,
+  "raw_encrypted_reasoning_published": false
+}

@@ -1,0 +1,7 @@
+{
+  "questions": 830,
+  "max_prompt_tokens_before_chat_wrapper": 1216,
+  "mean_prompt_tokens": 657.2060240963856,
+  "p95_prompt_tokens": 863,
+  "max_output_tokens": 4096
+}

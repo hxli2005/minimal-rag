@@ -36,7 +36,6 @@ class Assessment(StrictModel):
 
 async def assess(factory, payload, fact_count, attempts, persist=lambda: None):
     """Keep the first valid grade, including false; retry only transport/schema errors."""
-    from openai_codex import is_retryable_error
     for attempt in attempts:
         if "assessment" in attempt:
             return attempt["assessment"], attempt.get("runs", [])
@@ -57,7 +56,15 @@ async def assess(factory, payload, fact_count, attempts, persist=lambda: None):
             return attempt["assessment"], model.runs
         except Exception as error:
             attempt.update(error=type(error).__name__, detail=str(error))
-            if not (isinstance(error, (ValueError, asyncio.TimeoutError)) or is_retryable_error(error)):
+            retryable = isinstance(error, (ValueError, asyncio.TimeoutError))
+            if type(error).__module__.startswith("openai_codex"):
+                from openai_codex import is_retryable_error
+                retryable = retryable or is_retryable_error(error)
+            if type(error).__module__.startswith("httpx"):
+                import httpx
+                retryable = retryable or isinstance(error, httpx.TransportError) or (
+                    isinstance(error, httpx.HTTPStatusError) and error.response.status_code in (408, 429, 500, 502, 503, 504))
+            if not retryable:
                 raise
         finally:
             persist()

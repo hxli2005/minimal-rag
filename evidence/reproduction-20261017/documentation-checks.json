@@ -1,0 +1,25 @@
+{
+  "checks": [
+    "README.md: local links and shell block syntax valid",
+    "REPRODUCE.md: local links and shell block syntax valid",
+    "drafts/email-browsecomp-plus.md: local links and shell block syntax valid",
+    "drafts/email-enterpriserag.md: local links and shell block syntax valid",
+    "frozen checkout: -m minimal_rag demo passed",
+    "frozen checkout: -m minimal_rag_experiments.benchmark --help passed",
+    "frozen checkout: scripts/prepare_rag_benchmarks.py --help passed",
+    "frozen checkout: scripts/index_rag_benchmarks.py --help passed"
+  ],
+  "scope": "Offline documentation and frozen CLI checks only; no fresh dependency installation, data download, model calls or full rerun.",
+  "submission_pending": [
+    "public repository URL",
+    "published materials and generation tags",
+    "author name",
+    "maintainer approval of technical retries and engine context setting",
+    "Enterprise document mapping and official grading"
+  ],
+  "frozen_commit": "4c5142fde4ec9a36157daa46470e56d91b5a3e1d",
+  "files_sha256": {
+    "README.md": "14b65ddec02a7de16dfe1e39547a8da9420d7ce407a1200a7d33a592bacb107b",
+    "REPRODUCE.md": "230f27c94af3136fec3439b563b3bbcc00359ddae02afa26e3fafc9db7a25455"
+  }
+}

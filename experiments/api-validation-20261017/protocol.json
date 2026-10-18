@@ -1,0 +1,273 @@
+{
+  "version": "api-validation-20261017-v2",
+  "status": "design_frozen_not_started",
+  "objective": "Validate API portability on fixed development questions; submit Codex full-run results under their actual configuration.",
+  "scope": {
+    "dataset": "Enterprise dev100",
+    "sample_file": "sample.json",
+    "migration_n": 30,
+    "smoke_n": 2,
+    "verbosity_paired_n": 30,
+    "new_full_benchmark_runs": false,
+    "new_paid_requests": 0
+  },
+  "selection": {
+    "seed": 20261017,
+    "uses": "question_id and question_type only",
+    "rare_categories_oversampled": true,
+    "known_development_data": true,
+    "labels_excluded_from_generation": true
+  },
+  "generation": {
+    "endpoint": "https://openrouter.ai/api/v1/responses",
+    "model": "openai/gpt-6.1-sol",
+    "provider": "OpenAI standard, confirmed by receipt before continuing",
+    "service_tier": "default",
+    "provider_request": {
+      "only": [
+        "openai"
+      ],
+      "allow_fallbacks": false,
+      "require_parameters": true,
+      "max_price": {
+        "prompt": 2,
+        "completion": 10
+      }
+    },
+    "effort": "high",
+    "migration_verbosity": "low",
+    "fixed_answer_verbosity": [
+      "low",
+      "high"
+    ],
+    "tool_protocol": "responses-function-calling",
+    "tools": [
+      "search",
+      "read"
+    ],
+    "excerpt_chars": 4000,
+    "max_turns": null,
+    "forced_final_answer": false,
+    "request_timeout_seconds": 300,
+    "case_timeout_seconds": 3600,
+    "max_output_tokens_per_request": 16384,
+    "generation_concurrency": 1,
+    "no_context_truncation": true,
+    "store": false,
+    "replay_reasoning_items": true,
+    "external_web": false,
+    "reasoning_context": "all_turns"
+  },
+  "stages": [
+    {
+      "stage": 0,
+      "name": "transport_smoke",
+      "ids": "sample.smoke_ids",
+      "spend_stop_usd": 1,
+      "pass": [
+        "Both requests use intended model/provider/verbosity and return accountable costs.",
+        "Across the two questions observe at least one native search/read call, matching function_call_output, and a final answer with sources.",
+        "No native built-in tool, wrong provider, missing usage/cost, malformed output or unexplained charge.",
+        "Observe at least one nonempty reasoning.encrypted_content item returned under include=[reasoning.encrypted_content].",
+        "Verify the next actually sent request preserves every reasoning item from that response, including encrypted_content, unchanged alongside native calls and their outputs.",
+        "That continuation completes with the intended provider/model, no rejected/dropped-field warning, and recorded usage/cost. HTTP success alone does not establish the model used every reasoning item."
+      ],
+      "scored_in_migration": false,
+      "reasoning_roundtrip": {
+        "request_checks": [
+          "store=false",
+          "include requests reasoning.encrypted_content",
+          "no reasoning exclusion or context truncation",
+          "same model/provider for continuation",
+          "reasoning.context=all_turns explicitly; reject unsupported-field fallback rather than silently dropping it"
+        ],
+        "record": [
+          "reasoning item count",
+          "nonempty encrypted content present",
+          "field-for-field replay equality",
+          "continuation status",
+          "provider/response ID",
+          "usage including reasoning/output/cache/cost",
+          "parameter warning/error if exposed"
+        ],
+        "do_not_publish": "encrypted payloads or raw authentication headers; retain any necessary raw payload locally only",
+        "if_missing_or_rejected": "Stop as compatibility unverified; do not drop reasoning, switch providers, or claim inference continuity to get through the test.",
+        "claim_boundary": "Client preserved items and provider accepted continuation; does not prove hidden upstream handling or semantic use."
+      },
+      "cache_validation": {
+        "record": "cached input tokens, cache writes, actual cost and hit ratio",
+        "gate": "Cache hit is neither necessary nor sufficient for reasoning replay success. Zero hits trigger cost reassessment, not an automatic protocol failure.",
+        "no_extra_paid_probes_for_cache_only": true
+      }
+    },
+    {
+      "stage": 1,
+      "name": "migration_screen",
+      "ids": "sample.migration_ids",
+      "spend_stop_usd": 6,
+      "baseline": "runs/code-tools-20261017/A",
+      "baseline_correct": 22,
+      "min_correct_to_continue": 19,
+      "min_finished": 29,
+      "denominator": 30,
+      "pass": [
+        "All 30 slots accounted for and judged; failures count wrong.",
+        "At least 29 finished; no repeated same-class protocol/tool-mapping/provider fault.",
+        "Correct >= baseline_correct - 3; this is a screening threshold, not a non-inferiority test."
+      ],
+      "interpretation": "Compares complete configurations; changed runtime, native tools, prompt wrapper and stopping budget are confounded."
+    },
+    {
+      "stage": 2,
+      "name": "fixed_evidence_verbosity",
+      "requires": "stage1 passed",
+      "ids": "same 30 migration IDs",
+      "spend_stop_usd": 7,
+      "requests": 60,
+      "tools": [],
+      "source": "runs/api-validation-20261017/fixed-evidence",
+      "evidence": "Only original Codex A search/read text actually observed, merged overlapping/adjacent offsets; preserve first document order; no gold selection, prior answer or prior reasoning.",
+      "arm_order": "sample.verbosity_schedule; 15 low-first and 15 high-first",
+      "only_treatment": "text.verbosity low vs high; both arms use max_output_tokens=32768 and identical question/evidence/instructions/model/provider/effort/format",
+      "response_format": {
+        "answer": "string",
+        "sources": "document ID array"
+      },
+      "directional_gate": "Consider high worth further study only if net correct >= 1 with completeness not lower, or correctness not lower and macro fact support increases >= 0.03. No automatic promotion or full run.",
+      "interpretation": "Answer-only diagnostic; not full-agent accuracy or proof of the effect on retrieval.",
+      "max_output_tokens_per_request": 32768,
+      "output_limit_policy": "The cap includes reasoning and visible output. Preserve and report incomplete_details and per-arm cap/timeout hit counts; do not present censored failures as proof high verbosity harms answer quality. No selective cap increases or answer regeneration."
+    }
+  ],
+  "budget": {
+    "user_total_rmb": 200,
+    "account_balance_is_not_authorization": true,
+    "dedicated_key_name": "minimal-rag-api-validation-20261017",
+    "key_credit_limit_usd": 20,
+    "key_limit_reset": null,
+    "include_byok_in_limit": true,
+    "auto_topup": false,
+    "runner_new_request_stop_usd": 14,
+    "inflight_reserve_usd": 6,
+    "fx_budget_rmb_per_usd": 8,
+    "platform_fee_fraction_budget": 0.055,
+    "key_limit_including_fee_rmb_at_budget_fx": 168.8,
+    "remaining_rmb_buffer": 31.2,
+    "one_inflight_request": true,
+    "phase_limits_are_stop_lines_not_inflight_guarantees": true,
+    "cost_authority": "OpenRouter settled per-generation cost and dedicated-key lifetime usage; count every attempt, including failed/timed-out requests if charged.",
+    "unknown_cost_policy": "Pause before another paid request until cost is reconciled; no blind retry.",
+    "reserve_basis": "Worst planned output cap is stage2 32768. At current standard prices, max input 922000 at long-context cache-write $5/M plus 32768 output at $15/M = $5.10152. Reserve $6, stop new requests at $14, retain $20 lifetime key cap; recheck rates and limits before live.",
+    "no_automatic_budget_expansion": true,
+    "no_new_topups": true
+  },
+  "price_snapshot": {
+    "checked_date": "2026-10-17",
+    "usd_per_million": {
+      "input": 2,
+      "cache_read": 0.1,
+      "cache_write": 2.5,
+      "output": 10,
+      "long_input": 4,
+      "long_cache_read": 0.2,
+      "long_cache_write": 5,
+      "long_output": 15
+    },
+    "long_context_threshold": 272000,
+    "selected30_historical_generation_calls": 114,
+    "selected30_historical_input_tokens": 2480925,
+    "selected30_historical_cached_input_tokens": 1721728,
+    "selected30_historical_output_tokens": 15461,
+    "selected30_repriced_including_fee_usd": [
+      1.95,
+      2.35
+    ],
+    "note": "Sensitivity estimate only; open budget and native API may change usage. No Flex/Batch savings assumed."
+  },
+  "judging": {
+    "backend": "codex_subscription",
+    "model": "gpt-6.1-sol",
+    "effort": "medium",
+    "prompt_source": "minimal_rag_experiments.rag_judge.PROMPT",
+    "prompt_change": false,
+    "baseline_first_valid_judgements": "preserved",
+    "candidate_first_valid_judgement": "preserved even if wrong",
+    "blind_to": "group labels, other arm answer, model/provider/verbosity metadata",
+    "reference": "unchanged dev gold_answer and answer_facts",
+    "valid_judgement_retry": false,
+    "max_transport_or_schema_attempts": 3,
+    "no_paid_api_fallback": true,
+    "if_subscription_exhausted": "wait; do not buy/reset or switch judge automatically",
+    "maximum_new_case_judgements": 92
+  },
+  "failures": {
+    "valid_answer_resampling": false,
+    "generation_retry": "No automatic retries; preserve terminal outcome and denominator. A pre-output transport outage may be resumed only under a recorded same-config recovery decision after cost reconciliation.",
+    "source_bug_after_start": "stop; version any repair; keep old artifacts; do not silently replace sample or successful answers",
+    "stage_not_completed": "report incomplete and stop; do not replace missing IDs"
+  },
+  "reporting": {
+    "migration": [
+      "correct/30",
+      "paired wins/losses/ties",
+      "macro completeness",
+      "per-category counts",
+      "finished/failures",
+      "native tool/protocol issues",
+      "model/tool calls",
+      "cache read/write tokens",
+      "reasoning/output usage",
+      "actual USD",
+      "seconds"
+    ],
+    "verbosity": [
+      "paired correctness",
+      "macro and micro fact support",
+      "answer length",
+      "cost",
+      "failures",
+      "incomplete_details and output-cap hits by arm",
+      "reasoning tokens and visible-answer length separately",
+      "timeout counts by arm"
+    ],
+    "uncertainty": "paired bootstrap 10000 resamples seed 20261017, within fixed sample; does not prove equivalence or unseen generalization",
+    "allowed_claim": "API backend works on this fixed development sample; report observed differences.",
+    "forbidden_claims": [
+      "API reproduced the full Codex score",
+      "API has no degradation in general",
+      "native tools alone caused the difference",
+      "local judge score is an official leaderboard score"
+    ]
+  },
+  "live_prerequisites": [
+    "Create/authorize experiment-only key with $20 TOTAL limit; store locally without putting it in chat or repository.",
+    "Implement/verify request price and output bounds, sequential cost reconciliation and $14 stop in dedicated runner; current generic benchmark CLI alone is insufficient.",
+    "Confirm OpenRouter Responses route honors provider filtering, verbosity, structured answers, native tools and encrypted reasoning in stage0.",
+    "Freeze the actual executable configuration before stage0; explicitly use low regardless of current workspace defaults."
+  ],
+  "official_submission": {
+    "main_result_backend": "Codex SDK, actual frozen runtime and budgets disclosed",
+    "enterprise_answers": "runs/frozen-20261017/enterprise-500-answers.jsonl",
+    "enterprise_export_evidence": "evidence/frozen-enterprise-export-20261017.json",
+    "enterprise_official_judging": "pending",
+    "browsecomp": "Old 93.01% scored run and new ungraded 830 run remain separate; never select individual best answers across versions.",
+    "api_result_role": "supplementary small-sample portability evidence only",
+    "external_submission_sent": false
+  },
+  "sources": [
+    "https://openrouter.ai/openai/gpt-6.1-sol",
+    "https://openrouter.ai/pricing",
+    "https://openrouter.ai/docs/guides/best-practices/capping-shared-agent-keys",
+    "https://openrouter.ai/docs/guides/routing/provider-selection",
+    "https://openrouter.ai/docs/api_reference/responses/overview",
+    "https://developers.openai.com/api/docs/guides/reasoning",
+    "https://openrouter.ai/docs/api_reference/responses/overview",
+    "https://openrouter.ai/docs/api_reference/responses/reasoning"
+  ],
+  "revision": {
+    "reason": "User correction before any paid run: compare low/high, use 32K output for both fixed-evidence arms, and explicitly check encrypted reasoning round-trip.",
+    "prior_design": "archive/v1/",
+    "question_ids_and_evidence_changed": false,
+    "paid_requests_at_revision": 0
+  }
+}

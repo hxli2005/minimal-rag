@@ -1,0 +1,23 @@
+{
+  "questions": 830,
+  "initial_generation_status": {
+    "finished": 822,
+    "runtime_error": 8
+  },
+  "retry_rounds": 1,
+  "retried_ids": [
+    "426",
+    "434",
+    "772",
+    "773",
+    "969",
+    "979",
+    "983",
+    "985"
+  ],
+  "retried_correct": 6,
+  "after_technical_recovery_correct": 781,
+  "technical_failures_counted_incorrect_correct": 775,
+  "technical_failures_counted_incorrect_accuracy_percent": 93.37349397590361,
+  "note": "Sensitivity calculation on existing first valid grades, not an independently generated or graded run. Original 8 failed attempts retained privately."
+}

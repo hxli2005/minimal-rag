@@ -29,3 +29,9 @@ def test_ask_requires_opt_in_before_accessing_corpus_or_model(tmp_path, monkeypa
         cli(["--index", "absent.sqlite", "--question", "test"])
     assert error.value.code == 2
     assert list(tmp_path.iterdir()) == []
+
+
+def test_api_model_must_be_explicit_before_starting_any_work():
+    with pytest.raises(SystemExit) as error:
+        cli(["--live", "--backend", "api", "--index", "absent.sqlite", "--question", "test"])
+    assert error.value.code == 2

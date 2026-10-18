@@ -18,13 +18,21 @@ def fingerprint(path):
         return {"path": str(path.relative_to(ROOT)), "sha256": hashlib.file_digest(stream, "sha256").hexdigest()}
 
 
-def main():
+HISTORICAL = {"folders": (("dev", HISTORY / "runs/enterprise-dev100-hybrid-minilm-wide"), ("test", HISTORY / "holdout/enterprise")),
+              "output": ROOT / "runs/evidence/historical-enterprise-500-answers.jsonl",
+              "evidence": ROOT / "evidence/official-history-export-20261013.json",
+              "meta": {"kind": "offline_historical_official_format_export", "date": "2026-10-13",
+                       "generation_model": "gpt-6-astra (historical, no new generation)", "variant": "v6"}}
+
+
+def main(folders=HISTORICAL["folders"], output=HISTORICAL["output"], evidence_path=HISTORICAL["evidence"],
+         meta=HISTORICAL["meta"]):
     aliases = read(BASE / "enterprise/duplicate-id-aliases.json")
     answers, cases, sources = [], [], []
-    for split, folder in (("dev", HISTORY / "runs/enterprise-dev100-hybrid-minilm-wide"),
-                          ("test", HISTORY / "holdout/enterprise")):
+    for split, folder in folders:
         questions = BASE / f"enterprise/{split}.json"
-        sources += [fingerprint(questions), fingerprint(folder / "config.json"), fingerprint(folder / "summary.json")]
+        config = folder / "config.json" if (folder / "config.json").exists() else folder.parent / "config.json"
+        sources += [fingerprint(questions), fingerprint(config), fingerprint(folder / "summary.json")]
         for case in read(questions):
             trace = folder / "traces" / f"{case['question_id']}.json"
             report = read(trace) if trace.exists() else {}
@@ -71,12 +79,9 @@ def main():
                 match["parquet_row_zero_based"] = position + index
         position += batch.num_rows
     unbound = [v["local_id"] for v in versions if "parquet_row_zero_based" not in v]
-    output = ROOT / "runs/evidence/historical-enterprise-500-answers.jsonl"
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text("".join(json.dumps(row, ensure_ascii=False) + "\n" for row in answers))
-    evidence = {"kind": "offline_historical_official_format_export", "date": "2026-10-13", "model_calls": 0,
-                "generation_model": "gpt-6-astra (historical, no new generation)", "variant": "v6",
-                "questions": 500, "cited_local_documents": len(cited),
+    evidence = {**meta, "model_calls": 0, "questions": 500, "cited_local_documents": len(cited),
                 "cited_official_ids": len({aliases.get(doc,doc) for doc in cited}), "bound_document_versions": len(versions)-len(unbound),
                 "finished": sum(c["generation_finished"] for c in cases),
                 "missing_as_empty_answer": True, "unobserved_citation_cases": sum(bool(c["unobserved_citations"]) for c in cases),
@@ -91,7 +96,7 @@ def main():
                            "The upstream UUID traversal mapping must still be aligned before evaluation; this is the local corpus mapping.",
                            "All500 questions are now known regression questions, not an untouched holdout."]}
     from minimal_rag_experiments.evidence_summary import publish
-    publish(ROOT / "evidence/official-history-export-20261013.json", evidence)
+    publish(evidence_path, evidence)
     print(json.dumps({k: v for k, v in evidence.items() if k not in ("document_versions", "cases", "sources")}, ensure_ascii=False, indent=2))
 
 
