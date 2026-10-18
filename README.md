@@ -123,6 +123,8 @@ Each is a paired comparison on the same questions; what lost stays on record. [E
 | Answer verbosity `verbosity=high` | Fixed evidence, 30 questions: 22 vs 23 (low) | ✕ API default stays low |
 | Direct API instead of the Codex transport | Enterprise dev30: 24 vs 22, fact completeness 93.0% vs 84.7% | ✓ Kept as a portable backend |
 
+Read [What Changed When I Rewrote a RAG Search Tool Description](https://medium.com/artificial-intel-ligence-playground/what-changed-when-i-rewrote-a-rag-search-tool-description-4fdff0d23134), published in *Artificial INTEL-ligence Playground*: a 400-question paired experiment, including the losses and uncertainty around the accuracy change.
+
 ## Fine print
 
 - A personal student project. Under budget limits, the direct API backend was only migration-tested on Enterprise dev30; all full-benchmark results come from Codex SDK runs.
