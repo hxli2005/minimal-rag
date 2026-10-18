@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Minimal RAG</title>
-<meta name="description" content="94.1% on BrowseComp-Plus (all 830 queries) with one agent, plain BM25 and ~400 lines of core code.">
+<meta name="description" content="Leave judgment to the model; give it capable tools. One agent, plain BM25, ~400 lines of core code — 94.1% on BrowseComp-Plus.">
 <meta name="color-scheme" content="dark light">
 <meta name="theme-color" content="#060607">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='4' y='4' width='24' height='24' rx='5' fill='%23c8ff2e'/%3E%3C/svg%3E">
@@ -13,348 +13,347 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <style>
+/* ---------- tokens: dark values are shared by :root and .dk panels; light overrides raw values ---------- */
 :root,.dk{
   --bg-rgb:6,6,7; --fg-rgb:243,242,237;
   --bg:rgb(var(--bg-rgb)); --bg2:#0d0e11; --fg:rgb(var(--fg-rgb)); --fg2:#c9c9c4; --mute:#85878d; --dim:#4a4c52; --cool:#8f96a8;
-  --acid-rgb:200,255,46; --ink-rgb:200,255,46; --coral-rgb:255,90,78; --tool-rgb:127,215,255; --warn-rgb:255,207,122;
+  --acid-rgb:200,255,46; --ink-rgb:200,255,46; --coral-rgb:255,90,78; --tool-rgb:110,214,255; --warn-rgb:255,207,122;
   --on-acid:#000; --line:rgba(var(--fg-rgb),.08); --line2:rgba(var(--fg-rgb),.16); --shadow:rgba(0,0,0,.9);
   --acid:rgb(var(--acid-rgb)); --ink:rgb(var(--ink-rgb)); --coral:rgb(var(--coral-rgb)); --tool:rgb(var(--tool-rgb)); --warn:rgb(var(--warn-rgb));
 }
 :root[data-theme="light"]{
   --bg-rgb:247,247,244; --fg-rgb:10,10,12;
-  --bg2:#ececE7; --fg2:#2b2c30; --mute:#55575e; --dim:#a2a4a9; --cool:#7b8191;
-  --ink-rgb:0,128,48;
-  --coral-rgb:220,50,38; --tool-rgb:0,128,140; --warn-rgb:176,96,0;
+  --bg2:#ffffff; --fg2:#2b2c30; --mute:#55575e; --dim:#a2a4a9; --cool:#7b8191;
+  --ink-rgb:0,128,48; --coral-rgb:214,52,40; --tool-rgb:0,112,170; --warn-rgb:176,96,0;
   --shadow:rgba(20,24,60,.16);
 }
 :root{
   --sans:"Inter Tight","PingFang SC","Noto Sans SC","Microsoft YaHei",system-ui,sans-serif;
   --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
   --serif:"Instrument Serif","Songti SC",Georgia,serif;
-  --gut:clamp(16px,4vw,56px);
-  --max:1320px;
+  --gut:clamp(16px,4vw,56px); --max:1320px;
+  --ease:cubic-bezier(.16,1,.3,1); --swing:cubic-bezier(.65,0,.35,1);
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{background:var(--bg);color:var(--fg);-webkit-text-size-adjust:100%}
+html{background:var(--bg);color:var(--fg);-webkit-text-size-adjust:100%;scroll-behavior:smooth}
 body{background:var(--bg);font-family:var(--sans);font-size:17px;line-height:1.55;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.dk{color:var(--fg)}
 :root[lang="zh-CN"] .en{display:none!important}
 :root:not([lang="zh-CN"]) .zh{display:none!important}
 a{color:inherit;text-decoration:none}
 ::selection{background:var(--acid);color:var(--on-acid)}
 code,.mono{font-family:var(--mono)}
 em.s{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:0}
+.m{color:var(--ink)} .t{color:var(--tool)}
+.wrap{max-width:calc(var(--max) + 2*var(--gut));margin:0 auto;padding:0 var(--gut)}
 
-/* grain + vignette */
-body::after{content:"";position:fixed;inset:-50%;z-index:100;pointer-events:none;opacity:.07;
+body::after{content:"";position:fixed;inset:-50%;z-index:100;pointer-events:none;opacity:.06;
   background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
   animation:grain 1.2s steps(6) infinite}
-@keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-3%,2%)}40%{transform:translate(2%,-4%)}60%{transform:translate(-4%,-1%)}80%{transform:translate(3%,3%)}100%{transform:translate(0,0)}}
+:root[data-theme="light"] body::after{display:none}
+@keyframes grain{0%,100%{transform:translate(0,0)}20%{transform:translate(-3%,2%)}40%{transform:translate(2%,-4%)}60%{transform:translate(-4%,-1%)}80%{transform:translate(3%,3%)}}
 
-/* progress + nav */
-#progress{position:fixed;top:0;left:0;height:2px;width:100%;transform-origin:0 50%;transform:scaleX(0);background:var(--ink);z-index:60}
-nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px var(--gut);
-  background:linear-gradient(var(--bg) 0%,rgba(var(--bg-rgb),0) 100%);transition:background .3s}
-nav.solid{background:rgba(var(--bg-rgb),.72);backdrop-filter:blur(14px) saturate(1.4);-webkit-backdrop-filter:blur(14px) saturate(1.4);border-bottom:1px solid var(--line)}
-.logo{font-family:var(--mono);font-weight:700;font-size:14px;letter-spacing:.02em;display:flex;align-items:center;gap:10px}
-.logo i{width:10px;height:10px;background:var(--ink);border-radius:2px;box-shadow:0 0 18px var(--acid);animation:blink 2.4s infinite}
-@keyframes blink{50%{opacity:.35}}
-.navlinks{display:flex;gap:26px;font-size:13px;color:var(--mute);font-family:var(--mono);text-transform:uppercase;letter-spacing:.08em}
-.navlinks a:hover{color:var(--fg)}
-.navr{display:flex;gap:10px;align-items:center}
-.pill{font-family:var(--mono);font-size:12px;border:1px solid var(--line2);border-radius:99px;padding:7px 13px;color:var(--fg2);background:rgba(var(--fg-rgb),.02);cursor:pointer;transition:border-color .2s,color .2s,background .2s;white-space:nowrap}
-.pill:hover{border-color:var(--ink);color:var(--fg)}
+/* ---------- nav ---------- */
+#progress{position:fixed;top:0;left:0;height:2px;width:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--ink),var(--tool));z-index:60}
+nav.top{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px var(--gut);transition:background .3s,border-color .3s;border-bottom:1px solid transparent}
+nav.top.solid{background:rgba(var(--bg-rgb),.76);backdrop-filter:blur(14px) saturate(1.4);-webkit-backdrop-filter:blur(14px) saturate(1.4);border-color:var(--line)}
+.logo{font-family:var(--mono);font-weight:700;font-size:14px;display:flex;align-items:center;gap:10px}
+.logo i{width:10px;height:10px;border-radius:2px;background:linear-gradient(135deg,var(--ink) 50%,var(--tool) 50%)}
+.chapters{display:flex;gap:4px;font-family:var(--mono);font-size:12px;color:var(--mute)}
+.chapters a{padding:6px 10px;border-radius:99px;transition:color .2s,background .2s;white-space:nowrap}
+.chapters a b{font-weight:500;color:var(--dim);margin-right:6px}
+.chapters a:hover{color:var(--fg)}
+.chapters a.on{color:var(--fg);background:rgba(var(--fg-rgb),.07)}
+.chapters a.on b{color:var(--ink)}
+.navr{display:flex;gap:8px;align-items:center}
+.pill{font-family:var(--mono);font-size:12px;border:1px solid var(--line2);border-radius:99px;padding:7px 12px;color:var(--fg2);background:transparent;cursor:pointer;transition:border-color .2s,color .2s,background .2s;white-space:nowrap}
+.pill:hover{border-color:var(--fg2);color:var(--fg)}
+.pill b{color:var(--fg)}
 .pill.solid{background:var(--acid);color:var(--on-acid);border-color:var(--acid);font-weight:700}
 .pill.solid:hover{background:var(--fg);border-color:var(--fg);color:var(--bg)}
-#lang b,#theme b{color:var(--fg)}
 :root[data-theme="light"] #theme .moon,:root:not([data-theme="light"]) #theme .sun{display:none}
-@media (max-width:860px){.navlinks{display:none}}
+@media (max-width:1180px){.chapters{display:none}}
 @media (max-width:480px){#nav{gap:8px}#nav .logo{font-size:12px;gap:6px}.navr{gap:4px}#nav .pill{font-size:11px;padding:7px 6px}}
 
-/* hero */
-#hero{position:relative;height:260vh}
-.stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
-#field{position:absolute;inset:0;width:100%;height:100%;display:block}
-.hero-a,.hero-b{position:absolute;left:var(--gut);right:var(--gut);pointer-events:none}
-.hero-a{bottom:clamp(28px,7vh,80px)}
-.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--ink);box-shadow:0 0 10px var(--acid)}
-.big{font-weight:900;font-size:clamp(108px,23vw,380px);line-height:.8;letter-spacing:-.065em;margin:18px 0 0 -.04em;
-  background:linear-gradient(180deg,var(--fg) 0%,var(--fg) 55%,rgba(var(--fg-rgb),.55) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;
-  font-variant-numeric:tabular-nums}
-.big sup{font-size:.32em;vertical-align:top;position:relative;top:.22em;letter-spacing:-.03em;color:var(--ink);-webkit-text-fill-color:var(--ink);margin-left:.04em}
-.herosub{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-top:22px;flex-wrap:wrap}
-.herosub h1{font-weight:600;font-size:clamp(22px,2.6vw,38px);line-height:1.08;letter-spacing:-.025em;max-width:20em}
-.herosub h1 em.s{color:var(--ink);font-size:1.12em}
-.hero-meta{font-family:var(--mono);font-size:12px;color:var(--mute);text-align:right;line-height:1.8}
-.hero-meta b{color:var(--fg);font-weight:500}
-.hero-b{top:clamp(76px,13vh,140px);opacity:0}
-.hero-b h2{font-weight:700;font-size:clamp(28px,4.2vw,64px);letter-spacing:-.035em;line-height:1}
-.hero-b h2 .ok{color:var(--ink)} .hero-b h2 .no{color:var(--coral)}
-.hero-b p{color:var(--mute);margin-top:12px;font-size:15px;max-width:44em}
-.legend{position:absolute;left:var(--gut);right:var(--gut);bottom:clamp(24px,6vh,64px);display:flex;gap:22px;flex-wrap:wrap;font-family:var(--mono);font-size:12px;color:var(--mute);opacity:0;pointer-events:none}
-.legend span{display:flex;align-items:center;gap:8px}
-.legend i{width:9px;height:9px;border-radius:50%;display:inline-block}
-.scrollhint{position:absolute;right:var(--gut);top:50%;writing-mode:vertical-rl;font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--dim);text-transform:uppercase}
-.scrollhint::after{content:"";display:inline-block;width:1px;height:60px;background:linear-gradient(var(--dim),transparent);margin-top:12px;animation:drip 1.8s infinite}
-@keyframes drip{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
-#tip{position:fixed;z-index:70;pointer-events:none;font-family:var(--mono);font-size:12px;padding:8px 10px;border-radius:8px;background:rgba(var(--bg-rgb),.92);border:1px solid var(--line2);opacity:0;transform:translate(14px,14px);transition:opacity .15s;white-space:nowrap}
-#tip b{font-weight:700}
-@media (max-width:760px){.hero-meta{text-align:left}.scrollhint{display:none}}
-
-/* marquee */
-.marquee{border-block:1px solid var(--line);overflow:hidden;background:var(--bg);position:relative;z-index:2}
-.marquee .track{display:flex;width:max-content;animation:mq 38s linear infinite}
-.marquee span{font-family:var(--mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);padding:16px 26px;white-space:nowrap;display:flex;align-items:center;gap:26px}
-.marquee span::after{content:"✦";color:var(--ink);font-size:10px}
-@keyframes mq{to{transform:translateX(-50%)}}
-
-/* sections */
-section.s{position:relative;padding:clamp(96px,14vw,180px) var(--gut);max-width:calc(var(--max) + 2*var(--gut));margin:0 auto}
-.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);display:flex;align-items:center;gap:14px;margin-bottom:28px}
-.kicker::before{content:"";width:34px;height:1px;background:var(--ink)}
-h2.h{font-weight:800;font-size:clamp(40px,7vw,108px);line-height:.92;letter-spacing:-.05em;max-width:12em}
-h2.h em.s{font-size:1.06em;color:var(--fg2)}
-.lede{color:var(--fg2);font-size:clamp(17px,1.5vw,21px);max-width:38em;margin-top:28px;line-height:1.55}
-.lede b{color:var(--fg);font-weight:600}
-.grid2{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(32px,5vw,80px);align-items:start}
-@media (max-width:900px){.grid2{grid-template-columns:1fr}}
+/* ---------- shared ---------- */
+.rv{opacity:0;transform:translateY(30px);transition:opacity .9s var(--ease),transform .9s var(--ease);transition-delay:calc(var(--i,0)*90ms)}
+.rv.in{opacity:1;transform:none}
+.mask{display:block;overflow:hidden;padding-bottom:.06em}
+.mask>span{display:inline-block;transform:translateY(105%);transition:transform 1.1s var(--ease);transition-delay:calc(var(--i,0)*90ms)}
+.in .mask>span{transform:none}
+.card{position:relative;border:1px solid var(--line);border-radius:18px;background:var(--bg2);overflow:hidden;isolation:isolate}
+:root[data-theme="light"] .card:not(.dk){box-shadow:0 1px 2px rgba(20,24,60,.04),0 14px 34px -20px rgba(20,24,60,.16)}
+.card::before{content:"";position:absolute;inset:0;z-index:-1;opacity:0;transition:opacity .3s;background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(var(--c,var(--acid-rgb)),.09),transparent 60%)}
+.card:hover::before{opacity:1}
 .note{font-family:var(--mono);font-size:12px;color:var(--mute);line-height:1.7}
 .note a{color:var(--fg2);border-bottom:1px solid var(--line2)}
-.note a:hover{color:var(--ink);border-color:var(--ink)}
+.note a:hover{color:var(--fg)}
+.lede{color:var(--fg2);font-size:clamp(17px,1.45vw,21px);max-width:36em;line-height:1.55}
+.lede b{color:var(--fg);font-weight:600}
+.tag{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:99px;border:1px solid currentColor;white-space:nowrap}
+.tag.m{color:var(--ink)} .tag.t{color:var(--tool)} .tag.w{color:var(--warn)} .tag.g{color:var(--mute)}
+.tag.x{color:var(--coral)} .tag.o{color:var(--warn)} .tag.k{color:var(--ink)}
 
-/* reveal */
-.rv{opacity:0;transform:translateY(34px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1);transition-delay:calc(var(--i,0)*90ms)}
-.rv.in{opacity:1;transform:none}
-.mask{display:block;overflow:hidden;padding-bottom:.08em}
-.mask>span{display:inline-block;transform:translateY(105%);transition:transform 1.1s cubic-bezier(.16,1,.3,1);transition-delay:calc(var(--i,0)*80ms)}
-.in .mask>span,.mask.in>span{transform:none}
+/* chapter head: huge outlined numeral + title */
+section.ch{position:relative;padding-top:clamp(110px,14vw,190px)}
+.ch-head{display:grid;grid-template-columns:minmax(150px,.42fr) 1fr;gap:clamp(20px,4vw,64px);align-items:start;margin-bottom:clamp(48px,6vw,80px)}
+.ch-num{font-weight:900;font-size:clamp(110px,15vw,240px);line-height:.78;letter-spacing:-.06em;color:transparent;-webkit-text-stroke:1.5px rgba(var(--fg-rgb),.22);user-select:none}
+.ch-label{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:22px;display:flex;align-items:center;gap:12px}
+.ch-label::before{content:"";width:28px;height:1px;background:currentColor}
+.ch h2{font-weight:800;font-size:clamp(38px,5.6vw,92px);line-height:.95;letter-spacing:-.045em;max-width:13em}
+.ch h2 em.s{font-size:1.05em}
+.ch-head .lede{margin-top:26px}
+@media (max-width:820px){.ch-head{grid-template-columns:1fr;gap:0}.ch-num{font-size:92px;margin-bottom:18px}}
 
-/* card spotlight */
-.card{position:relative;border:1px solid var(--line);border-radius:18px;background:linear-gradient(180deg,rgba(var(--fg-rgb),.025),rgba(var(--fg-rgb),.008));overflow:hidden;isolation:isolate}
-.card::before{content:"";position:absolute;inset:0;z-index:-1;opacity:0;transition:opacity .3s;
-  background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(var(--acid-rgb),.10),transparent 60%)}
-.card:hover::before{opacity:1}
-.card::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;opacity:0;transition:opacity .3s;
-  background:radial-gradient(300px circle at var(--mx,50%) var(--my,50%),rgba(var(--acid-rgb),.6),transparent 60%);
-  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
-.card:hover::after{opacity:1}
+/* ---------- hero ---------- */
+.hero{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding-top:110px;padding-bottom:clamp(24px,5vh,48px);position:relative}
+.hero-grid{display:grid;grid-template-columns:1.25fr .9fr;gap:clamp(20px,3vw,48px);align-items:center;flex:1}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);margin-bottom:26px}
+.manifesto{font-weight:900;font-size:clamp(46px,6.6vw,120px);line-height:.9;letter-spacing:-.055em}
+:root[lang="zh-CN"] .manifesto{font-size:clamp(44px,6.1vw,112px);line-height:1.08;letter-spacing:-.03em}
+@media (max-width:900px){:root[lang="zh-CN"] .manifesto{font-size:12.4vw}}
+.manifesto em.s{font-size:1.05em;letter-spacing:-.02em}
+.hero-sub{margin-top:30px;max-width:30em;color:var(--fg2);font-size:clamp(17px,1.4vw,20px)}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+.btn{display:inline-flex;align-items:center;gap:10px;font-weight:600;font-size:15px;padding:14px 22px;border-radius:99px;border:1px solid var(--line2);transition:background .25s,color .25s,border-color .25s}
+.btn:hover{border-color:var(--fg)}
+.btn.p{background:var(--acid);color:var(--on-acid);border-color:var(--acid)}
+.btn.p:hover{background:var(--fg);border-color:var(--fg);color:var(--bg)}
+.btn svg{width:18px;height:18px}
+#loopfig{width:100%;height:auto;max-height:68vh;overflow:visible}
+#loopfig text{font-family:var(--mono)}
+.proofbar{display:grid;grid-template-columns:1.3fr 1fr 1fr;border-top:1px solid var(--line2);margin-top:clamp(28px,5vh,56px)}
+.proofbar>div{padding:20px 22px 4px 0;display:flex;gap:16px;align-items:baseline}
+.proofbar>div+div{padding-left:22px;border-left:1px solid var(--line)}
+.proofbar .n{font-weight:900;font-size:clamp(36px,4vw,60px);letter-spacing:-.05em;line-height:1;font-variant-numeric:tabular-nums;white-space:nowrap}
+.proofbar .n small{font-size:.45em;color:var(--mute);letter-spacing:-.02em;font-weight:600}
+.proofbar p{font-size:14px;color:var(--fg2);line-height:1.35}
+.proofbar p small{display:block;font-family:var(--mono);font-size:11px;color:var(--mute);margin-top:4px}
+@media (max-width:900px){.hero-grid{grid-template-columns:1fr}.hero{padding-top:96px}#loopfig{max-height:46vh;margin-top:20px}.proofbar{grid-template-columns:1fr}.proofbar>div+div{padding-left:0;border-left:0;border-top:1px solid var(--line)}.proofbar>div{padding:14px 0}}
 
-/* 01 efficiency */
-.bars{margin-top:56px;display:flex;flex-direction:column;gap:30px}
-.bar .lab{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:10px;flex-wrap:wrap}
-.bar .lab b{font-weight:600;font-size:18px}
-.bar .lab small{font-family:var(--mono);font-size:12px;color:var(--mute)}
-.bar .rail{height:56px;border-radius:10px;background:repeating-linear-gradient(90deg,var(--line) 0 1px,transparent 1px 10%);position:relative;overflow:hidden;border:1px solid var(--line)}
-.bar .fill{position:absolute;inset:0 auto 0 0;width:var(--w);transform:scaleX(0);transform-origin:left;transition:transform 1.6s cubic-bezier(.16,1,.3,1);background:var(--c,var(--cool));border-radius:9px}
-.in .bar .fill{transform:scaleX(1)}
-.bar .val{position:absolute;top:50%;transform:translateY(-50%);left:calc(var(--w) + 14px);font-family:var(--mono);font-weight:700;font-size:20px;white-space:nowrap}
-.bar.ours .fill{background:var(--acid);box-shadow:0 0 40px rgba(var(--acid-rgb),.5)}
-.bar.ours .val{color:var(--ink)}
-.bar.top .val{left:auto;right:16px;color:var(--bg)}
-.bar.top .fill{background:linear-gradient(90deg,rgba(var(--fg-rgb),.16),rgba(var(--fg-rgb),.62))}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden;margin-top:72px}
-.stat{background:var(--bg);padding:30px 26px}
-.stat .n{font-weight:800;font-size:clamp(48px,6vw,88px);letter-spacing:-.05em;line-height:1;font-variant-numeric:tabular-nums}
-.stat .n small{font-size:.45em;letter-spacing:-.02em;color:var(--mute);font-weight:600}
-.stat p{color:var(--mute);font-size:14px;margin-top:12px;max-width:22em}
-.stat.acid .n{color:var(--ink)}
-@media (max-width:760px){.stats{grid-template-columns:1fr}}
-.ranks{display:flex;gap:3px;margin-top:22px;height:48px;align-items:flex-end}
-.ranks i{flex:1;height:30%;background:var(--dim);border-radius:2px;opacity:.6;transform:scaleY(0);transform-origin:bottom;transition:transform .6s cubic-bezier(.16,1,.3,1);transition-delay:calc(var(--k)*8ms)}
-.in .ranks i{transform:scaleY(1)}
-.ranks i.me{height:100%;background:var(--acid);opacity:1;box-shadow:0 0 16px var(--acid);outline:1px solid var(--ink)}
-.ranks i.one{height:70%;background:var(--cool);opacity:.9}
+/* ---------- I · dissolve scene ---------- */
+#dissolve{height:440vh;position:relative}
+.dstage{position:sticky;top:0;height:100vh;height:100svh;display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(24px,4vw,64px);align-items:center;padding-top:60px}
+.dtext{position:relative;min-height:340px}
+.dstep{position:absolute;left:0;right:0;top:44px;opacity:0;transform:translateY(24px);transition:opacity .6s var(--ease),transform .6s var(--ease);pointer-events:none}
+.dstep.on{opacity:1;transform:none;pointer-events:auto}
+.dstep h3{font-weight:800;font-size:clamp(34px,4.2vw,68px);line-height:.98;letter-spacing:-.045em}
+.dstep p{margin-top:22px;color:var(--fg2);font-size:clamp(16px,1.35vw,19px);max-width:26em}
+.dcount{position:absolute;bottom:-30px;left:0;display:flex;gap:8px;align-items:center;font-family:var(--mono);font-size:12px;color:var(--mute)}
+.dcount i{width:26px;height:3px;border-radius:2px;background:var(--line2);transition:background .4s}
+.dcount i.on{background:var(--fg)}
+.board{position:relative;width:100%;max-width:640px;aspect-ratio:1/1.02;justify-self:center}
+.blk{position:absolute;border-radius:12px;border:1px solid var(--line2);background-color:var(--bg2);padding:0 14px;display:flex;flex-direction:column;justify-content:center;overflow:hidden;
+  transition:left .9s var(--swing),top .9s var(--swing),width .9s var(--swing),height .9s var(--swing),opacity .6s,border-color .6s,background-color .6s;transition-delay:var(--d,0ms)}
+.blk .ti{font-weight:600;font-size:clamp(13px,1.25vw,17px);line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.blk .su{font-family:var(--mono);font-size:11px;color:var(--mute);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.blk .alt{display:none}
+.blk.flip .ori{display:none} .blk.flip .alt{display:block}
+.blk.model{border-color:rgba(var(--ink-rgb),.6);background-color:rgba(var(--ink-rgb),.08)}
+.blk.model .ti{color:var(--ink)}
+.blk.tool{border-color:rgba(var(--tool-rgb),.6);background-color:rgba(var(--tool-rgb),.09)}
+.blk.tool .ti{color:var(--tool);font-family:var(--mono);font-weight:500}
+.blk.dim{opacity:.3}
+.blk.dead{border-style:dashed;border-color:rgba(var(--coral-rgb),.55);background-color:transparent;opacity:.9}
+.blk.dead .ti{color:var(--mute);text-decoration:line-through;text-decoration-color:var(--coral);text-decoration-thickness:2px}
+.blk.dead .su{display:none}
+.blk.hide{opacity:0}
+.colh{position:absolute;top:0;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;display:flex;gap:10px;align-items:baseline;opacity:0;transition:opacity .6s}
+.colh.on{opacity:1}
+.colh em.s{font-size:19px;text-transform:none;letter-spacing:0}
+.spine{position:absolute;left:50%;top:3%;bottom:3%;width:1px;background:var(--line2);transition:opacity .6s}
+.looppill{position:absolute;left:12%;width:76%;top:66%;height:10%;border-radius:99px;display:flex;align-items:center;justify-content:center;gap:12px;font-family:var(--mono);font-size:clamp(11px,1.15vw,15px);white-space:nowrap;
+  border:1.5px solid transparent;background:linear-gradient(var(--bg),var(--bg)) padding-box,linear-gradient(90deg,var(--ink),var(--tool)) border-box;opacity:0;transform:scale(.9);transition:opacity .6s .4s,transform .8s var(--ease) .4s}
+.looppill.on{opacity:1;transform:none}
+.looppill b{font-weight:700}
+@media (max-width:900px){
+  #dissolve{height:460vh}
+  .dstage{grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);align-items:start;padding-top:70px;padding-bottom:16px;gap:6px}
+  .dtext{min-height:205px}
+  .dstep{top:30px}.dstep h3{font-size:clamp(26px,7.4vw,34px)}.dstep p{margin-top:10px;font-size:14.5px}
+  .dcount{display:none}
+  .board{height:100%;width:auto;max-width:100%;justify-self:center}
+  .blk{padding:0 9px;border-radius:9px}.blk .ti{font-size:12px}.blk .su{font-size:9.5px}
+  .colh em.s{font-size:15px}
+}
 
-/* kinetic */
-.kinetic{overflow:hidden;padding:clamp(40px,7vw,90px) 0;border-block:1px solid var(--line);position:relative;z-index:2;background:var(--bg)}
-.kinetic .row{white-space:nowrap;font-weight:900;font-size:clamp(64px,13vw,220px);letter-spacing:-.06em;line-height:.95;will-change:transform}
-.kinetic .row span{color:transparent;-webkit-text-stroke:1.5px rgba(var(--fg-rgb),.22)}
-.kinetic .row span.f{color:var(--fg);-webkit-text-stroke:0}
-.kinetic .row span.a{color:var(--ink);-webkit-text-stroke:0}
-.kinetic .row span.ar{font-family:var(--serif);font-style:italic;font-weight:400;-webkit-text-stroke:0;color:var(--mute);padding:0 .12em}
-
-/* 02 trace */
-.term{margin-top:56px;border-radius:20px;border:1px solid var(--line2);background:linear-gradient(180deg,var(--bg2),var(--bg));box-shadow:0 60px 120px -40px var(--shadow),0 0 0 1px rgba(var(--fg-rgb),.02) inset;overflow:hidden}
+/* ---------- II · trace ---------- */
+.term{border-radius:20px;border:1px solid var(--line2);background:linear-gradient(180deg,var(--bg2),var(--bg));box-shadow:0 60px 120px -40px var(--shadow);overflow:hidden}
 .term-top{display:flex;align-items:center;gap:14px;padding:14px 18px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:12px;color:var(--mute)}
 .lights{display:flex;gap:7px}.lights i{width:11px;height:11px;border-radius:50%;background:var(--line2)}
-.term-top .t{flex:1;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.term-body{display:grid;grid-template-columns:240px 1fr;min-height:560px}
-.steps{border-right:1px solid var(--line);padding:22px 0;font-family:var(--mono);font-size:12px}
-.steps li{list-style:none;padding:10px 22px;color:var(--dim);display:flex;gap:12px;align-items:center;transition:color .3s,background .3s;position:relative}
+.term-top .tt{flex:1;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.term-body{display:grid;grid-template-columns:250px 1fr;min-height:640px}
+.steps{border-right:1px solid var(--line);padding:22px 0;font-family:var(--mono);font-size:12px;list-style:none}
+.steps li{padding:10px 22px;color:var(--dim);display:flex;gap:12px;align-items:center;transition:color .3s,background .3s;position:relative}
 .steps li::before{content:"";width:8px;height:8px;border-radius:50%;border:1px solid currentColor;flex:none;transition:background .3s}
 .steps li.on{color:var(--fg)}
-.steps li.on::before{background:var(--ink);border-color:var(--ink);box-shadow:0 0 12px var(--ink)}
-.steps li.cur{background:rgba(var(--acid-rgb),.06)}
-.steps li.cur::after{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--ink)}
-.steps .meter{padding:22px;margin-top:10px;border-top:1px solid var(--line);color:var(--mute);line-height:2}
-.steps .meter b{color:var(--fg);font-weight:500;font-variant-numeric:tabular-nums}
-.log{padding:24px clamp(18px,3vw,34px) 34px;font-family:var(--mono);font-size:13.5px;line-height:1.7;overflow:hidden;position:relative}
-.log .blk{margin-bottom:18px;opacity:0;transform:translateY(8px);transition:opacity .4s,transform .4s}
-.log .blk.show{opacity:1;transform:none}
+.steps li.on.sm::before{background:var(--ink);border-color:var(--ink)}
+.steps li.on.st::before{background:var(--tool);border-color:var(--tool)}
+.steps li.cur{background:rgba(var(--fg-rgb),.05)}
+.steps li.cur::after{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--fg)}
+.meter{padding:22px;margin-top:10px;border-top:1px solid var(--line);color:var(--mute);line-height:2}
+.meter b{color:var(--fg);font-weight:500;font-variant-numeric:tabular-nums}
+.log{padding:24px clamp(18px,3vw,34px) 34px;font-family:var(--mono);font-size:13.5px;line-height:1.7;overflow:hidden}
+.log .ev{margin-bottom:16px;opacity:0;transform:translateY(8px);transition:opacity .4s,transform .4s}
+.log .ev.show{opacity:1;transform:none}
 .who{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-bottom:6px;display:flex;gap:10px;align-items:center}
-.who .tag{color:#000;background:var(--ink);padding:1px 7px;border-radius:4px;font-weight:700;letter-spacing:.08em}
-.who .tag.u{background:var(--fg2)}
-.who .tag.t{background:var(--tool)}
-.q{font-family:var(--sans);font-size:clamp(17px,1.6vw,22px);color:var(--fg);line-height:1.35;letter-spacing:-.01em}
-.call{color:var(--fg2)} .call .fn{color:var(--ink)} .call .k{color:var(--tool)} .call .str{color:var(--warn)} .call .num{color:#ff9cd3}
+.who .b{color:#000;padding:1px 7px;border-radius:4px;font-weight:700;letter-spacing:.08em}
+.who .b.u{background:var(--fg2)} .who .b.m{background:var(--ink)} .who .b.t{background:var(--tool)}
+.q{font-family:var(--sans);font-size:clamp(17px,1.6vw,22px);color:var(--fg);line-height:1.35}
+.call{color:var(--fg2)} .call .fn{color:var(--tool)} .call .k{color:var(--fg)} .call .str{color:var(--warn)} .call .num{color:#ff9cd3}
+.jdg{display:flex;gap:12px;align-items:flex-start;font-family:var(--sans);font-size:14.5px;line-height:1.5;color:var(--fg);border:1px solid rgba(var(--ink-rgb),.4);background:rgba(var(--ink-rgb),.07);border-radius:10px;padding:10px 14px}
+.jdg .tag{flex:none;margin-top:1px}
 .hits{border:1px solid var(--line);border-radius:10px;overflow:hidden}
-.hit{display:grid;grid-template-columns:28px 1fr auto;gap:12px;padding:9px 14px;border-bottom:1px solid var(--line);font-size:12.5px;color:var(--mute);transition:background .4s,color .4s}
+.hit{display:grid;grid-template-columns:24px 1fr auto;gap:12px;padding:8px 14px;border-bottom:1px solid var(--line);font-size:12.5px;color:var(--mute);transition:background .4s,color .4s}
 .hit:last-child{border-bottom:0}
 .hit .ttl{color:var(--fg2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.hit.sel{background:rgba(var(--acid-rgb),.08);color:var(--fg)}
-.hit.sel .ttl{color:var(--ink)}
-.src{border-left:2px solid var(--tool);padding:12px 16px;background:rgba(var(--tool-rgb),.04);border-radius:0 10px 10px 0;white-space:pre-wrap;color:var(--mute);font-size:12.5px;max-height:none}
-.src mark{background:rgba(var(--acid-rgb),.16);color:var(--fg);border-radius:3px;box-shadow:0 0 0 2px rgba(var(--acid-rgb),.16)}
+.hit.sel{background:rgba(var(--ink-rgb),.1);color:var(--fg)} .hit.sel .ttl{color:var(--ink)}
+.src{border-left:2px solid var(--tool);padding:12px 16px;background:rgba(var(--tool-rgb),.05);border-radius:0 10px 10px 0;white-space:pre-wrap;color:var(--mute);font-size:12.5px}
+.src mark{background:rgba(var(--ink-rgb),.16);color:var(--fg);border-radius:3px;box-shadow:0 0 0 2px rgba(var(--ink-rgb),.16)}
 .ans{font-family:var(--sans);font-size:16px;color:var(--fg)}
 .ans table{border-collapse:collapse;margin:12px 0;min-width:min(420px,100%)}
 .ans td{padding:7px 18px 7px 0;border-bottom:1px solid var(--line)}
 .ans td:first-child{font-family:var(--mono);color:var(--ink);font-size:13px}
 .ans .cite{font-family:var(--mono);font-size:11px;color:#000;background:var(--tool);border-radius:4px;padding:2px 7px;margin-left:4px;white-space:nowrap}
 .ans p{color:var(--fg2);font-size:15px;max-width:40em}
-.caret{display:inline-block;width:.55em;height:1.1em;vertical-align:-.18em;background:var(--ink);animation:blink 1s steps(1) infinite;margin-left:2px}
-.think{color:var(--mute)}
-.think i{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--ink);margin:0 2px;animation:bob 1s infinite}
+.think{color:var(--mute)} .think i{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--ink);margin:0 2px;animation:bob 1s infinite}
 .think i:nth-child(2){animation-delay:.15s}.think i:nth-child(3){animation-delay:.3s}
 @keyframes bob{50%{transform:translateY(-4px);opacity:.4}}
 .term-foot{display:flex;justify-content:space-between;gap:16px;align-items:center;padding:14px 18px;border-top:1px solid var(--line);flex-wrap:wrap}
-@media (max-width:820px){.term-body{grid-template-columns:1fr}.steps{display:none}.term-body{min-height:620px}}
+@media (max-width:820px){.term-body{grid-template-columns:1fr;min-height:760px}.steps{display:none}}
 
-/* 03 interface */
-.ab{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:56px}
+/* ---------- III · capability ---------- */
+.tools2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.tools2 .card{padding:30px;--c:var(--tool-rgb)}
+.sig{font-family:var(--mono);font-size:clamp(17px,1.7vw,22px);color:var(--fg)}
+.sig b{color:var(--tool);font-weight:700}
+.tools2 p{color:var(--fg2);margin-top:14px;font-size:15.5px}
+.tools2 .eg{margin-top:18px;font-family:var(--mono);font-size:12px;color:var(--mute);border-top:1px dashed var(--line2);padding-top:14px;line-height:1.7}
+.ab{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
 .ab .card{padding:30px}
-.ab .n{font-weight:900;font-size:clamp(72px,10vw,150px);letter-spacing:-.06em;line-height:.9;font-variant-numeric:tabular-nums}
-.ab .of{font-family:var(--mono);color:var(--mute);font-size:14px;margin-top:6px}
-.ab .who2{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);margin-bottom:20px}
-.ab .ours .n{color:var(--ink);text-shadow:0 0 60px rgba(var(--acid-rgb),.35)}
+.ab .n{font-weight:900;font-size:clamp(72px,9vw,140px);letter-spacing:-.06em;line-height:.9;font-variant-numeric:tabular-nums}
+.ab .of{font-family:var(--mono);color:var(--mute);font-size:13px;margin-top:8px}
+.ab .who2{display:flex;justify-content:space-between;gap:10px;margin-bottom:22px;align-items:center;flex-wrap:wrap}
+.ab .ours .n{color:var(--tool)}
 .ab .theirs .n{color:var(--cool)}
 .dots230{display:grid;grid-template-columns:repeat(23,1fr);gap:3px;margin-top:24px}
-.dots230 i{aspect-ratio:1;border-radius:50%;background:var(--dim);opacity:.45}
-.ours .dots230 i.y{background:var(--ink);opacity:1}
-.theirs .dots230 i.y{background:var(--cool);opacity:.9}
-@media (max-width:760px){.ab{grid-template-columns:1fr}}
+.dots230 i{aspect-ratio:1;border-radius:50%;background:var(--line2);transform:scale(0);transition:transform .5s var(--ease);transition-delay:calc(var(--k)*3ms)}
+.in .dots230 i{transform:none}
+.ours .dots230 i.y{background:var(--tool)}
+.theirs .dots230 i.y{background:var(--cool)}
 .ci{margin-top:18px;padding:30px}
 .ci-head{display:flex;justify-content:space-between;gap:20px;align-items:flex-end;flex-wrap:wrap}
-.ci-head .n{font-weight:800;font-size:clamp(40px,5vw,72px);letter-spacing:-.04em;line-height:1;color:var(--ink)}
-.ci svg{width:100%;height:auto;margin-top:26px;overflow:visible}
-.tools{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
-.tools .card{padding:28px}
-.tools code.sig{font-size:clamp(15px,1.5vw,19px);color:var(--fg)}
-.tools code.sig b{color:var(--ink);font-weight:700}
-.tools p{color:var(--fg2);margin-top:14px;font-size:15.5px}
-.tools .eg{margin-top:18px;font-family:var(--mono);font-size:12px;color:var(--mute);border-top:1px dashed var(--line2);padding-top:14px;line-height:1.7}
-@media (max-width:760px){.tools{grid-template-columns:1fr}}
+.ci-head .n{font-weight:800;font-size:clamp(40px,5vw,72px);letter-spacing:-.04em;line-height:1;color:var(--tool)}
+.ci svg{width:100%;height:auto;margin-top:22px;overflow:visible}
+.ci svg text{font-family:var(--mono);font-size:13px}
+.sub-h{display:flex;align-items:baseline;justify-content:space-between;gap:20px;flex-wrap:wrap;margin:clamp(70px,9vw,120px) 0 30px;border-top:1px solid var(--line2);padding-top:28px}
+.sub-h h3{font-weight:800;font-size:clamp(28px,3.4vw,52px);letter-spacing:-.04em;line-height:1;max-width:16em}
+.bars{display:flex;flex-direction:column;gap:26px}
+.bar .lab{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:10px;flex-wrap:wrap}
+.bar .lab b{font-weight:600;font-size:17px}
+.bar .lab small{font-family:var(--mono);font-size:12px;color:var(--mute)}
+.bar .rail{height:52px;border-radius:10px;background:repeating-linear-gradient(90deg,var(--line) 0 1px,transparent 1px 10%);position:relative;overflow:hidden;border:1px solid var(--line)}
+.bar .fill{position:absolute;inset:0 auto 0 0;width:var(--w);transform:scaleX(0);transform-origin:left;transition:transform 1.6s var(--ease);background:var(--cool);border-radius:9px;opacity:.75}
+.in .bar .fill{transform:scaleX(1)}
+.bar .val{position:absolute;top:50%;transform:translateY(-50%);left:calc(var(--w) + 14px);font-family:var(--mono);font-weight:700;font-size:19px;white-space:nowrap}
+.bar.ours .fill{background:var(--tool);opacity:1;box-shadow:0 0 34px rgba(var(--tool-rgb),.45)}
+.bar.ours .val{color:var(--tool)}
+.bar.top .val{left:auto;right:16px;color:var(--bg)}
+.bar.top .fill{opacity:1;background:linear-gradient(90deg,rgba(var(--fg-rgb),.16),rgba(var(--fg-rgb),.62))}
+@media (max-width:760px){.tools2,.ab{grid-template-columns:1fr}}
 
-/* 04 architecture */
-.arch{display:grid;grid-template-columns:1fr 1.05fr;gap:clamp(24px,4vw,56px);margin-top:56px;align-items:stretch}
-@media (max-width:980px){.arch{grid-template-columns:1fr}}
-.diagram{padding:24px;display:flex;align-items:center;justify-content:center}
-.diagram svg{width:100%;height:auto;max-width:560px}
-.diagram text{font-family:var(--mono);font-size:13px;fill:var(--fg2)}
-.code{padding:0;font-family:var(--mono);font-size:12.5px;line-height:1.75}
-.code .bar2{display:flex;justify-content:space-between;padding:12px 18px;border-bottom:1px solid var(--line);color:var(--mute);font-size:12px}
-.code pre{padding:18px 0;overflow:auto;max-height:560px;counter-reset:ln}
+/* ---------- IV · minimal ---------- */
+.code{font-family:var(--mono);font-size:12.5px;line-height:1.75}
+.code .bar2{display:flex;justify-content:space-between;gap:12px;padding:12px 18px;border-bottom:1px solid var(--line);color:var(--mute);font-size:12px}
+.code pre{padding:18px 0;overflow:auto;max-height:640px;counter-reset:ln}
 .code pre .l{display:block;padding:0 18px 0 0;white-space:pre}
 .code pre .l::before{counter-increment:ln;content:counter(ln);display:inline-block;width:44px;padding-right:16px;text-align:right;color:var(--dim)}
-.code pre .l.hl{background:rgba(var(--acid-rgb),.06)}
-.tk-k{color:#ff7ab2}.tk-s{color:var(--warn)}.tk-c{color:var(--mute);font-style:italic}.tk-f{color:var(--ink)}.tk-n{color:var(--tool)}.tk-b{color:#c4a7ff}
-.loc{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden;margin-top:18px}
-.loc div{background:var(--bg);padding:24px}
-.loc .n{font-weight:800;font-size:clamp(36px,4vw,56px);letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
-.loc .n small{font-size:.38em;color:var(--mute);font-weight:500;letter-spacing:0;margin-left:4px}
-.loc p{font-family:var(--mono);font-size:12px;color:var(--mute);margin-top:8px}
-@media (max-width:600px){.loc{grid-template-columns:1fr}}
+.code pre .l.hm{background:rgba(var(--ink-rgb),.08);box-shadow:inset 2px 0 var(--ink)}
+.code pre .l.ht{background:rgba(var(--tool-rgb),.08);box-shadow:inset 2px 0 var(--tool)}
+.tk-k{color:#ff7ab2}.tk-s{color:var(--warn)}.tk-c{color:var(--mute);font-style:italic}.tk-f{color:var(--fg)}.tk-n{color:#c4a7ff}
+.min{display:grid;grid-template-columns:1.25fr .75fr;gap:18px;align-items:start}
+.side{display:flex;flex-direction:column;gap:18px}
+.side .card{padding:24px 26px}
+.side .n{font-weight:900;font-size:clamp(44px,4.6vw,72px);letter-spacing:-.05em;line-height:1;font-variant-numeric:tabular-nums}
+.side .n small{font-size:.32em;color:var(--mute);font-weight:500;letter-spacing:0;margin-left:6px}
+.side .card p{font-family:var(--mono);font-size:12px;color:var(--mute);margin-top:8px}
+@media (max-width:980px){.min{grid-template-columns:1fr}.side{display:grid;grid-template-columns:repeat(3,1fr)}.side .note{grid-column:1/-1}}
+@media (max-width:600px){.side{grid-template-columns:1fr}}
+.dec{border-top:1px solid var(--line2)}
+.dr{display:grid;grid-template-columns:1.3fr 1.2fr auto;gap:24px;padding:26px 0;border-bottom:1px solid var(--line);align-items:center}
+.dr h4{font-weight:700;font-size:clamp(19px,2vw,27px);letter-spacing:-.025em;line-height:1.15}
+.dr h4 small{display:block;font-family:var(--mono);font-size:12px;font-weight:400;color:var(--mute);letter-spacing:0;margin-top:8px;line-height:1.5}
+.dr .vs{font-family:var(--mono);font-size:13.5px;color:var(--fg2);line-height:1.7}
+.dr .vs b{color:var(--fg);font-size:clamp(20px,2vw,27px);font-family:var(--sans);font-weight:800;letter-spacing:-.03em}
+.dr .vs b.w{text-decoration:underline;text-decoration-color:var(--ink);text-decoration-thickness:3px;text-underline-offset:5px}
+.dr .tag{justify-self:end}
+.dr.dead h4 .st{position:relative;display:inline-block}
+.dr.dead h4 .st::after{content:"";position:absolute;left:-2%;right:-2%;top:54%;height:2px;background:var(--coral);transform:scaleX(0);transform-origin:left;transition:transform .9s var(--ease) .3s}
+.dr.dead.in h4 .st::after{transform:scaleX(1)}
+@media (max-width:860px){.dr{grid-template-columns:1fr;gap:10px}.dr .tag{justify-self:start}}
+.statement{margin-top:clamp(90px,11vw,150px);padding:clamp(50px,7vw,90px) 0;border-block:1px solid var(--line2);text-align:center}
+.statement .big2{font-weight:900;font-size:clamp(46px,8.4vw,146px);line-height:.94;letter-spacing:-.055em}
+:root[lang="zh-CN"] .statement .big2{letter-spacing:-.03em;line-height:1.08}
+.statement p{margin:28px auto 0;max-width:34em;color:var(--fg2);font-size:clamp(16px,1.4vw,19px)}
 
-/* 05 results */
-.res{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:56px}
-.res .card{padding:30px;min-height:290px;display:flex;flex-direction:column}
-.res .bm{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);display:flex;justify-content:space-between;gap:12px}
-.res .n{font-weight:900;font-size:clamp(64px,7.5vw,116px);letter-spacing:-.06em;line-height:.9;margin-top:auto;padding-top:34px;font-variant-numeric:tabular-nums}
-.res .n small{font-size:.32em;color:var(--mute);font-weight:600;letter-spacing:-.01em;margin-left:6px}
-.res .d{color:var(--fg2);margin-top:14px;font-size:15px}
-.res .ev{margin-top:16px;font-family:var(--mono);font-size:11.5px;color:var(--mute);border-top:1px solid var(--line);padding-top:14px;line-height:1.7}
-.res .hero1{grid-column:span 2;background:radial-gradient(800px 300px at 90% 0%,rgba(var(--acid-rgb),.10),transparent 60%),linear-gradient(180deg,rgba(var(--fg-rgb),.03),rgba(var(--fg-rgb),.008))}
-.res .hero1 .n{color:var(--ink);font-size:clamp(84px,12vw,190px)}
-.badge{font-family:var(--mono);font-size:11px;padding:3px 9px;border-radius:99px;border:1px solid var(--line2);color:var(--fg2);letter-spacing:.04em;text-transform:none}
-.badge.p{border-color:rgba(var(--warn-rgb),.4);color:var(--warn)}
-@media (max-width:760px){.res{grid-template-columns:1fr}.res .hero1{grid-column:auto}}
+/* ---------- V · proof ---------- */
+.gridwrap{padding:28px 28px 22px}
+#grid{width:100%;display:block;touch-action:pan-y}
+.gleg{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:18px;font-family:var(--mono);font-size:12px;color:var(--mute)}
+.gleg>div{display:flex;gap:18px;flex-wrap:wrap}
+.gleg span{display:flex;align-items:center;gap:8px}.gleg i{width:9px;height:9px;border-radius:50%}
+#tip{position:fixed;z-index:70;pointer-events:none;font-family:var(--mono);font-size:12px;padding:8px 10px;border-radius:8px;background:rgba(var(--bg-rgb),.94);border:1px solid var(--line2);opacity:0;transform:translate(14px,14px);transition:opacity .15s;white-space:nowrap;color:var(--fg)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden;margin-top:18px}
+.stat{background:var(--bg2);padding:26px 24px}
+.stat .n{font-weight:800;font-size:clamp(40px,4.4vw,68px);letter-spacing:-.05em;line-height:1;font-variant-numeric:tabular-nums}
+.stat .n small{font-size:.45em;color:var(--mute);font-weight:600;letter-spacing:-.02em}
+.stat p{color:var(--mute);font-size:13.5px;margin-top:10px}
+.ranks{display:flex;gap:2px;margin-top:16px;height:34px;align-items:flex-end}
+.ranks i{flex:1;height:30%;background:var(--dim);border-radius:1px;opacity:.6}
+.ranks i.me{height:100%;background:var(--ink);opacity:1}
+.ranks i.one{height:65%;background:var(--cool);opacity:.9}
+@media (max-width:900px){.stats{grid-template-columns:1fr 1fr}}
+.rtable{margin-top:clamp(60px,8vw,100px);border-top:1px solid var(--line2)}
+.rrow{display:grid;grid-template-columns:1.1fr .8fr 1.5fr auto;gap:24px;align-items:center;padding:24px 0;border-bottom:1px solid var(--line)}
+.rrow .bm{font-weight:700;font-size:clamp(18px,1.8vw,24px);letter-spacing:-.02em}
+.rrow .bm small{display:block;font-family:var(--mono);font-size:12px;color:var(--mute);font-weight:400;letter-spacing:0;margin-top:4px}
+.rrow .val{font-weight:900;font-size:clamp(36px,4vw,60px);letter-spacing:-.05em;line-height:1;font-variant-numeric:tabular-nums}
+.rrow .val small{font-size:.38em;color:var(--mute);font-weight:600;letter-spacing:-.01em;margin-left:4px}
+.rrow .ev{color:var(--fg2);font-size:14.5px}
+.rrow .ev small{display:block;font-family:var(--mono);font-size:11.5px;color:var(--mute);margin-top:6px}
+.rrow:first-child .val{color:var(--ink)}
+@media (max-width:860px){.rrow{grid-template-columns:1fr auto;gap:10px 18px}.rrow .ev{grid-column:1/-1}.rrow .tag{grid-row:1;grid-column:2}}
 
-/* 06 decisions */
-.dec{margin-top:56px;border-top:1px solid var(--line2)}
-.dr{display:grid;grid-template-columns:1.25fr 1.2fr .9fr;gap:24px;padding:30px 0;border-bottom:1px solid var(--line);align-items:center;position:relative}
-.dr::before{content:"";position:absolute;inset:0 calc(-1*var(--gut));background:linear-gradient(90deg,transparent,rgba(var(--acid-rgb),.05),transparent);opacity:0;transition:opacity .3s;pointer-events:none}
-.dr:hover::before{opacity:1}
-.dr h3{font-weight:700;font-size:clamp(20px,2.2vw,30px);letter-spacing:-.025em;line-height:1.1}
-.dr h3 small{display:block;font-family:var(--mono);font-size:12px;font-weight:400;color:var(--mute);letter-spacing:0;margin-top:8px;line-height:1.5}
-.dr .vs{font-family:var(--mono);font-size:14px;color:var(--fg2);line-height:1.7}
-.dr .vs b{color:var(--fg);font-size:clamp(20px,2vw,28px);font-family:var(--sans);font-weight:800;letter-spacing:-.03em}
-.dr .vs b.w{color:var(--ink)}
-.verdict{justify-self:end;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:9px 14px;border-radius:99px;border:1px solid var(--line2);white-space:nowrap}
-.verdict.x{color:var(--coral);border-color:rgba(var(--coral-rgb),.4)}
-.verdict.x::before{content:"✕  "}
-.verdict.o{color:var(--warn);border-color:rgba(var(--warn-rgb),.4)}
-.verdict.o::before{content:"◐  "}
-.verdict.k{color:var(--ink);border-color:rgba(var(--acid-rgb),.4)}
-.verdict.k::before{content:"✓  "}
-.dr.dead h3 span.t{position:relative;display:inline-block}
-.dr.dead h3 span.t::after{content:"";position:absolute;left:-2%;right:-2%;top:52%;height:2px;background:var(--coral);transform:scaleX(0);transform-origin:left;transition:transform .9s cubic-bezier(.16,1,.3,1) .4s}
-.dr.dead.in h3 span.t::after{transform:scaleX(1)}
-@media (max-width:860px){.dr{grid-template-columns:1fr;gap:12px}.verdict{justify-self:start}}
-.nos{display:flex;gap:12px;flex-wrap:wrap;margin-top:40px}
-.nos span{font-family:var(--mono);font-size:13px;padding:10px 16px;border-radius:99px;border:1px dashed var(--line2);color:var(--mute)}
-.nos .lbl{border:0;padding-left:0;font-size:12px;letter-spacing:.1em;text-transform:uppercase}
-.nos .lbl span{border:0;padding:0}
-.nos span s{text-decoration-color:var(--coral);text-decoration-thickness:2px;color:var(--fg2)}
+/* ---------- VI · fine print ---------- */
+.fp{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:0 48px;border-top:1px solid var(--line2)}
+.fp>div{padding:26px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:44px 1fr;gap:8px}
+.fp .num{font-family:var(--mono);font-size:12px;color:var(--mute);padding-top:5px}
+.fp h4{font-weight:700;font-size:19px;letter-spacing:-.015em}
+.fp p{color:var(--fg2);font-size:15px;margin-top:8px}
 
-/* 07 fine print */
-.fp{counter-reset:fp;margin-top:56px;display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:18px}
-.fp .card{padding:28px 28px 30px}
-.fp .card::marker{content:none}
-.fp .num{font-family:var(--mono);font-size:12px;color:var(--ink);letter-spacing:.1em}
-.fp p{font-size:clamp(17px,1.4vw,20px);line-height:1.45;margin-top:16px;color:var(--fg);letter-spacing:-.01em}
-.fp p small{display:block;color:var(--mute);font-size:14px;margin-top:10px;letter-spacing:0;line-height:1.55}
-
-/* 08 run */
-.run{display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(24px,4vw,56px);align-items:center}
+/* ---------- VII · run ---------- */
+.run{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(24px,4vw,56px);align-items:center}
 @media (max-width:900px){.run{grid-template-columns:1fr}}
-.cmd{padding:0;overflow:hidden}
 .cmd .row{display:flex;align-items:center;gap:14px;padding:16px 20px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:13.5px;color:var(--fg2)}
 .cmd .row:last-child{border-bottom:0}
 .cmd .row::before{content:"$";color:var(--ink)}
 .cmd .row code{flex:1;overflow:auto;white-space:nowrap;scrollbar-width:none}
 .cmd .row code::-webkit-scrollbar{display:none}
 .copy{font-family:var(--mono);font-size:11px;background:transparent;color:var(--mute);border:1px solid var(--line2);border-radius:6px;padding:4px 9px;cursor:pointer;flex:none}
-.copy:hover{color:var(--fg);border-color:var(--ink)}
-.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:34px}
-.btn{display:inline-flex;align-items:center;gap:10px;font-weight:600;font-size:16px;padding:16px 24px;border-radius:99px;border:1px solid var(--line2);transition:background .25s,color .25s,border-color .25s;will-change:transform}
-.btn:hover{border-color:var(--fg)}
-.btn.p{background:var(--acid);color:var(--on-acid);border-color:var(--acid)}
-.btn.p:hover{background:var(--fg);border-color:var(--fg);color:var(--bg)}
-.btn svg{width:18px;height:18px}
+.copy:hover{color:var(--fg);border-color:var(--fg2)}
 
-/* footer */
-footer{position:relative;padding:clamp(100px,14vw,200px) var(--gut) 40px;overflow:hidden;border-top:1px solid var(--line)}
-footer .motto{font-weight:900;font-size:clamp(46px,9.5vw,170px);line-height:.88;letter-spacing:-.06em;max-width:var(--max);margin:0 auto}
-footer .motto em.s{color:var(--ink);font-size:1.05em}
-footer .motto .zhm{display:block;font-size:.42em;letter-spacing:-.02em;color:var(--mute);margin-top:.5em;font-weight:700}
-footer .bot{max-width:var(--max);margin:clamp(70px,10vw,140px) auto 0;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-family:var(--mono);font-size:12px;color:var(--mute)}
-footer .bot a:hover{color:var(--ink)}
-footer .bot nav{all:unset;display:flex;gap:22px;flex-wrap:wrap}
-.glow{position:absolute;width:70vw;height:70vw;left:50%;bottom:-45vw;transform:translateX(-50%);background:radial-gradient(closest-side,rgba(var(--acid-rgb),.16),transparent);filter:blur(30px);pointer-events:none;z-index:-1}
-
-.dk{color:var(--fg)}
-.card.dk{background:var(--bg2)}
-:root[data-theme="light"] body::after{display:none}
-:root[data-theme="light"] .card:not(.dk){background:#fff;box-shadow:0 1px 2px rgba(20,24,60,.04),0 12px 32px -18px rgba(20,24,60,.14)}
-:root[data-theme="light"] .stat,:root[data-theme="light"] .loc div{background:#fff}
-:root[data-theme="light"] .big{background:none;color:var(--fg)}
-:root[data-theme="light"] .ab .ours .n{text-shadow:none}
-:root[data-theme="light"] .herosub h1 em.s,:root[data-theme="light"] footer .motto em.s{color:var(--fg);background:linear-gradient(transparent 58%,var(--acid) 58%,var(--acid) 92%,transparent 92%);padding:0 .08em}
-:root[data-theme="light"] .bar.ours .fill{box-shadow:inset 0 0 0 1px rgba(var(--ink-rgb),.35)}
+/* ---------- footer ---------- */
+footer{margin-top:clamp(110px,14vw,190px);border-top:1px solid var(--line);overflow:hidden}
+.wordmark{font-weight:900;font-size:clamp(60px,16.5vw,290px);letter-spacing:-.07em;line-height:.82;white-space:nowrap;padding:clamp(40px,6vw,80px) 0 .12em;
+  background:linear-gradient(90deg,var(--ink),var(--tool));-webkit-background-clip:text;background-clip:text;color:transparent}
+footer .bot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-family:var(--mono);font-size:12px;color:var(--mute);padding:28px 0 36px}
+footer .bot a:hover{color:var(--fg)}
+footer .links{display:flex;gap:22px;flex-wrap:wrap}
 
 @media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
   *,*::before,*::after{animation:none!important;transition:none!important}
-  .rv{opacity:1;transform:none}.mask>span{transform:none}
-  .bar .fill,.ranks i{transform:none}
+  .rv{opacity:1;transform:none}.mask>span{transform:none}.bar .fill,.dots230 i{transform:none}
 }
 </style>
 </head>
@@ -362,14 +361,16 @@ footer .bot nav{all:unset;display:flex;gap:22px;flex-wrap:wrap}
 <div id="progress"></div>
 <div id="tip"></div>
 
-<nav id="nav">
+<nav class="top" id="nav">
   <a class="logo" href="#top"><i></i>minimal·rag</a>
-  <div class="navlinks">
-    <a href="#efficiency"><span class="en">Results</span><span class="zh">成绩</span></a>
-    <a href="#trace"><span class="en">Live trace</span><span class="zh">真实轨迹</span></a>
-    <a href="#design"><span class="en">Design</span><span class="zh">设计</span></a>
-    <a href="#fine-print"><span class="en">Fine print</span><span class="zh">口径</span></a>
-    <a href="#run"><span class="en">Run</span><span class="zh">运行</span></a>
+  <div class="chapters" id="chapters">
+    <a href="#idea"><b>01</b><span class="en">Idea</span><span class="zh">理念</span></a>
+    <a href="#judgment"><b>02</b><span class="en">Judgment</span><span class="zh">判断</span></a>
+    <a href="#capability"><b>03</b><span class="en">Capability</span><span class="zh">能力</span></a>
+    <a href="#minimal"><b>04</b><span class="en">Minimal</span><span class="zh">极简</span></a>
+    <a href="#proof"><b>05</b><span class="en">Proof</span><span class="zh">成绩</span></a>
+    <a href="#fine-print"><b>06</b><span class="en">Fine print</span><span class="zh">口径</span></a>
+    <a href="#run"><b>07</b><span class="en">Run</span><span class="zh">运行</span></a>
   </div>
   <div class="navr">
     <button class="pill" id="theme" aria-label="Toggle day and night"><b class="sun">☀</b><span class="moon">☀</span> / <b class="moon">☾</b><span class="sun">☾</span></button>
@@ -378,115 +379,107 @@ footer .bot nav{all:unset;display:flex;gap:22px;flex-wrap:wrap}
   </div>
 </nav>
 
-<!-- HERO -->
-<header id="hero">
-  <a id="top"></a>
-  <div class="stage">
-    <canvas id="field" aria-label="830 dots, one per BrowseComp-Plus query; 781 correct, 49 incorrect"></canvas>
-    <div class="hero-a">
-      <div class="eyebrow"><span class="dot"></span>
-        <span class="en">BrowseComp-Plus · all 830 queries · #2 of 85 on the Agents leaderboard</span>
-        <span class="zh">BrowseComp-Plus · 全量 830 题 · Agents 榜 85 个条目中第 2</span>
-      </div>
-      <div class="big" aria-label="94.1 percent">94.1<sup>%</sup></div>
-      <div class="herosub">
-        <h1>
-          <span class="en">One agent. Plain BM25. <em class="s">~400 lines</em> of core code.</span>
-          <span class="zh">单智能体，纯 BM25，<em class="s">约 400 行</em>核心代码。</span>
-        </h1>
-        <div class="hero-meta">
-          <span class="en"><b>12.7</b> searches / query · <b>gpt-6.1-sol</b><br>Self-scored with the official script · verification pending</span>
-          <span class="zh">每题 <b>12.7</b> 次搜索 · <b>gpt-6.1-sol</b><br>官方脚本自评 · 等待维护方复核</span>
-        </div>
+<!-- ============ THESIS ============ -->
+<header class="hero wrap" id="top">
+  <div class="hero-grid">
+    <div>
+      <div class="eyebrow"><span class="en">Minimal RAG — question answering over large document collections</span><span class="zh">Minimal RAG —— 面向大规模文档库的检索问答</span></div>
+      <h1 class="manifesto rv">
+        <span class="en"><span class="mask"><span>Leave judgment</span></span><span class="mask"><span style="--i:1">to the <em class="s m">model.</em></span></span><span class="mask"><span style="--i:2">Give it capable</span></span><span class="mask"><span style="--i:3"><em class="s t">tools.</em></span></span></span>
+        <span class="zh"><span class="mask"><span>判断交给<em class="s m">模型</em>，</span></span><span class="mask"><span style="--i:1">能力交给<em class="s t">工具</em>。</span></span></span>
+      </h1>
+      <p class="hero-sub rv" style="--i:4"><span class="en">One model loop and two tools — no pipeline in between. The model decides what to search, what to read and when to answer.</span><span class="zh">一个模型循环、两个工具，中间没有流水线。搜什么、读什么、何时回答，都由模型决定。</span></p>
+      <div class="cta rv" style="--i:5">
+        <a class="btn p" href="#idea"><span class="en">See how it works</span><span class="zh">看它怎么工作</span> ↓</a>
+        <a class="btn" href="https://github.com/hxli2005/minimal-rag"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.2-3.1-.1-.4-.5-1.6.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.6 18.3 5 18.3 5c.7 1.6.2 2.8.1 3.2.8.8 1.2 1.9 1.2 3.1 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5z"/></svg>GitHub</a>
       </div>
     </div>
-    <div class="hero-b">
-      <h2><span class="en">Every dot is one query. <span class="ok">781</span> right, <span class="no">49</span> wrong.</span><span class="zh">每个点是一道题：<span class="ok">781</span> 对，<span class="no">49</span> 错。</span></h2>
-      <p><span class="en">Real per-query results from the submitted run, in query-ID order. Brightness is evidence recall. Hover any dot.</span><span class="zh">来自提交运行的逐题真实结果，按题号排列；亮度表示证据召回率。把鼠标移到任意点上查看。</span></p>
-    </div>
-    <div class="legend">
-      <span><i style="background:var(--ink)"></i><span class="en">correct</span><span class="zh">正确</span></span>
-      <span><i style="background:var(--coral)"></i><span class="en">incorrect</span><span class="zh">错误</span></span>
-      <span><i style="background:rgba(var(--ink-rgb),.3)"></i><span class="en">dimmer = lower recall</span><span class="zh">越暗 = 召回越低</span></span>
-      <span>recall 88.13% · calibration error 1.44% · 3.4 reads / query</span>
-    </div>
-    <div class="scrollhint"><span class="en">scroll</span><span class="zh">向下</span></div>
+    <svg id="loopfig" viewBox="0 0 540 500" role="img" aria-label="The model decides and calls two tools, search and read; results come back; the model answers with sources">
+      <defs><radialGradient id="mglow"><stop offset="0" style="stop-color:var(--ink)" stop-opacity=".2"/><stop offset="1" style="stop-color:var(--ink)" stop-opacity="0"/></radialGradient></defs>
+      <circle cx="170" cy="230" r="160" fill="url(#mglow)"/>
+      <path id="p-so" d="M262 196 C 310 150, 330 128, 372 124" fill="none" style="stroke:rgba(var(--ink-rgb),.35)" stroke-dasharray="3 6"/>
+      <path id="p-si" d="M372 152 C 330 160, 310 190, 266 214" fill="none" style="stroke:rgba(var(--tool-rgb),.35)" stroke-dasharray="3 6"/>
+      <path id="p-ro" d="M266 248 C 310 270, 330 300, 372 308" fill="none" style="stroke:rgba(var(--ink-rgb),.35)" stroke-dasharray="3 6"/>
+      <path id="p-ri" d="M372 336 C 330 340, 300 300, 262 266" fill="none" style="stroke:rgba(var(--tool-rgb),.35)" stroke-dasharray="3 6"/>
+      <circle cx="170" cy="230" r="98" style="fill:var(--bg2);stroke:var(--ink)" stroke-width="1.5"/>
+      <circle cx="170" cy="230" r="111" fill="none" style="stroke:rgba(var(--ink-rgb),.3)" stroke-dasharray="2 8" id="mring"/>
+      <text x="170" y="198" text-anchor="middle" style="font-size:11px;letter-spacing:.18em;fill:var(--mute)">MODEL</text>
+      <text x="170" y="237" text-anchor="middle" id="mthought" style="font-family:var(--sans);font-size:17px;font-weight:700;fill:var(--ink)">what to search?</text>
+      <text x="170" y="264" text-anchor="middle" style="font-size:11px;fill:var(--dim)" id="mturn">turn 1</text>
+      <text x="170" y="372" text-anchor="middle" style="font-family:var(--serif);font-style:italic;font-size:26px;fill:var(--ink)">judgment</text>
+      <g><rect x="372" y="108" width="150" height="60" rx="14" style="fill:var(--bg2);stroke:var(--tool)"/><text x="447" y="135" text-anchor="middle" style="font-size:16px;font-weight:700;fill:var(--tool)">search</text><text x="447" y="155" text-anchor="middle" style="font-size:11px;fill:var(--mute)">BM25 · passages</text></g>
+      <g><rect x="372" y="292" width="150" height="60" rx="14" style="fill:var(--bg2);stroke:var(--tool)"/><text x="447" y="319" text-anchor="middle" style="font-size:16px;font-weight:700;fill:var(--tool)">read</text><text x="447" y="339" text-anchor="middle" style="font-size:11px;fill:var(--mute)">doc · offset · limit</text></g>
+      <text x="447" y="430" text-anchor="middle" style="font-family:var(--serif);font-style:italic;font-size:26px;fill:var(--tool)">capability</text>
+      <text x="522" y="92" text-anchor="end" id="call-s" style="font-size:12px;fill:var(--fg2)"></text>
+      <text x="522" y="380" text-anchor="end" id="call-r" style="font-size:12px;fill:var(--fg2)"></text>
+      <line x1="170" y1="392" x2="170" y2="450" style="stroke:var(--line2)" id="ansline"/>
+      <text x="170" y="476" text-anchor="middle" style="font-size:12px;fill:var(--mute)" id="anstext">answer + source IDs</text>
+      <circle r="6" id="dot" cx="-20" cy="-20" style="fill:var(--ink)"/>
+    </svg>
+  </div>
+  <div class="proofbar rv" style="--i:6">
+    <div><span class="n">94.1<small>%</small></span><p><span class="en">BrowseComp-Plus, all 830 queries · #2 of 85</span><span class="zh">BrowseComp-Plus 全量 830 题 · 85 个条目中第 2</span><small><span class="en">self-scored with the official script · verification pending</span><span class="zh">官方脚本自评 · 等待维护方复核</span></small></p></div>
+    <div><span class="n">12.7</span><p><span class="en">searches per query</span><span class="zh">每题平均搜索次数</span><small><span class="en">#1 on the leaderboard: ~209</span><span class="zh">榜首约 209 次</span></small></p></div>
+    <div><span class="n">~400</span><p><span class="en">lines of core code</span><span class="zh">行核心代码</span><small><span class="en">loop 66 · tools 192 · adapter 153</span><span class="zh">循环 66 · 工具 192 · 适配器 153</span></small></p></div>
   </div>
 </header>
 
-<div class="marquee" aria-hidden="true"><div class="track" id="mq">
-  <span>single agent</span><span>sqlite fts5 · bm25</span><span>search + read</span><span>no embeddings</span><span>no reranker</span><span>no fixed pipeline</span><span>12.7 searches / query</span><span>830 / 830 queries</span><span>every trace inspectable</span><span>paired a/b on every decision</span>
-</div></div>
-
-<!-- 01 EFFICIENCY -->
-<section class="s" id="efficiency">
-  <div class="kicker" data-scramble>01 — Efficiency</div>
-  <h2 class="h rv">
-    <span class="en"><span class="mask"><span>16× fewer searches</span></span><span class="mask"><span style="--i:1">than #1. <em class="s">1.1 points</em> behind.</span></span></span>
-    <span class="zh"><span class="mask"><span>搜索次数是第一名的</span></span><span class="mask"><span style="--i:1"><em class="s">1/16</em>，只差 1.1 个百分点。</span></span></span>
-  </h2>
-  <p class="lede rv" style="--i:2">
-    <span class="en">The leaderboard leader runs <b>multiple agents over hybrid dense retrieval</b>, averaging about 209 searches per query. Minimal RAG is <b>one agent over BM25</b> that averages 12.7 — and lets the model decide what to search, what to read and when to stop.</span>
-    <span class="zh">榜首是<b>多智能体 + 混合稠密检索</b>，平均每题约 209 次搜索。Minimal RAG 是<b>单智能体 + BM25</b>，平均 12.7 次——搜什么、读什么、何时回答，全部由模型决定。</span>
-  </p>
-
-  <div class="bars rv" style="--i:3">
-    <div class="bar ours" style="--w:6.08%">
-      <div class="lab"><b>Minimal RAG</b><small>94.10% · single agent · BM25 · gpt-6.1-sol</small></div>
-      <div class="rail"><div class="fill"></div><div class="val">12.7</div></div>
-    </div>
-    <div class="bar" style="--w:16.12%">
-      <div class="lab"><b><span class="en">Best BM25-only entry</span><span class="zh">此前最好的纯 BM25 条目</span></b><small>90.48% · BM25 + query expansion · GPT-5.5</small></div>
-      <div class="rail"><div class="fill"></div><div class="val">33.7</div></div>
-    </div>
-    <div class="bar top" style="--w:100%">
-      <div class="lab"><b><span class="en">Leaderboard #1</span><span class="zh">排行榜第 1</span></b><small>95.18% · multi-agent · Qwen2-7B + Reason-ModernColBERT · GPT-5</small></div>
-      <div class="rail"><div class="fill"></div><div class="val">~209</div></div>
-    </div>
-    <div class="note"><span class="en">Average search calls per query, BrowseComp-Plus Agents leaderboard snapshot of 2026-10-17.</span><span class="zh">每题平均搜索次数，BrowseComp-Plus Agents 榜 2026-10-17 快照。</span></div>
-  </div>
-
-  <div class="stats rv" style="--i:4">
-    <div class="stat acid">
-      <div class="n">#2<small> / 85</small></div>
-      <p><span class="en">On the public Agents leaderboard — and the highest single-agent and BM25-only entry.</span><span class="zh">公开 Agents 榜排名；同时是最高的单智能体条目和纯 BM25 条目。</span></p>
-      <div class="ranks" id="ranks"></div>
-    </div>
-    <div class="stat">
-      <div class="n" data-count="88.13" data-dec="2">0<small>%</small></div>
-      <p><span class="en">Evidence recall. The answer is backed by the documents it read.</span><span class="zh">证据召回率：答案来自实际读到的原文。</span></p>
-    </div>
-    <div class="stat">
-      <div class="n" data-count="1.44" data-dec="2">0<small>%</small></div>
-      <p><span class="en">Calibration error. Its confidence means what it says.</span><span class="zh">校准误差：模型说的把握度可信。</span></p>
+<!-- ============ I · IDEA ============ -->
+<section id="idea" data-ch="0">
+  <div id="dissolve">
+    <div class="dstage wrap">
+      <div class="dtext">
+        <div class="ch-label" style="color:var(--fg2)">01 — <span class="en">The idea</span><span class="zh">理念</span></div>
+        <div class="dstep" data-step="0">
+          <h3><span class="en">A typical RAG pipeline decides in code.</span><span class="zh">典型的 RAG 流水线，用代码做决定。</span></h3>
+          <p><span class="en">The query rewrite, the router, the retrievers, the top-k and the prompt are all fixed before the model ever sees the question.</span><span class="zh">查询改写、路由、检索器、top-k、提示词，在模型看到问题之前就全部定死了。</span></p>
+        </div>
+        <div class="dstep" data-step="1">
+          <h3><span class="en">Here, the <em class="s m">model</em> makes every decision.</span><span class="zh">在这里，每个决定都交给<em class="s m">模型</em>。</span></h3>
+          <p><span class="en">What to search, whether to search again, what to read and when to stop — decided by the model, every turn, for every question.</span><span class="zh">搜什么、要不要再搜、读哪里、何时停止——每道题、每一轮，都由模型判断。</span></p>
+        </div>
+        <div class="dstep" data-step="2">
+          <h3><span class="en">The <em class="s t">tools</em> do the work.</span><span class="zh">具体的活，交给<em class="s t">工具</em>。</span></h3>
+          <p><span class="en">Just two. <b>search</b> ranks original passages with BM25; <b>read</b> returns original text at any position. Both hand back document IDs and offsets the model can act on.</span><span class="zh">只有两个：<b>search</b> 用 BM25 给原文段落排序；<b>read</b> 返回任意位置的原文。两者都返回文档 ID 和偏移，模型可以直接接着用。</span></p>
+        </div>
+        <div class="dstep" data-step="3">
+          <h3><span class="en">Everything else is deleted.</span><span class="zh">其余的，全部删掉。</span></h3>
+          <p><span class="en">No embeddings, no reranker, no router. What connects the model to its tools is a 66-line loop.</span><span class="zh">没有向量、没有重排序、没有路由。连接模型和工具的，只是一个 66 行的循环。</span></p>
+        </div>
+        <div class="dcount" id="dcount"><span>01</span><i></i><i></i><i></i><i></i><span>04</span></div>
+      </div>
+      <div class="board" id="board">
+        <div class="spine" id="spine"></div>
+        <div class="colh m" id="h-model" style="left:0"><span><span class="en">Model</span><span class="zh">模型</span></span><em class="s">judgment</em></div>
+        <div class="colh t" id="h-tool" style="left:53%"><span><span class="en">Tools</span><span class="zh">工具</span></span><em class="s">capability</em></div>
+        <div class="colh" id="h-dead" style="left:0;top:80.5%;color:var(--coral)"><span class="en">deleted</span><span class="zh">已删除</span></div>
+        <div class="looppill" id="looppill"><span class="m">model</span><b>⟲ run_agent() · 66 lines</b><span class="t">tools</span></div>
+      </div>
     </div>
   </div>
 </section>
 
-<div class="kinetic" aria-hidden="true">
-  <div class="row" data-dir="1"><span>question</span><span class="ar">→</span><span class="a">search</span><span class="ar">→</span><span class="f">read</span><span class="ar">→</span><span>search</span><span class="ar">→</span><span class="f">read</span><span class="ar">→</span><span class="a">answer</span></div>
-  <div class="row" data-dir="-1"><span class="f">judgment</span><span class="ar">to the</span><span>model</span><span class="ar">·</span><span class="a">capability</span><span class="ar">to the</span><span>tools</span><span class="ar">·</span><span class="f">judgment</span></div>
-</div>
-
-<!-- 02 TRACE -->
-<section class="s" id="trace">
-  <div class="kicker" data-scramble>02 — Live trace</div>
-  <div class="grid2">
-    <h2 class="h rv"><span class="en"><span class="mask"><span>Watch one</span></span><span class="mask"><span style="--i:1"><em class="s">real</em> run.</span></span></span><span class="zh"><span class="mask"><span>看一次</span></span><span class="mask"><span style="--i:1"><em class="s">真实</em>运行。</span></span></span></h2>
-    <p class="lede rv" style="--i:2"><span class="en">Recorded on 2026-10-13 with <b>gpt-6.1-sol</b> over a five-document demo corpus. The model picked the query, the passage, the read window and the moment to stop. Nothing in the code decides for it.</span><span class="zh">2026-10-13 用 <b>gpt-6.1-sol</b> 在 5 篇演示文档上录制。查询词、选哪段、读多少、何时停止，都是模型自己选的，代码里没有替它做任何决定。</span></p>
+<!-- ============ II · JUDGMENT ============ -->
+<section class="ch wrap" id="judgment" data-ch="1">
+  <div class="ch-head">
+    <div class="ch-num rv">02</div>
+    <div>
+      <div class="ch-label m">02 — <span class="en">Judgment</span><span class="zh">判断</span></div>
+      <h2 class="rv"><span class="en">Watch the <em class="s m">model</em> decide.</span><span class="zh">看<em class="s m">模型</em>如何做判断。</span></h2>
+      <p class="lede rv" style="--i:1"><span class="en">A real run, recorded on 2026-10-13 with <b>gpt-6.1-sol</b> over a five-document demo corpus. Every green note marks a choice the model made on its own — nothing in the code makes it.</span><span class="zh">一次真实运行：2026-10-13 用 <b>gpt-6.1-sol</b> 在 5 篇演示文档上录制。每条绿色标注都是模型自己做出的选择，代码没有替它决定任何一步。</span></p>
+    </div>
   </div>
-
-  <div class="term dk rv" style="--i:3" id="term">
-    <div class="term-top"><div class="lights"><i></i><i></i><i></i></div><div class="t">minimal_rag ask --index sol-demo.sqlite --model gpt-6.1-sol --max-turns 4</div><span>replay</span></div>
+  <div class="term dk rv" id="term">
+    <div class="term-top"><div class="lights"><i></i><i></i><i></i></div><div class="tt">minimal_rag ask --index sol-demo.sqlite --model gpt-6.1-sol --max-turns 4</div><span>replay</span></div>
     <div class="term-body">
       <ul class="steps" id="steps">
-        <li data-s="0"><span class="en">Question</span><span class="zh">问题</span></li>
-        <li data-s="1"><span class="en">Model · call 1</span><span class="zh">模型 · 第 1 次</span></li>
-        <li data-s="2">search()</li>
-        <li data-s="3"><span class="en">Model · call 2</span><span class="zh">模型 · 第 2 次</span></li>
-        <li data-s="4">read()</li>
-        <li data-s="5"><span class="en">Model · call 3</span><span class="zh">模型 · 第 3 次</span></li>
-        <li data-s="6"><span class="en">Answer + source</span><span class="zh">答案与来源</span></li>
+        <li class="st"><span class="en">Question</span><span class="zh">问题</span></li>
+        <li class="sm"><span class="en">Decide: the query</span><span class="zh">判断：查询词</span></li>
+        <li class="st">search()</li>
+        <li class="sm"><span class="en">Decide: what to read</span><span class="zh">判断：读哪里</span></li>
+        <li class="st">read()</li>
+        <li class="sm"><span class="en">Decide: enough?</span><span class="zh">判断：够了吗</span></li>
+        <li class="sm"><span class="en">Answer + source</span><span class="zh">答案与来源</span></li>
         <div class="meter">
           <span class="en">model calls</span><span class="zh">模型调用</span> <b id="m-calls">0</b>/3<br>
           <span class="en">input tokens</span><span class="zh">输入 token</span> <b id="m-in">0</b><br>
@@ -502,202 +495,217 @@ footer .bot nav{all:unset;display:flex;gap:22px;flex-wrap:wrap}
   </div>
 </section>
 
-<!-- 03 INTERFACE -->
-<section class="s" id="interface">
-  <div class="kicker" data-scramble>03 — The interface</div>
-  <h2 class="h rv"><span class="en"><span class="mask"><span>The tools are</span></span><span class="mask"><span style="--i:1">the <em class="s">product.</em></span></span></span><span class="zh"><span class="mask"><span>工具接口，</span></span><span class="mask"><span style="--i:1">才是<em class="s">产品</em>。</span></span></span></h2>
-  <p class="lede rv" style="--i:2"><span class="en">Same model. Same BM25 index. Same 230 queries. Swap our <b>search/read</b> for the benchmark's standard search tool and correct answers drop from <b>217 to 194</b>. The gain is interface design, not only the model.</span><span class="zh">同一模型、同一 BM25 索引、同样 230 道题。把我们的 <b>search/read</b> 换成基准自带的标准搜索工具，答对数从 <b>217 掉到 194</b>。提升来自工具接口设计，而不只是模型。</span></p>
+<!-- ============ III · CAPABILITY ============ -->
+<section class="ch wrap" id="capability" data-ch="2">
+  <div class="ch-head">
+    <div class="ch-num rv">03</div>
+    <div>
+      <div class="ch-label t">03 — <span class="en">Capability</span><span class="zh">能力</span></div>
+      <h2 class="rv"><span class="en">Same model. Better <em class="s t">tools.</em> 23 more right.</span><span class="zh">同一个模型，换上更好的<em class="s t">工具</em>，多答对 23 题。</span></h2>
+      <p class="lede rv" style="--i:1"><span class="en">Same model, same BM25 index, same 230 queries. Replace our search/read with the benchmark's standard search tool and correct answers fall from <b>217 to 194</b>. The gain comes from the interface, not only the model.</span><span class="zh">同一模型、同一 BM25 索引、同样 230 道题。把我们的 search/read 换成基准自带的标准搜索工具，答对数从 <b>217 掉到 194</b>。提升来自工具接口，而不只是模型。</span></p>
+    </div>
+  </div>
+
+  <div class="tools2">
+    <div class="card rv">
+      <div class="sig"><b>search</b>(query, limit)</div>
+      <p><span class="en">Ranks original passages with SQLite FTS5 BM25 and returns each with its document ID and character offset — real text, not a summary.</span><span class="zh">用 SQLite FTS5 BM25 给原文段落排序，每条都带文档 ID 和字符偏移——给的是原文，不是摘要。</span></p>
+      <div class="eg">→ "Remediation SLA options + customer tier mapping…" · dsid_c838… · @0</div>
+    </div>
+    <div class="card rv" style="--i:1">
+      <div class="sig"><b>read</b>(document_id, offset, limit)</div>
+      <p><span class="en">Returns original text at any position in any document. Where to look and how much to read is up to the model — like a person scrolling a file.</span><span class="zh">返回任意文档任意位置的原文。读哪里、读多少由模型决定，就像人翻文件一样。</span></p>
+      <div class="eg">→ read("dsid_c838…", 3900, 6000) · "TTM (same across tiers) — Sev0: 30 minutes…"</div>
+    </div>
+  </div>
 
   <div class="ab">
-    <div class="card ours rv" style="--i:1">
-      <div class="who2">search + read <span class="en">(ours)</span><span class="zh">（本项目）</span></div>
+    <div class="card ours rv" style="--c:var(--tool-rgb)">
+      <div class="who2"><span class="sig" style="font-size:15px"><b>search + read</b></span><span class="tag t"><span class="en">ours</span><span class="zh">本项目</span></span></div>
       <div class="n" data-count="217">0</div>
       <div class="of">/ 230 correct · 94.3%</div>
       <div class="dots230" data-y="217"></div>
     </div>
-    <div class="card theirs rv" style="--i:2">
-      <div class="who2"><span class="en">benchmark's standard search tool</span><span class="zh">基准标准搜索工具</span></div>
+    <div class="card theirs rv" style="--i:1;--c:143,150,168">
+      <div class="who2"><span class="sig" style="font-size:15px;color:var(--mute)">standard search</span><span class="tag g"><span class="en">benchmark default</span><span class="zh">基准默认</span></span></div>
       <div class="n" data-count="194">0</div>
       <div class="of">/ 230 correct · 84.3%</div>
       <div class="dots230" data-y="194"></div>
     </div>
   </div>
-
-  <div class="card ci rv">
+  <div class="card ci rv" style="--c:var(--tool-rgb)">
     <div class="ci-head">
-      <div><div class="who2 note" style="text-transform:uppercase;letter-spacing:.1em"><span class="en">paired difference</span><span class="zh">配对差值</span></div><div class="n">+10.0 pp</div></div>
+      <div><div class="note" style="text-transform:uppercase;letter-spacing:.1em"><span class="en">paired difference</span><span class="zh">配对差值</span></div><div class="n">+10.0 pp</div></div>
       <div class="note"><span class="en">95% CI [5.2, 14.8] — excludes zero.</span><span class="zh">95% 置信区间 [5.2, 14.8]，不含 0。</span></div>
     </div>
-    <svg viewBox="0 0 1000 120" id="cisvg" role="img" aria-label="Confidence interval from 5.2 to 14.8 percentage points, point estimate 10.0">
-      <line x1="0" y1="70" x2="1000" y2="70" style="stroke:rgba(var(--fg-rgb),.14)"/>
-      <g font-family="JetBrains Mono" font-size="13" text-anchor="middle" style="fill:var(--mute)">
-        <line x1="250" y1="40" x2="250" y2="100" style="stroke:var(--coral)" stroke-dasharray="4 4"/><text x="250" y="122" style="fill:var(--coral)">0</text>
-        <text x="0" y="122" text-anchor="start">−5</text><text x="500" y="122">5</text><text x="750" y="122">10</text><text x="1000" y="122" text-anchor="end">15 pp</text>
-      </g>
-      <rect id="ci-band" x="510" y="56" width="0" height="28" rx="14" style="fill:rgba(var(--acid-rgb),.18);stroke:var(--ink)" stroke-width="1.5"/>
-      <circle id="ci-dot" cx="750" cy="70" r="0" style="fill:var(--ink)"/>
-      <text x="510" y="44" font-family="JetBrains Mono" font-size="13" text-anchor="middle" style="fill:var(--fg2)">5.2</text>
-      <text x="990" y="44" font-family="JetBrains Mono" font-size="13" text-anchor="middle" style="fill:var(--fg2)">14.8</text>
+    <svg viewBox="0 0 1000 124" role="img" aria-label="Confidence interval 5.2 to 14.8 percentage points, estimate 10.0">
+      <line x1="0" y1="70" x2="1000" y2="70" style="stroke:var(--line2)"/>
+      <line x1="250" y1="40" x2="250" y2="100" style="stroke:var(--coral)" stroke-dasharray="4 4"/>
+      <g text-anchor="middle" style="fill:var(--mute)"><text x="250" y="120" style="fill:var(--coral)">0</text><text x="0" y="120" text-anchor="start">−5</text><text x="500" y="120">5</text><text x="750" y="120">10</text><text x="1000" y="120" text-anchor="end">15 pp</text></g>
+      <rect id="ci-band" x="510" y="56" width="0" height="28" rx="14" style="fill:rgba(var(--tool-rgb),.18);stroke:var(--tool)" stroke-width="1.5"/>
+      <circle id="ci-dot" cx="750" cy="70" r="0" style="fill:var(--tool)"/>
+      <g text-anchor="middle" style="fill:var(--fg2)"><text x="510" y="44">5.2</text><text x="990" y="44">14.8</text></g>
     </svg>
   </div>
 
-  <div class="tools">
-    <div class="card rv" style="--i:1">
-      <code class="sig"><b>search</b>(query, limit)</code>
-      <p><span class="en">Ranks original passages with SQLite FTS5 BM25 and returns them with document ID and character offset, so the model sees real text, not a summary.</span><span class="zh">用 SQLite FTS5 BM25 给原文段落排序，并返回文档 ID 与字符偏移——模型看到的是原文，不是摘要。</span></p>
-      <div class="eg">→ "Remediation SLA options + customer tier mapping…"<br>&nbsp;&nbsp;dsid_c838… · offset 0 · 4000 chars</div>
+  <div class="sub-h rv">
+    <h3><span class="en">Better tools, fewer moves.</span><span class="zh">工具越好，动作越少。</span></h3>
+    <div class="note"><span class="en">Average searches per query · BrowseComp-Plus Agents leaderboard, 2026-10-17</span><span class="zh">每题平均搜索次数 · BrowseComp-Plus Agents 榜，2026-10-17</span></div>
+  </div>
+  <div class="bars rv">
+    <div class="bar ours" style="--w:6.08%">
+      <div class="lab"><b>Minimal RAG</b><small>94.10% · <span class="en">single agent</span><span class="zh">单智能体</span> · BM25 · gpt-6.1-sol</small></div>
+      <div class="rail"><div class="fill"></div><div class="val">12.7</div></div>
     </div>
-    <div class="card rv" style="--i:2">
-      <code class="sig"><b>read</b>(document_id, offset, limit)</code>
-      <p><span class="en">Returns original text at any position in any document. The model decides where to look and how much to read — like a person scrolling a file.</span><span class="zh">按文档 ID 和字符偏移返回任意位置的原文。读哪里、读多少由模型决定，就像人翻文件一样。</span></p>
-      <div class="eg">→ read("dsid_c838…", offset=3900, limit=6000)<br>&nbsp;&nbsp;"TTM (same across tiers) — Sev0: 30 minutes…"</div>
+    <div class="bar" style="--w:16.12%">
+      <div class="lab"><b><span class="en">Best BM25-only entry before ours</span><span class="zh">此前最好的纯 BM25 条目</span></b><small>90.48% · BM25 + query expansion · GPT-5.5</small></div>
+      <div class="rail"><div class="fill"></div><div class="val">33.7</div></div>
+    </div>
+    <div class="bar top" style="--w:100%">
+      <div class="lab"><b><span class="en">Leaderboard #1</span><span class="zh">排行榜第 1</span></b><small>95.18% · multi-agent · Qwen2-7B + Reason-ModernColBERT · GPT-5</small></div>
+      <div class="rail"><div class="fill"></div><div class="val">~209</div></div>
     </div>
   </div>
 </section>
 
-<!-- 04 ARCHITECTURE -->
-<section class="s" id="design">
-  <div class="kicker" data-scramble>04 — Architecture</div>
-  <h2 class="h rv"><span class="en"><span class="mask"><span>The whole loop</span></span><span class="mask"><span style="--i:1">fits on <em class="s">one screen.</em></span></span></span><span class="zh"><span class="mask"><span>整个循环，</span></span><span class="mask"><span style="--i:1"><em class="s">一屏</em>装下。</span></span></span></h2>
-  <p class="lede rv" style="--i:2"><span class="en">The model replies with text or tool calls. The loop runs the tools and appends what they return. That is the entire control flow — <b>judgment lives in the model, capability lives in the tools</b>, so a stronger model makes the whole system stronger.</span><span class="zh">模型返回文本或工具调用；循环执行工具、把结果追加回上下文。控制流就这些——<b>判断交给模型，能力交给工具</b>，所以模型变强，整个系统直接变强。</span></p>
-
-  <div class="arch">
-    <div class="card diagram rv" style="--i:1">
-      <svg viewBox="0 0 560 520" role="img" aria-label="Loop: question enters the loop, model replies with tool calls to search or read, tool results return to the loop, or the model answers with source IDs">
-        <defs>
-          <radialGradient id="gl"><stop offset="0" style="stop-color:var(--ink)" stop-opacity=".35"/><stop offset="1" style="stop-color:var(--ink)" stop-opacity="0"/></radialGradient>
-          <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" style="fill:var(--mute)"/></marker>
-        </defs>
-        <circle cx="280" cy="260" r="150" fill="none" stroke-width="1" style="stroke:rgba(var(--fg-rgb),.1)"/>
-        <path id="ring" d="M280 110 A150 150 0 1 1 279.9 110" fill="none" style="stroke:rgba(var(--ink-rgb),.45)" stroke-width="1.5" stroke-dasharray="3 7">
-          <animate attributeName="stroke-dashoffset" from="0" to="-100" dur="4s" repeatCount="indefinite"/>
-        </path>
-        <circle r="22" fill="url(#gl)"><animateMotion dur="5s" repeatCount="indefinite" rotate="auto"><mpath href="#ring"/></animateMotion></circle>
-        <circle r="4.5" style="fill:var(--ink)"><animateMotion dur="5s" repeatCount="indefinite"><mpath href="#ring"/></animateMotion></circle>
-        <!-- center -->
-        <text x="280" y="250" text-anchor="middle" style="font-size:12px;fill:var(--mute);letter-spacing:.14em">RUN_AGENT</text>
-        <text x="280" y="276" text-anchor="middle" style="font-family:'Inter Tight';font-size:26px;font-weight:800;fill:var(--fg)">loop</text>
-        <text x="280" y="298" text-anchor="middle" style="font-size:11px;fill:var(--dim)">66 lines</text>
-        <!-- model top -->
-        <g><rect x="200" y="86" width="160" height="48" rx="24" style="fill:var(--bg2);stroke:var(--ink)"/><text x="280" y="115" text-anchor="middle" style="fill:var(--ink);font-weight:700">model</text></g>
-        <!-- tools -->
-        <g><rect x="372" y="300" width="140" height="44" rx="12" style="fill:var(--bg2);stroke:rgba(var(--fg-rgb),.22)"/><text x="442" y="327" text-anchor="middle">search · BM25</text></g>
-        <g><rect x="48" y="300" width="140" height="44" rx="12" style="fill:var(--bg2);stroke:rgba(var(--fg-rgb),.22)"/><text x="118" y="327" text-anchor="middle">read · offset</text></g>
-        <g><rect x="200" y="386" width="160" height="44" rx="12" style="fill:var(--bg2);stroke:rgba(var(--tool-rgb),.5)"/><text x="280" y="413" text-anchor="middle" style="fill:var(--tool)">tool results</text></g>
-        <!-- question in / answer out -->
-        <line x1="20" y1="40" x2="196" y2="98" marker-end="url(#ah)" style="stroke:var(--mute)"/>
-        <text x="20" y="30">question</text>
-        <line x1="364" y1="98" x2="532" y2="40" style="stroke:var(--ink)" marker-end="url(#ah)"/>
-        <text x="540" y="30" text-anchor="end" style="fill:var(--ink)">answer + source IDs</text>
-        <text x="280" y="490" text-anchor="middle" style="fill:var(--dim);font-size:12px">no router · no reranker · no fixed pipeline</text>
-      </svg>
+<!-- ============ IV · MINIMAL ============ -->
+<section class="ch wrap" id="minimal" data-ch="3">
+  <div class="ch-head">
+    <div class="ch-num rv">04</div>
+    <div>
+      <div class="ch-label" style="color:var(--fg2)">04 — <span class="en">Minimal</span><span class="zh">极简</span></div>
+      <h2 class="rv"><span class="en">What's left is a <em class="s">loop.</em></span><span class="zh">剩下的，只是一个<em class="s">循环</em>。</span></h2>
+      <p class="lede rv" style="--i:1"><span class="en">The model replies with text or tool calls; the loop runs the tools and appends the results. That is the entire control flow. <span class="m">Green</span> lines hand control to the model; <span class="t">blue</span> lines run a tool.</span><span class="zh">模型返回文本或工具调用；循环执行工具、把结果追加回去。控制流就这些。<span class="m">绿色</span>行把控制权交给模型，<span class="t">蓝色</span>行执行工具。</span></p>
     </div>
-    <div class="card code dk rv" style="--i:2">
+  </div>
+  <div class="min">
+    <div class="card code dk rv">
       <div class="bar2"><span>src/minimal_rag/loop.py</span><span>run_agent()</span></div>
       <pre id="code"></pre>
     </div>
+    <div class="side">
+      <div class="card rv" style="--i:1"><div class="n" data-count="66">0<small>lines</small></div><p><span class="en">core loop</span><span class="zh">核心循环</span></p></div>
+      <div class="card rv" style="--i:2;--c:var(--tool-rgb)"><div class="n" data-count="192">0<small>lines</small></div><p><span class="en">search + read tools</span><span class="zh">search + read 工具</span></p></div>
+      <div class="card rv" style="--i:3"><div class="n" data-count="153">0<small>lines</small></div><p><span class="en">model adapter</span><span class="zh">模型适配器</span></p></div>
+      <p class="note rv"><span class="en">Line counts at tag <code>frozen-20261017</code>, the version behind the submitted results.</span><span class="zh">行数取自产生提交成绩的 <code>frozen-20261017</code> 标签。</span></p>
+    </div>
   </div>
-  <div class="loc rv">
-    <div><div class="n" data-count="66">0<small>lines</small></div><p>core loop</p></div>
-    <div><div class="n" data-count="192">0<small>lines</small></div><p>search + read tools</p></div>
-    <div><div class="n" data-count="153">0<small>lines</small></div><p>model adapter</p></div>
-  </div>
-  <p class="note rv" style="margin-top:14px"><span class="en">Line counts at tag <code>frozen-20261017</code>, the version that produced the submitted results.</span><span class="zh">行数取自产生提交成绩的 <code>frozen-20261017</code> 标签。</span></p>
-</section>
 
-<!-- 05 RESULTS -->
-<section class="s" id="results">
-  <div class="kicker" data-scramble>05 — Results</div>
-  <h2 class="h rv"><span class="en"><span class="mask"><span>Four benchmarks.</span></span><span class="mask"><span style="--i:1"><em class="s">One</em> system.</span></span></span><span class="zh"><span class="mask"><span>四个基准，</span></span><span class="mask"><span style="--i:1"><em class="s">同一个</em>系统。</span></span></span></h2>
-  <div class="res">
-    <div class="card hero1 rv">
-      <div class="bm"><span>BrowseComp-Plus · 830 / 830</span><span class="badge p"><span class="en">submitted · verification pending</span><span class="zh">已提交 · 等待复核</span></span></div>
-      <div class="n"><span data-count="94.10" data-dec="2">0</span><small>%</small></div>
-      <div class="d"><span class="en">781 of 830 correct. Counting the eight technically-failed-then-rerun queries as wrong: 775/830 = 93.37%, still #2.</span><span class="zh">830 题答对 781。若把 8 道因技术故障重跑的题直接算错：775/830 = 93.37%，仍是第 2。</span></div>
-      <div class="ev"><span class="en">Official scoring script + Qwen3-32B BF16 judge, run by us.</span><span class="zh">官方判分脚本 + Qwen3-32B BF16 裁判，由本项目运行。</span></div>
-    </div>
-    <div class="card rv" style="--i:1">
-      <div class="bm"><span>EnterpriseRAG-Bench · test400</span><span class="badge p"><span class="en">official grading pending</span><span class="zh">等待官方判分</span></span></div>
-      <div class="n"><span data-count="77.25" data-dec="2">0</span><small>%</small></div>
-      <div class="d"><span class="en">309/400 locally; dev100 74/100. All 500 answers submitted in the official format. Official leaderboard: OpenAI File Search 69.8%, BM25 + GPT-5.4 single pass 68.8%.</span><span class="zh">本地 309/400；dev100 为 74/100。500 题答案已按官方格式提交。官方榜：OpenAI File Search 69.8%，BM25 + GPT-5.4 单轮 68.8%。</span></div>
-      <div class="ev"><span class="en">Local gpt-6.1-sol judge — stricter than official (public CDL answers: 86.5% local vs 92.0% official).</span><span class="zh">本地 gpt-6.1-sol 裁判，比官方更严（公开 CDL 答案：本地 86.5%，官方 92.0%）。</span></div>
-    </div>
-    <div class="card rv" style="--i:2">
-      <div class="bm"><span>FinanceBench · 100</span><span class="badge"><span class="en">local judge</span><span class="zh">本地裁判</span></span></div>
-      <div class="n"><span data-count="83">0</span><small>/100</small></div>
-      <div class="d"><span class="en">Retrieval over a shared corpus of all 371 filings, not per-question documents.</span><span class="zh">在全部 371 份财报的共享语料上检索，而非每题单独给文档。</span></div>
-      <div class="ev"><span class="en">Earlier search description.</span><span class="zh">使用较早版本的 search 说明。</span></div>
-    </div>
-    <div class="card rv" style="--i:1">
-      <div class="bm"><span>HotpotQA distractor · 100</span><span class="badge"><span class="en">official metric</span><span class="zh">官方指标</span></span></div>
-      <div class="n"><span data-count="87.25" data-dec="2">0</span><small>F1</small></div>
-      <div class="d">EM 77.0 · F1 87.25</div>
-      <div class="ev"><span class="en">Official answer metric on public dev data; supporting facts not evaluated.</span><span class="zh">公开 dev 数据上的官方答案指标；未评估支持事实。</span></div>
-    </div>
-    <div class="card rv" style="--i:2">
-      <div class="bm"><span>Index · Enterprise</span><span class="badge">BM25</span></div>
-      <div class="n"><span data-count="1.99" data-dec="2">0</span><small>M chunks</small></div>
-      <div class="d"><span class="en">511,962 documents, 8.5 GB SQLite FTS5 index, built in 154 seconds.</span><span class="zh">511,962 篇文档，8.5 GB SQLite FTS5 索引，154 秒建完。</span></div>
-      <div class="ev"><span class="en">1,600-char chunks, 200-char overlap.</span><span class="zh">1,600 字符分块，200 字符重叠。</span></div>
-    </div>
+  <div class="sub-h rv">
+    <h3><span class="en">Tried. Measured. Dropped.</span><span class="zh">试过，测过，删掉。</span></h3>
+    <div class="note"><span class="en">Every choice is a paired comparison on the same questions; what lost stays on record.</span><span class="zh">每项都是同题配对对照；输掉的方案同样留档。</span></div>
   </div>
-</section>
-
-<!-- 06 DECISIONS -->
-<section class="s" id="decisions">
-  <div class="kicker" data-scramble>06 — Decisions</div>
-  <h2 class="h rv"><span class="en"><span class="mask"><span>Tried. Measured.</span></span><span class="mask"><span style="--i:1"><em class="s">Decided.</em></span></span></span><span class="zh"><span class="mask"><span>试过，测过，</span></span><span class="mask"><span style="--i:1"><em class="s">定了。</em></span></span></span></h2>
-  <p class="lede rv" style="--i:2"><span class="en">Every design choice is a paired comparison on the same questions. What lost is kept on record, not quietly deleted.</span><span class="zh">每项设计都是同题配对对照；输掉的方案同样保留记录，而不是悄悄删掉。</span></p>
   <div class="dec">
     <div class="dr dead rv">
-      <h3><span class="t"><span class="en">Vector retrieval tool</span><span class="zh">独立向量检索工具</span></span><small>Qwen3-Embedding-8B, alongside BM25, model picks</small></h3>
-      <div class="vs">Enterprise test400<br><b>305</b> vs <b class="w">309</b> <span class="en">(BM25 only)</span><span class="zh">（仅 BM25）</span></div>
-      <span class="verdict x"><span class="en">dropped</span><span class="zh">不采用</span></span>
+      <h4><span class="st"><span class="en">Vector retrieval tool</span><span class="zh">独立向量检索工具</span></span><small><span class="en">Qwen3-Embedding-8B alongside BM25; the model picks</span><span class="zh">Qwen3-Embedding-8B 与 BM25 并列，由模型选择</span></small></h4>
+      <div class="vs">Enterprise test400<br><b>305</b> vs <b class="w">309</b> <span class="en">BM25 only</span><span class="zh">仅 BM25</span></div>
+      <span class="tag x">✕ <span class="en">dropped</span><span class="zh">不采用</span></span>
     </div>
     <div class="dr rv">
-      <h3><span class="en">ripgrep Grep tool</span><span class="zh">ripgrep 全库 Grep 工具</span><small><span class="en">~3 wins traceable to Grep</span><span class="zh">逐题追溯可归因约 3 题</span></small></h3>
+      <h4><span class="en">ripgrep Grep tool</span><span class="zh">ripgrep 全库 Grep 工具</span><small><span class="en">about 3 wins traceable to Grep</span><span class="zh">逐题追溯可归因约 3 题</span></small></h4>
       <div class="vs">Enterprise dev100 <b class="w">78</b> vs <b>74</b><br>BrowseComp dev30 <b>28</b> vs <b>28</b></div>
-      <span class="verdict o"><span class="en">optional · off</span><span class="zh">可选 · 默认关</span></span>
+      <span class="tag o">◐ <span class="en">optional · off</span><span class="zh">可选 · 默认关</span></span>
     </div>
     <div class="dr dead rv">
-      <h3><span class="t"><span class="en">verbosity = high</span><span class="zh">回答详细度 high</span></span><small><span class="en">fixed evidence, 30 questions</span><span class="zh">固定证据 30 题</span></small></h3>
-      <div class="vs"><b>22</b> vs <b class="w">23</b> (low)</div>
-      <span class="verdict x"><span class="en">default low</span><span class="zh">默认 low</span></span>
+      <h4><span class="st">verbosity = high</span><small><span class="en">fixed evidence, 30 questions</span><span class="zh">固定证据 30 题</span></small></h4>
+      <div class="vs"><b>22</b> vs <b class="w">23</b> low</div>
+      <span class="tag x">✕ <span class="en">default low</span><span class="zh">默认 low</span></span>
     </div>
     <div class="dr rv">
-      <h3><span class="en">Direct Responses API backend</span><span class="zh">直连 Responses API 后端</span><small><span class="en">replacing the Codex transport</span><span class="zh">替代 Codex 传输</span></small></h3>
+      <h4><span class="en">Direct Responses API backend</span><span class="zh">直连 Responses API 后端</span><small><span class="en">replacing the Codex transport</span><span class="zh">替代 Codex 传输</span></small></h4>
       <div class="vs">Enterprise dev30 <b class="w">24</b> vs <b>22</b><br><span class="en">fact completeness</span><span class="zh">事实完整度</span> 93.0% vs 84.7%</div>
-      <span class="verdict k"><span class="en">kept · portable</span><span class="zh">保留 · 可移植</span></span>
+      <span class="tag k">✓ <span class="en">kept · portable</span><span class="zh">保留 · 可移植</span></span>
     </div>
   </div>
-  <div class="nos rv"><span class="lbl"><span class="en">Also not in the system</span><span class="zh">系统里同样没有</span></span><span><s>embeddings</s></span><span><s>reranker</s></span><span><s>query router</s></span><span><s>fixed pipeline</s></span><span><s>multi-agent</s></span></div>
-</section>
 
-<!-- 07 FINE PRINT -->
-<section class="s" id="fine-print">
-  <div class="kicker" data-scramble>07 — Fine print</div>
-  <h2 class="h rv"><span class="en"><span class="mask"><span>The fine print,</span></span><span class="mask"><span style="--i:1">in <em class="s">large</em> print.</span></span></span><span class="zh"><span class="mask"><span>限制条款，</span></span><span class="mask"><span style="--i:1">用<em class="s">大字</em>写。</span></span></span></h2>
-  <div class="fp">
-    <div class="card rv"><div class="num">/01</div><p><span class="en">Not yet official.</span><span class="zh">还不是官方成绩。</span><small><span class="en">Both submissions are with the maintainers. BrowseComp was scored by us with the official script; Enterprise official grading is pending.</span><span class="zh">两份提交都在等维护方处理。BrowseComp 由本项目用官方脚本判分；Enterprise 等待官方判分。</span></small></p></div>
-    <div class="card rv" style="--i:1"><div class="num">/02</div><p><span class="en">Development sets, not held-out sets.</span><span class="zh">回归集，不是留出集。</span><small><span class="en">Both benchmarks were used during development. Enterprise dev/test is our own split. One generation per question except technical reruns; failures stay in the denominator.</span><span class="zh">两个基准都在开发中用过；Enterprise 的 dev/test 是本项目自己的划分。除技术错误重跑外每题生成一次，失败计入分母。</span></small></p></div>
-    <div class="card rv" style="--i:2"><div class="num">/03</div><p><span class="en">Eight reruns, disclosed.</span><span class="zh">8 道重跑，全部公开。</span><small><span class="en">Timeouts, usage limits and SDK interrupts hit eight BrowseComp queries; each was rerun once with the same configuration. Counted as wrong: 93.37%.</span><span class="zh">8 道 BrowseComp 题遇到超时、额度和 SDK 中断，各用相同配置重跑一次。全算错则为 93.37%。</span></small></p></div>
-    <div class="card rv"><div class="num">/04</div><p><span class="en">Full runs used the Codex SDK.</span><span class="zh">全量成绩来自 Codex SDK。</span><small><span class="en">Codex injects extra tool definitions and multi-agent text; traces show no built-in tool calls. The direct API backend was only migration-tested on Enterprise dev30.</span><span class="zh">Codex 会注入额外工具定义和多智能体说明，轨迹中无内置工具调用。直连 API 后端只在 Enterprise dev30 上做过迁移验证。</span></small></p></div>
-    <div class="card rv" style="--i:1"><div class="num">/05</div><p><span class="en">One change to the judge script.</span><span class="zh">判分脚本只改一处。</span><small><span class="en">BrowseComp judging ran on one A800 with <code>max_model_len=8192</code> added. The longest judge prompt is 1,216 tokens, so nothing is truncated.</span><span class="zh">BrowseComp 判分在单张 A800 上运行，仅加入 <code>max_model_len=8192</code>；最长判分提示 1,216 token，不会截断。</span></small></p></div>
-    <div class="card rv" style="--i:2"><div class="num">/06</div><p><span class="en">A student project.</span><span class="zh">个人学生项目。</span><small><span class="en">Budget-limited. Every question keeps an inspectable trace, configuration and evaluation record.</span><span class="zh">受预算限制。每道题都保留可检查的轨迹、配置和评测记录。</span></small></p></div>
+  <div class="statement rv">
+    <div class="big2"><span class="en">Stronger <em class="s m">model,</em><br>stronger system.</span><span class="zh">模型变强，<br>系统直接<em class="s m">变强</em>。</span></div>
+    <p><span class="en">No decision is hard-coded in the loop, so there is no pipeline to re-tune around a better model — it simply makes better decisions.</span><span class="zh">循环里没有写死任何决定，换上更强的模型不需要重调流水线——它只是做出更好的判断。</span></p>
   </div>
 </section>
 
-<!-- 08 RUN -->
-<section class="s" id="run">
-  <div class="kicker" data-scramble>08 — Run it</div>
+<!-- ============ V · PROOF ============ -->
+<section class="ch wrap" id="proof" data-ch="4">
+  <div class="ch-head">
+    <div class="ch-num rv">05</div>
+    <div>
+      <div class="ch-label m">05 — <span class="en">Proof</span><span class="zh">成绩</span></div>
+      <h2 class="rv"><span class="en"><em class="s m">94.1%</em> on BrowseComp-Plus.</span><span class="zh">BrowseComp-Plus <em class="s m">94.1%</em>。</span></h2>
+      <p class="lede rv" style="--i:1"><span class="en">Each dot below is one of the 830 queries, in query-ID order, from the submitted run. <b>781 correct, 49 not.</b> Hover a dot to inspect it; dimmer dots had lower evidence recall.</span><span class="zh">下面每个点是 830 题中的一道，按题号排列，来自提交的那次运行。<b>781 对，49 错。</b>悬停可查看单题；越暗表示证据召回越低。</span></p>
+    </div>
+  </div>
+  <div class="card gridwrap rv">
+    <canvas id="grid" aria-label="830 dots, one per query: 781 correct, 49 incorrect"></canvas>
+    <div class="gleg">
+      <div><span><i style="background:var(--ink)"></i><span class="en">correct</span><span class="zh">正确</span></span><span><i style="background:var(--coral)"></i><span class="en">incorrect</span><span class="zh">错误</span></span><span><i style="background:rgba(var(--ink-rgb),.35)"></i><span class="en">dimmer = lower recall</span><span class="zh">越暗 = 召回越低</span></span></div>
+      <span><span class="en">official scoring script + Qwen3-32B judge, run by us · verification pending</span><span class="zh">官方判分脚本 + Qwen3-32B 裁判，由本项目运行 · 等待复核</span></span>
+    </div>
+  </div>
+  <div class="stats rv">
+    <div class="stat"><div class="n m">#2<small> / 85</small></div><p><span class="en">Agents leaderboard; top single-agent and BM25-only entry</span><span class="zh">Agents 榜排名；单智能体与纯 BM25 条目中最高</span></p><div class="ranks" id="ranks"></div></div>
+    <div class="stat"><div class="n" data-count="88.13" data-dec="2">0<small>%</small></div><p><span class="en">evidence recall</span><span class="zh">证据召回率</span></p></div>
+    <div class="stat"><div class="n" data-count="1.44" data-dec="2">0<small>%</small></div><p><span class="en">calibration error</span><span class="zh">校准误差</span></p></div>
+    <div class="stat"><div class="n" data-count="3.4" data-dec="1">0</div><p><span class="en">reads per query</span><span class="zh">每题读取次数</span></p></div>
+  </div>
+
+  <div class="rtable">
+    <div class="rrow rv">
+      <div class="bm">BrowseComp-Plus<small>830 / 830 queries</small></div>
+      <div class="val">94.10<small>%</small></div>
+      <div class="ev"><span class="en">781 of 830. Counting the eight technically-failed-then-rerun queries as wrong: 93.37%, still #2.</span><span class="zh">830 题答对 781。若把 8 道技术故障后重跑的题算错：93.37%，仍是第 2。</span><small><span class="en">official script + Qwen3-32B BF16 judge, run by us</span><span class="zh">官方脚本 + Qwen3-32B BF16 裁判，由本项目运行</span></small></div>
+      <span class="tag w"><span class="en">pending verification</span><span class="zh">等待复核</span></span>
+    </div>
+    <div class="rrow rv">
+      <div class="bm">EnterpriseRAG-Bench<small>test400 · dev100</small></div>
+      <div class="val">77.25<small>%</small></div>
+      <div class="ev"><span class="en">309/400 locally; dev100 74/100. All 500 answers submitted in the official format. Official board: OpenAI File Search 69.8%, BM25 + GPT-5.4 single pass 68.8%.</span><span class="zh">本地 309/400；dev100 为 74/100。500 题已按官方格式提交。官方榜：OpenAI File Search 69.8%，BM25 + GPT-5.4 单轮 68.8%。</span><small><span class="en">local gpt-6.1-sol judge, stricter than official (86.5% vs 92.0% on public answers)</span><span class="zh">本地 gpt-6.1-sol 裁判，比官方更严（公开答案：86.5% vs 92.0%）</span></small></div>
+      <span class="tag w"><span class="en">official grading pending</span><span class="zh">等待官方判分</span></span>
+    </div>
+    <div class="rrow rv">
+      <div class="bm">FinanceBench<small>100 questions</small></div>
+      <div class="val">83<small>/100</small></div>
+      <div class="ev"><span class="en">Retrieval over a shared corpus of all 371 filings.</span><span class="zh">在全部 371 份财报的共享语料上检索。</span><small><span class="en">local judge · earlier search description</span><span class="zh">本地裁判 · 较早版本 search 说明</span></small></div>
+      <span class="tag g"><span class="en">local judge</span><span class="zh">本地裁判</span></span>
+    </div>
+    <div class="rrow rv">
+      <div class="bm">HotpotQA distractor<small>100 questions</small></div>
+      <div class="val">87.25<small>F1</small></div>
+      <div class="ev">EM 77.0 · F1 87.25<small><span class="en">official answer metric on public dev data; supporting facts not evaluated</span><span class="zh">公开 dev 数据上的官方答案指标；未评估支持事实</span></small></div>
+      <span class="tag g"><span class="en">official metric</span><span class="zh">官方指标</span></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VI · FINE PRINT ============ -->
+<section class="ch wrap" id="fine-print" data-ch="5">
+  <div class="ch-head">
+    <div class="ch-num rv">06</div>
+    <div>
+      <div class="ch-label" style="color:var(--fg2)">06 — <span class="en">Fine print</span><span class="zh">口径</span></div>
+      <h2 class="rv"><span class="en">The fine print, in <em class="s">large</em> print.</span><span class="zh">限制条款，用<em class="s">大字</em>写。</span></h2>
+    </div>
+  </div>
+  <div class="fp">
+    <div class="rv"><span class="num">01</span><div><h4><span class="en">Not yet official.</span><span class="zh">还不是官方成绩。</span></h4><p><span class="en">Both submissions are with the maintainers. BrowseComp was scored by us with the official script; Enterprise official grading is pending.</span><span class="zh">两份提交都在等维护方处理。BrowseComp 由本项目用官方脚本判分；Enterprise 等待官方判分。</span></p></div></div>
+    <div class="rv" style="--i:1"><span class="num">02</span><div><h4><span class="en">Development sets, not held-out sets.</span><span class="zh">回归集，不是留出集。</span></h4><p><span class="en">Both benchmarks were used during development; Enterprise dev/test is our own split. One generation per question except technical reruns; failures stay in the denominator.</span><span class="zh">两个基准都在开发中用过；Enterprise 的 dev/test 是本项目自己的划分。除技术错误重跑外每题生成一次，失败计入分母。</span></p></div></div>
+    <div class="rv"><span class="num">03</span><div><h4><span class="en">Eight reruns, disclosed.</span><span class="zh">8 道重跑，全部公开。</span></h4><p><span class="en">Timeouts, usage limits and SDK interrupts hit eight BrowseComp queries; each was rerun once with the same configuration. Counted as wrong: 93.37%.</span><span class="zh">8 道 BrowseComp 题遇到超时、额度和 SDK 中断，各用相同配置重跑一次。全算错则为 93.37%。</span></p></div></div>
+    <div class="rv" style="--i:1"><span class="num">04</span><div><h4><span class="en">Full runs used the Codex SDK.</span><span class="zh">全量成绩来自 Codex SDK。</span></h4><p><span class="en">Codex injects extra tool definitions and multi-agent text; traces show no built-in tool calls. The direct API backend was only migration-tested on Enterprise dev30.</span><span class="zh">Codex 会注入额外工具定义和多智能体说明，轨迹中没有内置工具调用。直连 API 后端只在 Enterprise dev30 上做过迁移验证。</span></p></div></div>
+    <div class="rv"><span class="num">05</span><div><h4><span class="en">One change to the judge script.</span><span class="zh">判分脚本只改一处。</span></h4><p><span class="en">BrowseComp judging ran on one A800 with <code>max_model_len=8192</code> added. The longest judge prompt is 1,216 tokens, so nothing is truncated.</span><span class="zh">BrowseComp 判分在单张 A800 上运行，仅加入 <code>max_model_len=8192</code>；最长判分提示 1,216 token，不会截断。</span></p></div></div>
+    <div class="rv" style="--i:1"><span class="num">06</span><div><h4><span class="en">A student project.</span><span class="zh">个人学生项目。</span></h4><p><span class="en">Budget-limited. Every question keeps an inspectable trace, configuration and evaluation record.</span><span class="zh">受预算限制。每道题都保留可检查的轨迹、配置和评测记录。</span></p></div></div>
+  </div>
+</section>
+
+<!-- ============ VII · RUN ============ -->
+<section class="ch wrap" id="run" data-ch="6">
   <div class="run">
     <div>
-      <h2 class="h rv"><span class="en"><span class="mask"><span>Three commands.</span></span><span class="mask"><span style="--i:1"><em class="s">No account.</em></span></span></span><span class="zh"><span class="mask"><span>三条命令，</span></span><span class="mask"><span style="--i:1"><em class="s">无需账号。</em></span></span></span></h2>
-      <p class="lede rv" style="--i:2"><span class="en">The demo builds a real SQLite index from bundled samples and replays search → read → cited answer. It calls no model. Python 3.12+.</span><span class="zh">演示用内置样例建立真实 SQLite 索引，回放“检索 → 读取 → 带来源回答”，不调用模型。需要 Python 3.12+。</span></p>
-      <div class="cta rv" style="--i:3">
-        <a class="btn p mag" href="https://github.com/hxli2005/minimal-rag"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.2-3.1-.1-.4-.5-1.6.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.6 18.3 5 18.3 5c.7 1.6.2 2.8.1 3.2.8.8 1.2 1.9 1.2 3.1 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5z"/></svg><span class="en">View on GitHub</span><span class="zh">在 GitHub 查看</span></a>
-        <a class="btn mag" href="https://github.com/hxli2005/minimal-rag/blob/main/REPRODUCE.md"><span class="en">Reproduce the scores</span><span class="zh">复现成绩</span> →</a>
-        <a class="btn mag" href="https://github.com/hxli2005/minimal-rag/blob/main/experiments/README.md"><span class="en">Experiment index</span><span class="zh">实验索引</span> →</a>
+      <div class="ch-label m">07 — <span class="en">Run it</span><span class="zh">运行</span></div>
+      <h2 class="rv"><span class="en">Three commands. <em class="s">No account.</em></span><span class="zh">三条命令，<em class="s">无需账号。</em></span></h2>
+      <p class="lede rv" style="--i:1;margin-top:24px"><span class="en">The demo builds a real SQLite index from bundled samples and replays search → read → cited answer. It calls no model. Python 3.12+.</span><span class="zh">演示用内置样例建立真实 SQLite 索引，回放“检索 → 读取 → 带来源回答”，不调用模型。需要 Python 3.12+。</span></p>
+      <div class="cta rv" style="--i:2">
+        <a class="btn p" href="https://github.com/hxli2005/minimal-rag"><span class="en">View on GitHub</span><span class="zh">在 GitHub 查看</span> ↗</a>
+        <a class="btn" href="https://github.com/hxli2005/minimal-rag/blob/main/REPRODUCE.md"><span class="en">Reproduce the scores</span><span class="zh">复现成绩</span> →</a>
+        <a class="btn" href="https://github.com/hxli2005/minimal-rag/blob/main/experiments/README.md"><span class="en">Experiment index</span><span class="zh">实验索引</span> →</a>
       </div>
     </div>
     <div class="card cmd dk rv" style="--i:2">
@@ -709,22 +717,17 @@ footer .bot nav{all:unset;display:flex;gap:22px;flex-wrap:wrap}
 </section>
 
 <footer>
-  <div class="glow"></div>
-  <div class="motto rv">
-    <span class="mask"><span>Leave judgment</span></span>
-    <span class="mask"><span style="--i:1">to the <em class="s">model.</em></span></span>
-    <span class="mask"><span style="--i:2">Give it capable</span></span>
-    <span class="mask"><span style="--i:3"><em class="s">tools.</em></span></span>
-    <span class="zhm">判断交给模型，能力交给工具。</span>
-  </div>
-  <div class="bot">
-    <span>Minimal RAG · Haoxiang Li · 2026</span>
-    <nav>
-      <a href="https://github.com/hxli2005/minimal-rag">GitHub</a>
-      <a href="https://github.com/hxli2005/minimal-rag/blob/main/REPRODUCE.md">REPRODUCE.md</a>
-      <a href="https://github.com/hxli2005/minimal-rag/blob/main/docs/runbook.md">Runbook</a>
-      <a href="https://github.com/hxli2005/minimal-rag/blob/main/THIRD_PARTY_NOTICES.md">Third-party notices</a>
-    </nav>
+  <div class="wrap">
+    <div class="wordmark" aria-hidden="true">minimal·rag</div>
+    <div class="bot">
+      <span><span class="en">Leave judgment to the model. Give it capable tools.</span><span class="zh">判断交给模型，能力交给工具。</span> · Haoxiang Li · 2026</span>
+      <div class="links">
+        <a href="https://github.com/hxli2005/minimal-rag">GitHub</a>
+        <a href="https://github.com/hxli2005/minimal-rag/blob/main/REPRODUCE.md">REPRODUCE.md</a>
+        <a href="https://github.com/hxli2005/minimal-rag/blob/main/docs/runbook.md">Runbook</a>
+        <a href="https://github.com/hxli2005/minimal-rag/blob/main/THIRD_PARTY_NOTICES.md">Third-party notices</a>
+      </div>
+    </div>
   </div>
 </footer>
 
@@ -735,38 +738,38 @@ const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [..
 const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
 const ease = t => 1 - Math.pow(1 - t, 3);
 const sleep = ms => new Promise(r => setTimeout(r, reduce ? 0 : ms));
-
-/* language */
+const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const root = document.documentElement;
-function setLang(l) { root.lang = l; try { localStorage.setItem('lang', l) } catch (e) {} }
-let saved = null; try { saved = localStorage.getItem('lang') } catch (e) {}
-setLang(saved || (/^zh/i.test(navigator.language) ? 'zh-CN' : 'en'));
-$('#lang').onclick = () => setLang(root.lang === 'zh-CN' ? 'en' : 'zh-CN');
+const zh = () => root.lang === 'zh-CN';
+const L = (en, z) => `<span class="en">${en}</span><span class="zh">${z}</span>`;
 
-/* theme */
+/* language + theme */
+function setLang(l) { root.lang = l; try { localStorage.setItem('lang', l) } catch (e) {} }
+let savedLang = null; try { savedLang = localStorage.getItem('lang') } catch (e) {}
+setLang(savedLang || (/^zh/i.test(navigator.language) ? 'zh-CN' : 'en'));
+$('#lang').onclick = () => setLang(zh() ? 'en' : 'zh-CN');
 const pal = {};
+let drawGrid = () => {}, gridIntro = () => {};
 function setTheme(t, save) {
   root.dataset.theme = t;
   if (save) try { localStorage.setItem('theme', t) } catch (e) {}
   const cs = getComputedStyle(root);
-  pal.a = cs.getPropertyValue('--ink-rgb').trim(); pal.x = cs.getPropertyValue('--coral-rgb').trim(); pal.fg = cs.getPropertyValue('--fg').trim();
-  pal.light = t === 'light';
-  document.querySelector('meta[name=theme-color]').content = cs.getPropertyValue('--bg').trim();
+  pal.ink = cs.getPropertyValue('--ink-rgb').trim(); pal.coral = cs.getPropertyValue('--coral-rgb').trim();
+  pal.fg = cs.getPropertyValue('--fg').trim(); pal.line = cs.getPropertyValue('--line2').trim();
+  $('meta[name=theme-color]').content = cs.getPropertyValue('--bg').trim();
+  drawGrid();
 }
 setTheme(root.dataset.theme);
-$('#theme').onclick = () => setTheme(pal.light ? 'dark' : 'light', true);
+$('#theme').onclick = () => setTheme(root.dataset.theme === 'light' ? 'dark' : 'light', true);
 
-/* marquee: duplicate track for a seamless loop */
-$('#mq').innerHTML += $('#mq').innerHTML;
-
-/* ranks strip */
-$('#ranks').innerHTML = Array.from({length: 85}, (_, k) => `<i class="${k === 1 ? 'me' : k === 0 ? 'one' : ''}" style="--k:${k}"></i>`).join('');
-$$('.dots230').forEach(d => { const y = +d.dataset.y; d.innerHTML = Array.from({length: 230}, (_, k) => `<i class="${k < y ? 'y' : ''}"></i>`).join('') });
+/* small builders */
+$('#ranks').innerHTML = Array.from({length: 85}, (_, k) => `<i class="${k === 1 ? 'me' : k === 0 ? 'one' : ''}"></i>`).join('');
+$$('.dots230').forEach(d => { const y = +d.dataset.y; d.innerHTML = Array.from({length: 230}, (_, k) => `<i class="${k < y ? 'y' : ''}" style="--k:${k}"></i>`).join('') });
 
 /* counters */
 function count(el) {
   const to = +el.dataset.count, dec = +(el.dataset.dec || 0), suffix = el.innerHTML.replace(/^[^<]*/, '');
-  const t0 = performance.now(), dur = reduce ? 0 : 1600;
+  const t0 = performance.now(), dur = reduce ? 0 : 1500;
   const tick = now => {
     const t = dur ? clamp((now - t0) / dur) : 1;
     el.innerHTML = (to * ease(t)).toLocaleString('en-US', {minimumFractionDigits: dec, maximumFractionDigits: dec}) + suffix;
@@ -775,59 +778,174 @@ function count(el) {
   requestAnimationFrame(tick);
 }
 
-/* scramble */
-const glyphs = '!<>-_\\/[]{}—=+*^?#01';
-function scramble(el) {
-  const text = el.textContent; let f = 0; const total = 26;
-  if (reduce) return;
-  const step = () => {
-    el.textContent = [...text].map((c, i) => c === ' ' ? ' ' : (f / total > i / text.length ? c : glyphs[Math.random() * glyphs.length | 0])).join('');
-    if (++f <= total) requestAnimationFrame(step); else el.textContent = text;
-  };
-  step();
-}
-
-/* reveal observer */
-const io = new IntersectionObserver(es => es.forEach(e => {
-  if (!e.isIntersecting) return;
-  const el = e.target; el.classList.add('in'); io.unobserve(el);
-  if (el.hasAttribute('data-scramble')) scramble(el);
-  $$('[data-count]', el).forEach(count);
-  if (el.dataset.count) count(el);
-  if (el.classList.contains('ci')) ciAnim();
-  if (el.id === 'term') trace();
-}), {threshold: .18, rootMargin: '0px 0px -6% 0px'});
-$$('.rv,[data-scramble],.stats,.bars').forEach(el => io.observe(el));
-$$('[data-count]').forEach(el => { if (!el.closest('.rv,.stats')) io.observe(el) });
-
 /* CI chart */
 function ciAnim() {
   const band = $('#ci-band'), dot = $('#ci-dot'), t0 = performance.now();
-  const tick = now => {
-    const t = ease(clamp((now - t0) / (reduce ? 1 : 1400)));
-    band.setAttribute('width', 480 * t); dot.setAttribute('r', 9 * clamp(t * 1.3));
-    if (t < 1) requestAnimationFrame(tick);
-  };
+  const tick = now => { const t = ease(clamp((now - t0) / (reduce ? 1 : 1400))); band.setAttribute('width', 480 * t); dot.setAttribute('r', 9 * clamp(t * 1.3)); if (t < 1) requestAnimationFrame(tick) };
   requestAnimationFrame(tick);
 }
 
-/* card spotlight + magnetic buttons */
+/* card spotlight */
 document.addEventListener('pointermove', e => {
   const c = e.target.closest && e.target.closest('.card');
   if (c) { const r = c.getBoundingClientRect(); c.style.setProperty('--mx', e.clientX - r.left + 'px'); c.style.setProperty('--my', e.clientY - r.top + 'px') }
 }, {passive: true});
-if (!reduce && matchMedia('(pointer:fine)').matches) $$('.mag').forEach(b => {
-  b.addEventListener('pointermove', e => { const r = b.getBoundingClientRect(); b.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * .25}px,${(e.clientY - r.top - r.height / 2) * .35}px)` });
-  b.addEventListener('pointerleave', () => { b.style.transition = 'transform .5s cubic-bezier(.16,1,.3,1)'; b.style.transform = ''; setTimeout(() => b.style.transition = '', 500) });
-});
 
-/* copy buttons */
+/* copy */
 $$('.copy').forEach(b => b.onclick = async () => {
   try { await navigator.clipboard.writeText(b.previousElementSibling.textContent); b.textContent = 'copied' } catch (e) { b.textContent = 'select' }
   setTimeout(() => b.textContent = 'copy', 1400);
 });
 
-/* code panel: the real run_agent from loop.py */
+/* ============ THESIS: the loop, animated with the recorded run ============ */
+(() => {
+  if (reduce) return;
+  const dot = $('#dot'), thought = $('#mthought'), turn = $('#mturn'), cs = $('#call-s'), cr = $('#call-r'), ring = $('#mring'), ans = $('#anstext'), ansl = $('#ansline');
+  const fade = async (el, txt, fill) => { el.style.transition = 'opacity .25s'; el.style.opacity = 0; await sleep(250); el.textContent = txt; if (fill) el.style.fill = fill; el.style.opacity = 1 };
+  const travel = (id, color, ms) => new Promise(res => {
+    const path = $('#' + id), len = path.getTotalLength(), t0 = performance.now(); dot.style.fill = color;
+    const tick = now => { const t = clamp((now - t0) / ms), p = path.getPointAtLength(len * ease(t)); dot.setAttribute('cx', p.x); dot.setAttribute('cy', p.y); t < 1 ? requestAnimationFrame(tick) : res() };
+    requestAnimationFrame(tick);
+  });
+  let spin = 0; (function rot() { spin += .12; ring.setAttribute('transform', `rotate(${spin} 170 230)`); requestAnimationFrame(rot) })();
+  const ink = 'var(--ink)', tool = 'var(--tool)';
+  (async function loop() {
+    for (;;) {
+      const z = zh();
+      ans.style.fill = 'var(--mute)'; ansl.style.stroke = 'var(--line2)'; ans.textContent = z ? '答案 + 来源 ID' : 'answer + source IDs';
+      await fade(thought, z ? '搜什么？' : 'what to search?'); turn.textContent = z ? '第 1 轮' : 'turn 1'; await sleep(900);
+      await fade(cs, 'search("time to mitigate")', ink); await travel('p-so', ink, 900);
+      await fade(cs, z ? '→ 5 条原文段落' : '→ 5 passages', tool); await travel('p-si', tool, 900);
+      await fade(thought, z ? '哪条有用？' : 'which one matters?'); turn.textContent = z ? '第 2 轮' : 'turn 2'; await sleep(900);
+      await fade(cr, 'read(dsid…, 3900, 6000)', ink); await travel('p-ro', ink, 900);
+      await fade(cr, z ? '→ 6,000 字符原文' : '→ 6,000 chars of text', tool); await travel('p-ri', tool, 900);
+      dot.setAttribute('cx', -20); cs.textContent = ''; cr.textContent = '';
+      await fade(thought, z ? '可以回答了。' : 'enough to answer.'); turn.textContent = z ? '第 3 轮' : 'turn 3';
+      ans.style.fill = ink; ansl.style.stroke = ink; ans.textContent = z ? '答案 + 1 个来源 ID' : 'answer + 1 source ID';
+      await sleep(2600);
+    }
+  })();
+})();
+
+/* ============ I: the pipeline dissolves ============ */
+(() => {
+  const board = $('#board');
+  const R = i => [18, 2 + i * 13.8, 64, 10.6];      // pipeline row
+  const M = i => [0, 9 + i * 14, 47, 11.2];         // model column
+  const T = i => [53, 9 + i * 14, 47, 11.2];        // tools column (and leftovers)
+  const D = i => [i * 34, 86, 32, 9];               // deleted chips
+  const every = L('model · every turn', '模型 · 每一轮');
+  // per step: [position, kind, show transformed label]
+  const B = [
+    {o: L('Query rewriting', '查询改写'), os: L('fixed rules', '固定规则'), a: L('What to search', '搜什么'), as: every,
+     s: [[R(0), 'pipe'], [M(0), 'model', 1], [M(0), 'model', 1], [M(0), 'model', 1]]},
+    {o: L('Intent router', '意图路由'), os: L('hand-written branches', '手写分支'), a: L('router', '路由'),
+     s: [[R(1), 'pipe'], [T(0), 'dim'], [T(2), 'dim'], [D(0), 'dead', 1]]},
+    {o: L('Embedding retrieval', '向量检索'), os: L('vector index', '向量索引'), a: L('embeddings', '向量'),
+     s: [[R(2), 'pipe'], [T(1), 'dim'], [T(3), 'dim'], [D(1), 'dead', 1]]},
+    {o: L('BM25 retrieval', 'BM25 检索'), os: L('keyword index', '关键词索引'), a: 'search(query, limit)', as: L('BM25 over original passages', '对原文段落做 BM25'),
+     s: [[R(3), 'pipe'], [T(2), 'dim'], [T(0), 'tool', 1], [T(0), 'tool', 1]]},
+    {o: L('Reranker', '重排序'), os: L('cross-encoder', '交叉编码器'), a: L('reranker', '重排序'),
+     s: [[R(4), 'pipe'], [T(3), 'dim'], [T(4), 'dim'], [D(2), 'dead', 1]]},
+    {o: L('Top-k chunks → prompt', '固定 top-k 拼进提示词'), os: L('fixed k, fixed template', '固定 k、固定模板'), a: L('What to read, how much', '读哪里、读多少'), as: every,
+     s: [[R(5), 'pipe'], [M(2), 'model', 1], [M(2), 'model', 1], [M(2), 'model', 1]]},
+    {o: L('Single-pass answer', '单轮生成答案'), os: L('one shot', '一次生成'), a: L('When to stop, what to cite', '何时停止、引用什么'), as: every,
+     s: [[R(6), 'pipe'], [M(3), 'model', 1], [M(3), 'model', 1], [M(3), 'model', 1]]},
+    {a: L('Search again?', '要不要再搜？'), as: every,
+     s: [[M(1), 'hide', 1], [M(1), 'model', 1], [M(1), 'model', 1], [M(1), 'model', 1]]},
+    {a: 'read(doc, offset, limit)', as: L('original text at any position', '任意位置的原文'),
+     s: [[T(1), 'hide', 1], [T(1), 'hide', 1], [T(1), 'tool', 1], [T(1), 'tool', 1]]},
+  ];
+  const els = B.map((b, i) => {
+    const d = document.createElement('div'); d.style.setProperty('--d', i * 45 + 'ms');
+    d.innerHTML = (b.o ? `<div class="ori"><div class="ti">${b.o}</div><div class="su">${b.os}</div></div>` : '') +
+      `<div class="alt"><div class="ti">${b.a}</div>${b.as ? `<div class="su">${b.as}</div>` : ''}</div>`;
+    board.appendChild(d); return d;
+  });
+  const steps = $$('.dstep'), ticks = $$('#dcount i'), scene = $('#dissolve');
+  let cur = -1;
+  function show(k) {
+    if (k === cur) return; cur = k;
+    B.forEach((b, i) => {
+      const [[x, y, w, h], kind, flip] = b.s[k];
+      Object.assign(els[i].style, {left: x + '%', top: y + '%', width: w + '%', height: h + '%'});
+      els[i].className = 'blk ' + kind + (flip ? ' flip' : '');
+    });
+    steps.forEach((s, i) => s.classList.toggle('on', i === k));
+    ticks.forEach((t, i) => t.classList.toggle('on', i <= k));
+    $('#h-model').classList.toggle('on', k >= 1); $('#h-tool').classList.toggle('on', k >= 2); $('#h-dead').classList.toggle('on', k >= 3);
+    $('#looppill').classList.toggle('on', k >= 3); $('#spine').style.opacity = k ? 0 : 1;
+  }
+  const onScroll = () => { const r = scene.getBoundingClientRect(); show(Math.min(3, Math.floor(clamp(-r.top / (r.height - innerHeight)) * 4.4))) };
+  addEventListener('scroll', onScroll, {passive: true}); addEventListener('resize', onScroll); onScroll();
+})();
+
+/* ============ II: trace replay with judgment notes (examples/sol-demo/recorded-summary.json) ============ */
+const SRC_TEXT = `Proposed draft SLA targets (v1 candidate)
+========================================
+Notes:
+- Times are proposed internal targets for breach alerting + leadership escalation.
+- <mark>TTM measured to: restored SLO or reduced to acceptable degradation mode</mark> (documented).
+- TTF measured to: fix deployed OR (Sev2/Sev3 only) fix scheduled with owner + date.
+
+<mark>TTM (same across tiers)</mark>
+-----------------------
+<mark>Sev0: 30 minutes</mark>
+<mark>Sev1: 2 hours</mark>
+<mark>Sev2: 1 business day</mark>
+<mark>Sev3: 5 business days (or next planned release train)</mark>`;
+const HITS = [['incidents', 951], ['Incident Ownership Mapping + Remediation SLA Matrix (v1)', 0], ['SLO Launch Field Kit and Ops Liaison Rotations', 2819],
+  ['Remediation SLA options + customer tier mapping (Hosted / Dedicated / Private) — working doc', 0], ['incidents', 565]];
+let traceRun = 0;
+function tween(el, to, ms = 900) {
+  const from = +el.dataset.v || 0, t0 = performance.now(); el.dataset.v = to;
+  const tick = now => { const t = reduce ? 1 : ease(clamp((now - t0) / ms)); el.textContent = Math.round(from + (to - from) * t).toLocaleString('en-US'); if (t < 1) requestAnimationFrame(tick) };
+  requestAnimationFrame(tick);
+}
+async function trace() {
+  const run = ++traceRun, log = $('#log'), steps = $$('#steps li'), alive = () => run === traceRun;
+  log.innerHTML = ''; steps.forEach(s => s.classList.remove('on', 'cur'));
+  ['m-calls', 'm-in', 'm-read'].forEach(id => { $('#' + id).dataset.v = 0; $('#' + id).textContent = 0 });
+  const step = i => steps.forEach((s, k) => { s.classList.toggle('on', k <= i); s.classList.toggle('cur', k === i) });
+  const ev = html => { const d = document.createElement('div'); d.className = 'ev'; d.innerHTML = html; log.appendChild(d); requestAnimationFrame(() => d.classList.add('show')); return d };
+  const judge = (en, z) => ev(`<div class="jdg"><span class="tag m">${L('judgment', '判断')}</span><span>${L(en, z)}</span></div>`);
+  const think = async (n, tokens) => {
+    const d = ev(`<div class="who"><span class="b m">model</span>gpt-6.1-sol · call ${n}/3</div><div class="think"><i></i><i></i><i></i></div>`);
+    tween($('#m-calls'), n, 300); tween($('#m-in'), tokens, 1200); await sleep(1200); d.remove();
+  };
+  step(0);
+  const q = $('.q', ev(`<div class="who"><span class="b u">user</span>question</div><div class="q"></div>`));
+  const Q = 'What are the proposed internal time to mitigate targets by severity for incident response, regardless of customer deployment tier?';
+  if (reduce) q.textContent = Q; else for (let i = 1; i <= Q.length; i++) { if (!alive()) return; q.textContent = Q.slice(0, i); await sleep(11) }
+  await sleep(300);
+  step(1); await think(1, 3800); if (!alive()) return;
+  judge('Searched the exact phrase from the question and asked for five results.', '用题目里的原词做精确短语查询，要 5 条结果。'); await sleep(900);
+  step(2);
+  ev(`<div class="who"><span class="b t">tool</span>search</div><div class="call"><span class="fn">search</span>(<span class="k">query</span>=<span class="str">'"time to mitigate"'</span>, <span class="k">limit</span>=<span class="num">5</span>)</div>`);
+  await sleep(600); if (!alive()) return;
+  const hb = ev(`<div class="hits">${HITS.map((h, i) => `<div class="hit"><span>${i + 1}</span><span class="ttl">${esc(h[0])}</span><span>@${h[1]}</span></div>`).join('')}</div>`);
+  await sleep(900); if (!alive()) return;
+  step(3); await think(2, 11600); if (!alive()) return;
+  $$('.hit', hb)[3].classList.add('sel');
+  judge('Picked result 4 of 5 — the working doc that maps targets across tiers — and chose to read 6,000 characters from offset 3,900.', '从 5 条中选第 4 条（跨部署层级对照目标的工作文档），决定从偏移 3,900 读 6,000 字符。'); await sleep(1100);
+  step(4);
+  ev(`<div class="who"><span class="b t">tool</span>read</div><div class="call"><span class="fn">read</span>(<span class="k">document_id</span>=<span class="str">'dsid_c838…'</span>, <span class="k">offset</span>=<span class="num">3900</span>, <span class="k">limit</span>=<span class="num">6000</span>)</div>`);
+  await sleep(600); if (!alive()) return;
+  hb.style.display = 'none';
+  ev(`<div class="src">${SRC_TEXT}</div>`); tween($('#m-read'), 6000, 1000);
+  await sleep(1500); if (!alive()) return;
+  step(5); await think(3, 25079); if (!alive()) return;
+  judge('Decided the evidence was enough: stopped after one search and one read, cited one source, and kept the “draft” caveat.', '判断证据已足够：一次搜索、一次读取后停止，引用 1 个来源，并保留“草案”限定。'); await sleep(900);
+  step(6);
+  $$('.ev', log).forEach(b => { if (!b.querySelector('.src,.jdg')) b.style.display = 'none' });
+  const tb = $('table', ev(`<div class="who"><span class="b m">model</span>answer · finished</div><div class="ans"><div>The proposed internal time-to-mitigate (TTM) targets are the same across Hosted, Dedicated, and Private deployments:</div><table></table><p>Draft internal targets for breach alerting and leadership escalation, not finalized customer commitments.<span class="cite">dsid_c838…</span></p></div>`));
+  for (const [k, v] of [['Sev0', '30 minutes'], ['Sev1', '2 hours'], ['Sev2', '1 business day'], ['Sev3', '5 business days, or the next planned release train']]) {
+    if (!alive()) return; tb.insertAdjacentHTML('beforeend', `<tr><td>${k}</td><td>${v}</td></tr>`); await sleep(240);
+  }
+}
+$('#replay').onclick = trace;
+
+/* ============ IV: the real run_agent(), model lines green and tool lines blue ============ */
 const SRC = `async def run_agent(complete, tools, question, max_turns=None, emit=lambda _: None):
     """complete(messages, tools)返回Reply的JSON；循环只传消息、执行工具。"""
     if not question.strip() or (max_turns is not None and max_turns < 1):
@@ -864,175 +982,85 @@ const SRC = `async def run_agent(complete, tools, question, max_turns=None, emit
             messages.append(event)
             emit(event)
     return {"status": "budget_exhausted", "answer": "运行预算已用尽；模型尚未结束回答。"}`;
-const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 function hl(line) {
   const re = /("""[^]*?"""|"(?:[^"\\]|\\.)*"|#.*$)|\b(async|def|await|if|not|or|is|None|raise|while|try|except|as|continue|return|for|in|lambda)\b|\b(\d+)\b|\b([A-Za-z_]\w*)(?=\()/g;
   let out = '', last = 0, m;
   while ((m = re.exec(line))) {
     out += esc(line.slice(last, m.index));
-    out += m[1] ? `<span class="tk-${m[1][0] === '#' ? 'c' : 's'}">${esc(m[1])}</span>`
-      : m[2] ? `<span class="tk-k">${m[2]}</span>`
-      : m[3] ? `<span class="tk-n">${m[3]}</span>`
-      : `<span class="tk-f">${m[4]}</span>`;
+    out += m[1] ? `<span class="tk-${m[1][0] === '#' ? 'c' : 's'}">${esc(m[1])}</span>` : m[2] ? `<span class="tk-k">${m[2]}</span>` : m[3] ? `<span class="tk-n">${m[3]}</span>` : `<span class="tk-f">${m[4]}</span>`;
     last = re.lastIndex;
   }
   return out + esc(line.slice(last));
 }
-const HL = new Set([11, 22, 27]);
-$('#code').innerHTML = SRC.split('\n').map((l, i) => `<span class="l${HL.has(i + 1) ? ' hl' : ''}">${hl(l) || ' '}</span>`).join('');
+const HM = new Set([11, 22, 23]), HT = new Set([26, 27, 28, 29, 30]);
+$('#code').innerHTML = SRC.split('\n').map((l, i) => `<span class="l${HM.has(i + 1) ? ' hm' : HT.has(i + 1) ? ' ht' : ''}">${hl(l) || ' '}</span>`).join('');
 
-/* trace replay — data from examples/sol-demo/recorded-summary.json */
-const T = {
-  q: 'What are the proposed internal time to mitigate targets by severity for incident response, regardless of customer deployment tier?',
-  hits: [
-    ['incidents', 951], ['Incident Ownership Mapping + Remediation SLA Matrix (v1)', 0], ['SLO Launch Field Kit and Ops Liaison Rotations', 2819],
-    ['Remediation SLA options + customer tier mapping (Hosted / Dedicated / Private) — working doc', 0, 1], ['incidents', 565]],
-  src: `Proposed draft SLA targets (v1 candidate)
-========================================
-Notes:
-- Times are proposed internal targets for breach alerting + leadership escalation.
-- <mark>TTM measured to: restored SLO or reduced to acceptable degradation mode</mark> (documented).
-- TTF measured to: fix deployed OR (Sev2/Sev3 only) fix scheduled with owner + date.
-
-<mark>TTM (same across tiers)</mark>
------------------------
-<mark>Sev0: 30 minutes</mark>
-<mark>Sev1: 2 hours</mark>
-<mark>Sev2: 1 business day</mark>
-<mark>Sev3: 5 business days (or next planned release train)</mark>`,
-};
-let traceRun = 0;
-async function typeInto(el, text, run, cps = 70) {
-  if (reduce) { el.textContent = text; return }
-  for (let i = 0; i < text.length; i++) { if (run !== traceRun) return; el.textContent = text.slice(0, i + 1); await sleep(1000 / cps) }
-}
-function tween(el, to, ms = 900) {
-  const from = +el.dataset.v || 0, t0 = performance.now(); el.dataset.v = to;
-  const tick = now => { const t = reduce ? 1 : ease(clamp((now - t0) / ms)); el.textContent = Math.round(from + (to - from) * t).toLocaleString('en-US'); if (t < 1) requestAnimationFrame(tick) };
-  requestAnimationFrame(tick);
-}
-async function trace() {
-  const run = ++traceRun, log = $('#log'), steps = $$('#steps li');
-  log.innerHTML = ''; steps.forEach(s => s.classList.remove('on', 'cur'));
-  ['m-calls', 'm-in', 'm-read'].forEach(id => { $('#' + id).dataset.v = 0; $('#' + id).textContent = 0 });
-  const step = i => { steps.forEach((s, k) => { s.classList.toggle('on', k <= i); s.classList.toggle('cur', k === i) }) };
-  const blk = html => { const d = document.createElement('div'); d.className = 'blk'; d.innerHTML = html; log.appendChild(d); requestAnimationFrame(() => d.classList.add('show')); return d };
-  const alive = () => run === traceRun;
-  const think = async (n, tokens) => {
-    const d = blk(`<div class="who"><span class="tag">model</span>gpt-6.1-sol · call ${n}/3</div><div class="think"><i></i><i></i><i></i></div>`);
-    tween($('#m-calls'), n, 300); tween($('#m-in'), tokens, 1200);
-    await sleep(1300); d.remove();
-  };
-
-  step(0);
-  const qb = blk(`<div class="who"><span class="tag u">user</span>question</div><div class="q"></div>`);
-  await typeInto($('.q', qb), T.q, run, 90); if (!alive()) return;
-  await sleep(400);
-  step(1); await think(1, 3800); if (!alive()) return;
-  step(2);
-  blk(`<div class="who"><span class="tag">model</span>tool call</div><div class="call"><span class="fn">search</span>(<span class="k">query</span>=<span class="str">'"time to mitigate"'</span>, <span class="k">limit</span>=<span class="num">5</span>)</div>`);
-  await sleep(700); if (!alive()) return;
-  const hb = blk(`<div class="who"><span class="tag t">tool</span>5 passages · BM25</div><div class="hits">${T.hits.map((h, i) => `<div class="hit"><span>${i + 1}</span><span class="ttl">${esc(h[0])}</span><span>@${h[1]} · 4000</span></div>`).join('')}</div>`);
-  await sleep(900); if (!alive()) return;
-  step(3); await think(2, 11600); if (!alive()) return;
-  $$('.hit', hb)[3].classList.add('sel');
-  await sleep(500);
-  step(4);
-  blk(`<div class="who"><span class="tag">model</span>tool call</div><div class="call"><span class="fn">read</span>(<span class="k">document_id</span>=<span class="str">'dsid_c83811391709468fa9534e6495c205e3'</span>, <span class="k">offset</span>=<span class="num">3900</span>, <span class="k">limit</span>=<span class="num">6000</span>)</div>`);
-  await sleep(700); if (!alive()) return;
-  hb.style.display = 'none';
-  blk(`<div class="who"><span class="tag t">tool</span>original text · excerpt</div><div class="src">${T.src}</div>`);
-  tween($('#m-read'), 6000, 1000);
-  await sleep(1600); if (!alive()) return;
-  step(5); await think(3, 25079); if (!alive()) return;
-  step(6);
-  const rows = [['Sev0', '30 minutes'], ['Sev1', '2 hours'], ['Sev2', '1 business day'], ['Sev3', '5 business days, or the next planned release train']];
-  const ab = blk(`<div class="who"><span class="tag">model</span>answer · finished</div><div class="ans"><div>The proposed internal time-to-mitigate (TTM) targets are the same across Hosted, Dedicated, and Private deployments:</div><table></table><p>Draft internal targets for breach alerting and leadership escalation, not finalized customer commitments.<span class="cite">dsid_c838…</span></p></div>`);
-  const tb = $('table', ab), p = $('p', ab); p.style.opacity = 0;
-  $$('.blk', log).slice(0, -1).forEach(b => { if (!b.querySelector('.src')) b.style.display = 'none' });
-  for (const [k, v] of rows) { if (!alive()) return; tb.insertAdjacentHTML('beforeend', `<tr><td>${k}</td><td>${v}</td></tr>`); await sleep(260) }
-  p.style.transition = 'opacity .6s'; p.style.opacity = 1;
-}
-$('#replay').onclick = trace;
-
-/* scroll: progress, nav, kinetic rows */
-const kin = $$('.kinetic .row');
-function onScroll() {
-  const y = scrollY, h = document.documentElement.scrollHeight - innerHeight;
-  $('#progress').style.transform = `scaleX(${h ? y / h : 0})`;
-  $('#nav').classList.toggle('solid', y > innerHeight * 2.2);
-  if (!reduce) kin.forEach(r => { const rect = r.parentElement.getBoundingClientRect(); const p = (innerHeight - rect.top) / (innerHeight + rect.height); r.style.transform = `translateX(${(r.dataset.dir > 0 ? -1 : 1) * (p * 38) - (r.dataset.dir > 0 ? 0 : 30)}%)` });
-}
-addEventListener('scroll', onScroll, {passive: true}); onScroll();
-
-/* hero field: one particle per BrowseComp-Plus query */
+/* ============ V: one dot per BrowseComp-Plus query ============ */
 (() => {
-  const cv = $('#field'), ctx = cv.getContext('2d'), hero = $('#hero'), tip = $('#tip');
-  const A = $('.hero-a'), B = $('.hero-b'), L = $('.legend');
-  const N = BC.length;
-  let W, H, cx, cy, Rm, s, gx, gy, cols, mouse = {x: -1e4, y: -1e4}, visible = true, q = 0;
-  const P = BC.map(([id, ok, rec], i) => ({
-    id, ok, rec, i,
-    r: Math.pow(Math.random(), .55), a: Math.random() * Math.PI * 2, z: Math.random(),
-    ox: 0, oy: 0, x: 0, y: 0, gxp: 0, gyp: 0, d: 0,
-  }));
+  const cv = $('#grid'), ctx = cv.getContext('2d'), tip = $('#tip'), N = BC.length;
+  let W = 0, H, s, cols, shown = reduce ? N : 0, hover = -1, started = false;
+  function draw() {
+    if (!W) return;
+    ctx.clearRect(0, 0, W, H);
+    for (let i = 0; i < N; i++) {
+      const [, ok, rec] = BC[i], x = (i % cols + .5) * s, y = ((i / cols | 0) + .5) * s;
+      if (i >= shown) { ctx.fillStyle = pal.line; ctx.beginPath(); ctx.arc(x, y, s * .08, 0, 6.283); ctx.fill(); continue }
+      ctx.fillStyle = ok ? `rgba(${pal.ink},${.28 + .72 * rec / 100})` : `rgb(${pal.coral})`;
+      ctx.beginPath(); ctx.arc(x, y, s * .32, 0, 6.283); ctx.fill();
+      if (!ok) { ctx.strokeStyle = `rgba(${pal.coral},.35)`; ctx.lineWidth = 1; ctx.beginPath(); ctx.arc(x, y, s * .32 + 3, 0, 6.283); ctx.stroke() }
+      if (i === hover) { ctx.strokeStyle = pal.fg; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(x, y, s * .32 + 4, 0, 6.283); ctx.stroke() }
+    }
+  }
   function layout() {
     const dpr = Math.min(2, devicePixelRatio || 1);
-    W = cv.clientWidth; H = cv.clientHeight; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    const mob = W < 760;
-    cx = mob ? W * .55 : W * .66; cy = mob ? H * .3 : H * .42; Rm = Math.min(W, H) * (mob ? .5 : .52);
-    const aw = W * (mob ? .92 : .84), top = H * (mob ? .34 : .3), ah = H * (mob ? .46 : .5);
-    cols = Math.ceil(Math.sqrt(N * aw / ah)); const rows = Math.ceil(N / cols);
-    s = Math.min(aw / cols, ah / rows);
-    gx = (W - cols * s) / 2 + s / 2; gy = top + (ah - rows * s) / 2 + s / 2;
-    P.forEach(p => { const c = p.i % cols, r = (p.i / cols) | 0; p.gxp = gx + c * s; p.gyp = gy + r * s; p.d = (c / cols * .7 + r / rows * .3) });
+    W = cv.clientWidth; cols = W < 520 ? 26 : W < 900 ? 38 : 52; s = W / cols; H = Math.ceil(N / cols) * s;
+    cv.style.height = H + 'px'; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); draw();
   }
-  layout(); addEventListener('resize', layout);
-  new IntersectionObserver(([e]) => visible = e.isIntersecting).observe(hero);
-  ['pointermove', 'pointerdown'].forEach(t => addEventListener(t, e => { mouse.x = e.clientX; mouse.y = e.clientY }, {passive: true}));
-  hero.addEventListener('pointerleave', () => { mouse.x = mouse.y = -1e4; tip.style.opacity = 0 });
-
-  function frame(t) {
-    requestAnimationFrame(frame);
-    if (!visible) return;
-    const rect = hero.getBoundingClientRect();
-    const p = clamp(-rect.top / (rect.height - innerHeight));
-    q = reduce ? (p > .3 ? 1 : 0) : clamp((p - .12) / .55);
-    A.style.opacity = 1 - clamp(q * 2.4); A.style.transform = `translateY(${-q * 60}px)`;
-    B.style.opacity = clamp((q - .55) * 3); L.style.opacity = clamp((q - .7) * 4);
-    ctx.clearRect(0, 0, W, H);
-    ctx.globalCompositeOperation = pal.light ? 'source-over' : 'lighter';
-    const time = reduce ? 0 : t * .001;
-    let hover = null;
-    for (const P0 of P) {
-      // galaxy position: tilted elliptical orbit, inner particles faster
-      const rr = (.08 + P0.r * .92) * Rm, w = .12 / Math.sqrt(.1 + P0.r);
-      const ang = P0.a + time * w;
-      let x = Math.cos(ang) * rr, y = Math.sin(ang) * rr * .42;
-      const rot = -.38; const gx0 = cx + x * Math.cos(rot) - y * Math.sin(rot), gy0 = cy + x * Math.sin(rot) + y * Math.cos(rot) + Math.sin(time * .8 + P0.i) * 3;
-      // cursor repulsion (galaxy phase only)
-      const dx = gx0 + P0.ox - mouse.x, dy = gy0 + P0.oy - mouse.y, dd = Math.hypot(dx, dy), R = 130;
-      const push = dd < R && q < .5 ? (1 - dd / R) * 46 : 0;
-      P0.ox += ((dd ? dx / dd : 0) * push - P0.ox) * .08; P0.oy += ((dd ? dy / dd : 0) * push - P0.oy) * .08;
-      const k = ease(clamp(q * 1.7 - P0.d * .7));
-      P0.x = (gx0 + P0.ox) * (1 - k) + P0.gxp * k; P0.y = (gy0 + P0.oy) * (1 - k) + P0.gyp * k;
-      const size = (1 - k) * (.7 + P0.z * 1.5) + k * s * .3;
-      const al = P0.ok ? ((pal.light ? .5 : .25) + (pal.light ? .5 : .75) * P0.rec / 100) * ((1 - k) * (.45 + P0.z * .55) + k) : 1;
-      ctx.fillStyle = `rgba(${P0.ok ? pal.a : pal.x},${al})`;
-      ctx.beginPath(); ctx.arc(P0.x, P0.y, Math.max(.6, size), 0, 6.283); ctx.fill();
-      if (!P0.ok && k > .5) { ctx.strokeStyle = `rgba(${pal.x},${.25 + .2 * Math.sin(time * 3 + P0.i)})`; ctx.lineWidth = 1; ctx.beginPath(); ctx.arc(P0.x, P0.y, size + 3, 0, 6.283); ctx.stroke() }
-      if (q > .95 && Math.abs(mouse.x - P0.x) < s / 2 && Math.abs(mouse.y - P0.y) < s / 2) hover = P0;
-    }
-    ctx.globalCompositeOperation = 'source-over';
-    if (hover) {
-      ctx.strokeStyle = pal.fg; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(hover.x, hover.y, s * .3 + 4, 0, 6.283); ctx.stroke();
-      const zh = root.lang === 'zh-CN';
-      tip.innerHTML = `<b style="color:${hover.ok ? 'var(--ink)' : 'var(--coral)'}">${hover.ok ? '✓' : '✕'}</b> ${zh ? '题号' : 'query'} ${hover.id} · ${zh ? (hover.ok ? '正确' : '错误') : (hover.ok ? 'correct' : 'incorrect')} · recall ${hover.rec}%`;
-      tip.style.left = mouse.x + 'px'; tip.style.top = mouse.y + 'px'; tip.style.opacity = 1;
-    } else tip.style.opacity = 0;
-  }
-  requestAnimationFrame(frame);
+  drawGrid = draw;
+  gridIntro = () => {
+    if (started) return; started = true; const t0 = performance.now();
+    const tick = now => { shown = Math.round(N * clamp((now - t0) / 1600)); draw(); if (shown < N) requestAnimationFrame(tick) };
+    reduce ? draw() : requestAnimationFrame(tick);
+  };
+  const pick = e => {
+    const r = cv.getBoundingClientRect(), c = Math.floor((e.clientX - r.left) / s), i = Math.floor((e.clientY - r.top) / s) * cols + c;
+    hover = c >= 0 && c < cols && i >= 0 && i < N ? i : -1; draw();
+    if (hover < 0) { tip.style.opacity = 0; return }
+    const [id, ok, rec] = BC[hover];
+    tip.innerHTML = `<b style="color:${ok ? 'var(--ink)' : 'var(--coral)'}">${ok ? '✓' : '✕'}</b> ${zh() ? '题号' : 'query'} ${id} · ${zh() ? (ok ? '正确' : '错误') : (ok ? 'correct' : 'incorrect')} · recall ${rec}%`;
+    tip.style.left = e.clientX + 'px'; tip.style.top = e.clientY + 'px'; tip.style.opacity = 1;
+  };
+  cv.addEventListener('pointermove', pick); cv.addEventListener('pointerdown', pick);
+  cv.addEventListener('pointerleave', () => { hover = -1; tip.style.opacity = 0; draw() });
+  addEventListener('resize', layout); layout();
 })();
+
+/* reveal on scroll */
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (!e.isIntersecting) return;
+  const el = e.target; el.classList.add('in'); io.unobserve(el);
+  $$('[data-count]', el).forEach(count);
+  if (el.dataset.count) count(el);
+  if (el.classList.contains('ci')) ciAnim();
+  if (el.id === 'term') trace();
+  if (el.classList.contains('gridwrap')) gridIntro();
+}), {threshold: .15, rootMargin: '0px 0px -5% 0px'});
+$$('.rv').forEach(el => io.observe(el));
+requestAnimationFrame(() => $$('.hero .rv').forEach(el => el.classList.add('in')));
+
+/* chapter tracking, progress, nav background */
+const chLinks = $$('#chapters a');
+const chIO = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) chLinks.forEach((a, i) => a.classList.toggle('on', i === +e.target.dataset.ch));
+}), {rootMargin: '-45% 0px -50% 0px'});
+$$('[data-ch]').forEach(s => chIO.observe(s));
+function onScroll() {
+  const y = scrollY, h = root.scrollHeight - innerHeight;
+  $('#progress').style.transform = `scaleX(${h ? y / h : 0})`;
+  $('#nav').classList.toggle('solid', y > 40);
+  if (y < innerHeight * .5) chLinks.forEach(a => a.classList.remove('on'));
+}
+addEventListener('scroll', onScroll, {passive: true}); onScroll();
 </script>
 </body>
 </html>
