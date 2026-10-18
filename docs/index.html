@@ -1,0 +1,1038 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Minimal RAG</title>
+<meta name="description" content="94.1% on BrowseComp-Plus (all 830 queries) with one agent, plain BM25 and ~400 lines of core code.">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#060607">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='4' y='4' width='24' height='24' rx='5' fill='%23c8ff2e'/%3E%3C/svg%3E">
+<script>try{var t=localStorage.getItem("theme")}catch(e){}document.documentElement.dataset.theme=t||"dark"</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root,.dk{
+  --bg-rgb:6,6,7; --fg-rgb:243,242,237;
+  --bg:rgb(var(--bg-rgb)); --bg2:#0d0e11; --fg:rgb(var(--fg-rgb)); --fg2:#c9c9c4; --mute:#85878d; --dim:#4a4c52; --cool:#8f96a8;
+  --acid-rgb:200,255,46; --ink-rgb:200,255,46; --coral-rgb:255,90,78; --tool-rgb:127,215,255; --warn-rgb:255,207,122;
+  --on-acid:#000; --line:rgba(var(--fg-rgb),.08); --line2:rgba(var(--fg-rgb),.16); --shadow:rgba(0,0,0,.9);
+  --acid:rgb(var(--acid-rgb)); --ink:rgb(var(--ink-rgb)); --coral:rgb(var(--coral-rgb)); --tool:rgb(var(--tool-rgb)); --warn:rgb(var(--warn-rgb));
+}
+:root[data-theme="light"]{
+  --bg-rgb:247,247,244; --fg-rgb:10,10,12;
+  --bg2:#ececE7; --fg2:#2b2c30; --mute:#55575e; --dim:#a2a4a9; --cool:#7b8191;
+  --ink-rgb:0,128,48;
+  --coral-rgb:220,50,38; --tool-rgb:0,128,140; --warn-rgb:176,96,0;
+  --shadow:rgba(20,24,60,.16);
+}
+:root{
+  --sans:"Inter Tight","PingFang SC","Noto Sans SC","Microsoft YaHei",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --serif:"Instrument Serif","Songti SC",Georgia,serif;
+  --gut:clamp(16px,4vw,56px);
+  --max:1320px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--bg);color:var(--fg);-webkit-text-size-adjust:100%}
+body{background:var(--bg);font-family:var(--sans);font-size:17px;line-height:1.55;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+:root[lang="zh-CN"] .en{display:none!important}
+:root:not([lang="zh-CN"]) .zh{display:none!important}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--acid);color:var(--on-acid)}
+code,.mono{font-family:var(--mono)}
+em.s{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:0}
+
+/* grain + vignette */
+body::after{content:"";position:fixed;inset:-50%;z-index:100;pointer-events:none;opacity:.07;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  animation:grain 1.2s steps(6) infinite}
+@keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-3%,2%)}40%{transform:translate(2%,-4%)}60%{transform:translate(-4%,-1%)}80%{transform:translate(3%,3%)}100%{transform:translate(0,0)}}
+
+/* progress + nav */
+#progress{position:fixed;top:0;left:0;height:2px;width:100%;transform-origin:0 50%;transform:scaleX(0);background:var(--ink);z-index:60}
+nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px var(--gut);
+  background:linear-gradient(var(--bg) 0%,rgba(var(--bg-rgb),0) 100%);transition:background .3s}
+nav.solid{background:rgba(var(--bg-rgb),.72);backdrop-filter:blur(14px) saturate(1.4);-webkit-backdrop-filter:blur(14px) saturate(1.4);border-bottom:1px solid var(--line)}
+.logo{font-family:var(--mono);font-weight:700;font-size:14px;letter-spacing:.02em;display:flex;align-items:center;gap:10px}
+.logo i{width:10px;height:10px;background:var(--ink);border-radius:2px;box-shadow:0 0 18px var(--acid);animation:blink 2.4s infinite}
+@keyframes blink{50%{opacity:.35}}
+.navlinks{display:flex;gap:26px;font-size:13px;color:var(--mute);font-family:var(--mono);text-transform:uppercase;letter-spacing:.08em}
+.navlinks a:hover{color:var(--fg)}
+.navr{display:flex;gap:10px;align-items:center}
+.pill{font-family:var(--mono);font-size:12px;border:1px solid var(--line2);border-radius:99px;padding:7px 13px;color:var(--fg2);background:rgba(var(--fg-rgb),.02);cursor:pointer;transition:border-color .2s,color .2s,background .2s;white-space:nowrap}
+.pill:hover{border-color:var(--ink);color:var(--fg)}
+.pill.solid{background:var(--acid);color:var(--on-acid);border-color:var(--acid);font-weight:700}
+.pill.solid:hover{background:var(--fg);border-color:var(--fg);color:var(--bg)}
+#lang b,#theme b{color:var(--fg)}
+:root[data-theme="light"] #theme .moon,:root:not([data-theme="light"]) #theme .sun{display:none}
+@media (max-width:860px){.navlinks{display:none}}
+@media (max-width:480px){#nav{gap:8px}#nav .logo{font-size:12px;gap:6px}.navr{gap:4px}#nav .pill{font-size:11px;padding:7px 6px}}
+
+/* hero */
+#hero{position:relative;height:260vh}
+.stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+#field{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hero-a,.hero-b{position:absolute;left:var(--gut);right:var(--gut);pointer-events:none}
+.hero-a{bottom:clamp(28px,7vh,80px)}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--ink);box-shadow:0 0 10px var(--acid)}
+.big{font-weight:900;font-size:clamp(108px,23vw,380px);line-height:.8;letter-spacing:-.065em;margin:18px 0 0 -.04em;
+  background:linear-gradient(180deg,var(--fg) 0%,var(--fg) 55%,rgba(var(--fg-rgb),.55) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;
+  font-variant-numeric:tabular-nums}
+.big sup{font-size:.32em;vertical-align:top;position:relative;top:.22em;letter-spacing:-.03em;color:var(--ink);-webkit-text-fill-color:var(--ink);margin-left:.04em}
+.herosub{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-top:22px;flex-wrap:wrap}
+.herosub h1{font-weight:600;font-size:clamp(22px,2.6vw,38px);line-height:1.08;letter-spacing:-.025em;max-width:20em}
+.herosub h1 em.s{color:var(--ink);font-size:1.12em}
+.hero-meta{font-family:var(--mono);font-size:12px;color:var(--mute);text-align:right;line-height:1.8}
+.hero-meta b{color:var(--fg);font-weight:500}
+.hero-b{top:clamp(76px,13vh,140px);opacity:0}
+.hero-b h2{font-weight:700;font-size:clamp(28px,4.2vw,64px);letter-spacing:-.035em;line-height:1}
+.hero-b h2 .ok{color:var(--ink)} .hero-b h2 .no{color:var(--coral)}
+.hero-b p{color:var(--mute);margin-top:12px;font-size:15px;max-width:44em}
+.legend{position:absolute;left:var(--gut);right:var(--gut);bottom:clamp(24px,6vh,64px);display:flex;gap:22px;flex-wrap:wrap;font-family:var(--mono);font-size:12px;color:var(--mute);opacity:0;pointer-events:none}
+.legend span{display:flex;align-items:center;gap:8px}
+.legend i{width:9px;height:9px;border-radius:50%;display:inline-block}
+.scrollhint{position:absolute;right:var(--gut);top:50%;writing-mode:vertical-rl;font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--dim);text-transform:uppercase}
+.scrollhint::after{content:"";display:inline-block;width:1px;height:60px;background:linear-gradient(var(--dim),transparent);margin-top:12px;animation:drip 1.8s infinite}
+@keyframes drip{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+#tip{position:fixed;z-index:70;pointer-events:none;font-family:var(--mono);font-size:12px;padding:8px 10px;border-radius:8px;background:rgba(var(--bg-rgb),.92);border:1px solid var(--line2);opacity:0;transform:translate(14px,14px);transition:opacity .15s;white-space:nowrap}
+#tip b{font-weight:700}
+@media (max-width:760px){.hero-meta{text-align:left}.scrollhint{display:none}}
+
+/* marquee */
+.marquee{border-block:1px solid var(--line);overflow:hidden;background:var(--bg);position:relative;z-index:2}
+.marquee .track{display:flex;width:max-content;animation:mq 38s linear infinite}
+.marquee span{font-family:var(--mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);padding:16px 26px;white-space:nowrap;display:flex;align-items:center;gap:26px}
+.marquee span::after{content:"✦";color:var(--ink);font-size:10px}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* sections */
+section.s{position:relative;padding:clamp(96px,14vw,180px) var(--gut);max-width:calc(var(--max) + 2*var(--gut));margin:0 auto}
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);display:flex;align-items:center;gap:14px;margin-bottom:28px}
+.kicker::before{content:"";width:34px;height:1px;background:var(--ink)}
+h2.h{font-weight:800;font-size:clamp(40px,7vw,108px);line-height:.92;letter-spacing:-.05em;max-width:12em}
+h2.h em.s{font-size:1.06em;color:var(--fg2)}
+.lede{color:var(--fg2);font-size:clamp(17px,1.5vw,21px);max-width:38em;margin-top:28px;line-height:1.55}
+.lede b{color:var(--fg);font-weight:600}
+.grid2{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(32px,5vw,80px);align-items:start}
+@media (max-width:900px){.grid2{grid-template-columns:1fr}}
+.note{font-family:var(--mono);font-size:12px;color:var(--mute);line-height:1.7}
+.note a{color:var(--fg2);border-bottom:1px solid var(--line2)}
+.note a:hover{color:var(--ink);border-color:var(--ink)}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(34px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1);transition-delay:calc(var(--i,0)*90ms)}
+.rv.in{opacity:1;transform:none}
+.mask{display:block;overflow:hidden;padding-bottom:.08em}
+.mask>span{display:inline-block;transform:translateY(105%);transition:transform 1.1s cubic-bezier(.16,1,.3,1);transition-delay:calc(var(--i,0)*80ms)}
+.in .mask>span,.mask.in>span{transform:none}
+
+/* card spotlight */
+.card{position:relative;border:1px solid var(--line);border-radius:18px;background:linear-gradient(180deg,rgba(var(--fg-rgb),.025),rgba(var(--fg-rgb),.008));overflow:hidden;isolation:isolate}
+.card::before{content:"";position:absolute;inset:0;z-index:-1;opacity:0;transition:opacity .3s;
+  background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(var(--acid-rgb),.10),transparent 60%)}
+.card:hover::before{opacity:1}
+.card::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;opacity:0;transition:opacity .3s;
+  background:radial-gradient(300px circle at var(--mx,50%) var(--my,50%),rgba(var(--acid-rgb),.6),transparent 60%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+.card:hover::after{opacity:1}
+
+/* 01 efficiency */
+.bars{margin-top:56px;display:flex;flex-direction:column;gap:30px}
+.bar .lab{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:10px;flex-wrap:wrap}
+.bar .lab b{font-weight:600;font-size:18px}
+.bar .lab small{font-family:var(--mono);font-size:12px;color:var(--mute)}
+.bar .rail{height:56px;border-radius:10px;background:repeating-linear-gradient(90deg,var(--line) 0 1px,transparent 1px 10%);position:relative;overflow:hidden;border:1px solid var(--line)}
+.bar .fill{position:absolute;inset:0 auto 0 0;width:var(--w);transform:scaleX(0);transform-origin:left;transition:transform 1.6s cubic-bezier(.16,1,.3,1);background:var(--c,var(--cool));border-radius:9px}
+.in .bar .fill{transform:scaleX(1)}
+.bar .val{position:absolute;top:50%;transform:translateY(-50%);left:calc(var(--w) + 14px);font-family:var(--mono);font-weight:700;font-size:20px;white-space:nowrap}
+.bar.ours .fill{background:var(--acid);box-shadow:0 0 40px rgba(var(--acid-rgb),.5)}
+.bar.ours .val{color:var(--ink)}
+.bar.top .val{left:auto;right:16px;color:var(--bg)}
+.bar.top .fill{background:linear-gradient(90deg,rgba(var(--fg-rgb),.16),rgba(var(--fg-rgb),.62))}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden;margin-top:72px}
+.stat{background:var(--bg);padding:30px 26px}
+.stat .n{font-weight:800;font-size:clamp(48px,6vw,88px);letter-spacing:-.05em;line-height:1;font-variant-numeric:tabular-nums}
+.stat .n small{font-size:.45em;letter-spacing:-.02em;color:var(--mute);font-weight:600}
+.stat p{color:var(--mute);font-size:14px;margin-top:12px;max-width:22em}
+.stat.acid .n{color:var(--ink)}
+@media (max-width:760px){.stats{grid-template-columns:1fr}}
+.ranks{display:flex;gap:3px;margin-top:22px;height:48px;align-items:flex-end}
+.ranks i{flex:1;height:30%;background:var(--dim);border-radius:2px;opacity:.6;transform:scaleY(0);transform-origin:bottom;transition:transform .6s cubic-bezier(.16,1,.3,1);transition-delay:calc(var(--k)*8ms)}
+.in .ranks i{transform:scaleY(1)}
+.ranks i.me{height:100%;background:var(--acid);opacity:1;box-shadow:0 0 16px var(--acid);outline:1px solid var(--ink)}
+.ranks i.one{height:70%;background:var(--cool);opacity:.9}
+
+/* kinetic */
+.kinetic{overflow:hidden;padding:clamp(40px,7vw,90px) 0;border-block:1px solid var(--line);position:relative;z-index:2;background:var(--bg)}
+.kinetic .row{white-space:nowrap;font-weight:900;font-size:clamp(64px,13vw,220px);letter-spacing:-.06em;line-height:.95;will-change:transform}
+.kinetic .row span{color:transparent;-webkit-text-stroke:1.5px rgba(var(--fg-rgb),.22)}
+.kinetic .row span.f{color:var(--fg);-webkit-text-stroke:0}
+.kinetic .row span.a{color:var(--ink);-webkit-text-stroke:0}
+.kinetic .row span.ar{font-family:var(--serif);font-style:italic;font-weight:400;-webkit-text-stroke:0;color:var(--mute);padding:0 .12em}
+
+/* 02 trace */
+.term{margin-top:56px;border-radius:20px;border:1px solid var(--line2);background:linear-gradient(180deg,var(--bg2),var(--bg));box-shadow:0 60px 120px -40px var(--shadow),0 0 0 1px rgba(var(--fg-rgb),.02) inset;overflow:hidden}
+.term-top{display:flex;align-items:center;gap:14px;padding:14px 18px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:12px;color:var(--mute)}
+.lights{display:flex;gap:7px}.lights i{width:11px;height:11px;border-radius:50%;background:var(--line2)}
+.term-top .t{flex:1;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.term-body{display:grid;grid-template-columns:240px 1fr;min-height:560px}
+.steps{border-right:1px solid var(--line);padding:22px 0;font-family:var(--mono);font-size:12px}
+.steps li{list-style:none;padding:10px 22px;color:var(--dim);display:flex;gap:12px;align-items:center;transition:color .3s,background .3s;position:relative}
+.steps li::before{content:"";width:8px;height:8px;border-radius:50%;border:1px solid currentColor;flex:none;transition:background .3s}
+.steps li.on{color:var(--fg)}
+.steps li.on::before{background:var(--ink);border-color:var(--ink);box-shadow:0 0 12px var(--ink)}
+.steps li.cur{background:rgba(var(--acid-rgb),.06)}
+.steps li.cur::after{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--ink)}
+.steps .meter{padding:22px;margin-top:10px;border-top:1px solid var(--line);color:var(--mute);line-height:2}
+.steps .meter b{color:var(--fg);font-weight:500;font-variant-numeric:tabular-nums}
+.log{padding:24px clamp(18px,3vw,34px) 34px;font-family:var(--mono);font-size:13.5px;line-height:1.7;overflow:hidden;position:relative}
+.log .blk{margin-bottom:18px;opacity:0;transform:translateY(8px);transition:opacity .4s,transform .4s}
+.log .blk.show{opacity:1;transform:none}
+.who{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-bottom:6px;display:flex;gap:10px;align-items:center}
+.who .tag{color:#000;background:var(--ink);padding:1px 7px;border-radius:4px;font-weight:700;letter-spacing:.08em}
+.who .tag.u{background:var(--fg2)}
+.who .tag.t{background:var(--tool)}
+.q{font-family:var(--sans);font-size:clamp(17px,1.6vw,22px);color:var(--fg);line-height:1.35;letter-spacing:-.01em}
+.call{color:var(--fg2)} .call .fn{color:var(--ink)} .call .k{color:var(--tool)} .call .str{color:var(--warn)} .call .num{color:#ff9cd3}
+.hits{border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.hit{display:grid;grid-template-columns:28px 1fr auto;gap:12px;padding:9px 14px;border-bottom:1px solid var(--line);font-size:12.5px;color:var(--mute);transition:background .4s,color .4s}
+.hit:last-child{border-bottom:0}
+.hit .ttl{color:var(--fg2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hit.sel{background:rgba(var(--acid-rgb),.08);color:var(--fg)}
+.hit.sel .ttl{color:var(--ink)}
+.src{border-left:2px solid var(--tool);padding:12px 16px;background:rgba(var(--tool-rgb),.04);border-radius:0 10px 10px 0;white-space:pre-wrap;color:var(--mute);font-size:12.5px;max-height:none}
+.src mark{background:rgba(var(--acid-rgb),.16);color:var(--fg);border-radius:3px;box-shadow:0 0 0 2px rgba(var(--acid-rgb),.16)}
+.ans{font-family:var(--sans);font-size:16px;color:var(--fg)}
+.ans table{border-collapse:collapse;margin:12px 0;min-width:min(420px,100%)}
+.ans td{padding:7px 18px 7px 0;border-bottom:1px solid var(--line)}
+.ans td:first-child{font-family:var(--mono);color:var(--ink);font-size:13px}
+.ans .cite{font-family:var(--mono);font-size:11px;color:#000;background:var(--tool);border-radius:4px;padding:2px 7px;margin-left:4px;white-space:nowrap}
+.ans p{color:var(--fg2);font-size:15px;max-width:40em}
+.caret{display:inline-block;width:.55em;height:1.1em;vertical-align:-.18em;background:var(--ink);animation:blink 1s steps(1) infinite;margin-left:2px}
+.think{color:var(--mute)}
+.think i{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--ink);margin:0 2px;animation:bob 1s infinite}
+.think i:nth-child(2){animation-delay:.15s}.think i:nth-child(3){animation-delay:.3s}
+@keyframes bob{50%{transform:translateY(-4px);opacity:.4}}
+.term-foot{display:flex;justify-content:space-between;gap:16px;align-items:center;padding:14px 18px;border-top:1px solid var(--line);flex-wrap:wrap}
+@media (max-width:820px){.term-body{grid-template-columns:1fr}.steps{display:none}.term-body{min-height:620px}}
+
+/* 03 interface */
+.ab{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:56px}
+.ab .card{padding:30px}
+.ab .n{font-weight:900;font-size:clamp(72px,10vw,150px);letter-spacing:-.06em;line-height:.9;font-variant-numeric:tabular-nums}
+.ab .of{font-family:var(--mono);color:var(--mute);font-size:14px;margin-top:6px}
+.ab .who2{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);margin-bottom:20px}
+.ab .ours .n{color:var(--ink);text-shadow:0 0 60px rgba(var(--acid-rgb),.35)}
+.ab .theirs .n{color:var(--cool)}
+.dots230{display:grid;grid-template-columns:repeat(23,1fr);gap:3px;margin-top:24px}
+.dots230 i{aspect-ratio:1;border-radius:50%;background:var(--dim);opacity:.45}
+.ours .dots230 i.y{background:var(--ink);opacity:1}
+.theirs .dots230 i.y{background:var(--cool);opacity:.9}
+@media (max-width:760px){.ab{grid-template-columns:1fr}}
+.ci{margin-top:18px;padding:30px}
+.ci-head{display:flex;justify-content:space-between;gap:20px;align-items:flex-end;flex-wrap:wrap}
+.ci-head .n{font-weight:800;font-size:clamp(40px,5vw,72px);letter-spacing:-.04em;line-height:1;color:var(--ink)}
+.ci svg{width:100%;height:auto;margin-top:26px;overflow:visible}
+.tools{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+.tools .card{padding:28px}
+.tools code.sig{font-size:clamp(15px,1.5vw,19px);color:var(--fg)}
+.tools code.sig b{color:var(--ink);font-weight:700}
+.tools p{color:var(--fg2);margin-top:14px;font-size:15.5px}
+.tools .eg{margin-top:18px;font-family:var(--mono);font-size:12px;color:var(--mute);border-top:1px dashed var(--line2);padding-top:14px;line-height:1.7}
+@media (max-width:760px){.tools{grid-template-columns:1fr}}
+
+/* 04 architecture */
+.arch{display:grid;grid-template-columns:1fr 1.05fr;gap:clamp(24px,4vw,56px);margin-top:56px;align-items:stretch}
+@media (max-width:980px){.arch{grid-template-columns:1fr}}
+.diagram{padding:24px;display:flex;align-items:center;justify-content:center}
+.diagram svg{width:100%;height:auto;max-width:560px}
+.diagram text{font-family:var(--mono);font-size:13px;fill:var(--fg2)}
+.code{padding:0;font-family:var(--mono);font-size:12.5px;line-height:1.75}
+.code .bar2{display:flex;justify-content:space-between;padding:12px 18px;border-bottom:1px solid var(--line);color:var(--mute);font-size:12px}
+.code pre{padding:18px 0;overflow:auto;max-height:560px;counter-reset:ln}
+.code pre .l{display:block;padding:0 18px 0 0;white-space:pre}
+.code pre .l::before{counter-increment:ln;content:counter(ln);display:inline-block;width:44px;padding-right:16px;text-align:right;color:var(--dim)}
+.code pre .l.hl{background:rgba(var(--acid-rgb),.06)}
+.tk-k{color:#ff7ab2}.tk-s{color:var(--warn)}.tk-c{color:var(--mute);font-style:italic}.tk-f{color:var(--ink)}.tk-n{color:var(--tool)}.tk-b{color:#c4a7ff}
+.loc{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden;margin-top:18px}
+.loc div{background:var(--bg);padding:24px}
+.loc .n{font-weight:800;font-size:clamp(36px,4vw,56px);letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
+.loc .n small{font-size:.38em;color:var(--mute);font-weight:500;letter-spacing:0;margin-left:4px}
+.loc p{font-family:var(--mono);font-size:12px;color:var(--mute);margin-top:8px}
+@media (max-width:600px){.loc{grid-template-columns:1fr}}
+
+/* 05 results */
+.res{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:56px}
+.res .card{padding:30px;min-height:290px;display:flex;flex-direction:column}
+.res .bm{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);display:flex;justify-content:space-between;gap:12px}
+.res .n{font-weight:900;font-size:clamp(64px,7.5vw,116px);letter-spacing:-.06em;line-height:.9;margin-top:auto;padding-top:34px;font-variant-numeric:tabular-nums}
+.res .n small{font-size:.32em;color:var(--mute);font-weight:600;letter-spacing:-.01em;margin-left:6px}
+.res .d{color:var(--fg2);margin-top:14px;font-size:15px}
+.res .ev{margin-top:16px;font-family:var(--mono);font-size:11.5px;color:var(--mute);border-top:1px solid var(--line);padding-top:14px;line-height:1.7}
+.res .hero1{grid-column:span 2;background:radial-gradient(800px 300px at 90% 0%,rgba(var(--acid-rgb),.10),transparent 60%),linear-gradient(180deg,rgba(var(--fg-rgb),.03),rgba(var(--fg-rgb),.008))}
+.res .hero1 .n{color:var(--ink);font-size:clamp(84px,12vw,190px)}
+.badge{font-family:var(--mono);font-size:11px;padding:3px 9px;border-radius:99px;border:1px solid var(--line2);color:var(--fg2);letter-spacing:.04em;text-transform:none}
+.badge.p{border-color:rgba(var(--warn-rgb),.4);color:var(--warn)}
+@media (max-width:760px){.res{grid-template-columns:1fr}.res .hero1{grid-column:auto}}
+
+/* 06 decisions */
+.dec{margin-top:56px;border-top:1px solid var(--line2)}
+.dr{display:grid;grid-template-columns:1.25fr 1.2fr .9fr;gap:24px;padding:30px 0;border-bottom:1px solid var(--line);align-items:center;position:relative}
+.dr::before{content:"";position:absolute;inset:0 calc(-1*var(--gut));background:linear-gradient(90deg,transparent,rgba(var(--acid-rgb),.05),transparent);opacity:0;transition:opacity .3s;pointer-events:none}
+.dr:hover::before{opacity:1}
+.dr h3{font-weight:700;font-size:clamp(20px,2.2vw,30px);letter-spacing:-.025em;line-height:1.1}
+.dr h3 small{display:block;font-family:var(--mono);font-size:12px;font-weight:400;color:var(--mute);letter-spacing:0;margin-top:8px;line-height:1.5}
+.dr .vs{font-family:var(--mono);font-size:14px;color:var(--fg2);line-height:1.7}
+.dr .vs b{color:var(--fg);font-size:clamp(20px,2vw,28px);font-family:var(--sans);font-weight:800;letter-spacing:-.03em}
+.dr .vs b.w{color:var(--ink)}
+.verdict{justify-self:end;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:9px 14px;border-radius:99px;border:1px solid var(--line2);white-space:nowrap}
+.verdict.x{color:var(--coral);border-color:rgba(var(--coral-rgb),.4)}
+.verdict.x::before{content:"✕  "}
+.verdict.o{color:var(--warn);border-color:rgba(var(--warn-rgb),.4)}
+.verdict.o::before{content:"◐  "}
+.verdict.k{color:var(--ink);border-color:rgba(var(--acid-rgb),.4)}
+.verdict.k::before{content:"✓  "}
+.dr.dead h3 span.t{position:relative;display:inline-block}
+.dr.dead h3 span.t::after{content:"";position:absolute;left:-2%;right:-2%;top:52%;height:2px;background:var(--coral);transform:scaleX(0);transform-origin:left;transition:transform .9s cubic-bezier(.16,1,.3,1) .4s}
+.dr.dead.in h3 span.t::after{transform:scaleX(1)}
+@media (max-width:860px){.dr{grid-template-columns:1fr;gap:12px}.verdict{justify-self:start}}
+.nos{display:flex;gap:12px;flex-wrap:wrap;margin-top:40px}
+.nos span{font-family:var(--mono);font-size:13px;padding:10px 16px;border-radius:99px;border:1px dashed var(--line2);color:var(--mute)}
+.nos .lbl{border:0;padding-left:0;font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+.nos .lbl span{border:0;padding:0}
+.nos span s{text-decoration-color:var(--coral);text-decoration-thickness:2px;color:var(--fg2)}
+
+/* 07 fine print */
+.fp{counter-reset:fp;margin-top:56px;display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:18px}
+.fp .card{padding:28px 28px 30px}
+.fp .card::marker{content:none}
+.fp .num{font-family:var(--mono);font-size:12px;color:var(--ink);letter-spacing:.1em}
+.fp p{font-size:clamp(17px,1.4vw,20px);line-height:1.45;margin-top:16px;color:var(--fg);letter-spacing:-.01em}
+.fp p small{display:block;color:var(--mute);font-size:14px;margin-top:10px;letter-spacing:0;line-height:1.55}
+
+/* 08 run */
+.run{display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(24px,4vw,56px);align-items:center}
+@media (max-width:900px){.run{grid-template-columns:1fr}}
+.cmd{padding:0;overflow:hidden}
+.cmd .row{display:flex;align-items:center;gap:14px;padding:16px 20px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:13.5px;color:var(--fg2)}
+.cmd .row:last-child{border-bottom:0}
+.cmd .row::before{content:"$";color:var(--ink)}
+.cmd .row code{flex:1;overflow:auto;white-space:nowrap;scrollbar-width:none}
+.cmd .row code::-webkit-scrollbar{display:none}
+.copy{font-family:var(--mono);font-size:11px;background:transparent;color:var(--mute);border:1px solid var(--line2);border-radius:6px;padding:4px 9px;cursor:pointer;flex:none}
+.copy:hover{color:var(--fg);border-color:var(--ink)}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:34px}
+.btn{display:inline-flex;align-items:center;gap:10px;font-weight:600;font-size:16px;padding:16px 24px;border-radius:99px;border:1px solid var(--line2);transition:background .25s,color .25s,border-color .25s;will-change:transform}
+.btn:hover{border-color:var(--fg)}
+.btn.p{background:var(--acid);color:var(--on-acid);border-color:var(--acid)}
+.btn.p:hover{background:var(--fg);border-color:var(--fg);color:var(--bg)}
+.btn svg{width:18px;height:18px}
+
+/* footer */
+footer{position:relative;padding:clamp(100px,14vw,200px) var(--gut) 40px;overflow:hidden;border-top:1px solid var(--line)}
+footer .motto{font-weight:900;font-size:clamp(46px,9.5vw,170px);line-height:.88;letter-spacing:-.06em;max-width:var(--max);margin:0 auto}
+footer .motto em.s{color:var(--ink);font-size:1.05em}
+footer .motto .zhm{display:block;font-size:.42em;letter-spacing:-.02em;color:var(--mute);margin-top:.5em;font-weight:700}
+footer .bot{max-width:var(--max);margin:clamp(70px,10vw,140px) auto 0;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-family:var(--mono);font-size:12px;color:var(--mute)}
+footer .bot a:hover{color:var(--ink)}
+footer .bot nav{all:unset;display:flex;gap:22px;flex-wrap:wrap}
+.glow{position:absolute;width:70vw;height:70vw;left:50%;bottom:-45vw;transform:translateX(-50%);background:radial-gradient(closest-side,rgba(var(--acid-rgb),.16),transparent);filter:blur(30px);pointer-events:none;z-index:-1}
+
+.dk{color:var(--fg)}
+.card.dk{background:var(--bg2)}
+:root[data-theme="light"] body::after{display:none}
+:root[data-theme="light"] .card:not(.dk){background:#fff;box-shadow:0 1px 2px rgba(20,24,60,.04),0 12px 32px -18px rgba(20,24,60,.14)}
+:root[data-theme="light"] .stat,:root[data-theme="light"] .loc div{background:#fff}
+:root[data-theme="light"] .big{background:none;color:var(--fg)}
+:root[data-theme="light"] .ab .ours .n{text-shadow:none}
+:root[data-theme="light"] .herosub h1 em.s,:root[data-theme="light"] footer .motto em.s{color:var(--fg);background:linear-gradient(transparent 58%,var(--acid) 58%,var(--acid) 92%,transparent 92%);padding:0 .08em}
+:root[data-theme="light"] .bar.ours .fill{box-shadow:inset 0 0 0 1px rgba(var(--ink-rgb),.35)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .rv{opacity:1;transform:none}.mask>span{transform:none}
+  .bar .fill,.ranks i{transform:none}
+}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<div id="tip"></div>
+
+<nav id="nav">
+  <a class="logo" href="#top"><i></i>minimal·rag</a>
+  <div class="navlinks">
+    <a href="#efficiency"><span class="en">Results</span><span class="zh">成绩</span></a>
+    <a href="#trace"><span class="en">Live trace</span><span class="zh">真实轨迹</span></a>
+    <a href="#design"><span class="en">Design</span><span class="zh">设计</span></a>
+    <a href="#fine-print"><span class="en">Fine print</span><span class="zh">口径</span></a>
+    <a href="#run"><span class="en">Run</span><span class="zh">运行</span></a>
+  </div>
+  <div class="navr">
+    <button class="pill" id="theme" aria-label="Toggle day and night"><b class="sun">☀</b><span class="moon">☀</span> / <b class="moon">☾</b><span class="sun">☾</span></button>
+    <button class="pill" id="lang" aria-label="Switch language"><b class="en">EN</b><span class="zh">EN</span> / <b class="zh">中</b><span class="en">中</span></button>
+    <a class="pill solid" href="https://github.com/hxli2005/minimal-rag">GitHub ↗</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header id="hero">
+  <a id="top"></a>
+  <div class="stage">
+    <canvas id="field" aria-label="830 dots, one per BrowseComp-Plus query; 781 correct, 49 incorrect"></canvas>
+    <div class="hero-a">
+      <div class="eyebrow"><span class="dot"></span>
+        <span class="en">BrowseComp-Plus · all 830 queries · #2 of 85 on the Agents leaderboard</span>
+        <span class="zh">BrowseComp-Plus · 全量 830 题 · Agents 榜 85 个条目中第 2</span>
+      </div>
+      <div class="big" aria-label="94.1 percent">94.1<sup>%</sup></div>
+      <div class="herosub">
+        <h1>
+          <span class="en">One agent. Plain BM25. <em class="s">~400 lines</em> of core code.</span>
+          <span class="zh">单智能体，纯 BM25，<em class="s">约 400 行</em>核心代码。</span>
+        </h1>
+        <div class="hero-meta">
+          <span class="en"><b>12.7</b> searches / query · <b>gpt-6.1-sol</b><br>Self-scored with the official script · verification pending</span>
+          <span class="zh">每题 <b>12.7</b> 次搜索 · <b>gpt-6.1-sol</b><br>官方脚本自评 · 等待维护方复核</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-b">
+      <h2><span class="en">Every dot is one query. <span class="ok">781</span> right, <span class="no">49</span> wrong.</span><span class="zh">每个点是一道题：<span class="ok">781</span> 对，<span class="no">49</span> 错。</span></h2>
+      <p><span class="en">Real per-query results from the submitted run, in query-ID order. Brightness is evidence recall. Hover any dot.</span><span class="zh">来自提交运行的逐题真实结果，按题号排列；亮度表示证据召回率。把鼠标移到任意点上查看。</span></p>
+    </div>
+    <div class="legend">
+      <span><i style="background:var(--ink)"></i><span class="en">correct</span><span class="zh">正确</span></span>
+      <span><i style="background:var(--coral)"></i><span class="en">incorrect</span><span class="zh">错误</span></span>
+      <span><i style="background:rgba(var(--ink-rgb),.3)"></i><span class="en">dimmer = lower recall</span><span class="zh">越暗 = 召回越低</span></span>
+      <span>recall 88.13% · calibration error 1.44% · 3.4 reads / query</span>
+    </div>
+    <div class="scrollhint"><span class="en">scroll</span><span class="zh">向下</span></div>
+  </div>
+</header>
+
+<div class="marquee" aria-hidden="true"><div class="track" id="mq">
+  <span>single agent</span><span>sqlite fts5 · bm25</span><span>search + read</span><span>no embeddings</span><span>no reranker</span><span>no fixed pipeline</span><span>12.7 searches / query</span><span>830 / 830 queries</span><span>every trace inspectable</span><span>paired a/b on every decision</span>
+</div></div>
+
+<!-- 01 EFFICIENCY -->
+<section class="s" id="efficiency">
+  <div class="kicker" data-scramble>01 — Efficiency</div>
+  <h2 class="h rv">
+    <span class="en"><span class="mask"><span>16× fewer searches</span></span><span class="mask"><span style="--i:1">than #1. <em class="s">1.1 points</em> behind.</span></span></span>
+    <span class="zh"><span class="mask"><span>搜索次数是第一名的</span></span><span class="mask"><span style="--i:1"><em class="s">1/16</em>，只差 1.1 个百分点。</span></span></span>
+  </h2>
+  <p class="lede rv" style="--i:2">
+    <span class="en">The leaderboard leader runs <b>multiple agents over hybrid dense retrieval</b>, averaging about 209 searches per query. Minimal RAG is <b>one agent over BM25</b> that averages 12.7 — and lets the model decide what to search, what to read and when to stop.</span>
+    <span class="zh">榜首是<b>多智能体 + 混合稠密检索</b>，平均每题约 209 次搜索。Minimal RAG 是<b>单智能体 + BM25</b>，平均 12.7 次——搜什么、读什么、何时回答，全部由模型决定。</span>
+  </p>
+
+  <div class="bars rv" style="--i:3">
+    <div class="bar ours" style="--w:6.08%">
+      <div class="lab"><b>Minimal RAG</b><small>94.10% · single agent · BM25 · gpt-6.1-sol</small></div>
+      <div class="rail"><div class="fill"></div><div class="val">12.7</div></div>
+    </div>
+    <div class="bar" style="--w:16.12%">
+      <div class="lab"><b><span class="en">Best BM25-only entry</span><span class="zh">此前最好的纯 BM25 条目</span></b><small>90.48% · BM25 + query expansion · GPT-5.5</small></div>
+      <div class="rail"><div class="fill"></div><div class="val">33.7</div></div>
+    </div>
+    <div class="bar top" style="--w:100%">
+      <div class="lab"><b><span class="en">Leaderboard #1</span><span class="zh">排行榜第 1</span></b><small>95.18% · multi-agent · Qwen2-7B + Reason-ModernColBERT · GPT-5</small></div>
+      <div class="rail"><div class="fill"></div><div class="val">~209</div></div>
+    </div>
+    <div class="note"><span class="en">Average search calls per query, BrowseComp-Plus Agents leaderboard snapshot of 2026-10-17.</span><span class="zh">每题平均搜索次数，BrowseComp-Plus Agents 榜 2026-10-17 快照。</span></div>
+  </div>
+
+  <div class="stats rv" style="--i:4">
+    <div class="stat acid">
+      <div class="n">#2<small> / 85</small></div>
+      <p><span class="en">On the public Agents leaderboard — and the highest single-agent and BM25-only entry.</span><span class="zh">公开 Agents 榜排名；同时是最高的单智能体条目和纯 BM25 条目。</span></p>
+      <div class="ranks" id="ranks"></div>
+    </div>
+    <div class="stat">
+      <div class="n" data-count="88.13" data-dec="2">0<small>%</small></div>
+      <p><span class="en">Evidence recall. The answer is backed by the documents it read.</span><span class="zh">证据召回率：答案来自实际读到的原文。</span></p>
+    </div>
+    <div class="stat">
+      <div class="n" data-count="1.44" data-dec="2">0<small>%</small></div>
+      <p><span class="en">Calibration error. Its confidence means what it says.</span><span class="zh">校准误差：模型说的把握度可信。</span></p>
+    </div>
+  </div>
+</section>
+
+<div class="kinetic" aria-hidden="true">
+  <div class="row" data-dir="1"><span>question</span><span class="ar">→</span><span class="a">search</span><span class="ar">→</span><span class="f">read</span><span class="ar">→</span><span>search</span><span class="ar">→</span><span class="f">read</span><span class="ar">→</span><span class="a">answer</span></div>
+  <div class="row" data-dir="-1"><span class="f">judgment</span><span class="ar">to the</span><span>model</span><span class="ar">·</span><span class="a">capability</span><span class="ar">to the</span><span>tools</span><span class="ar">·</span><span class="f">judgment</span></div>
+</div>
+
+<!-- 02 TRACE -->
+<section class="s" id="trace">
+  <div class="kicker" data-scramble>02 — Live trace</div>
+  <div class="grid2">
+    <h2 class="h rv"><span class="en"><span class="mask"><span>Watch one</span></span><span class="mask"><span style="--i:1"><em class="s">real</em> run.</span></span></span><span class="zh"><span class="mask"><span>看一次</span></span><span class="mask"><span style="--i:1"><em class="s">真实</em>运行。</span></span></span></h2>
+    <p class="lede rv" style="--i:2"><span class="en">Recorded on 2026-10-13 with <b>gpt-6.1-sol</b> over a five-document demo corpus. The model picked the query, the passage, the read window and the moment to stop. Nothing in the code decides for it.</span><span class="zh">2026-10-13 用 <b>gpt-6.1-sol</b> 在 5 篇演示文档上录制。查询词、选哪段、读多少、何时停止，都是模型自己选的，代码里没有替它做任何决定。</span></p>
+  </div>
+
+  <div class="term dk rv" style="--i:3" id="term">
+    <div class="term-top"><div class="lights"><i></i><i></i><i></i></div><div class="t">minimal_rag ask --index sol-demo.sqlite --model gpt-6.1-sol --max-turns 4</div><span>replay</span></div>
+    <div class="term-body">
+      <ul class="steps" id="steps">
+        <li data-s="0"><span class="en">Question</span><span class="zh">问题</span></li>
+        <li data-s="1"><span class="en">Model · call 1</span><span class="zh">模型 · 第 1 次</span></li>
+        <li data-s="2">search()</li>
+        <li data-s="3"><span class="en">Model · call 2</span><span class="zh">模型 · 第 2 次</span></li>
+        <li data-s="4">read()</li>
+        <li data-s="5"><span class="en">Model · call 3</span><span class="zh">模型 · 第 3 次</span></li>
+        <li data-s="6"><span class="en">Answer + source</span><span class="zh">答案与来源</span></li>
+        <div class="meter">
+          <span class="en">model calls</span><span class="zh">模型调用</span> <b id="m-calls">0</b>/3<br>
+          <span class="en">input tokens</span><span class="zh">输入 token</span> <b id="m-in">0</b><br>
+          <span class="en">chars read</span><span class="zh">读取字符</span> <b id="m-read">0</b>
+        </div>
+      </ul>
+      <div class="log" id="log"></div>
+    </div>
+    <div class="term-foot">
+      <div class="note"><span class="en">Demo corpus, not a benchmark result. Values checked by hand against the source. <a href="https://github.com/hxli2005/minimal-rag/tree/main/examples/sol-demo">Recording ↗</a></span><span class="zh">演示语料，不是基准成绩；数值已人工对照原文。<a href="https://github.com/hxli2005/minimal-rag/tree/main/examples/sol-demo">录制数据 ↗</a></span></div>
+      <button class="pill" id="replay">↻ <span class="en">Replay</span><span class="zh">重播</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- 03 INTERFACE -->
+<section class="s" id="interface">
+  <div class="kicker" data-scramble>03 — The interface</div>
+  <h2 class="h rv"><span class="en"><span class="mask"><span>The tools are</span></span><span class="mask"><span style="--i:1">the <em class="s">product.</em></span></span></span><span class="zh"><span class="mask"><span>工具接口，</span></span><span class="mask"><span style="--i:1">才是<em class="s">产品</em>。</span></span></span></h2>
+  <p class="lede rv" style="--i:2"><span class="en">Same model. Same BM25 index. Same 230 queries. Swap our <b>search/read</b> for the benchmark's standard search tool and correct answers drop from <b>217 to 194</b>. The gain is interface design, not only the model.</span><span class="zh">同一模型、同一 BM25 索引、同样 230 道题。把我们的 <b>search/read</b> 换成基准自带的标准搜索工具，答对数从 <b>217 掉到 194</b>。提升来自工具接口设计，而不只是模型。</span></p>
+
+  <div class="ab">
+    <div class="card ours rv" style="--i:1">
+      <div class="who2">search + read <span class="en">(ours)</span><span class="zh">（本项目）</span></div>
+      <div class="n" data-count="217">0</div>
+      <div class="of">/ 230 correct · 94.3%</div>
+      <div class="dots230" data-y="217"></div>
+    </div>
+    <div class="card theirs rv" style="--i:2">
+      <div class="who2"><span class="en">benchmark's standard search tool</span><span class="zh">基准标准搜索工具</span></div>
+      <div class="n" data-count="194">0</div>
+      <div class="of">/ 230 correct · 84.3%</div>
+      <div class="dots230" data-y="194"></div>
+    </div>
+  </div>
+
+  <div class="card ci rv">
+    <div class="ci-head">
+      <div><div class="who2 note" style="text-transform:uppercase;letter-spacing:.1em"><span class="en">paired difference</span><span class="zh">配对差值</span></div><div class="n">+10.0 pp</div></div>
+      <div class="note"><span class="en">95% CI [5.2, 14.8] — excludes zero.</span><span class="zh">95% 置信区间 [5.2, 14.8]，不含 0。</span></div>
+    </div>
+    <svg viewBox="0 0 1000 120" id="cisvg" role="img" aria-label="Confidence interval from 5.2 to 14.8 percentage points, point estimate 10.0">
+      <line x1="0" y1="70" x2="1000" y2="70" style="stroke:rgba(var(--fg-rgb),.14)"/>
+      <g font-family="JetBrains Mono" font-size="13" text-anchor="middle" style="fill:var(--mute)">
+        <line x1="250" y1="40" x2="250" y2="100" style="stroke:var(--coral)" stroke-dasharray="4 4"/><text x="250" y="122" style="fill:var(--coral)">0</text>
+        <text x="0" y="122" text-anchor="start">−5</text><text x="500" y="122">5</text><text x="750" y="122">10</text><text x="1000" y="122" text-anchor="end">15 pp</text>
+      </g>
+      <rect id="ci-band" x="510" y="56" width="0" height="28" rx="14" style="fill:rgba(var(--acid-rgb),.18);stroke:var(--ink)" stroke-width="1.5"/>
+      <circle id="ci-dot" cx="750" cy="70" r="0" style="fill:var(--ink)"/>
+      <text x="510" y="44" font-family="JetBrains Mono" font-size="13" text-anchor="middle" style="fill:var(--fg2)">5.2</text>
+      <text x="990" y="44" font-family="JetBrains Mono" font-size="13" text-anchor="middle" style="fill:var(--fg2)">14.8</text>
+    </svg>
+  </div>
+
+  <div class="tools">
+    <div class="card rv" style="--i:1">
+      <code class="sig"><b>search</b>(query, limit)</code>
+      <p><span class="en">Ranks original passages with SQLite FTS5 BM25 and returns them with document ID and character offset, so the model sees real text, not a summary.</span><span class="zh">用 SQLite FTS5 BM25 给原文段落排序，并返回文档 ID 与字符偏移——模型看到的是原文，不是摘要。</span></p>
+      <div class="eg">→ "Remediation SLA options + customer tier mapping…"<br>&nbsp;&nbsp;dsid_c838… · offset 0 · 4000 chars</div>
+    </div>
+    <div class="card rv" style="--i:2">
+      <code class="sig"><b>read</b>(document_id, offset, limit)</code>
+      <p><span class="en">Returns original text at any position in any document. The model decides where to look and how much to read — like a person scrolling a file.</span><span class="zh">按文档 ID 和字符偏移返回任意位置的原文。读哪里、读多少由模型决定，就像人翻文件一样。</span></p>
+      <div class="eg">→ read("dsid_c838…", offset=3900, limit=6000)<br>&nbsp;&nbsp;"TTM (same across tiers) — Sev0: 30 minutes…"</div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 ARCHITECTURE -->
+<section class="s" id="design">
+  <div class="kicker" data-scramble>04 — Architecture</div>
+  <h2 class="h rv"><span class="en"><span class="mask"><span>The whole loop</span></span><span class="mask"><span style="--i:1">fits on <em class="s">one screen.</em></span></span></span><span class="zh"><span class="mask"><span>整个循环，</span></span><span class="mask"><span style="--i:1"><em class="s">一屏</em>装下。</span></span></span></h2>
+  <p class="lede rv" style="--i:2"><span class="en">The model replies with text or tool calls. The loop runs the tools and appends what they return. That is the entire control flow — <b>judgment lives in the model, capability lives in the tools</b>, so a stronger model makes the whole system stronger.</span><span class="zh">模型返回文本或工具调用；循环执行工具、把结果追加回上下文。控制流就这些——<b>判断交给模型，能力交给工具</b>，所以模型变强，整个系统直接变强。</span></p>
+
+  <div class="arch">
+    <div class="card diagram rv" style="--i:1">
+      <svg viewBox="0 0 560 520" role="img" aria-label="Loop: question enters the loop, model replies with tool calls to search or read, tool results return to the loop, or the model answers with source IDs">
+        <defs>
+          <radialGradient id="gl"><stop offset="0" style="stop-color:var(--ink)" stop-opacity=".35"/><stop offset="1" style="stop-color:var(--ink)" stop-opacity="0"/></radialGradient>
+          <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" style="fill:var(--mute)"/></marker>
+        </defs>
+        <circle cx="280" cy="260" r="150" fill="none" stroke-width="1" style="stroke:rgba(var(--fg-rgb),.1)"/>
+        <path id="ring" d="M280 110 A150 150 0 1 1 279.9 110" fill="none" style="stroke:rgba(var(--ink-rgb),.45)" stroke-width="1.5" stroke-dasharray="3 7">
+          <animate attributeName="stroke-dashoffset" from="0" to="-100" dur="4s" repeatCount="indefinite"/>
+        </path>
+        <circle r="22" fill="url(#gl)"><animateMotion dur="5s" repeatCount="indefinite" rotate="auto"><mpath href="#ring"/></animateMotion></circle>
+        <circle r="4.5" style="fill:var(--ink)"><animateMotion dur="5s" repeatCount="indefinite"><mpath href="#ring"/></animateMotion></circle>
+        <!-- center -->
+        <text x="280" y="250" text-anchor="middle" style="font-size:12px;fill:var(--mute);letter-spacing:.14em">RUN_AGENT</text>
+        <text x="280" y="276" text-anchor="middle" style="font-family:'Inter Tight';font-size:26px;font-weight:800;fill:var(--fg)">loop</text>
+        <text x="280" y="298" text-anchor="middle" style="font-size:11px;fill:var(--dim)">66 lines</text>
+        <!-- model top -->
+        <g><rect x="200" y="86" width="160" height="48" rx="24" style="fill:var(--bg2);stroke:var(--ink)"/><text x="280" y="115" text-anchor="middle" style="fill:var(--ink);font-weight:700">model</text></g>
+        <!-- tools -->
+        <g><rect x="372" y="300" width="140" height="44" rx="12" style="fill:var(--bg2);stroke:rgba(var(--fg-rgb),.22)"/><text x="442" y="327" text-anchor="middle">search · BM25</text></g>
+        <g><rect x="48" y="300" width="140" height="44" rx="12" style="fill:var(--bg2);stroke:rgba(var(--fg-rgb),.22)"/><text x="118" y="327" text-anchor="middle">read · offset</text></g>
+        <g><rect x="200" y="386" width="160" height="44" rx="12" style="fill:var(--bg2);stroke:rgba(var(--tool-rgb),.5)"/><text x="280" y="413" text-anchor="middle" style="fill:var(--tool)">tool results</text></g>
+        <!-- question in / answer out -->
+        <line x1="20" y1="40" x2="196" y2="98" marker-end="url(#ah)" style="stroke:var(--mute)"/>
+        <text x="20" y="30">question</text>
+        <line x1="364" y1="98" x2="532" y2="40" style="stroke:var(--ink)" marker-end="url(#ah)"/>
+        <text x="540" y="30" text-anchor="end" style="fill:var(--ink)">answer + source IDs</text>
+        <text x="280" y="490" text-anchor="middle" style="fill:var(--dim);font-size:12px">no router · no reranker · no fixed pipeline</text>
+      </svg>
+    </div>
+    <div class="card code dk rv" style="--i:2">
+      <div class="bar2"><span>src/minimal_rag/loop.py</span><span>run_agent()</span></div>
+      <pre id="code"></pre>
+    </div>
+  </div>
+  <div class="loc rv">
+    <div><div class="n" data-count="66">0<small>lines</small></div><p>core loop</p></div>
+    <div><div class="n" data-count="192">0<small>lines</small></div><p>search + read tools</p></div>
+    <div><div class="n" data-count="153">0<small>lines</small></div><p>model adapter</p></div>
+  </div>
+  <p class="note rv" style="margin-top:14px"><span class="en">Line counts at tag <code>frozen-20261017</code>, the version that produced the submitted results.</span><span class="zh">行数取自产生提交成绩的 <code>frozen-20261017</code> 标签。</span></p>
+</section>
+
+<!-- 05 RESULTS -->
+<section class="s" id="results">
+  <div class="kicker" data-scramble>05 — Results</div>
+  <h2 class="h rv"><span class="en"><span class="mask"><span>Four benchmarks.</span></span><span class="mask"><span style="--i:1"><em class="s">One</em> system.</span></span></span><span class="zh"><span class="mask"><span>四个基准，</span></span><span class="mask"><span style="--i:1"><em class="s">同一个</em>系统。</span></span></span></h2>
+  <div class="res">
+    <div class="card hero1 rv">
+      <div class="bm"><span>BrowseComp-Plus · 830 / 830</span><span class="badge p"><span class="en">submitted · verification pending</span><span class="zh">已提交 · 等待复核</span></span></div>
+      <div class="n"><span data-count="94.10" data-dec="2">0</span><small>%</small></div>
+      <div class="d"><span class="en">781 of 830 correct. Counting the eight technically-failed-then-rerun queries as wrong: 775/830 = 93.37%, still #2.</span><span class="zh">830 题答对 781。若把 8 道因技术故障重跑的题直接算错：775/830 = 93.37%，仍是第 2。</span></div>
+      <div class="ev"><span class="en">Official scoring script + Qwen3-32B BF16 judge, run by us.</span><span class="zh">官方判分脚本 + Qwen3-32B BF16 裁判，由本项目运行。</span></div>
+    </div>
+    <div class="card rv" style="--i:1">
+      <div class="bm"><span>EnterpriseRAG-Bench · test400</span><span class="badge p"><span class="en">official grading pending</span><span class="zh">等待官方判分</span></span></div>
+      <div class="n"><span data-count="77.25" data-dec="2">0</span><small>%</small></div>
+      <div class="d"><span class="en">309/400 locally; dev100 74/100. All 500 answers submitted in the official format. Official leaderboard: OpenAI File Search 69.8%, BM25 + GPT-5.4 single pass 68.8%.</span><span class="zh">本地 309/400；dev100 为 74/100。500 题答案已按官方格式提交。官方榜：OpenAI File Search 69.8%，BM25 + GPT-5.4 单轮 68.8%。</span></div>
+      <div class="ev"><span class="en">Local gpt-6.1-sol judge — stricter than official (public CDL answers: 86.5% local vs 92.0% official).</span><span class="zh">本地 gpt-6.1-sol 裁判，比官方更严（公开 CDL 答案：本地 86.5%，官方 92.0%）。</span></div>
+    </div>
+    <div class="card rv" style="--i:2">
+      <div class="bm"><span>FinanceBench · 100</span><span class="badge"><span class="en">local judge</span><span class="zh">本地裁判</span></span></div>
+      <div class="n"><span data-count="83">0</span><small>/100</small></div>
+      <div class="d"><span class="en">Retrieval over a shared corpus of all 371 filings, not per-question documents.</span><span class="zh">在全部 371 份财报的共享语料上检索，而非每题单独给文档。</span></div>
+      <div class="ev"><span class="en">Earlier search description.</span><span class="zh">使用较早版本的 search 说明。</span></div>
+    </div>
+    <div class="card rv" style="--i:1">
+      <div class="bm"><span>HotpotQA distractor · 100</span><span class="badge"><span class="en">official metric</span><span class="zh">官方指标</span></span></div>
+      <div class="n"><span data-count="87.25" data-dec="2">0</span><small>F1</small></div>
+      <div class="d">EM 77.0 · F1 87.25</div>
+      <div class="ev"><span class="en">Official answer metric on public dev data; supporting facts not evaluated.</span><span class="zh">公开 dev 数据上的官方答案指标；未评估支持事实。</span></div>
+    </div>
+    <div class="card rv" style="--i:2">
+      <div class="bm"><span>Index · Enterprise</span><span class="badge">BM25</span></div>
+      <div class="n"><span data-count="1.99" data-dec="2">0</span><small>M chunks</small></div>
+      <div class="d"><span class="en">511,962 documents, 8.5 GB SQLite FTS5 index, built in 154 seconds.</span><span class="zh">511,962 篇文档，8.5 GB SQLite FTS5 索引，154 秒建完。</span></div>
+      <div class="ev"><span class="en">1,600-char chunks, 200-char overlap.</span><span class="zh">1,600 字符分块，200 字符重叠。</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 DECISIONS -->
+<section class="s" id="decisions">
+  <div class="kicker" data-scramble>06 — Decisions</div>
+  <h2 class="h rv"><span class="en"><span class="mask"><span>Tried. Measured.</span></span><span class="mask"><span style="--i:1"><em class="s">Decided.</em></span></span></span><span class="zh"><span class="mask"><span>试过，测过，</span></span><span class="mask"><span style="--i:1"><em class="s">定了。</em></span></span></span></h2>
+  <p class="lede rv" style="--i:2"><span class="en">Every design choice is a paired comparison on the same questions. What lost is kept on record, not quietly deleted.</span><span class="zh">每项设计都是同题配对对照；输掉的方案同样保留记录，而不是悄悄删掉。</span></p>
+  <div class="dec">
+    <div class="dr dead rv">
+      <h3><span class="t"><span class="en">Vector retrieval tool</span><span class="zh">独立向量检索工具</span></span><small>Qwen3-Embedding-8B, alongside BM25, model picks</small></h3>
+      <div class="vs">Enterprise test400<br><b>305</b> vs <b class="w">309</b> <span class="en">(BM25 only)</span><span class="zh">（仅 BM25）</span></div>
+      <span class="verdict x"><span class="en">dropped</span><span class="zh">不采用</span></span>
+    </div>
+    <div class="dr rv">
+      <h3><span class="en">ripgrep Grep tool</span><span class="zh">ripgrep 全库 Grep 工具</span><small><span class="en">~3 wins traceable to Grep</span><span class="zh">逐题追溯可归因约 3 题</span></small></h3>
+      <div class="vs">Enterprise dev100 <b class="w">78</b> vs <b>74</b><br>BrowseComp dev30 <b>28</b> vs <b>28</b></div>
+      <span class="verdict o"><span class="en">optional · off</span><span class="zh">可选 · 默认关</span></span>
+    </div>
+    <div class="dr dead rv">
+      <h3><span class="t"><span class="en">verbosity = high</span><span class="zh">回答详细度 high</span></span><small><span class="en">fixed evidence, 30 questions</span><span class="zh">固定证据 30 题</span></small></h3>
+      <div class="vs"><b>22</b> vs <b class="w">23</b> (low)</div>
+      <span class="verdict x"><span class="en">default low</span><span class="zh">默认 low</span></span>
+    </div>
+    <div class="dr rv">
+      <h3><span class="en">Direct Responses API backend</span><span class="zh">直连 Responses API 后端</span><small><span class="en">replacing the Codex transport</span><span class="zh">替代 Codex 传输</span></small></h3>
+      <div class="vs">Enterprise dev30 <b class="w">24</b> vs <b>22</b><br><span class="en">fact completeness</span><span class="zh">事实完整度</span> 93.0% vs 84.7%</div>
+      <span class="verdict k"><span class="en">kept · portable</span><span class="zh">保留 · 可移植</span></span>
+    </div>
+  </div>
+  <div class="nos rv"><span class="lbl"><span class="en">Also not in the system</span><span class="zh">系统里同样没有</span></span><span><s>embeddings</s></span><span><s>reranker</s></span><span><s>query router</s></span><span><s>fixed pipeline</s></span><span><s>multi-agent</s></span></div>
+</section>
+
+<!-- 07 FINE PRINT -->
+<section class="s" id="fine-print">
+  <div class="kicker" data-scramble>07 — Fine print</div>
+  <h2 class="h rv"><span class="en"><span class="mask"><span>The fine print,</span></span><span class="mask"><span style="--i:1">in <em class="s">large</em> print.</span></span></span><span class="zh"><span class="mask"><span>限制条款，</span></span><span class="mask"><span style="--i:1">用<em class="s">大字</em>写。</span></span></span></h2>
+  <div class="fp">
+    <div class="card rv"><div class="num">/01</div><p><span class="en">Not yet official.</span><span class="zh">还不是官方成绩。</span><small><span class="en">Both submissions are with the maintainers. BrowseComp was scored by us with the official script; Enterprise official grading is pending.</span><span class="zh">两份提交都在等维护方处理。BrowseComp 由本项目用官方脚本判分；Enterprise 等待官方判分。</span></small></p></div>
+    <div class="card rv" style="--i:1"><div class="num">/02</div><p><span class="en">Development sets, not held-out sets.</span><span class="zh">回归集，不是留出集。</span><small><span class="en">Both benchmarks were used during development. Enterprise dev/test is our own split. One generation per question except technical reruns; failures stay in the denominator.</span><span class="zh">两个基准都在开发中用过；Enterprise 的 dev/test 是本项目自己的划分。除技术错误重跑外每题生成一次，失败计入分母。</span></small></p></div>
+    <div class="card rv" style="--i:2"><div class="num">/03</div><p><span class="en">Eight reruns, disclosed.</span><span class="zh">8 道重跑，全部公开。</span><small><span class="en">Timeouts, usage limits and SDK interrupts hit eight BrowseComp queries; each was rerun once with the same configuration. Counted as wrong: 93.37%.</span><span class="zh">8 道 BrowseComp 题遇到超时、额度和 SDK 中断，各用相同配置重跑一次。全算错则为 93.37%。</span></small></p></div>
+    <div class="card rv"><div class="num">/04</div><p><span class="en">Full runs used the Codex SDK.</span><span class="zh">全量成绩来自 Codex SDK。</span><small><span class="en">Codex injects extra tool definitions and multi-agent text; traces show no built-in tool calls. The direct API backend was only migration-tested on Enterprise dev30.</span><span class="zh">Codex 会注入额外工具定义和多智能体说明，轨迹中无内置工具调用。直连 API 后端只在 Enterprise dev30 上做过迁移验证。</span></small></p></div>
+    <div class="card rv" style="--i:1"><div class="num">/05</div><p><span class="en">One change to the judge script.</span><span class="zh">判分脚本只改一处。</span><small><span class="en">BrowseComp judging ran on one A800 with <code>max_model_len=8192</code> added. The longest judge prompt is 1,216 tokens, so nothing is truncated.</span><span class="zh">BrowseComp 判分在单张 A800 上运行，仅加入 <code>max_model_len=8192</code>；最长判分提示 1,216 token，不会截断。</span></small></p></div>
+    <div class="card rv" style="--i:2"><div class="num">/06</div><p><span class="en">A student project.</span><span class="zh">个人学生项目。</span><small><span class="en">Budget-limited. Every question keeps an inspectable trace, configuration and evaluation record.</span><span class="zh">受预算限制。每道题都保留可检查的轨迹、配置和评测记录。</span></small></p></div>
+  </div>
+</section>
+
+<!-- 08 RUN -->
+<section class="s" id="run">
+  <div class="kicker" data-scramble>08 — Run it</div>
+  <div class="run">
+    <div>
+      <h2 class="h rv"><span class="en"><span class="mask"><span>Three commands.</span></span><span class="mask"><span style="--i:1"><em class="s">No account.</em></span></span></span><span class="zh"><span class="mask"><span>三条命令，</span></span><span class="mask"><span style="--i:1"><em class="s">无需账号。</em></span></span></span></h2>
+      <p class="lede rv" style="--i:2"><span class="en">The demo builds a real SQLite index from bundled samples and replays search → read → cited answer. It calls no model. Python 3.12+.</span><span class="zh">演示用内置样例建立真实 SQLite 索引，回放“检索 → 读取 → 带来源回答”，不调用模型。需要 Python 3.12+。</span></p>
+      <div class="cta rv" style="--i:3">
+        <a class="btn p mag" href="https://github.com/hxli2005/minimal-rag"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.2-3.1-.1-.4-.5-1.6.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.6 18.3 5 18.3 5c.7 1.6.2 2.8.1 3.2.8.8 1.2 1.9 1.2 3.1 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5z"/></svg><span class="en">View on GitHub</span><span class="zh">在 GitHub 查看</span></a>
+        <a class="btn mag" href="https://github.com/hxli2005/minimal-rag/blob/main/REPRODUCE.md"><span class="en">Reproduce the scores</span><span class="zh">复现成绩</span> →</a>
+        <a class="btn mag" href="https://github.com/hxli2005/minimal-rag/blob/main/experiments/README.md"><span class="en">Experiment index</span><span class="zh">实验索引</span> →</a>
+      </div>
+    </div>
+    <div class="card cmd dk rv" style="--i:2">
+      <div class="row"><code>python3.12 -m venv .venv</code><button class="copy">copy</button></div>
+      <div class="row"><code>.venv/bin/python -m pip install -e .</code><button class="copy">copy</button></div>
+      <div class="row"><code>.venv/bin/python -m minimal_rag demo</code><button class="copy">copy</button></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="glow"></div>
+  <div class="motto rv">
+    <span class="mask"><span>Leave judgment</span></span>
+    <span class="mask"><span style="--i:1">to the <em class="s">model.</em></span></span>
+    <span class="mask"><span style="--i:2">Give it capable</span></span>
+    <span class="mask"><span style="--i:3"><em class="s">tools.</em></span></span>
+    <span class="zhm">判断交给模型，能力交给工具。</span>
+  </div>
+  <div class="bot">
+    <span>Minimal RAG · Haoxiang Li · 2026</span>
+    <nav>
+      <a href="https://github.com/hxli2005/minimal-rag">GitHub</a>
+      <a href="https://github.com/hxli2005/minimal-rag/blob/main/REPRODUCE.md">REPRODUCE.md</a>
+      <a href="https://github.com/hxli2005/minimal-rag/blob/main/docs/runbook.md">Runbook</a>
+      <a href="https://github.com/hxli2005/minimal-rag/blob/main/THIRD_PARTY_NOTICES.md">Third-party notices</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+const BC = [[1,1,75],[3,1,62],[5,1,100],[6,1,100],[7,1,91],[8,1,100],[10,1,100],[11,1,100],[12,1,100],[15,1,100],[18,1,100],[20,1,100],[22,1,83],[23,1,100],[25,1,56],[26,1,100],[27,1,78],[30,1,100],[33,1,88],[36,1,90],[37,1,100],[39,1,78],[41,1,100],[46,1,100],[49,1,80],[50,1,100],[51,1,71],[52,1,100],[53,1,83],[54,1,100],[55,1,100],[56,1,80],[58,1,88],[59,1,100],[60,1,100],[61,1,100],[62,1,100],[63,1,100],[64,1,75],[67,1,100],[68,1,100],[69,1,100],[70,0,100],[71,0,100],[72,1,100],[74,1,100],[78,1,86],[79,1,100],[81,1,100],[82,1,67],[83,1,100],[85,1,100],[86,1,100],[87,1,80],[88,1,100],[89,1,90],[90,1,82],[92,1,67],[93,1,100],[95,1,100],[96,1,100],[97,1,100],[98,1,100],[100,1,100],[102,1,60],[103,1,100],[105,1,75],[106,1,100],[107,1,100],[109,1,100],[110,1,80],[111,1,80],[113,1,100],[116,0,75],[119,1,25],[120,1,67],[121,1,86],[122,1,100],[124,1,100],[125,1,71],[126,1,100],[127,1,83],[128,1,50],[130,1,100],[131,1,100],[132,1,100],[134,1,71],[138,1,100],[140,1,100],[149,1,80],[152,1,83],[153,1,67],[154,1,100],[155,1,80],[156,1,100],[159,1,100],[160,1,100],[161,1,100],[165,1,83],[166,1,75],[168,1,100],[169,1,90],[170,1,89],[171,1,100],[174,1,100],[175,1,100],[176,1,67],[177,1,100],[178,1,100],[179,1,62],[180,1,90],[181,1,100],[183,1,100],[184,1,100],[186,1,83],[190,1,82],[191,1,100],[192,1,100],[193,1,100],[194,1,100],[196,1,100],[199,1,100],[200,1,100],[201,1,100],[202,1,100],[203,1,67],[205,1,100],[206,1,89],[209,1,100],[210,1,67],[211,1,100],[215,1,100],[216,1,89],[219,1,88],[221,0,100],[223,0,0],[226,1,100],[228,1,100],[229,1,100],[231,1,100],[233,1,80],[234,1,80],[235,1,86],[236,1,100],[237,1,100],[238,1,100],[239,1,100],[240,1,83],[241,1,67],[242,1,100],[244,1,100],[245,1,100],[246,1,67],[248,1,71],[249,1,100],[250,1,100],[251,1,100],[253,0,100],[254,1,100],[255,1,75],[256,1,86],[257,1,100],[261,1,100],[262,1,67],[263,1,100],[264,1,100],[265,1,100],[266,1,100],[267,1,100],[268,0,90],[270,1,100],[275,0,100],[276,1,100],[278,1,100],[279,1,100],[280,1,100],[282,1,100],[283,0,89],[284,1,90],[285,1,100],[286,1,67],[287,1,100],[288,1,100],[289,1,100],[291,1,100],[293,1,100],[294,1,100],[295,1,60],[297,1,75],[298,1,60],[299,1,100],[301,1,60],[303,1,86],[304,1,100],[305,1,88],[308,1,100],[309,1,100],[310,1,100],[311,1,88],[314,1,100],[315,1,100],[317,1,100],[319,1,67],[320,1,40],[322,1,80],[323,1,100],[324,1,100],[327,1,62],[328,1,56],[330,1,100],[331,1,60],[333,1,100],[335,1,100],[337,1,80],[342,1,100],[347,1,100],[349,1,100],[350,0,0],[351,1,71],[353,1,100],[354,1,100],[356,1,100],[357,1,100],[362,1,86],[364,1,100],[366,1,100],[367,1,100],[370,1,100],[371,1,71],[372,1,80],[376,1,80],[377,1,89],[380,1,100],[383,1,88],[384,1,90],[387,1,100],[389,1,80],[390,1,100],[391,1,88],[392,1,70],[393,1,67],[394,1,86],[395,1,33],[396,1,67],[397,1,67],[401,1,100],[402,1,100],[403,1,100],[405,1,78],[406,0,100],[408,1,88],[409,1,67],[410,1,100],[411,1,100],[413,1,100],[414,1,100],[416,1,100],[417,0,100],[418,1,100],[420,1,100],[421,1,100],[422,1,70],[424,1,100],[425,1,78],[426,1,100],[427,1,100],[428,1,100],[429,1,100],[432,1,64],[433,1,89],[434,1,88],[435,1,70],[436,1,86],[438,1,80],[442,1,100],[443,1,100],[445,1,71],[446,1,75],[449,1,70],[450,0,89],[454,1,100],[464,1,56],[467,1,100],[468,1,100],[469,1,100],[470,0,20],[471,1,100],[472,1,80],[473,1,100],[478,1,60],[480,1,88],[481,1,100],[483,1,100],[484,0,100],[485,1,100],[486,0,18],[487,1,100],[490,1,100],[491,1,71],[493,1,100],[494,1,100],[495,1,100],[496,1,60],[497,0,11],[498,1,100],[499,1,100],[500,1,100],[501,1,83],[502,1,100],[503,1,90],[505,1,100],[506,1,100],[507,1,100],[509,1,100],[511,1,80],[512,1,50],[513,0,14],[514,1,86],[515,1,50],[516,1,100],[517,1,75],[519,1,100],[520,1,80],[521,0,100],[523,1,70],[524,1,100],[525,0,11],[527,1,86],[528,1,100],[529,1,100],[530,1,62],[532,1,75],[533,1,100],[534,1,89],[535,1,57],[537,1,100],[538,1,45],[539,1,100],[540,1,75],[542,1,83],[543,1,83],[544,1,88],[546,1,100],[548,1,90],[549,1,100],[550,1,100],[551,1,100],[552,1,80],[553,1,67],[555,0,25],[556,1,67],[558,1,100],[560,1,86],[561,0,86],[562,1,75],[563,1,75],[568,1,78],[569,1,100],[570,1,88],[571,1,100],[572,1,100],[575,1,100],[576,1,75],[577,1,100],[579,1,100],[580,1,80],[581,1,100],[582,1,78],[583,1,100],[584,1,100],[587,1,80],[588,1,100],[590,1,88],[591,1,100],[592,1,100],[593,1,100],[594,1,60],[595,1,100],[596,1,100],[598,1,100],[599,1,100],[600,1,100],[601,1,100],[602,1,100],[603,1,43],[605,1,100],[607,1,50],[610,1,100],[611,1,100],[614,1,100],[618,1,54],[619,1,100],[620,1,80],[621,1,100],[624,1,100],[625,1,100],[627,1,100],[628,1,100],[629,1,50],[630,1,100],[631,1,100],[632,1,100],[633,1,80],[635,1,100],[636,1,67],[637,1,100],[638,1,83],[639,1,71],[642,1,100],[643,1,100],[644,1,80],[645,1,80],[650,1,100],[651,1,100],[652,1,100],[653,1,100],[655,1,100],[661,1,86],[662,1,62],[664,1,100],[665,1,100],[666,1,62],[669,1,100],[670,1,100],[671,1,100],[672,1,80],[673,1,100],[674,1,100],[675,1,71],[678,1,100],[679,0,100],[681,1,80],[682,1,100],[684,1,80],[685,1,100],[686,1,100],[688,0,100],[689,1,62],[692,1,100],[694,1,80],[695,1,83],[696,1,100],[700,1,86],[701,1,56],[702,1,100],[703,1,83],[706,1,100],[707,1,75],[708,1,100],[709,1,89],[710,1,75],[711,1,83],[712,1,100],[713,1,86],[714,1,100],[715,1,100],[716,0,0],[717,1,100],[718,1,100],[719,1,100],[720,1,50],[722,1,100],[723,1,83],[724,1,88],[725,1,100],[726,1,100],[728,1,100],[729,1,100],[730,1,83],[731,1,100],[732,1,70],[734,1,83],[735,1,100],[737,1,100],[738,1,86],[739,1,86],[741,1,100],[742,1,50],[744,1,100],[745,1,78],[746,1,83],[747,1,29],[749,1,100],[751,1,86],[753,1,89],[754,1,100],[756,1,100],[757,1,100],[758,1,100],[759,1,100],[760,1,86],[761,1,100],[763,1,100],[764,1,88],[768,1,75],[769,1,100],[770,1,89],[771,1,83],[772,1,100],[773,0,100],[774,1,100],[775,0,33],[776,1,100],[778,1,75],[781,1,100],[783,1,100],[784,1,100],[785,1,75],[786,1,100],[787,1,100],[788,1,100],[790,1,100],[791,0,88],[792,1,100],[793,1,100],[794,0,50],[796,1,80],[797,1,100],[798,1,89],[800,1,100],[801,1,89],[802,1,100],[804,1,90],[805,1,100],[806,1,100],[809,1,100],[810,1,75],[811,1,100],[814,1,78],[815,1,78],[816,1,33],[819,1,80],[820,1,75],[821,1,100],[822,1,78],[823,1,60],[826,0,88],[827,1,100],[828,1,100],[830,1,100],[832,1,100],[833,1,100],[834,1,100],[835,1,86],[836,1,80],[838,1,100],[840,1,80],[843,1,86],[844,1,67],[847,1,100],[850,1,100],[851,0,75],[852,1,90],[853,1,100],[854,1,100],[856,0,75],[861,1,100],[863,1,100],[864,1,100],[865,1,100],[867,1,75],[869,0,0],[870,1,67],[871,1,22],[872,0,25],[873,0,25],[875,1,89],[876,1,80],[882,1,100],[883,1,89],[884,1,100],[885,1,89],[886,1,83],[887,1,100],[893,1,88],[894,1,100],[895,1,100],[896,1,100],[897,1,56],[898,1,100],[899,1,100],[904,1,100],[905,1,100],[906,1,100],[907,1,100],[909,1,100],[910,1,100],[912,1,50],[915,1,100],[916,1,75],[919,1,88],[920,1,90],[921,1,100],[922,0,0],[923,1,83],[925,1,71],[926,1,100],[927,1,100],[928,1,100],[930,0,60],[932,1,88],[934,1,100],[936,1,100],[941,1,100],[942,1,100],[943,1,100],[944,1,57],[946,1,100],[947,1,75],[948,0,0],[950,1,88],[951,1,75],[952,1,100],[959,1,100],[960,1,67],[961,1,100],[962,1,90],[963,1,80],[966,1,71],[968,1,75],[969,0,100],[970,1,89],[971,1,100],[972,1,88],[976,1,100],[978,1,86],[979,1,78],[980,1,100],[981,1,75],[983,1,71],[984,1,100],[985,1,100],[986,1,100],[987,1,100],[991,1,100],[992,1,75],[996,1,71],[998,1,100],[999,1,100],[1000,1,100],[1002,1,100],[1003,1,100],[1004,0,0],[1005,1,78],[1007,1,100],[1008,1,89],[1010,1,100],[1012,1,100],[1015,1,86],[1016,1,90],[1018,1,100],[1019,1,89],[1020,1,100],[1021,0,50],[1022,1,86],[1023,1,100],[1025,1,100],[1026,0,100],[1027,1,50],[1028,1,75],[1029,1,100],[1030,1,100],[1032,1,100],[1033,1,100],[1034,1,100],[1035,1,100],[1036,1,100],[1037,1,100],[1038,1,75],[1039,1,100],[1040,1,80],[1041,1,60],[1042,1,100],[1043,1,100],[1044,0,100],[1045,1,89],[1046,1,88],[1047,1,86],[1048,1,100],[1049,1,100],[1052,1,100],[1053,1,100],[1055,1,100],[1057,1,100],[1058,1,80],[1060,1,88],[1061,1,80],[1062,1,100],[1063,1,89],[1065,1,75],[1066,1,100],[1068,1,100],[1071,1,88],[1072,1,88],[1073,1,100],[1076,1,88],[1077,1,57],[1078,1,100],[1079,1,100],[1081,1,100],[1082,1,100],[1083,1,100],[1085,1,80],[1089,1,100],[1090,1,100],[1091,1,71],[1092,1,100],[1093,1,100],[1094,0,75],[1095,1,89],[1096,1,100],[1097,1,100],[1098,1,71],[1099,1,86],[1101,1,100],[1103,1,100],[1105,1,89],[1106,1,89],[1107,1,100],[1108,1,60],[1110,1,83],[1111,1,100],[1115,1,100],[1117,0,100],[1118,1,83],[1119,1,100],[1121,1,100],[1122,1,71],[1124,1,86],[1126,1,100],[1127,1,100],[1128,1,86],[1131,0,38],[1133,1,86],[1134,1,89],[1135,1,86],[1138,1,100],[1139,1,50],[1141,1,100],[1142,1,83],[1144,1,100],[1147,1,100],[1148,1,100],[1149,1,86],[1150,1,75],[1152,1,100],[1153,1,100],[1155,1,100],[1158,1,88],[1161,1,100],[1162,1,89],[1163,1,100],[1164,1,80],[1167,1,100],[1169,1,86],[1172,1,100],[1174,1,100],[1176,1,100],[1177,1,75],[1179,1,71],[1182,1,89],[1184,1,67],[1185,1,100],[1187,1,100],[1188,1,78],[1190,1,92],[1191,1,100],[1192,1,67],[1193,1,100],[1194,1,80],[1195,1,86],[1196,1,100],[1198,1,71],[1200,1,89],[1201,1,100],[1203,1,75],[1204,1,100],[1206,1,100],[1207,1,100],[1208,1,100],[1209,1,88],[1210,1,100],[1211,0,0],[1212,1,40],[1213,0,33],[1214,1,67],[1215,1,75],[1216,1,80],[1217,1,67],[1218,1,86],[1219,1,89],[1220,1,82],[1221,1,83],[1222,1,100],[1223,1,89],[1224,1,88],[1225,1,60],[1226,1,100],[1227,1,100],[1228,1,88],[1230,1,100],[1231,1,100],[1232,1,100],[1233,1,100],[1234,1,80],[1235,1,80],[1236,0,100],[1237,1,88],[1238,1,100],[1239,1,78],[1240,1,67],[1242,1,100],[1243,1,100],[1246,1,100],[1247,1,75],[1248,1,100],[1249,1,100],[1250,1,100],[1252,1,62],[1253,1,100],[1254,1,86],[1257,1,80],[1258,1,82],[1259,1,67],[1260,1,100],[1262,1,100],[1263,1,100],[1264,1,100],[1265,1,75],[1266,1,83]]; // [query_id, correct, recall%] from the submitted BrowseComp-Plus run
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const ease = t => 1 - Math.pow(1 - t, 3);
+const sleep = ms => new Promise(r => setTimeout(r, reduce ? 0 : ms));
+
+/* language */
+const root = document.documentElement;
+function setLang(l) { root.lang = l; try { localStorage.setItem('lang', l) } catch (e) {} }
+let saved = null; try { saved = localStorage.getItem('lang') } catch (e) {}
+setLang(saved || (/^zh/i.test(navigator.language) ? 'zh-CN' : 'en'));
+$('#lang').onclick = () => setLang(root.lang === 'zh-CN' ? 'en' : 'zh-CN');
+
+/* theme */
+const pal = {};
+function setTheme(t, save) {
+  root.dataset.theme = t;
+  if (save) try { localStorage.setItem('theme', t) } catch (e) {}
+  const cs = getComputedStyle(root);
+  pal.a = cs.getPropertyValue('--ink-rgb').trim(); pal.x = cs.getPropertyValue('--coral-rgb').trim(); pal.fg = cs.getPropertyValue('--fg').trim();
+  pal.light = t === 'light';
+  document.querySelector('meta[name=theme-color]').content = cs.getPropertyValue('--bg').trim();
+}
+setTheme(root.dataset.theme);
+$('#theme').onclick = () => setTheme(pal.light ? 'dark' : 'light', true);
+
+/* marquee: duplicate track for a seamless loop */
+$('#mq').innerHTML += $('#mq').innerHTML;
+
+/* ranks strip */
+$('#ranks').innerHTML = Array.from({length: 85}, (_, k) => `<i class="${k === 1 ? 'me' : k === 0 ? 'one' : ''}" style="--k:${k}"></i>`).join('');
+$$('.dots230').forEach(d => { const y = +d.dataset.y; d.innerHTML = Array.from({length: 230}, (_, k) => `<i class="${k < y ? 'y' : ''}"></i>`).join('') });
+
+/* counters */
+function count(el) {
+  const to = +el.dataset.count, dec = +(el.dataset.dec || 0), suffix = el.innerHTML.replace(/^[^<]*/, '');
+  const t0 = performance.now(), dur = reduce ? 0 : 1600;
+  const tick = now => {
+    const t = dur ? clamp((now - t0) / dur) : 1;
+    el.innerHTML = (to * ease(t)).toLocaleString('en-US', {minimumFractionDigits: dec, maximumFractionDigits: dec}) + suffix;
+    if (t < 1) requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+}
+
+/* scramble */
+const glyphs = '!<>-_\\/[]{}—=+*^?#01';
+function scramble(el) {
+  const text = el.textContent; let f = 0; const total = 26;
+  if (reduce) return;
+  const step = () => {
+    el.textContent = [...text].map((c, i) => c === ' ' ? ' ' : (f / total > i / text.length ? c : glyphs[Math.random() * glyphs.length | 0])).join('');
+    if (++f <= total) requestAnimationFrame(step); else el.textContent = text;
+  };
+  step();
+}
+
+/* reveal observer */
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (!e.isIntersecting) return;
+  const el = e.target; el.classList.add('in'); io.unobserve(el);
+  if (el.hasAttribute('data-scramble')) scramble(el);
+  $$('[data-count]', el).forEach(count);
+  if (el.dataset.count) count(el);
+  if (el.classList.contains('ci')) ciAnim();
+  if (el.id === 'term') trace();
+}), {threshold: .18, rootMargin: '0px 0px -6% 0px'});
+$$('.rv,[data-scramble],.stats,.bars').forEach(el => io.observe(el));
+$$('[data-count]').forEach(el => { if (!el.closest('.rv,.stats')) io.observe(el) });
+
+/* CI chart */
+function ciAnim() {
+  const band = $('#ci-band'), dot = $('#ci-dot'), t0 = performance.now();
+  const tick = now => {
+    const t = ease(clamp((now - t0) / (reduce ? 1 : 1400)));
+    band.setAttribute('width', 480 * t); dot.setAttribute('r', 9 * clamp(t * 1.3));
+    if (t < 1) requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+}
+
+/* card spotlight + magnetic buttons */
+document.addEventListener('pointermove', e => {
+  const c = e.target.closest && e.target.closest('.card');
+  if (c) { const r = c.getBoundingClientRect(); c.style.setProperty('--mx', e.clientX - r.left + 'px'); c.style.setProperty('--my', e.clientY - r.top + 'px') }
+}, {passive: true});
+if (!reduce && matchMedia('(pointer:fine)').matches) $$('.mag').forEach(b => {
+  b.addEventListener('pointermove', e => { const r = b.getBoundingClientRect(); b.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * .25}px,${(e.clientY - r.top - r.height / 2) * .35}px)` });
+  b.addEventListener('pointerleave', () => { b.style.transition = 'transform .5s cubic-bezier(.16,1,.3,1)'; b.style.transform = ''; setTimeout(() => b.style.transition = '', 500) });
+});
+
+/* copy buttons */
+$$('.copy').forEach(b => b.onclick = async () => {
+  try { await navigator.clipboard.writeText(b.previousElementSibling.textContent); b.textContent = 'copied' } catch (e) { b.textContent = 'select' }
+  setTimeout(() => b.textContent = 'copy', 1400);
+});
+
+/* code panel: the real run_agent from loop.py */
+const SRC = `async def run_agent(complete, tools, question, max_turns=None, emit=lambda _: None):
+    """complete(messages, tools)返回Reply的JSON；循环只传消息、执行工具。"""
+    if not question.strip() or (max_turns is not None and max_turns < 1):
+        raise ValueError("question must be nonempty and max_turns positive")
+    messages = [{"role": "user", "content": question}]
+    specs = [{"name": name, "description": t.description, "parameters": t.arguments.model_json_schema()}
+             for name, t in tools.items()]
+    turns = 0
+    while max_turns is None or turns < max_turns:
+        turns += 1
+        raw = await complete(messages, specs)
+        try:
+            reply = Reply.model_validate_json(raw)
+        except ValidationError as error:
+            event = {"role": "protocol_error", "raw": raw, "error": str(error)}
+            messages.append(event)
+            emit(event)
+            continue
+        event = {"role": "assistant", **reply.model_dump()}
+        messages.append(event)
+        emit(event)
+        if not reply.tool_calls:
+            return {"status": "finished", "answer": reply.text, "sources": reply.sources}
+        for call in reply.tool_calls:
+            try:
+                tool = tools[call.name]
+                args = tool.arguments.model_validate_json(call.arguments_json)
+                result = tool.execute(**args.model_dump())
+                if inspect.isawaitable(result):
+                    result = await result
+            except Exception as error:
+                result = {"error": type(error).__name__, "message": str(error)}
+            event = {"role": "tool", **call.model_dump(), "content": result}
+            messages.append(event)
+            emit(event)
+    return {"status": "budget_exhausted", "answer": "运行预算已用尽；模型尚未结束回答。"}`;
+const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+function hl(line) {
+  const re = /("""[^]*?"""|"(?:[^"\\]|\\.)*"|#.*$)|\b(async|def|await|if|not|or|is|None|raise|while|try|except|as|continue|return|for|in|lambda)\b|\b(\d+)\b|\b([A-Za-z_]\w*)(?=\()/g;
+  let out = '', last = 0, m;
+  while ((m = re.exec(line))) {
+    out += esc(line.slice(last, m.index));
+    out += m[1] ? `<span class="tk-${m[1][0] === '#' ? 'c' : 's'}">${esc(m[1])}</span>`
+      : m[2] ? `<span class="tk-k">${m[2]}</span>`
+      : m[3] ? `<span class="tk-n">${m[3]}</span>`
+      : `<span class="tk-f">${m[4]}</span>`;
+    last = re.lastIndex;
+  }
+  return out + esc(line.slice(last));
+}
+const HL = new Set([11, 22, 27]);
+$('#code').innerHTML = SRC.split('\n').map((l, i) => `<span class="l${HL.has(i + 1) ? ' hl' : ''}">${hl(l) || ' '}</span>`).join('');
+
+/* trace replay — data from examples/sol-demo/recorded-summary.json */
+const T = {
+  q: 'What are the proposed internal time to mitigate targets by severity for incident response, regardless of customer deployment tier?',
+  hits: [
+    ['incidents', 951], ['Incident Ownership Mapping + Remediation SLA Matrix (v1)', 0], ['SLO Launch Field Kit and Ops Liaison Rotations', 2819],
+    ['Remediation SLA options + customer tier mapping (Hosted / Dedicated / Private) — working doc', 0, 1], ['incidents', 565]],
+  src: `Proposed draft SLA targets (v1 candidate)
+========================================
+Notes:
+- Times are proposed internal targets for breach alerting + leadership escalation.
+- <mark>TTM measured to: restored SLO or reduced to acceptable degradation mode</mark> (documented).
+- TTF measured to: fix deployed OR (Sev2/Sev3 only) fix scheduled with owner + date.
+
+<mark>TTM (same across tiers)</mark>
+-----------------------
+<mark>Sev0: 30 minutes</mark>
+<mark>Sev1: 2 hours</mark>
+<mark>Sev2: 1 business day</mark>
+<mark>Sev3: 5 business days (or next planned release train)</mark>`,
+};
+let traceRun = 0;
+async function typeInto(el, text, run, cps = 70) {
+  if (reduce) { el.textContent = text; return }
+  for (let i = 0; i < text.length; i++) { if (run !== traceRun) return; el.textContent = text.slice(0, i + 1); await sleep(1000 / cps) }
+}
+function tween(el, to, ms = 900) {
+  const from = +el.dataset.v || 0, t0 = performance.now(); el.dataset.v = to;
+  const tick = now => { const t = reduce ? 1 : ease(clamp((now - t0) / ms)); el.textContent = Math.round(from + (to - from) * t).toLocaleString('en-US'); if (t < 1) requestAnimationFrame(tick) };
+  requestAnimationFrame(tick);
+}
+async function trace() {
+  const run = ++traceRun, log = $('#log'), steps = $$('#steps li');
+  log.innerHTML = ''; steps.forEach(s => s.classList.remove('on', 'cur'));
+  ['m-calls', 'm-in', 'm-read'].forEach(id => { $('#' + id).dataset.v = 0; $('#' + id).textContent = 0 });
+  const step = i => { steps.forEach((s, k) => { s.classList.toggle('on', k <= i); s.classList.toggle('cur', k === i) }) };
+  const blk = html => { const d = document.createElement('div'); d.className = 'blk'; d.innerHTML = html; log.appendChild(d); requestAnimationFrame(() => d.classList.add('show')); return d };
+  const alive = () => run === traceRun;
+  const think = async (n, tokens) => {
+    const d = blk(`<div class="who"><span class="tag">model</span>gpt-6.1-sol · call ${n}/3</div><div class="think"><i></i><i></i><i></i></div>`);
+    tween($('#m-calls'), n, 300); tween($('#m-in'), tokens, 1200);
+    await sleep(1300); d.remove();
+  };
+
+  step(0);
+  const qb = blk(`<div class="who"><span class="tag u">user</span>question</div><div class="q"></div>`);
+  await typeInto($('.q', qb), T.q, run, 90); if (!alive()) return;
+  await sleep(400);
+  step(1); await think(1, 3800); if (!alive()) return;
+  step(2);
+  blk(`<div class="who"><span class="tag">model</span>tool call</div><div class="call"><span class="fn">search</span>(<span class="k">query</span>=<span class="str">'"time to mitigate"'</span>, <span class="k">limit</span>=<span class="num">5</span>)</div>`);
+  await sleep(700); if (!alive()) return;
+  const hb = blk(`<div class="who"><span class="tag t">tool</span>5 passages · BM25</div><div class="hits">${T.hits.map((h, i) => `<div class="hit"><span>${i + 1}</span><span class="ttl">${esc(h[0])}</span><span>@${h[1]} · 4000</span></div>`).join('')}</div>`);
+  await sleep(900); if (!alive()) return;
+  step(3); await think(2, 11600); if (!alive()) return;
+  $$('.hit', hb)[3].classList.add('sel');
+  await sleep(500);
+  step(4);
+  blk(`<div class="who"><span class="tag">model</span>tool call</div><div class="call"><span class="fn">read</span>(<span class="k">document_id</span>=<span class="str">'dsid_c83811391709468fa9534e6495c205e3'</span>, <span class="k">offset</span>=<span class="num">3900</span>, <span class="k">limit</span>=<span class="num">6000</span>)</div>`);
+  await sleep(700); if (!alive()) return;
+  hb.style.display = 'none';
+  blk(`<div class="who"><span class="tag t">tool</span>original text · excerpt</div><div class="src">${T.src}</div>`);
+  tween($('#m-read'), 6000, 1000);
+  await sleep(1600); if (!alive()) return;
+  step(5); await think(3, 25079); if (!alive()) return;
+  step(6);
+  const rows = [['Sev0', '30 minutes'], ['Sev1', '2 hours'], ['Sev2', '1 business day'], ['Sev3', '5 business days, or the next planned release train']];
+  const ab = blk(`<div class="who"><span class="tag">model</span>answer · finished</div><div class="ans"><div>The proposed internal time-to-mitigate (TTM) targets are the same across Hosted, Dedicated, and Private deployments:</div><table></table><p>Draft internal targets for breach alerting and leadership escalation, not finalized customer commitments.<span class="cite">dsid_c838…</span></p></div>`);
+  const tb = $('table', ab), p = $('p', ab); p.style.opacity = 0;
+  $$('.blk', log).slice(0, -1).forEach(b => { if (!b.querySelector('.src')) b.style.display = 'none' });
+  for (const [k, v] of rows) { if (!alive()) return; tb.insertAdjacentHTML('beforeend', `<tr><td>${k}</td><td>${v}</td></tr>`); await sleep(260) }
+  p.style.transition = 'opacity .6s'; p.style.opacity = 1;
+}
+$('#replay').onclick = trace;
+
+/* scroll: progress, nav, kinetic rows */
+const kin = $$('.kinetic .row');
+function onScroll() {
+  const y = scrollY, h = document.documentElement.scrollHeight - innerHeight;
+  $('#progress').style.transform = `scaleX(${h ? y / h : 0})`;
+  $('#nav').classList.toggle('solid', y > innerHeight * 2.2);
+  if (!reduce) kin.forEach(r => { const rect = r.parentElement.getBoundingClientRect(); const p = (innerHeight - rect.top) / (innerHeight + rect.height); r.style.transform = `translateX(${(r.dataset.dir > 0 ? -1 : 1) * (p * 38) - (r.dataset.dir > 0 ? 0 : 30)}%)` });
+}
+addEventListener('scroll', onScroll, {passive: true}); onScroll();
+
+/* hero field: one particle per BrowseComp-Plus query */
+(() => {
+  const cv = $('#field'), ctx = cv.getContext('2d'), hero = $('#hero'), tip = $('#tip');
+  const A = $('.hero-a'), B = $('.hero-b'), L = $('.legend');
+  const N = BC.length;
+  let W, H, cx, cy, Rm, s, gx, gy, cols, mouse = {x: -1e4, y: -1e4}, visible = true, q = 0;
+  const P = BC.map(([id, ok, rec], i) => ({
+    id, ok, rec, i,
+    r: Math.pow(Math.random(), .55), a: Math.random() * Math.PI * 2, z: Math.random(),
+    ox: 0, oy: 0, x: 0, y: 0, gxp: 0, gyp: 0, d: 0,
+  }));
+  function layout() {
+    const dpr = Math.min(2, devicePixelRatio || 1);
+    W = cv.clientWidth; H = cv.clientHeight; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const mob = W < 760;
+    cx = mob ? W * .55 : W * .66; cy = mob ? H * .3 : H * .42; Rm = Math.min(W, H) * (mob ? .5 : .52);
+    const aw = W * (mob ? .92 : .84), top = H * (mob ? .34 : .3), ah = H * (mob ? .46 : .5);
+    cols = Math.ceil(Math.sqrt(N * aw / ah)); const rows = Math.ceil(N / cols);
+    s = Math.min(aw / cols, ah / rows);
+    gx = (W - cols * s) / 2 + s / 2; gy = top + (ah - rows * s) / 2 + s / 2;
+    P.forEach(p => { const c = p.i % cols, r = (p.i / cols) | 0; p.gxp = gx + c * s; p.gyp = gy + r * s; p.d = (c / cols * .7 + r / rows * .3) });
+  }
+  layout(); addEventListener('resize', layout);
+  new IntersectionObserver(([e]) => visible = e.isIntersecting).observe(hero);
+  ['pointermove', 'pointerdown'].forEach(t => addEventListener(t, e => { mouse.x = e.clientX; mouse.y = e.clientY }, {passive: true}));
+  hero.addEventListener('pointerleave', () => { mouse.x = mouse.y = -1e4; tip.style.opacity = 0 });
+
+  function frame(t) {
+    requestAnimationFrame(frame);
+    if (!visible) return;
+    const rect = hero.getBoundingClientRect();
+    const p = clamp(-rect.top / (rect.height - innerHeight));
+    q = reduce ? (p > .3 ? 1 : 0) : clamp((p - .12) / .55);
+    A.style.opacity = 1 - clamp(q * 2.4); A.style.transform = `translateY(${-q * 60}px)`;
+    B.style.opacity = clamp((q - .55) * 3); L.style.opacity = clamp((q - .7) * 4);
+    ctx.clearRect(0, 0, W, H);
+    ctx.globalCompositeOperation = pal.light ? 'source-over' : 'lighter';
+    const time = reduce ? 0 : t * .001;
+    let hover = null;
+    for (const P0 of P) {
+      // galaxy position: tilted elliptical orbit, inner particles faster
+      const rr = (.08 + P0.r * .92) * Rm, w = .12 / Math.sqrt(.1 + P0.r);
+      const ang = P0.a + time * w;
+      let x = Math.cos(ang) * rr, y = Math.sin(ang) * rr * .42;
+      const rot = -.38; const gx0 = cx + x * Math.cos(rot) - y * Math.sin(rot), gy0 = cy + x * Math.sin(rot) + y * Math.cos(rot) + Math.sin(time * .8 + P0.i) * 3;
+      // cursor repulsion (galaxy phase only)
+      const dx = gx0 + P0.ox - mouse.x, dy = gy0 + P0.oy - mouse.y, dd = Math.hypot(dx, dy), R = 130;
+      const push = dd < R && q < .5 ? (1 - dd / R) * 46 : 0;
+      P0.ox += ((dd ? dx / dd : 0) * push - P0.ox) * .08; P0.oy += ((dd ? dy / dd : 0) * push - P0.oy) * .08;
+      const k = ease(clamp(q * 1.7 - P0.d * .7));
+      P0.x = (gx0 + P0.ox) * (1 - k) + P0.gxp * k; P0.y = (gy0 + P0.oy) * (1 - k) + P0.gyp * k;
+      const size = (1 - k) * (.7 + P0.z * 1.5) + k * s * .3;
+      const al = P0.ok ? ((pal.light ? .5 : .25) + (pal.light ? .5 : .75) * P0.rec / 100) * ((1 - k) * (.45 + P0.z * .55) + k) : 1;
+      ctx.fillStyle = `rgba(${P0.ok ? pal.a : pal.x},${al})`;
+      ctx.beginPath(); ctx.arc(P0.x, P0.y, Math.max(.6, size), 0, 6.283); ctx.fill();
+      if (!P0.ok && k > .5) { ctx.strokeStyle = `rgba(${pal.x},${.25 + .2 * Math.sin(time * 3 + P0.i)})`; ctx.lineWidth = 1; ctx.beginPath(); ctx.arc(P0.x, P0.y, size + 3, 0, 6.283); ctx.stroke() }
+      if (q > .95 && Math.abs(mouse.x - P0.x) < s / 2 && Math.abs(mouse.y - P0.y) < s / 2) hover = P0;
+    }
+    ctx.globalCompositeOperation = 'source-over';
+    if (hover) {
+      ctx.strokeStyle = pal.fg; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(hover.x, hover.y, s * .3 + 4, 0, 6.283); ctx.stroke();
+      const zh = root.lang === 'zh-CN';
+      tip.innerHTML = `<b style="color:${hover.ok ? 'var(--ink)' : 'var(--coral)'}">${hover.ok ? '✓' : '✕'}</b> ${zh ? '题号' : 'query'} ${hover.id} · ${zh ? (hover.ok ? '正确' : '错误') : (hover.ok ? 'correct' : 'incorrect')} · recall ${hover.rec}%`;
+      tip.style.left = mouse.x + 'px'; tip.style.top = mouse.y + 'px'; tip.style.opacity = 1;
+    } else tip.style.opacity = 0;
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

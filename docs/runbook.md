@@ -2,6 +2,12 @@
 
 Python 3.12＋。核心命令只有 `demo`、`index`、`search`、`ask`。`ask` 和所有 benchmark 的当前入口共用纯 BM25 的 `IndexedKnowledgeBase`、`search/read` 工具、模型适配器和核心循环。
 
+## 项目展示页部署
+
+地址：<https://hxli2005.github.io/minimal-rag/>。GitHub Pages 从公开仓库 `hxli2005/minimal-rag` 的 `main` 分支 `/docs` 目录发布；入口为 `docs/index.html`，`docs/.nojekyll` 禁用 Jekyll，无需构建或 API Key。将页面更新推送到公开仓库的 `main` 后自动部署，在仓库 Actions 的 `pages build and deployment` 中查看结果。
+
+本地预览：`python3 -m http.server 8765 --directory docs`，打开 <http://localhost:8765/>。本地研究仓库与公开仓库的 Git 历史独立，发布时只同步展示页及所需静态文件。
+
 ## 固定API小样本验证：总预算200元（2026-10-17）
 
 用户确定路线：Codex全量结果用于正式提交；API仅做固定开发样本的迁移验证。用户随后明确授权执行v2，并确认创建专用Key；**小样本验证及技术故障补跑已全部完成，所有运行进程已结束，未发送提交邮件**。[固定协议](../experiments/api-validation-20261017/protocol.json)、[样本与顺序](../experiments/api-validation-20261017/sample.json)、[离线核对](../experiments/api-validation-20261017/preflight.json)、[执行结果](../experiments/reports/api-validation-20261017.md)。协议里的未开始状态保留为设计时快照，不是实时状态。
