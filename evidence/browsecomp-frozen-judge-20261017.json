@@ -128,7 +128,7 @@
   "files_sha256": {
     "experiments/browsecomp-frozen-judge-20261017/protocol.json": "0ec3260562fdf691cfccec4ef1aaf811c65f9e13aeb8e00c936fd27c410c1fed",
     "experiments/browsecomp-frozen-judge-20261017/result.json": "83c4879b866b914301995ad8b06f6492e9ef1b415acc24494236ea65d170d5aa",
-    "experiments/browsecomp-frozen-judge-20261017/submission.json": "bca54fde492dd2a71955487a0e1f63aaa607145d4ac3985c28222b37447c7447",
+    "experiments/browsecomp-frozen-judge-20261017/submission.json": "2a83158572f23a9a50f8ba956e65224a5d9797460888ce6b22ec7d6d48372885",
     "experiments/browsecomp-frozen-judge-20261017/engine-adjustment.json": "750f734e91a47af9eecfb4b50a6a328111a1e22f2c88be6ebae0cf41096114b0"
   }
 }
