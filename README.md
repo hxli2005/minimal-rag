@@ -101,11 +101,11 @@ Generation model: `gpt-6.1-sol` (reasoning effort high), run through the Codex S
 
 ## Quick start
 
-Python 3.12+. The demo calls no model and needs no account:
+Python 3.12+. Run these commands from an empty directory on macOS or Linux. The demo calls no model and needs no account:
 
 ```bash
 python3.12 -m venv .venv
-.venv/bin/python -m pip install -e .
+.venv/bin/python -m pip install https://github.com/hxli2005/minimal-rag/archive/refs/heads/main.zip
 .venv/bin/python -m minimal_rag demo
 ```
 

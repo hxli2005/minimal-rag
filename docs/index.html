@@ -716,7 +716,7 @@ footer .links{display:flex;gap:22px;flex-wrap:wrap}
     <div>
       <div class="ch-label m">07 — <span class="en">Run it</span><span class="zh">运行</span></div>
       <h2 class="rv"><span class="en">Three commands. <em class="s">No account.</em></span><span class="zh">三条命令，<em class="s">无需账号。</em></span></h2>
-      <p class="lede rv" style="--i:1;margin-top:24px"><span class="en">The demo builds a real SQLite index from bundled samples and replays search → read → cited answer. It calls no model. Python 3.12+.</span><span class="zh">演示用内置样例建立真实 SQLite 索引，回放“检索 → 读取 → 带来源回答”，不调用模型。需要 Python 3.12+。</span></p>
+      <p class="lede rv" style="--i:1;margin-top:24px"><span class="en">The demo builds a real SQLite index from bundled samples and replays search → read → cited answer. It calls no model. Start in an empty directory with Python 3.12+ on macOS or Linux.</span><span class="zh">演示用内置样例建立真实 SQLite 索引，回放“检索 → 读取 → 带来源回答”，不调用模型。在空目录运行以下命令；需要 Python 3.12+，适用于 macOS 或 Linux。</span></p>
       <div class="cta rv" style="--i:2">
         <a class="btn p" href="https://github.com/hxli2005/minimal-rag"><span class="en">View on GitHub</span><span class="zh">在 GitHub 查看</span> ↗</a>
         <a class="btn" href="https://github.com/hxli2005/minimal-rag/blob/main/REPRODUCE.md"><span class="en">Reproduce the scores</span><span class="zh">复现成绩</span> →</a>
@@ -725,7 +725,7 @@ footer .links{display:flex;gap:22px;flex-wrap:wrap}
     </div>
     <div class="card cmd dk rv" style="--i:2">
       <div class="row"><code>python3.12 -m venv .venv</code><button class="copy">copy</button></div>
-      <div class="row"><code>.venv/bin/python -m pip install -e .</code><button class="copy">copy</button></div>
+      <div class="row"><code>.venv/bin/python -m pip install https://github.com/hxli2005/minimal-rag/archive/refs/heads/main.zip</code><button class="copy">copy</button></div>
       <div class="row"><code>.venv/bin/python -m minimal_rag demo</code><button class="copy">copy</button></div>
     </div>
   </div>
