@@ -1,0 +1,53 @@
+{
+  "passed": true,
+  "created": "2026-10-15T10:53:39.177085-07:00",
+  "model_requests": 0,
+  "sample_sizes": {
+    "panel": 60,
+    "dev": 200,
+    "test": 400
+  },
+  "known_Alean_minus_A": {
+    "passed": true,
+    "status": "pass",
+    "per_benchmark": {
+      "enterprise": {
+        "n": 100,
+        "candidate_correct": 96,
+        "baseline_correct": 93,
+        "delta_pp": 3.0,
+        "wins": 4,
+        "losses": 1,
+        "ties": 95
+      }
+    },
+    "delta_pp": 3.0,
+    "bootstrap_95_pp": [
+      -1.0,
+      8.0
+    ],
+    "cost_ratio": 0.7523035802045924,
+    "cost_ratio_kind": "upper_bound",
+    "candidate_missing_usage": 0,
+    "baseline_missing_usage": 1,
+    "candidate_uncached": 4878536,
+    "baseline_uncached": 6484797,
+    "quality_passed": true,
+    "cost_passed": true
+  },
+  "checks": [
+    "previous_workflow_final_and_exited",
+    "reuse_configuration_and_prompt",
+    "v6-e800_only_excerpt_diff",
+    "stage_caps_600_1400_2800",
+    "total_10000_exploration_9000_and_cleanup_reserve",
+    "deadline_and_generation_cutoff",
+    "resume_preserves_counts_and_deadline",
+    "rejection_returns_old_base_adoption_returns_new_base",
+    "anchor_never_changes",
+    "cumulative_loss_and_cost_rejected",
+    "auxiliary_metrics_isolated_but_requests_counted",
+    "missing_usage_conservative"
+  ],
+  "boundary": "Offline state/worker wiring checks; heartbeat wakeup and online model execution are separate evidence."
+}

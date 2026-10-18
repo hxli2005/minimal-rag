@@ -1,0 +1,21 @@
+{
+  "status": "passed",
+  "generation_completed": 2,
+  "valid_judgements": 2,
+  "remaining_unstarted": 28,
+  "generation_requests": 11,
+  "judge_requests": 8,
+  "judge_cost_usd": 0.00084048,
+  "judge_requests_without_response": 2,
+  "smoke": {
+    "parse_correct": true,
+    "accepted": true,
+    "reasoning_present": false,
+    "reasoning_chars": 0,
+    "reasoning_tokens": 0,
+    "provider": "DeepInfra"
+  },
+  "smoke_accuracy": 1.0,
+  "decision_tier": null,
+  "next_step": "Continue frozen remaining 28 cases; never rerun the two completed generations."
+}

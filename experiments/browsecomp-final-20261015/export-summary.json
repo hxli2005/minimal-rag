@@ -1,0 +1,6387 @@
+{
+  "selected": {
+    "version": "v0",
+    "night_state": "/Users/lhx/Documents/ChatGPT/minimal-rag/data/benchmarks/system-nightly/20261015T102540/night-state.json",
+    "selected_source": "/Users/lhx/Documents/ChatGPT/minimal-rag/data/benchmarks/browsecomp-plus/full-20261015/A",
+    "selected_group": "A",
+    "official_revision": "046949032b0328319cc9a02663a759ec601d9402"
+  },
+  "groups": {
+    "A": {
+      "requested": 830,
+      "terminal_exported": 830,
+      "old_recall_pct": 86.22585613850674,
+      "search_only_recall_pct": 86.22585613850674,
+      "per_query": [
+        {
+          "id": "1",
+          "old_recall": 0.75,
+          "search_only_recall": 0.75,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "10",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "100",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1000",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1002",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1003",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1004",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1005",
+          "old_recall": 0.6666666666666666,
+          "search_only_recall": 0.6666666666666666,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1007",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1008",
+          "old_recall": 0.8888888888888888,
+          "search_only_recall": 0.8888888888888888,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1010",
+          "old_recall": 0.875,
+          "search_only_recall": 0.875,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1012",
+          "old_recall": 0.5,
+          "search_only_recall": 0.5,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1015",
+          "old_recall": 0.8571428571428571,
+          "search_only_recall": 0.8571428571428571,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1016",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1018",
+          "old_recall": 0.125,
+          "search_only_recall": 0.125,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1019",
+          "old_recall": 0.7777777777777778,
+          "search_only_recall": 0.7777777777777778,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "102",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1020",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1021",
+          "old_recall": 0.5,
+          "search_only_recall": 0.5,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1022",
+          "old_recall": 0.8571428571428571,
+          "search_only_recall": 0.8571428571428571,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1023",
+          "old_recall": 0.875,
+          "search_only_recall": 0.875,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1025",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1026",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1027",
+          "old_recall": 0.5,
+          "search_only_recall": 0.5,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1028",
+          "old_recall": 0.75,
+          "search_only_recall": 0.75,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1029",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "103",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1030",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1032",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1033",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1034",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1035",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1036",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1037",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1038",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1039",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1040",
+          "old_recall": 0.6,
+          "search_only_recall": 0.6,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1041",
+          "old_recall": 0.5,
+          "search_only_recall": 0.5,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1042",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1043",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1044",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1045",
+          "old_recall": 0.8888888888888888,
+          "search_only_recall": 0.8888888888888888,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1046",
+          "old_recall": 0.625,
+          "search_only_recall": 0.625,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1047",
+          "old_recall": 0.8571428571428571,
+          "search_only_recall": 0.8571428571428571,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1048",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1049",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "105",
+          "old_recall": 0.75,
+          "search_only_recall": 0.75,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1052",
+          "old_recall": 0.8571428571428571,
+          "search_only_recall": 0.8571428571428571,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1053",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1055",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1057",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1058",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "106",
+          "old_recall": 0.9166666666666666,
+          "search_only_recall": 0.9166666666666666,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1060",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1061",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1062",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1063",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1065",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1066",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1068",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "107",
+          "old_recall": 0.8333333333333334,
+          "search_only_recall": 0.8333333333333334,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1071",
+          "old_recall": 0.875,
+          "search_only_recall": 0.875,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1072",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1073",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1076",
+          "old_recall": 0.875,
+          "search_only_recall": 0.875,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1077",
+          "old_recall": 0.5714285714285714,
+          "search_only_recall": 0.5714285714285714,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1078",
+          "old_recall": 0.75,
+          "search_only_recall": 0.75,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1079",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1081",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1082",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1083",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1085",
+          "old_recall": 0.6,
+          "search_only_recall": 0.6,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1089",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "109",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1090",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1091",
+          "old_recall": 0.7142857142857143,
+          "search_only_recall": 0.7142857142857143,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1092",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1093",
+          "old_recall": 0.8571428571428571,
+          "search_only_recall": 0.8571428571428571,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1094",
+          "old_recall": 0.75,
+          "search_only_recall": 0.75,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1095",
+          "old_recall": 0.8888888888888888,
+          "search_only_recall": 0.8888888888888888,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1096",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1097",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1098",
+          "old_recall": 0.8571428571428571,
+          "search_only_recall": 0.8571428571428571,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1099",
+          "old_recall": 0.8571428571428571,
+          "search_only_recall": 0.8571428571428571,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "11",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "110",
+          "old_recall": 0.4,
+          "search_only_recall": 0.4,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1101",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1103",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1105",
+          "old_recall": 0.6666666666666666,
+          "search_only_recall": 0.6666666666666666,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1106",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1107",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1108",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "111",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 1
+        },
+        {
+          "id": "1110",
+          "old_recall": 0.16666666666666666,
+          "search_only_recall": 0.16666666666666666,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1111",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1115",
+          "old_recall": 0.8571428571428571,
+          "search_only_recall": 0.8571428571428571,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1117",
+          "old_recall": 0.7142857142857143,
+          "search_only_recall": 0.7142857142857143,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1118",
+          "old_recall": 0.6666666666666666,
+          "search_only_recall": 0.6666666666666666,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1119",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1121",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1122",
+          "old_recall": 0.42857142857142855,
+          "search_only_recall": 0.42857142857142855,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1124",
+          "old_recall": 0.2857142857142857,
+          "search_only_recall": 0.2857142857142857,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1126",
+          "old_recall": 0.5714285714285714,
+          "search_only_recall": 0.5714285714285714,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1127",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1128",
+          "old_recall": 0.8571428571428571,
+          "search_only_recall": 0.8571428571428571,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "113",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1131",
+          "old_recall": 0.375,
+          "search_only_recall": 0.375,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1133",
+          "old_recall": 0.7142857142857143,
+          "search_only_recall": 0.7142857142857143,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1134",
+          "old_recall": 0.8888888888888888,
+          "search_only_recall": 0.8888888888888888,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1135",
+          "old_recall": 0.8571428571428571,
+          "search_only_recall": 0.8571428571428571,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1138",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1139",
+          "old_recall": 0.5,
+          "search_only_recall": 0.5,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1141",
+          "old_recall": 0.8571428571428571,
+          "search_only_recall": 0.8571428571428571,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1142",
+          "old_recall": 0.8333333333333334,
+          "search_only_recall": 0.8333333333333334,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1144",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1147",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1148",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1149",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1150",
+          "old_recall": 0.75,
+          "search_only_recall": 0.75,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1152",
+          "old_recall": 0.875,
+          "search_only_recall": 0.875,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1153",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1155",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1158",
+          "old_recall": 0.875,
+          "search_only_recall": 0.875,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "116",
+          "old_recall": 0.75,
+          "search_only_recall": 0.75,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1161",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1162",
+          "old_recall": 0.8888888888888888,
+          "search_only_recall": 0.8888888888888888,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1163",
+          "old_recall": 0.75,
+          "search_only_recall": 0.75,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1164",
+          "old_recall": 0.9,
+          "search_only_recall": 0.9,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1167",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1169",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1172",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1174",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1176",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1177",
+          "old_recall": 0.75,
+          "search_only_recall": 0.75,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1179",
+          "old_recall": 0.8571428571428571,
+          "search_only_recall": 0.8571428571428571,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1182",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1184",
+          "old_recall": 0.6666666666666666,
+          "search_only_recall": 0.6666666666666666,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1185",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1187",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1188",
+          "old_recall": 0.7777777777777778,
+          "search_only_recall": 0.7777777777777778,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "119",
+          "old_recall": 0.5,
+          "search_only_recall": 0.5,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1190",
+          "old_recall": 0.9166666666666666,
+          "search_only_recall": 0.9166666666666666,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1191",
+          "old_recall": 0.8571428571428571,
+          "search_only_recall": 0.8571428571428571,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1192",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1193",
+          "old_recall": 0.875,
+          "search_only_recall": 0.875,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1194",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1195",
+          "old_recall": 0.8571428571428571,
+          "search_only_recall": 0.8571428571428571,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1196",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1198",
+          "old_recall": 0.7142857142857143,
+          "search_only_recall": 0.7142857142857143,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "12",
+          "old_recall": 0.7142857142857143,
+          "search_only_recall": 0.7142857142857143,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "120",
+          "old_recall": 0.6666666666666666,
+          "search_only_recall": 0.6666666666666666,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1200",
+          "old_recall": 0.8888888888888888,
+          "search_only_recall": 0.8888888888888888,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1201",
+          "old_recall": 0.0,
+          "search_only_recall": 0.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1203",
+          "old_recall": 0.75,
+          "search_only_recall": 0.75,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1204",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1206",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1207",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1208",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1209",
+          "old_recall": 0.875,
+          "search_only_recall": 0.875,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "121",
+          "old_recall": 0.8571428571428571,
+          "search_only_recall": 0.8571428571428571,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1210",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1211",
+          "old_recall": 0.0,
+          "search_only_recall": 0.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1212",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1213",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1214",
+          "old_recall": 0.5555555555555556,
+          "search_only_recall": 0.5555555555555556,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1215",
+          "old_recall": 0.75,
+          "search_only_recall": 0.75,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1216",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1217",
+          "old_recall": 0.75,
+          "search_only_recall": 0.75,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1218",
+          "old_recall": 0.0,
+          "search_only_recall": 0.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1219",
+          "old_recall": 0.6666666666666666,
+          "search_only_recall": 0.6666666666666666,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "122",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1220",
+          "old_recall": 0.9090909090909091,
+          "search_only_recall": 0.9090909090909091,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1221",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1222",
+          "old_recall": 0.3333333333333333,
+          "search_only_recall": 0.3333333333333333,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1223",
+          "old_recall": 0.4444444444444444,
+          "search_only_recall": 0.4444444444444444,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1224",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1225",
+          "old_recall": 0.9,
+          "search_only_recall": 0.9,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1226",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1227",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1228",
+          "old_recall": 0.75,
+          "search_only_recall": 0.75,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1230",
+          "old_recall": 0.6666666666666666,
+          "search_only_recall": 0.6666666666666666,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1231",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1232",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1233",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1234",
+          "old_recall": 0.7,
+          "search_only_recall": 0.7,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1235",
+          "old_recall": 0.7,
+          "search_only_recall": 0.7,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1236",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1237",
+          "old_recall": 0.75,
+          "search_only_recall": 0.75,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1238",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1239",
+          "old_recall": 0.7777777777777778,
+          "search_only_recall": 0.7777777777777778,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "124",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1240",
+          "old_recall": 0.8888888888888888,
+          "search_only_recall": 0.8888888888888888,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1242",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1243",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1246",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1247",
+          "old_recall": 0.625,
+          "search_only_recall": 0.625,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1248",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1249",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "125",
+          "old_recall": 0.7142857142857143,
+          "search_only_recall": 0.7142857142857143,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1250",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1252",
+          "old_recall": 0.5,
+          "search_only_recall": 0.5,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1253",
+          "old_recall": 0.875,
+          "search_only_recall": 0.875,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1254",
+          "old_recall": 0.8571428571428571,
+          "search_only_recall": 0.8571428571428571,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1257",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1258",
+          "old_recall": 0.8181818181818182,
+          "search_only_recall": 0.8181818181818182,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1259",
+          "old_recall": 0.7777777777777778,
+          "search_only_recall": 0.7777777777777778,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "126",
+          "old_recall": 0.5714285714285714,
+          "search_only_recall": 0.5714285714285714,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1260",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1262",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1263",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1264",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1265",
+          "old_recall": 0.75,
+          "search_only_recall": 0.75,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1266",
+          "old_recall": 0.8333333333333334,
+          "search_only_recall": 0.8333333333333334,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "127",
+          "old_recall": 0.8333333333333334,
+          "search_only_recall": 0.8333333333333334,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "128",
+          "old_recall": 0.625,
+          "search_only_recall": 0.625,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "130",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "131",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "132",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "134",
+          "old_recall": 0.8571428571428571,
+          "search_only_recall": 0.8571428571428571,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "138",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "140",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "149",
+          "old_recall": 0.4,
+          "search_only_recall": 0.4,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "15",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "152",
+          "old_recall": 0.8333333333333334,
+          "search_only_recall": 0.8333333333333334,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "153",
+          "old_recall": 0.3333333333333333,
+          "search_only_recall": 0.3333333333333333,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "154",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "155",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "156",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "159",
+          "old_recall": 0.75,
+          "search_only_recall": 0.75,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "160",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "161",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "165",
+          "old_recall": 0.8333333333333334,
+          "search_only_recall": 0.8333333333333334,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "166",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "168",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "169",
+          "old_recall": 0.6,
+          "search_only_recall": 0.6,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "170",
+          "old_recall": 0.8888888888888888,
+          "search_only_recall": 0.8888888888888888,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "171",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "174",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "175",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "176",
+          "old_recall": 0.6666666666666666,
+          "search_only_recall": 0.6666666666666666,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "177",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "178",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "179",
+          "old_recall": 0.625,
+          "search_only_recall": 0.625,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "18",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "180",
+          "old_recall": 0.9,
+          "search_only_recall": 0.9,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "181",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "183",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "184",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "186",
+          "old_recall": 0.8333333333333334,
+          "search_only_recall": 0.8333333333333334,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "190",
+          "old_recall": 0.8181818181818182,
+          "search_only_recall": 0.8181818181818182,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "191",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "192",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "193",
+          "old_recall": 0.5,
+          "search_only_recall": 0.5,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "194",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "196",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "199",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "20",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "200",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "201",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "202",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "203",
+          "old_recall": 0.6666666666666666,
+          "search_only_recall": 0.6666666666666666,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "205",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "206",
+          "old_recall": 0.8888888888888888,
+          "search_only_recall": 0.8888888888888888,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "209",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "210",
+          "old_recall": 0.6666666666666666,
+          "search_only_recall": 0.6666666666666666,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "211",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "215",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "216",
+          "old_recall": 0.7777777777777778,
+          "search_only_recall": 0.7777777777777778,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "219",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "22",
+          "old_recall": 0.75,
+          "search_only_recall": 0.75,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "221",
+          "old_recall": 0.6666666666666666,
+          "search_only_recall": 0.6666666666666666,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "223",
+          "old_recall": 0.0,
+          "search_only_recall": 0.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "226",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "228",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "229",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "23",
+          "old_recall": 0.8888888888888888,
+          "search_only_recall": 0.8888888888888888,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "231",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "233",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "234",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "235",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "236",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "237",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "238",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "239",
+          "old_recall": 0.8333333333333334,
+          "search_only_recall": 0.8333333333333334,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "240",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "241",
+          "old_recall": 0.6666666666666666,
+          "search_only_recall": 0.6666666666666666,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "242",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "244",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "245",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "246",
+          "old_recall": 0.8888888888888888,
+          "search_only_recall": 0.8888888888888888,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "248",
+          "old_recall": 0.7142857142857143,
+          "search_only_recall": 0.7142857142857143,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "249",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "25",
+          "old_recall": 0.5555555555555556,
+          "search_only_recall": 0.5555555555555556,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "250",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "251",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "253",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "254",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "255",
+          "old_recall": 0.75,
+          "search_only_recall": 0.75,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "256",
+          "old_recall": 0.8571428571428571,
+          "search_only_recall": 0.8571428571428571,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "257",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "26",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "261",
+          "old_recall": 0.75,
+          "search_only_recall": 0.75,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "262",
+          "old_recall": 0.6666666666666666,
+          "search_only_recall": 0.6666666666666666,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "263",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "264",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "265",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "266",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "267",
+          "old_recall": 0.6666666666666666,
+          "search_only_recall": 0.6666666666666666,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "268",
+          "old_recall": 0.7,
+          "search_only_recall": 0.7,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "27",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "270",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "275",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "276",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "278",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "279",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "280",
+          "old_recall": 0.875,
+          "search_only_recall": 0.875,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "282",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "283",
+          "old_recall": 0.8888888888888888,
+          "search_only_recall": 0.8888888888888888,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "284",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "285",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "286",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "287",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "288",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "289",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "291",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "293",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "294",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "295",
+          "old_recall": 0.6,
+          "search_only_recall": 0.6,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "297",
+          "old_recall": 0.875,
+          "search_only_recall": 0.875,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "298",
+          "old_recall": 0.7,
+          "search_only_recall": 0.7,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "299",
+          "old_recall": 0.9,
+          "search_only_recall": 0.9,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "3",
+          "old_recall": 0.875,
+          "search_only_recall": 0.875,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "30",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "301",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "303",
+          "old_recall": 0.7142857142857143,
+          "search_only_recall": 0.7142857142857143,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "304",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "305",
+          "old_recall": 0.5,
+          "search_only_recall": 0.5,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "308",
+          "old_recall": 0.7142857142857143,
+          "search_only_recall": 0.7142857142857143,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "309",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "310",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "311",
+          "old_recall": 0.75,
+          "search_only_recall": 0.75,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "314",
+          "old_recall": 0.6666666666666666,
+          "search_only_recall": 0.6666666666666666,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "315",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "317",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "319",
+          "old_recall": 0.6666666666666666,
+          "search_only_recall": 0.6666666666666666,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "320",
+          "old_recall": 0.6,
+          "search_only_recall": 0.6,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "322",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "323",
+          "old_recall": 0.75,
+          "search_only_recall": 0.75,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "324",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "327",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "328",
+          "old_recall": 0.4444444444444444,
+          "search_only_recall": 0.4444444444444444,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "33",
+          "old_recall": 0.875,
+          "search_only_recall": 0.875,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "330",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "331",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "333",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "335",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "337",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "342",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "347",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "349",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "350",
+          "old_recall": 0.0,
+          "search_only_recall": 0.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "351",
+          "old_recall": 0.8571428571428571,
+          "search_only_recall": 0.8571428571428571,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "353",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "354",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "356",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "357",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "36",
+          "old_recall": 0.7,
+          "search_only_recall": 0.7,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "362",
+          "old_recall": 0.8571428571428571,
+          "search_only_recall": 0.8571428571428571,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "364",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "366",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "367",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "37",
+          "old_recall": 0.6666666666666666,
+          "search_only_recall": 0.6666666666666666,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "370",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "371",
+          "old_recall": 0.5714285714285714,
+          "search_only_recall": 0.5714285714285714,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "372",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "376",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "377",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "380",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "383",
+          "old_recall": 0.875,
+          "search_only_recall": 0.875,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "384",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "387",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "389",
+          "old_recall": 0.7,
+          "search_only_recall": 0.7,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "39",
+          "old_recall": 0.7777777777777778,
+          "search_only_recall": 0.7777777777777778,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "390",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "391",
+          "old_recall": 0.75,
+          "search_only_recall": 0.75,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "392",
+          "old_recall": 0.7,
+          "search_only_recall": 0.7,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "393",
+          "old_recall": 0.6666666666666666,
+          "search_only_recall": 0.6666666666666666,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "394",
+          "old_recall": 0.8571428571428571,
+          "search_only_recall": 0.8571428571428571,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "395",
+          "old_recall": 0.6666666666666666,
+          "search_only_recall": 0.6666666666666666,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "396",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "397",
+          "old_recall": 0.3333333333333333,
+          "search_only_recall": 0.3333333333333333,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "401",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "402",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "403",
+          "old_recall": 0.8888888888888888,
+          "search_only_recall": 0.8888888888888888,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "405",
+          "old_recall": 0.7777777777777778,
+          "search_only_recall": 0.7777777777777778,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "406",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "408",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "409",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "41",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "410",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "411",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "413",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "414",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "416",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "417",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "418",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "420",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "421",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "422",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "424",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "425",
+          "old_recall": 0.8888888888888888,
+          "search_only_recall": 0.8888888888888888,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "426",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "427",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "428",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "429",
+          "old_recall": 0.8333333333333334,
+          "search_only_recall": 0.8333333333333334,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "432",
+          "old_recall": 0.8181818181818182,
+          "search_only_recall": 0.8181818181818182,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "433",
+          "old_recall": 0.7777777777777778,
+          "search_only_recall": 0.7777777777777778,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "434",
+          "old_recall": 0.875,
+          "search_only_recall": 0.875,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "435",
+          "old_recall": 0.7,
+          "search_only_recall": 0.7,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "436",
+          "old_recall": 0.8571428571428571,
+          "search_only_recall": 0.8571428571428571,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "438",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "442",
+          "old_recall": 0.8333333333333334,
+          "search_only_recall": 0.8333333333333334,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "443",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "445",
+          "old_recall": 0.7142857142857143,
+          "search_only_recall": 0.7142857142857143,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "446",
+          "old_recall": 0.875,
+          "search_only_recall": 0.875,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "449",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "450",
+          "old_recall": 0.8888888888888888,
+          "search_only_recall": 0.8888888888888888,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "454",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "46",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "464",
+          "old_recall": 0.6666666666666666,
+          "search_only_recall": 0.6666666666666666,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "467",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "468",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "469",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "470",
+          "old_recall": 0.2,
+          "search_only_recall": 0.2,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "471",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "472",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "473",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "478",
+          "old_recall": 0.4,
+          "search_only_recall": 0.4,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "480",
+          "old_recall": 0.75,
+          "search_only_recall": 0.75,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "481",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "483",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "484",
+          "old_recall": 0.6666666666666666,
+          "search_only_recall": 0.6666666666666666,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "485",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "486",
+          "old_recall": 0.2727272727272727,
+          "search_only_recall": 0.2727272727272727,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "487",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "49",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "490",
+          "old_recall": 0.0,
+          "search_only_recall": 0.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "491",
+          "old_recall": 0.8571428571428571,
+          "search_only_recall": 0.8571428571428571,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "493",
+          "old_recall": 0.8333333333333334,
+          "search_only_recall": 0.8333333333333334,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "494",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "495",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "496",
+          "old_recall": 0.6,
+          "search_only_recall": 0.6,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "497",
+          "old_recall": 0.2222222222222222,
+          "search_only_recall": 0.2222222222222222,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "498",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "499",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "5",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "50",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "500",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "501",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "502",
+          "old_recall": 0.5,
+          "search_only_recall": 0.5,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "503",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "505",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "506",
+          "old_recall": 0.75,
+          "search_only_recall": 0.75,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "507",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "509",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "51",
+          "old_recall": 0.8571428571428571,
+          "search_only_recall": 0.8571428571428571,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "511",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "512",
+          "old_recall": 0.3333333333333333,
+          "search_only_recall": 0.3333333333333333,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "513",
+          "old_recall": 0.2857142857142857,
+          "search_only_recall": 0.2857142857142857,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "514",
+          "old_recall": 0.8571428571428571,
+          "search_only_recall": 0.8571428571428571,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "515",
+          "old_recall": 0.375,
+          "search_only_recall": 0.375,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "516",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "517",
+          "old_recall": 0.5,
+          "search_only_recall": 0.5,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "519",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "52",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "520",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "521",
+          "old_recall": 0.8888888888888888,
+          "search_only_recall": 0.8888888888888888,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "523",
+          "old_recall": 0.6,
+          "search_only_recall": 0.6,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "524",
+          "old_recall": 0.75,
+          "search_only_recall": 0.75,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "525",
+          "old_recall": 0.8888888888888888,
+          "search_only_recall": 0.8888888888888888,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "527",
+          "old_recall": 0.8571428571428571,
+          "search_only_recall": 0.8571428571428571,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "528",
+          "old_recall": 0.7142857142857143,
+          "search_only_recall": 0.7142857142857143,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "529",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "53",
+          "old_recall": 0.6666666666666666,
+          "search_only_recall": 0.6666666666666666,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "530",
+          "old_recall": 0.75,
+          "search_only_recall": 0.75,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "532",
+          "old_recall": 0.75,
+          "search_only_recall": 0.75,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "533",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "534",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "535",
+          "old_recall": 0.5714285714285714,
+          "search_only_recall": 0.5714285714285714,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "537",
+          "old_recall": 0.8333333333333334,
+          "search_only_recall": 0.8333333333333334,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "538",
+          "old_recall": 0.5454545454545454,
+          "search_only_recall": 0.5454545454545454,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "539",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "54",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "540",
+          "old_recall": 0.875,
+          "search_only_recall": 0.875,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "542",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "543",
+          "old_recall": 0.8333333333333334,
+          "search_only_recall": 0.8333333333333334,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "544",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "546",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "548",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "549",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "55",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "550",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "551",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "552",
+          "old_recall": 0.6,
+          "search_only_recall": 0.6,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "553",
+          "old_recall": 0.8333333333333334,
+          "search_only_recall": 0.8333333333333334,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "555",
+          "old_recall": 0.25,
+          "search_only_recall": 0.25,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "556",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "558",
+          "old_recall": 0.8333333333333334,
+          "search_only_recall": 0.8333333333333334,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "56",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "560",
+          "old_recall": 0.5714285714285714,
+          "search_only_recall": 0.5714285714285714,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "561",
+          "old_recall": 0.8571428571428571,
+          "search_only_recall": 0.8571428571428571,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "562",
+          "old_recall": 0.5,
+          "search_only_recall": 0.5,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "563",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "568",
+          "old_recall": 0.7777777777777778,
+          "search_only_recall": 0.7777777777777778,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "569",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "570",
+          "old_recall": 0.875,
+          "search_only_recall": 0.875,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "571",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "572",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "575",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "576",
+          "old_recall": 0.75,
+          "search_only_recall": 0.75,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "577",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "579",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "58",
+          "old_recall": 0.875,
+          "search_only_recall": 0.875,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "580",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "581",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "582",
+          "old_recall": 0.6666666666666666,
+          "search_only_recall": 0.6666666666666666,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "583",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "584",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "587",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "588",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "59",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "590",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "591",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "592",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "593",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "594",
+          "old_recall": 0.6,
+          "search_only_recall": 0.6,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "595",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "596",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "598",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "599",
+          "old_recall": 0.6666666666666666,
+          "search_only_recall": 0.6666666666666666,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "6",
+          "old_recall": 0.5,
+          "search_only_recall": 0.5,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "60",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "600",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "601",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "602",
+          "old_recall": 0.8571428571428571,
+          "search_only_recall": 0.8571428571428571,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "603",
+          "old_recall": 0.42857142857142855,
+          "search_only_recall": 0.42857142857142855,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "605",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "607",
+          "old_recall": 0.5,
+          "search_only_recall": 0.5,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "61",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "610",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "611",
+          "old_recall": 0.8333333333333334,
+          "search_only_recall": 0.8333333333333334,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "614",
+          "old_recall": 0.8333333333333334,
+          "search_only_recall": 0.8333333333333334,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "618",
+          "old_recall": 0.7692307692307693,
+          "search_only_recall": 0.7692307692307693,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "619",
+          "old_recall": 0.0,
+          "search_only_recall": 0.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "62",
+          "old_recall": 0.8181818181818182,
+          "search_only_recall": 0.8181818181818182,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "620",
+          "old_recall": 0.6,
+          "search_only_recall": 0.6,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "621",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "624",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "625",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "627",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "628",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "629",
+          "old_recall": 0.6666666666666666,
+          "search_only_recall": 0.6666666666666666,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "63",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "630",
+          "old_recall": 0.8333333333333334,
+          "search_only_recall": 0.8333333333333334,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "631",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "632",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "633",
+          "old_recall": 0.6,
+          "search_only_recall": 0.6,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "635",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "636",
+          "old_recall": 0.6666666666666666,
+          "search_only_recall": 0.6666666666666666,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "637",
+          "old_recall": 0.75,
+          "search_only_recall": 0.75,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "638",
+          "old_recall": 0.8333333333333334,
+          "search_only_recall": 0.8333333333333334,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "639",
+          "old_recall": 0.7142857142857143,
+          "search_only_recall": 0.7142857142857143,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "64",
+          "old_recall": 0.5,
+          "search_only_recall": 0.5,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "642",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "643",
+          "old_recall": 0.5,
+          "search_only_recall": 0.5,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "644",
+          "old_recall": 0.6,
+          "search_only_recall": 0.6,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "645",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "650",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "651",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "652",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "653",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "655",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "661",
+          "old_recall": 0.8571428571428571,
+          "search_only_recall": 0.8571428571428571,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "662",
+          "old_recall": 0.625,
+          "search_only_recall": 0.625,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "664",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "665",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "666",
+          "old_recall": 0.75,
+          "search_only_recall": 0.75,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "669",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "67",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "670",
+          "old_recall": 0.8333333333333334,
+          "search_only_recall": 0.8333333333333334,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "671",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "672",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "673",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "674",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "675",
+          "old_recall": 0.8571428571428571,
+          "search_only_recall": 0.8571428571428571,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "678",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "679",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "68",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "681",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "682",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "684",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "685",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "686",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "688",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "689",
+          "old_recall": 0.625,
+          "search_only_recall": 0.625,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "69",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "692",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "694",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "695",
+          "old_recall": 0.8333333333333334,
+          "search_only_recall": 0.8333333333333334,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "696",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "7",
+          "old_recall": 0.9090909090909091,
+          "search_only_recall": 0.9090909090909091,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "70",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "700",
+          "old_recall": 0.8571428571428571,
+          "search_only_recall": 0.8571428571428571,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "701",
+          "old_recall": 0.7777777777777778,
+          "search_only_recall": 0.7777777777777778,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "702",
+          "old_recall": 0.9,
+          "search_only_recall": 0.9,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "703",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "706",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "707",
+          "old_recall": 0.875,
+          "search_only_recall": 0.875,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "708",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "709",
+          "old_recall": 0.8888888888888888,
+          "search_only_recall": 0.8888888888888888,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "71",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "710",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "711",
+          "old_recall": 0.6666666666666666,
+          "search_only_recall": 0.6666666666666666,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "712",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "713",
+          "old_recall": 0.8571428571428571,
+          "search_only_recall": 0.8571428571428571,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "714",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "715",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "716",
+          "old_recall": 0.2,
+          "search_only_recall": 0.2,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "717",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "718",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "719",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "72",
+          "old_recall": 0.6666666666666666,
+          "search_only_recall": 0.6666666666666666,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "720",
+          "old_recall": 0.5,
+          "search_only_recall": 0.5,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "722",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "723",
+          "old_recall": 0.8333333333333334,
+          "search_only_recall": 0.8333333333333334,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "724",
+          "old_recall": 0.75,
+          "search_only_recall": 0.75,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "725",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "726",
+          "old_recall": 0.8571428571428571,
+          "search_only_recall": 0.8571428571428571,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "728",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "729",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "730",
+          "old_recall": 0.8333333333333334,
+          "search_only_recall": 0.8333333333333334,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "731",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "732",
+          "old_recall": 0.2,
+          "search_only_recall": 0.2,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "734",
+          "old_recall": 0.8333333333333334,
+          "search_only_recall": 0.8333333333333334,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "735",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "737",
+          "old_recall": 0.875,
+          "search_only_recall": 0.875,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "738",
+          "old_recall": 0.8571428571428571,
+          "search_only_recall": 0.8571428571428571,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "739",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "74",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "741",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "742",
+          "old_recall": 0.5,
+          "search_only_recall": 0.5,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "744",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "745",
+          "old_recall": 0.6666666666666666,
+          "search_only_recall": 0.6666666666666666,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "746",
+          "old_recall": 0.8333333333333334,
+          "search_only_recall": 0.8333333333333334,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "747",
+          "old_recall": 0.42857142857142855,
+          "search_only_recall": 0.42857142857142855,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "749",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "751",
+          "old_recall": 0.7142857142857143,
+          "search_only_recall": 0.7142857142857143,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "753",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "754",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "756",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "757",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "758",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "759",
+          "old_recall": 0.875,
+          "search_only_recall": 0.875,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "760",
+          "old_recall": 0.8571428571428571,
+          "search_only_recall": 0.8571428571428571,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "761",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "763",
+          "old_recall": 0.8571428571428571,
+          "search_only_recall": 0.8571428571428571,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "764",
+          "old_recall": 0.875,
+          "search_only_recall": 0.875,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "768",
+          "old_recall": 0.875,
+          "search_only_recall": 0.875,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "769",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "770",
+          "old_recall": 0.7777777777777778,
+          "search_only_recall": 0.7777777777777778,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "771",
+          "old_recall": 0.8333333333333334,
+          "search_only_recall": 0.8333333333333334,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "772",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "773",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "774",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "775",
+          "old_recall": 0.3333333333333333,
+          "search_only_recall": 0.3333333333333333,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "776",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "778",
+          "old_recall": 0.75,
+          "search_only_recall": 0.75,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "78",
+          "old_recall": 0.8571428571428571,
+          "search_only_recall": 0.8571428571428571,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "781",
+          "old_recall": 0.6666666666666666,
+          "search_only_recall": 0.6666666666666666,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "783",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "784",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "785",
+          "old_recall": 0.75,
+          "search_only_recall": 0.75,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "786",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "787",
+          "old_recall": 0.8888888888888888,
+          "search_only_recall": 0.8888888888888888,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "788",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "79",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "790",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "791",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "792",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "793",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "794",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "796",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "797",
+          "old_recall": 0.8333333333333334,
+          "search_only_recall": 0.8333333333333334,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "798",
+          "old_recall": 0.7777777777777778,
+          "search_only_recall": 0.7777777777777778,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "8",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "800",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "801",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "802",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "804",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "805",
+          "old_recall": 0.6666666666666666,
+          "search_only_recall": 0.6666666666666666,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "806",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "809",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "81",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "810",
+          "old_recall": 0.75,
+          "search_only_recall": 0.75,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "811",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "814",
+          "old_recall": 0.8888888888888888,
+          "search_only_recall": 0.8888888888888888,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "815",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "816",
+          "old_recall": 0.4444444444444444,
+          "search_only_recall": 0.4444444444444444,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "819",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "82",
+          "old_recall": 0.6666666666666666,
+          "search_only_recall": 0.6666666666666666,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "820",
+          "old_recall": 0.75,
+          "search_only_recall": 0.75,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "821",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "822",
+          "old_recall": 0.8888888888888888,
+          "search_only_recall": 0.8888888888888888,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "823",
+          "old_recall": 0.2,
+          "search_only_recall": 0.2,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "826",
+          "old_recall": 0.875,
+          "search_only_recall": 0.875,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "827",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "828",
+          "old_recall": 0.875,
+          "search_only_recall": 0.875,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "83",
+          "old_recall": 0.8333333333333334,
+          "search_only_recall": 0.8333333333333334,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "830",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "832",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "833",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "834",
+          "old_recall": 0.5714285714285714,
+          "search_only_recall": 0.5714285714285714,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "835",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "836",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "838",
+          "old_recall": 0.6666666666666666,
+          "search_only_recall": 0.6666666666666666,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "840",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "843",
+          "old_recall": 0.8571428571428571,
+          "search_only_recall": 0.8571428571428571,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "844",
+          "old_recall": 0.6666666666666666,
+          "search_only_recall": 0.6666666666666666,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "847",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "85",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "850",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "851",
+          "old_recall": 0.625,
+          "search_only_recall": 0.625,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "852",
+          "old_recall": 0.9,
+          "search_only_recall": 0.9,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "853",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "854",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "856",
+          "old_recall": 0.75,
+          "search_only_recall": 0.75,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "86",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "861",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "863",
+          "old_recall": 0.8888888888888888,
+          "search_only_recall": 0.8888888888888888,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "864",
+          "old_recall": 0.8333333333333334,
+          "search_only_recall": 0.8333333333333334,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "865",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "867",
+          "old_recall": 0.875,
+          "search_only_recall": 0.875,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "869",
+          "old_recall": 0.125,
+          "search_only_recall": 0.125,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "87",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "870",
+          "old_recall": 0.6666666666666666,
+          "search_only_recall": 0.6666666666666666,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "871",
+          "old_recall": 0.2222222222222222,
+          "search_only_recall": 0.2222222222222222,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "872",
+          "old_recall": 0.75,
+          "search_only_recall": 0.75,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "873",
+          "old_recall": 0.25,
+          "search_only_recall": 0.25,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "875",
+          "old_recall": 0.8888888888888888,
+          "search_only_recall": 0.8888888888888888,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "876",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "88",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "882",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "883",
+          "old_recall": 0.7777777777777778,
+          "search_only_recall": 0.7777777777777778,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "884",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "885",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "886",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "887",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "89",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "893",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "894",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "895",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "896",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "897",
+          "old_recall": 0.8888888888888888,
+          "search_only_recall": 0.8888888888888888,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "898",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "899",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "90",
+          "old_recall": 0.6363636363636364,
+          "search_only_recall": 0.6363636363636364,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "904",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "905",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "906",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "907",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "909",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "910",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "912",
+          "old_recall": 0.5,
+          "search_only_recall": 0.5,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "915",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "916",
+          "old_recall": 0.75,
+          "search_only_recall": 0.75,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "919",
+          "old_recall": 0.875,
+          "search_only_recall": 0.875,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "92",
+          "old_recall": 0.8888888888888888,
+          "search_only_recall": 0.8888888888888888,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "920",
+          "old_recall": 0.9,
+          "search_only_recall": 0.9,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "921",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "922",
+          "old_recall": 0.0,
+          "search_only_recall": 0.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "923",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "925",
+          "old_recall": 0.5714285714285714,
+          "search_only_recall": 0.5714285714285714,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "926",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "927",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "928",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "93",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "930",
+          "old_recall": 0.4,
+          "search_only_recall": 0.4,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "932",
+          "old_recall": 0.75,
+          "search_only_recall": 0.75,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "934",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "936",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "941",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "942",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "943",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "944",
+          "old_recall": 0.5714285714285714,
+          "search_only_recall": 0.5714285714285714,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "946",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "947",
+          "old_recall": 0.75,
+          "search_only_recall": 0.75,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "948",
+          "old_recall": 0.3333333333333333,
+          "search_only_recall": 0.3333333333333333,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "95",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "950",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "951",
+          "old_recall": 0.75,
+          "search_only_recall": 0.75,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "952",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "959",
+          "old_recall": 0.8333333333333334,
+          "search_only_recall": 0.8333333333333334,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "96",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "960",
+          "old_recall": 0.6666666666666666,
+          "search_only_recall": 0.6666666666666666,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "961",
+          "old_recall": 0.0,
+          "search_only_recall": 0.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "962",
+          "old_recall": 0.9,
+          "search_only_recall": 0.9,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "963",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "966",
+          "old_recall": 0.7142857142857143,
+          "search_only_recall": 0.7142857142857143,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "968",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "969",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "97",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "970",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "971",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "972",
+          "old_recall": 0.875,
+          "search_only_recall": 0.875,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "976",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "978",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "979",
+          "old_recall": 0.6666666666666666,
+          "search_only_recall": 0.6666666666666666,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "98",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "980",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "981",
+          "old_recall": 0.75,
+          "search_only_recall": 0.75,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "983",
+          "old_recall": 0.7142857142857143,
+          "search_only_recall": 0.7142857142857143,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "984",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "985",
+          "old_recall": 0.8571428571428571,
+          "search_only_recall": 0.8571428571428571,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "986",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "987",
+          "old_recall": 0.875,
+          "search_only_recall": 0.875,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "991",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "992",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "996",
+          "old_recall": 0.7142857142857143,
+          "search_only_recall": 0.7142857142857143,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "998",
+          "old_recall": 0.8888888888888888,
+          "search_only_recall": 0.8888888888888888,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "999",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        }
+      ]
+    },
+    "B": {
+      "requested": 230,
+      "terminal_exported": 230,
+      "old_recall_pct": 89.71376811594203,
+      "search_only_recall_pct": 89.71376811594203,
+      "per_query": [
+        {
+          "id": "131",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1257",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "495",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "54",
+          "old_recall": 0.8571428571428571,
+          "search_only_recall": 0.8571428571428571,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1010",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1045",
+          "old_recall": 0.7777777777777778,
+          "search_only_recall": 0.7777777777777778,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1034",
+          "old_recall": 0.0,
+          "search_only_recall": 0.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "713",
+          "old_recall": 0.8571428571428571,
+          "search_only_recall": 0.8571428571428571,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "125",
+          "old_recall": 0.7142857142857143,
+          "search_only_recall": 0.7142857142857143,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "596",
+          "old_recall": 0.2857142857142857,
+          "search_only_recall": 0.2857142857142857,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "469",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "418",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "666",
+          "old_recall": 0.875,
+          "search_only_recall": 0.875,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "769",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "814",
+          "old_recall": 0.8888888888888888,
+          "search_only_recall": 0.8888888888888888,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "972",
+          "old_recall": 0.875,
+          "search_only_recall": 0.875,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "738",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "414",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "175",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "968",
+          "old_recall": 0.75,
+          "search_only_recall": 0.75,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "560",
+          "old_recall": 0.8571428571428571,
+          "search_only_recall": 0.8571428571428571,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "810",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1068",
+          "old_recall": 0.0,
+          "search_only_recall": 0.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "176",
+          "old_recall": 0.7777777777777778,
+          "search_only_recall": 0.7777777777777778,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "632",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1234",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1072",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "775",
+          "old_recall": 0.0,
+          "search_only_recall": 0.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "233",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1081",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "286",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1039",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "546",
+          "old_recall": 0.7142857142857143,
+          "search_only_recall": 0.7142857142857143,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1264",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "906",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1187",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "619",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "686",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "696",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "684",
+          "old_recall": 0.7,
+          "search_only_recall": 0.7,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "726",
+          "old_recall": 0.8571428571428571,
+          "search_only_recall": 0.8571428571428571,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "724",
+          "old_recall": 0.75,
+          "search_only_recall": 0.75,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "370",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "781",
+          "old_recall": 0.6666666666666666,
+          "search_only_recall": 0.6666666666666666,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1254",
+          "old_recall": 0.8571428571428571,
+          "search_only_recall": 0.8571428571428571,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "602",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "67",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "496",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "720",
+          "old_recall": 0.7,
+          "search_only_recall": 0.7,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "74",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1121",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1259",
+          "old_recall": 0.8888888888888888,
+          "search_only_recall": 0.8888888888888888,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1266",
+          "old_recall": 0.8333333333333334,
+          "search_only_recall": 0.8333333333333334,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1238",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "248",
+          "old_recall": 0.8571428571428571,
+          "search_only_recall": 0.8571428571428571,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "337",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "563",
+          "old_recall": 0.75,
+          "search_only_recall": 0.75,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "742",
+          "old_recall": 0.5,
+          "search_only_recall": 0.5,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1206",
+          "old_recall": 0.6666666666666666,
+          "search_only_recall": 0.6666666666666666,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1003",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "366",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "952",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1018",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "980",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1118",
+          "old_recall": 0.8333333333333334,
+          "search_only_recall": 0.8333333333333334,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "422",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "357",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "467",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "661",
+          "old_recall": 0.8571428571428571,
+          "search_only_recall": 0.8571428571428571,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "394",
+          "old_recall": 0.7142857142857143,
+          "search_only_recall": 0.7142857142857143,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "633",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "46",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1239",
+          "old_recall": 0.7777777777777778,
+          "search_only_recall": 0.7777777777777778,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "231",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "327",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "356",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "41",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "5",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "353",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "533",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "317",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "428",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1099",
+          "old_recall": 0.8571428571428571,
+          "search_only_recall": 0.8571428571428571,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "121",
+          "old_recall": 0.8571428571428571,
+          "search_only_recall": 0.8571428571428571,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "753",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1250",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "746",
+          "old_recall": 0.8333333333333334,
+          "search_only_recall": 0.8333333333333334,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "409",
+          "old_recall": 0.8333333333333334,
+          "search_only_recall": 0.8333333333333334,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "519",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "450",
+          "old_recall": 0.8888888888888888,
+          "search_only_recall": 0.8888888888888888,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1048",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "297",
+          "old_recall": 0.875,
+          "search_only_recall": 0.875,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "844",
+          "old_recall": 0.8333333333333334,
+          "search_only_recall": 0.8333333333333334,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "304",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "324",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1231",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "322",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "530",
+          "old_recall": 0.625,
+          "search_only_recall": 0.625,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "583",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1111",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1223",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "520",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1004",
+          "old_recall": 0.0,
+          "search_only_recall": 0.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "298",
+          "old_recall": 0.7,
+          "search_only_recall": 0.7,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "629",
+          "old_recall": 0.6666666666666666,
+          "search_only_recall": 0.6666666666666666,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "869",
+          "old_recall": 0.125,
+          "search_only_recall": 0.125,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "916",
+          "old_recall": 0.75,
+          "search_only_recall": 0.75,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1194",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1126",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1190",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "471",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "976",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "393",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1134",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "621",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1222",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1083",
+          "old_recall": 0.8571428571428571,
+          "search_only_recall": 0.8571428571428571,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "153",
+          "old_recall": 0.6666666666666666,
+          "search_only_recall": 0.6666666666666666,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "832",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "636",
+          "old_recall": 0.6666666666666666,
+          "search_only_recall": 0.6666666666666666,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1224",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1060",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "449",
+          "old_recall": 0.9,
+          "search_only_recall": 0.9,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "110",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "960",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1105",
+          "old_recall": 0.8888888888888888,
+          "search_only_recall": 0.8888888888888888,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "936",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "570",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "961",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "664",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1107",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1164",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "200",
+          "old_recall": 0.6666666666666666,
+          "search_only_recall": 0.6666666666666666,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "308",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "643",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "700",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "998",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1007",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1152",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "18",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1144",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1015",
+          "old_recall": 0.8571428571428571,
+          "search_only_recall": 0.8571428571428571,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "760",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1188",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "653",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "556",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "580",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "330",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "215",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "827",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "405",
+          "old_recall": 0.8888888888888888,
+          "search_only_recall": 0.8888888888888888,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "637",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "905",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "494",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1026",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "548",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "598",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "433",
+          "old_recall": 0.8888888888888888,
+          "search_only_recall": 0.8888888888888888,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "512",
+          "old_recall": 0.6666666666666666,
+          "search_only_recall": 0.6666666666666666,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "311",
+          "old_recall": 0.875,
+          "search_only_recall": 0.875,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1177",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "102",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "710",
+          "old_recall": 0.5,
+          "search_only_recall": 0.5,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "630",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "202",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1216",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1213",
+          "old_recall": 0.0,
+          "search_only_recall": 0.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "728",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "165",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "569",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "293",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1025",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1062",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "105",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "719",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "996",
+          "old_recall": 0.7142857142857143,
+          "search_only_recall": 0.7142857142857143,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1035",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "30",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "83",
+          "old_recall": 0.8333333333333334,
+          "search_only_recall": 0.8333333333333334,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "910",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1030",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1212",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1089",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "927",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "712",
+          "old_recall": 0.8333333333333334,
+          "search_only_recall": 0.8333333333333334,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "417",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "6",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "216",
+          "old_recall": 0.8888888888888888,
+          "search_only_recall": 0.8888888888888888,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "154",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "600",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "983",
+          "old_recall": 0.7142857142857143,
+          "search_only_recall": 0.7142857142857143,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "116",
+          "old_recall": 0.75,
+          "search_only_recall": 0.75,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "410",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "682",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "424",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "521",
+          "old_recall": 0.8888888888888888,
+          "search_only_recall": 0.8888888888888888,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "58",
+          "old_recall": 0.875,
+          "search_only_recall": 0.875,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "53",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "427",
+          "old_recall": 0.0,
+          "search_only_recall": 0.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "603",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "986",
+          "old_recall": 0.9,
+          "search_only_recall": 0.9,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "593",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "715",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "864",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "8",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "896",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "689",
+          "old_recall": 0.75,
+          "search_only_recall": 0.75,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "568",
+          "old_recall": 0.8888888888888888,
+          "search_only_recall": 0.8888888888888888,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "68",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1012",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "558",
+          "old_recall": 0.8333333333333334,
+          "search_only_recall": 0.8333333333333334,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "966",
+          "old_recall": 0.8571428571428571,
+          "search_only_recall": 0.8571428571428571,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "294",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1122",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1027",
+          "old_recall": 0.75,
+          "search_only_recall": 0.75,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "707",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "923",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "725",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "89",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "420",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "790",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "55",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "688",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "485",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "894",
+          "old_recall": 0.8,
+          "search_only_recall": 0.8,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "614",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "436",
+          "old_recall": 0.8571428571428571,
+          "search_only_recall": 0.8571428571428571,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "1184",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "944",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        },
+        {
+          "id": "140",
+          "old_recall": 1.0,
+          "search_only_recall": 1.0,
+          "removed_read_only_docids": 0
+        }
+      ]
+    }
+  }
+}

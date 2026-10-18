@@ -1,0 +1,127 @@
+{
+  "model_calls": 0,
+  "records": 496,
+  "complete": true,
+  "note": "Equal held-out dev halves selected before replay; not untouched benchmark holdout. No index rebuild or tokenizer change. Gold used only after ranking. Scope retains document filtering but same-document hits deduplicate by document, so this is document recall only.",
+  "groups": {
+    "historical_first_query/validation/title8": {
+      "n_with_gold": 47,
+      "recall5": 0.5762411347517731,
+      "recall20": 0.7039007092198581,
+      "mean_seconds": 1.091159314765854
+    },
+    "historical_first_query/selection/content_words": {
+      "n_with_gold": 47,
+      "recall5": 0.6145390070921986,
+      "recall20": 0.774113475177305,
+      "mean_seconds": 0.9010470975318504
+    },
+    "natural_question/diagnostic/content_words": {
+      "n_with_gold": 20,
+      "recall5": 0.64,
+      "recall20": 0.915,
+      "mean_seconds": 1.7976268855498347
+    },
+    "historical_first_query/selection/title0": {
+      "n_with_gold": 47,
+      "recall5": 0.6198581560283688,
+      "recall20": 0.75,
+      "mean_seconds": 0.9383347685318941
+    },
+    "historical_first_query/selection/title8": {
+      "n_with_gold": 47,
+      "recall5": 0.5879432624113475,
+      "recall20": 0.7315602836879432,
+      "mean_seconds": 0.9594002890213581
+    },
+    "natural_question/diagnostic/title0": {
+      "n_with_gold": 20,
+      "recall5": 0.6066666666666667,
+      "recall20": 0.7833333333333333,
+      "mean_seconds": 3.9112606353000956
+    },
+    "natural_question/diagnostic/current": {
+      "n_with_gold": 20,
+      "recall5": 0.6733333333333333,
+      "recall20": 0.8316666666666667,
+      "mean_seconds": 3.928015360399877
+    },
+    "historical_first_query/validation/title0": {
+      "n_with_gold": 47,
+      "recall5": 0.5230496453900709,
+      "recall20": 0.7109929078014184,
+      "mean_seconds": 1.086449195936129
+    },
+    "historical_first_query/validation/current": {
+      "n_with_gold": 47,
+      "recall5": 0.5975177304964538,
+      "recall20": 0.7535460992907801,
+      "mean_seconds": 1.1368739600637785
+    },
+    "natural_question/diagnostic/title8": {
+      "n_with_gold": 20,
+      "recall5": 0.465,
+      "recall20": 0.6983333333333334,
+      "mean_seconds": 3.924302206199809
+    },
+    "historical_first_query/selection/current": {
+      "n_with_gold": 47,
+      "recall5": 0.6145390070921986,
+      "recall20": 0.774113475177305,
+      "mean_seconds": 0.9824008430211719
+    },
+    "historical_first_query/validation/content_words": {
+      "n_with_gold": 47,
+      "recall5": 0.5975177304964538,
+      "recall20": 0.7535460992907801,
+      "mean_seconds": 1.0800627632978193
+    }
+  },
+  "decision": "Keep title weight 2. title0/title8 degrade on pre-frozen validation; stopword removal ties clean historical queries and lowers natural-question recall@5 despite improving recall@20.",
+  "paired_validation": [
+    {
+      "candidate": "title0",
+      "n": 47,
+      "recall20_difference": -0.0425531914893617,
+      "wins": 1,
+      "losses": 3,
+      "ties": 43
+    },
+    {
+      "candidate": "title8",
+      "n": 47,
+      "recall20_difference": -0.04964539007092199,
+      "wins": 0,
+      "losses": 3,
+      "ties": 44
+    },
+    {
+      "candidate": "content_words",
+      "n": 47,
+      "recall20_difference": 0.0,
+      "wins": 0,
+      "losses": 0,
+      "ties": 47
+    }
+  ],
+  "source": {
+    "path": "runs/overnight-20261012/bm25-summary.json",
+    "sha256": "6bfc1e1e10b57b572ebb0d680782e63496308e90b8a2b2000e8bc082dbd9ae55"
+  },
+  "variant_definitions": {
+    "current": "porter unicode61 + title2 + quoted phrases/literal terms",
+    "title0": "title0, otherwise same",
+    "title8": "title8, otherwise same",
+    "content_words": "title2 + fixed stopword removal; preserves quoted phrases"
+  },
+  "limitations": [
+    "Developer halves are known dev and not an untouched holdout.",
+    "Replay uses historical first adaptive query with literal scope; document recall, no online QA claim.",
+    "Natural-question set is stratified 24; only 20 have reference IDs.",
+    "No tokenizer index rebuild performed; no corpus mutation or GPU use."
+  ],
+  "raw_detail": {
+    "path": "runs/evidence/bm25-replay-20261012.json",
+    "sha256": "d2310e38e73d1cc3d30174982578773918ee8bdd6898c59ff93bba0343fa4c71"
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "plan": {
+    "kind": "known_diagnostic_cases",
+    "model": "gpt-6.1-sol",
+    "cases": [
+      {
+        "id": "normal",
+        "question": "请为 Northwind 的值班工程师整理交接：Runtime 1.21 开启 kernel auto-selection v2 后，Dedicated L40S 长上下文请求 p99 回退。历史上采取了什么缓解，怎样核查恢复，在什么条件下才能重新开启 v2？明确当前仍需确认的信息。",
+        "review_focus": "Preserve customer-specific 1.21.1, pool canary and rollback conditions; distinguish historical mitigation from current health."
+      },
+      {
+        "id": "scope",
+        "question": "某 H100 客户池在一次版本升级后出现 p99 上升。目前没有其 request IDs、kernel 选择轨迹或配置记录。能否直接套用 Northwind L40S 的 v2 关闭和 LONG p99 回退超过 10% 的条件？请为值班工程师整理调查交接，区分可借鉴的核查步骤与尚未证实适用于 H100 的原因和处置条件。",
+        "review_focus": "Do not transfer a customer/SKU-specific root cause or threshold to H100 without evidence; collect missing facts."
+      },
+      {
+        "id": "current_state",
+        "question": "请确认 Northwind Analytics 的 nw-analytics-ded-01 池现在是否已完成 Runtime 1.21.1 修复并可以重新开启 kernel auto-selection v2。现有输入只有历史知识库，没有今天的监控、部署记录或 gate/config 快照。请生成调查交接，明确文档能够确认什么，以及哪些现场信息取得前不能作出恢复确认。",
+        "review_focus": "Do not claim current deployment, health or approval from historical documentation; list concrete missing checks."
+      }
+    ],
+    "per_case_calls": 4,
+    "total_calls": 12,
+    "retrieval": "bm25",
+    "style": "compact",
+    "judge_calls": 0,
+    "automatic_retries": 0,
+    "interpretation": "Structure/provenance checks and qualitative source review; not a benchmark accuracy score."
+  },
+  "results": [
+    {
+      "case": "normal",
+      "status": "draft_for_review",
+      "result_status": "finished",
+      "checks_passed": true,
+      "validation_errors": [],
+      "calls": 4,
+      "seconds": 91.002,
+      "token_usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 44672,
+        "input_tokens": 74661,
+        "output_tokens": 1505,
+        "reasoning_output_tokens": 96,
+        "total_tokens": 76166
+      }
+    },
+    {
+      "case": "scope",
+      "status": "draft_for_review",
+      "result_status": "finished",
+      "checks_passed": true,
+      "validation_errors": [],
+      "calls": 4,
+      "seconds": 52.259,
+      "token_usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 51328,
+        "input_tokens": 87906,
+        "output_tokens": 1215,
+        "reasoning_output_tokens": 13,
+        "total_tokens": 89121
+      }
+    },
+    {
+      "case": "current_state",
+      "status": "draft_for_review",
+      "result_status": "finished",
+      "checks_passed": true,
+      "validation_errors": [],
+      "calls": 4,
+      "seconds": 73.278,
+      "token_usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 18944,
+        "input_tokens": 76962,
+        "output_tokens": 1258,
+        "reasoning_output_tokens": 33,
+        "total_tokens": 78220
+      }
+    }
+  ],
+  "budget": {
+    "limit": 12,
+    "used": 12,
+    "remaining": 0,
+    "unit": "outer_provider_calls"
+  }
+}

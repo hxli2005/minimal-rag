@@ -1,0 +1,90 @@
+{
+  "date": "2026-10-13",
+  "kind": "known_dev_cross_benchmark_and_oracle_diagnostic",
+  "model": "gpt-6.1-sol",
+  "groups": {
+    "financebench/agent": {
+      "planned": 12,
+      "terminal": 12,
+      "finished": 12,
+      "scored": 12,
+      "complete": true,
+      "successful_mean": 0.75,
+      "planned_denominator_score": 0.75,
+      "score_is_final": true,
+      "f1": null,
+      "generation_calls": 37,
+      "generation_tokens": {
+        "input_tokens": 363195,
+        "cached_input_tokens": 151040,
+        "output_tokens": 4543
+      }
+    },
+    "hotpotqa/agent": {
+      "planned": 12,
+      "terminal": 12,
+      "finished": 12,
+      "scored": 12,
+      "complete": true,
+      "successful_mean": 0.8333333333333334,
+      "planned_denominator_score": 0.8333333333333334,
+      "score_is_final": true,
+      "f1": 0.9074074074074074,
+      "generation_calls": 27,
+      "generation_tokens": {
+        "input_tokens": 129270,
+        "cached_input_tokens": 53248,
+        "output_tokens": 1306
+      }
+    },
+    "oracle/observed": {
+      "planned": 12,
+      "terminal": 12,
+      "finished": 12,
+      "scored": 12,
+      "complete": true,
+      "successful_mean": 0.0,
+      "planned_denominator_score": 0.0,
+      "score_is_final": true,
+      "f1": null,
+      "generation_calls": 12,
+      "generation_tokens": {
+        "input_tokens": 601460,
+        "cached_input_tokens": 16896,
+        "output_tokens": 8555
+      }
+    },
+    "oracle/gold": {
+      "planned": 12,
+      "terminal": 12,
+      "finished": 12,
+      "scored": 12,
+      "complete": true,
+      "successful_mean": 0.4166666666666667,
+      "planned_denominator_score": 0.4166666666666667,
+      "score_is_final": true,
+      "f1": null,
+      "generation_calls": 12,
+      "generation_tokens": {
+        "input_tokens": 102492,
+        "cached_input_tokens": 22528,
+        "output_tokens": 6693
+      }
+    }
+  },
+  "limits": [
+    "Finance/Hotpot 12-question stratified dev each, not new sealed/official full scores.",
+    "Hotpot uses given distractor passages, official answer EM/F1 only.",
+    "Oracle uses 12 previous failures, reference document labels in evidence selection, no gold answer/facts in generation.",
+    "Gold-only intervention changes document completeness, distractor mix and evidence formatting; gains cannot be attributed only to recall.",
+    "Some source versions/normative wording disagree with frozen references; no scores rewritten."
+  ],
+  "source": {
+    "path": "runs/overnight-20261012/cross-oracle-summary.json",
+    "sha256": "d0b5da222a2f75568725e6812843670de0016efc1f5e7e778869eaacf6bfc3a5"
+  },
+  "raw_detail": {
+    "path": "runs/evidence/cross-oracle-sol-20261013.json",
+    "sha256": "0ebe0af99c2bbe4ba510d43373cd26d2c90fdaa7bba63bf2237cb64fd246b986"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "sample_size": 30,
+  "completed": 30,
+  "graded": 30,
+  "first_successful_judgements_only": true,
+  "official_grader_user_messages_unchanged": true,
+  "all_accepted_judgements_same_parameters": true,
+  "all_accepted_judgements_zero_reasoning": true,
+  "generation_requests": 289,
+  "generation_ledger_matches_traces": true,
+  "tool_errors": {},
+  "saved_smoke_artifacts_unchanged": true,
+  "configured_maximum_calls_per_case": 30,
+  "observed_maximum_calls_per_case": 28
+}

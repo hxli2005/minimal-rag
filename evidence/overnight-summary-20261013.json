@@ -1,0 +1,136 @@
+{
+  "model": "gpt-6.1-sol",
+  "calls_reserved": 498,
+  "call_limit": 500,
+  "calls_by_role": {
+    "generation": 325,
+    "judge": 173
+  },
+  "reported_beijing": "2026-10-13T07:35:05.096004+08:00",
+  "raw_detail": {
+    "path": "runs/evidence/overnight-summary-20261013.json",
+    "sha256": "a6090bb9ccd49a25359aff127be290f93e661bc0c3ac59b4ce41da8beba9cd81"
+  },
+  "report": {
+    "path": "docs/morning-report-20261013.md",
+    "sha256": "06d7ccdd9188c4068ebf166b0b2fb6f2f80513a9e5de2f8532e6b53d55a4a356",
+    "status": "written and manually reviewed; chat delivery scheduled08:00 Beijing"
+  },
+  "repository_result": {
+    "branch": "codex/standalone-rag",
+    "local_commit_saved": true,
+    "pushed": false,
+    "merged": false,
+    "note": "Audit head is the pre-commit baseline; final commit SHA is Git HEAD and the morning chat reply."
+  },
+  "groups": {
+    "enterprise/closed": {
+      "planned": 24,
+      "terminal": 24,
+      "scored": 24,
+      "planned_denominator_score": 0.08333333333333333,
+      "generation_calls": 24,
+      "generation_tokens": {
+        "input_tokens": 94645,
+        "cached_input_tokens": 22528,
+        "output_tokens": 2074
+      }
+    },
+    "enterprise/once": {
+      "planned": 24,
+      "terminal": 24,
+      "scored": 24,
+      "planned_denominator_score": 0.5,
+      "generation_calls": 24,
+      "generation_tokens": {
+        "input_tokens": 220548,
+        "cached_input_tokens": 19712,
+        "output_tokens": 8701
+      }
+    },
+    "enterprise/agent": {
+      "planned": 24,
+      "terminal": 24,
+      "scored": 24,
+      "planned_denominator_score": 0.8333333333333334,
+      "generation_calls": 98,
+      "generation_tokens": {
+        "input_tokens": 1915063,
+        "cached_input_tokens": 897664,
+        "output_tokens": 12967
+      }
+    },
+    "enterprise/snippet": {
+      "planned": 12,
+      "terminal": 12,
+      "scored": 12,
+      "planned_denominator_score": 0.8333333333333334,
+      "generation_calls": 52,
+      "generation_tokens": {
+        "input_tokens": 711762,
+        "cached_input_tokens": 332928,
+        "output_tokens": 6634
+      }
+    },
+    "financebench/agent": {
+      "planned": 12,
+      "terminal": 12,
+      "scored": 12,
+      "planned_denominator_score": 0.75,
+      "generation_calls": 37,
+      "generation_tokens": {
+        "input_tokens": 363195,
+        "cached_input_tokens": 151040,
+        "output_tokens": 4543
+      }
+    },
+    "hotpotqa/agent": {
+      "planned": 12,
+      "terminal": 12,
+      "scored": 12,
+      "planned_denominator_score": 0.8333333333333334,
+      "generation_calls": 27,
+      "generation_tokens": {
+        "input_tokens": 129270,
+        "cached_input_tokens": 53248,
+        "output_tokens": 1306
+      }
+    },
+    "oracle/observed": {
+      "planned": 12,
+      "terminal": 12,
+      "scored": 12,
+      "planned_denominator_score": 0.0,
+      "generation_calls": 12,
+      "generation_tokens": {
+        "input_tokens": 601460,
+        "cached_input_tokens": 16896,
+        "output_tokens": 8555
+      }
+    },
+    "oracle/gold": {
+      "planned": 12,
+      "terminal": 12,
+      "scored": 12,
+      "planned_denominator_score": 0.4166666666666667,
+      "generation_calls": 12,
+      "generation_tokens": {
+        "input_tokens": 102492,
+        "cached_input_tokens": 22528,
+        "output_tokens": 6693
+      }
+    }
+  },
+  "conclusions": [
+    "Agent20/24 versus one retrieval12/24, +33.33pp with higher call/token costs.",
+    "Qwen sample hybrid gain +4pp failed the frozen +10pp gate; no full build.",
+    "Snippet and higher-effort probes did not justify default promotion.",
+    "Local development results only; no official evaluation or SOTA."
+  ],
+  "related_summaries": [
+    "evidence/enterprise-sol-dev24-20261013.json",
+    "evidence/full-bm25-calibration-20261013.json",
+    "evidence/qwen3-chunk-scale-20261012.json",
+    "evidence/request-reconciliation-20261013.json"
+  ]
+}

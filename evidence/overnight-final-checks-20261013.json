@@ -1,0 +1,32 @@
+{
+  "kind": "final_overnight_readonly_audit",
+  "checked_beijing": "2026-10-13T07:31:55.699079+08:00",
+  "calls": 498,
+  "only_model": "gpt-6.1-sol",
+  "ledger_contiguous": true,
+  "request_reconciliation": "evidence/request-reconciliation-20261013.json",
+  "branch": "codex/standalone-rag",
+  "head_at_audit": "5886033efba0a108182ffdec4bdfc7d9c0b96735",
+  "qwen_stage": "complete_without_full_build",
+  "protected_sources_unchanged": {
+    "experiments/scripts/evaluate_rag_retrieval.py": true,
+    "experiments/src/minimal_rag_experiments/retrieval_scale.py": true,
+    "experiments/src/minimal_rag_experiments/sentence_retrieval.py": true,
+    "src/minimal_rag/indexed_rag.py": true,
+    "src/minimal_rag/hybrid_rag.py": true,
+    "src/minimal_rag/loop.py": true
+  },
+  "full_index_exists": false,
+  "own_consumer_stopped": true,
+  "evidence_json_parsed": 26,
+  "active_markdown_pages_checked": 21,
+  "broken_local_links": [],
+  "new_model_calls": 0,
+  "note": "No repeat tests, model calls, encoding or score changes. Historical scores and failed gate retained.",
+  "active_matching_python_jobs": [],
+  "process_check": "No running dated online worker, own consumer/reranker/replay/server or original Qwen command at final check; original historical natural exit retained.",
+  "raw_detail": {
+    "path": "runs/evidence/overnight-final-checks-20261013.json",
+    "sha256": "3e0f42f4beea9a97a2205dad621a1a98528e8131030e5aa9384e05fcf5121498"
+  }
+}

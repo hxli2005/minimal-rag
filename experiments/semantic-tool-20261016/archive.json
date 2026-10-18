@@ -1,0 +1,113 @@
+{
+  "status": "archived_abandoned_by_user",
+  "archived_at": 1792230398.339255,
+  "decision": "Do not adopt the added vector index or independent semantic_search tool; current implementation remains pure BM25",
+  "decision_authority": "Explicit user request to stop and archive the experiment",
+  "original_two_benchmark_gate_evaluated": false,
+  "enterprise": {
+    "A_correct": 309,
+    "B_correct": 305,
+    "n": 400,
+    "semantic_A_correct": 68,
+    "semantic_B_correct": 64,
+    "semantic_n": 100,
+    "paired_bootstrap_95": [
+      -0.04,
+      0.02
+    ],
+    "bootstrap_samples": 100000,
+    "seed": 20261016,
+    "result": "runs/semantic-tool-20261016/enterprise-comparison.json"
+  },
+  "browsecomp": {
+    "A_normal_answers": 830,
+    "B_normal_answers": 234,
+    "official_judgement_complete": false,
+    "status": "stopped and archived; no continuation"
+  },
+  "withdrawn": [
+    "src/minimal_rag/semantic_search.py",
+    "tests/test_semantic_search.py",
+    "shared benchmark --semantic-url option and registration"
+  ],
+  "source_archive": {
+    "archived_at": 1792230126.6945589,
+    "reason": "User explicitly stopped the experiment and abandoned the added vector index/tool",
+    "source_files": 63,
+    "source_archive": "experiments/semantic-tool-20261016/archive/source-before-removal.tar.gz",
+    "source_archive_sha256": "33b57c4eae7f073dd037c2ab9c41d007b9f5946a914566f21b4c33cc3d691ad8"
+  },
+  "evaluation_archive": {
+    "created_at": 1792230168.309673,
+    "archive": "runs/semantic-tool-20261016/archive/evaluation-records.tar.gz",
+    "files": 3334,
+    "bytes": 129581069,
+    "sha256": "c7746c38b613452d46e24572af7bc6ed40ccc005ccf204fafb54cc2589ba3d5b",
+    "includes": [
+      "Enterprise A and B full traces, configurations and retry attempts",
+      "BrowseComp A and incomplete B saved traces",
+      "Final statistics, validation and cloud-stop evidence",
+      "Vector index manifest and computation logs"
+    ],
+    "excludes": [
+      "SSH/password directories",
+      "Large vector shards; retained in original run directories",
+      "Model weights and corpus databases; original provenance retained"
+    ]
+  },
+  "large_index_archives": {
+    "enterprise": {
+      "directory": "runs/semantic-tool-20261016/a800-results/enterprise-index",
+      "shards": 125,
+      "documents": 511962
+    },
+    "browsecomp": {
+      "directory": "runs/semantic-tool-20261016/browsecomp",
+      "documents": 100195
+    }
+  },
+  "cloud_active_instance": null,
+  "cloud_snapshot": {
+    "name": "rag-semantic-1017",
+    "size_gb": 22,
+    "saved": true,
+    "evidence": "runs/semantic-tool-20261016/enterprise-snapshot-saved.png"
+  },
+  "owned_processes": {
+    "6972": "stopped",
+    "6973": "stopped",
+    "62375": "stopped",
+    "85609": "stopped",
+    "85610": "stopped"
+  },
+  "automation_status": "PAUSED",
+  "restart_guards": [
+    "runs/semantic-tool-20261016/STOP",
+    "runs/semantic-tool-20261016/ARCHIVED",
+    "runs/semantic-tool-20261016/browsecomp-B.PAUSED"
+  ],
+  "validation": {
+    "checked_at": 1792230314.1788092,
+    "targeted_tests": {
+      "command": ".venv/bin/python -m pytest -q tests experiments/tests/test_benchmark.py",
+      "passed": 48
+    },
+    "semantic_module_importable": false,
+    "clean_wheel": "minimal_rag-0.1.0-py3-none-any.whl",
+    "clean_wheel_excludes_semantic_tool": true,
+    "clean_wheel_excludes_experiment_package": true,
+    "frozen_core_source_unchanged": [
+      "codex_adapter.py",
+      "indexed_rag.py",
+      "loop.py",
+      "rag_judge.py",
+      "benchmark_metrics.py"
+    ]
+  },
+  "notes": [
+    "Frozen evaluation result files are not rewritten; this archive decision supersedes the earlier deferred adoption status.",
+    "Credential directories are excluded from the archives.",
+    "The large vector shards are retained only as historical artifacts, not connected to active product or benchmark entry points.",
+    "Historical execution source is preserved in the source archive; restoration would require a new explicit user instruction and an isolated checkout."
+  ]
+}

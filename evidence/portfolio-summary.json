@@ -1,0 +1,507 @@
+{
+  "schema_version": 1,
+  "assembled_on": "2026-10-12",
+  "kind": "derived_portfolio_evidence_summary",
+  "new_model_calls": 0,
+  "new_evaluation": false,
+  "note": "Copied selected metrics from existing complete records. Original artifacts and frozen code are unchanged. Raw benchmark assets are local and excluded from Git; this JSON alone is not full reproduction evidence.",
+  "comparison_source": {
+    "path": "data/benchmarks/optimization-20261011/holdout/comparison.json",
+    "sha256": "68ce612b33346a09013f2a7995e61c297a9fb0a311efe72f600fe8a6ece76dca"
+  },
+  "core_loop": {
+    "lines": 34,
+    "sha256": "48703c7225d952e3546a8ecf2cd6e6a30ea7e692653f28724bc9b0307bf5be49",
+    "unchanged": true
+  },
+  "enterprise_index": {
+    "documents": 511962,
+    "chunks": 1987477,
+    "chunk_chars": 1600,
+    "overlap": 200,
+    "dataset": "enterprise",
+    "source_manifest_sha256": "00dbcb39077c4f2b5eaad8d51bc43a3dada477a0b21d06a812aeae81b13b6b61",
+    "indexer_sha256": "490bcf70451e0c0a7a4913435f1a815fb6747f10fd54b2d1abc7f3dc2ec466a4",
+    "retriever_sha256": "f11f9365025c4f22199bff5fe746d24aa9165c8a9c291113a5f06bcbf789dec0",
+    "seconds": 153.91986387499492,
+    "bytes": 8518115328,
+    "pymupdf_version": "1.28.2",
+    "pyarrow_version": "26.0.0"
+  },
+  "historical_evaluations": [
+    {
+      "dataset": "hotpotqa",
+      "completed": 100,
+      "requested": 100,
+      "source": {
+        "path": "data/benchmarks/optimization-20261011/holdout/hotpotqa/summary.json",
+        "sha256": "c28537638959fd6ab9fc0f39b83de61b3f0257bcd3ee7ac12477e27a52237f5e"
+      },
+      "original_split_label": "test",
+      "present_use": "historical_result_and_known_regression",
+      "corpus_scope": "Per-question supplied distractor passages; not full Wikipedia retrieval",
+      "configuration": {
+        "model": "gpt-6-astra",
+        "judge_model": "gpt-6.1-sol",
+        "variant": "v6",
+        "max_turns": 12,
+        "timeout": 180.0,
+        "case_timeout": 900.0,
+        "sample_sha256": "c09ce71a7b16fe9be8cf0fb3dcc35b93adfd7a3e3374b74cd4ea68fa8aa33a31",
+        "agent_sha256": "92e25cbbcebbf38fc5ddc7b87014d5f9bd5bea53f49ef7be38bfb45228931ef1",
+        "retriever_sha256": "dc98b89b8a61000b99fdde1577cba99cb5ecba6f99b15bd049ef3fe0e8fc335b",
+        "runner_sha256": "612c343a538e8a3f44f418a20145a73e9121105a26e5dddd96180d4d47ce1da4",
+        "kernel_sha256": "48703c7225d952e3546a8ecf2cd6e6a30ea7e692653f28724bc9b0307bf5be49"
+      },
+      "retrieval": {
+        "mode": "hybrid",
+        "candidates": 100,
+        "rerank": 200,
+        "embedding": {
+          "id": "BAAI/bge-small-en-v1.5",
+          "revision": "5c38ec7c405ec4b44b94cc5a9bb96e735b38267a"
+        },
+        "reranker": {
+          "id": "cross-encoder/ms-marco-MiniLM-L6-v2",
+          "revision": "233902d25c440f23af6f7d6e94d2946bac0bee0a"
+        }
+      },
+      "metrics": {
+        "n": 100,
+        "status": {
+          "finished": 100
+        },
+        "errors": 0,
+        "unseen_citations": 0,
+        "em": 0.78,
+        "f1": 0.871,
+        "document_recall": 0.92,
+        "retrieved_document_recall": 0.985,
+        "all_gold_retrieved": 0.97,
+        "seconds": 8.792596777118451,
+        "model_calls": 2.28,
+        "tool_calls": 1.47,
+        "all_gold_sentences_exposed": 0.97,
+        "graded": 100,
+        "input_tokens": 1154322,
+        "cached_input_tokens": 784768,
+        "output_tokens": 9917
+      },
+      "limitations": [
+        "Local judge differs from public leaderboard judges; no official rank claim.",
+        "Development is used for tuning; only untouched test estimates transfer.",
+        "Single attempt per question, no best-of-N. Gold document recall is conservative for alternate valid sources."
+      ]
+    },
+    {
+      "dataset": "financebench",
+      "completed": 100,
+      "requested": 100,
+      "source": {
+        "path": "data/benchmarks/optimization-20261011/holdout/financebench/summary.json",
+        "sha256": "5fcbd1d56697eb4728497e74da3536c0475f61995034188b7ab7b92936d86991"
+      },
+      "original_split_label": "test",
+      "present_use": "historical_result_and_known_regression",
+      "corpus_scope": "Full local financial corpus built from 368 repository PDFs; 54120 page documents",
+      "configuration": {
+        "model": "gpt-6-astra",
+        "judge_model": "gpt-6.1-sol",
+        "variant": "v6",
+        "max_turns": 12,
+        "timeout": 180.0,
+        "case_timeout": 900.0,
+        "sample_sha256": "aed9eba4ef7bfa5a7ea51a995453a6ac7a8002d3e759fa6a089398868a979468",
+        "agent_sha256": "92e25cbbcebbf38fc5ddc7b87014d5f9bd5bea53f49ef7be38bfb45228931ef1",
+        "retriever_sha256": "dc98b89b8a61000b99fdde1577cba99cb5ecba6f99b15bd049ef3fe0e8fc335b",
+        "runner_sha256": "612c343a538e8a3f44f418a20145a73e9121105a26e5dddd96180d4d47ce1da4",
+        "kernel_sha256": "48703c7225d952e3546a8ecf2cd6e6a30ea7e692653f28724bc9b0307bf5be49"
+      },
+      "retrieval": {
+        "mode": "hybrid",
+        "candidates": 100,
+        "rerank": 200,
+        "embedding": {
+          "id": "BAAI/bge-small-en-v1.5",
+          "revision": "5c38ec7c405ec4b44b94cc5a9bb96e735b38267a"
+        },
+        "reranker": {
+          "id": "cross-encoder/ms-marco-MiniLM-L6-v2",
+          "revision": "233902d25c440f23af6f7d6e94d2946bac0bee0a"
+        }
+      },
+      "metrics": {
+        "n": 100,
+        "status": {
+          "finished": 100
+        },
+        "errors": 0,
+        "unseen_citations": 0,
+        "correct": 0.81,
+        "completeness": 0.78,
+        "overall": 0.78,
+        "document_recall": 0.74,
+        "retrieved_document_recall": 0.7883333333333333,
+        "all_gold_retrieved": 0.77,
+        "seconds": 15.211570756678702,
+        "model_calls": 2.79,
+        "tool_calls": 2.11,
+        "graded": 100,
+        "input_tokens": 2251012,
+        "cached_input_tokens": 1372416,
+        "output_tokens": 28717
+      },
+      "limitations": [
+        "Local judge differs from public leaderboard judges; no official rank claim.",
+        "Development is used for tuning; only untouched test estimates transfer.",
+        "Single attempt per question, no best-of-N. Gold document recall is conservative for alternate valid sources."
+      ]
+    },
+    {
+      "dataset": "enterprise",
+      "completed": 400,
+      "requested": 400,
+      "source": {
+        "path": "data/benchmarks/optimization-20261011/holdout/enterprise/summary.json",
+        "sha256": "ef3d2d13fe672c8c29d80b422213fe936f2794eddc230f3e80195bae17d85d41"
+      },
+      "original_split_label": "test",
+      "present_use": "historical_result_and_known_regression",
+      "corpus_scope": "All released synthetic-company corpus documents; 511962 documents",
+      "configuration": {
+        "model": "gpt-6-astra",
+        "judge_model": "gpt-6.1-sol",
+        "variant": "v6",
+        "max_turns": 12,
+        "timeout": 180.0,
+        "case_timeout": 900.0,
+        "sample_sha256": "15128ac27b0463f08f14433bd122755bf94956b3c25bce1e20b8260d0eea9d28",
+        "agent_sha256": "92e25cbbcebbf38fc5ddc7b87014d5f9bd5bea53f49ef7be38bfb45228931ef1",
+        "retriever_sha256": "dc98b89b8a61000b99fdde1577cba99cb5ecba6f99b15bd049ef3fe0e8fc335b",
+        "runner_sha256": "612c343a538e8a3f44f418a20145a73e9121105a26e5dddd96180d4d47ce1da4",
+        "kernel_sha256": "48703c7225d952e3546a8ecf2cd6e6a30ea7e692653f28724bc9b0307bf5be49"
+      },
+      "retrieval": {
+        "mode": "hybrid",
+        "candidates": 100,
+        "rerank": 200,
+        "embedding": {
+          "id": "BAAI/bge-small-en-v1.5",
+          "revision": "5c38ec7c405ec4b44b94cc5a9bb96e735b38267a"
+        },
+        "reranker": {
+          "id": "cross-encoder/ms-marco-MiniLM-L6-v2",
+          "revision": "233902d25c440f23af6f7d6e94d2946bac0bee0a"
+        }
+      },
+      "metrics": {
+        "n": 400,
+        "status": {
+          "finished": 400
+        },
+        "errors": 0,
+        "unseen_citations": 0,
+        "correct": 0.7775,
+        "completeness": 0.8552578308800298,
+        "overall": 0.75753363997114,
+        "document_recall": 0.8698233282674772,
+        "retrieved_document_recall": 0.906524400540358,
+        "all_gold_retrieved": 0.8670212765957447,
+        "seconds": 49.60419296845626,
+        "model_calls": 4.49,
+        "tool_calls": 6.5025,
+        "graded": 400,
+        "input_tokens": 53049193,
+        "cached_input_tokens": 40801792,
+        "output_tokens": 253062
+      },
+      "limitations": [
+        "Local judge differs from public leaderboard judges; no official rank claim.",
+        "Development is used for tuning; only untouched test estimates transfer.",
+        "Single attempt per question, no best-of-N. Gold document recall is conservative for alternate valid sources."
+      ]
+    }
+  ],
+  "public_answer_comparisons": {
+    "financebench": {
+      "reference_metrics": {
+        "n": 100,
+        "requested": 100,
+        "complete": true,
+        "correct": 0.74,
+        "completeness": 0.76,
+        "overall": 0.74,
+        "document_recall": null
+      },
+      "paired_correctness": {
+        "n": 100,
+        "difference": 0.07,
+        "paired_bootstrap_95_interval": [
+          -0.01,
+          0.15
+        ],
+        "wins": 12,
+        "losses": 5,
+        "ties": 83,
+        "bootstrap_samples": 10000,
+        "seed": 20261012
+      },
+      "paired_overall": {
+        "n": 100,
+        "difference": 0.04,
+        "paired_bootstrap_95_interval": [
+          -0.04,
+          0.12
+        ],
+        "wins": 11,
+        "losses": 7,
+        "ties": 82,
+        "bootstrap_samples": 10000,
+        "seed": 20261012
+      }
+    },
+    "enterprise": {
+      "reference_metrics": {
+        "n": 400,
+        "requested": 400,
+        "complete": true,
+        "correct": 0.865,
+        "completeness": 0.9424465246241067,
+        "overall": 0.8641666666666666,
+        "document_recall": 0.9141569571090847
+      },
+      "paired_correctness": {
+        "n": 400,
+        "difference": -0.0875,
+        "paired_bootstrap_95_interval": [
+          -0.125,
+          -0.05
+        ],
+        "wins": 13,
+        "losses": 48,
+        "ties": 339,
+        "bootstrap_samples": 10000,
+        "seed": 20261012
+      },
+      "paired_overall": {
+        "n": 400,
+        "difference": -0.1066330266955267,
+        "paired_bootstrap_95_interval": [
+          -0.14577696608946608,
+          -0.06873719336219336
+        ],
+        "wins": 13,
+        "losses": 72,
+        "ties": 315,
+        "bootstrap_samples": 10000,
+        "seed": 20261012
+      }
+    }
+  },
+  "comparison_limitations": [
+    "Reference answers are regraded by the same local judge; these are not official leaderboard scores.",
+    "Public systems use different generation models, tool budgets and infrastructure. This compares systems, not architecture in isolation.",
+    "Dewey uses 85 filings, while our financial corpus includes all 368 repository PDFs; its public results do not include source IDs.",
+    "Five FinanceBench test IDs had incidental public-baseline failure-metadata exposure; no cases were removed or specially tuned.",
+    "One generation per test question. Bootstrap intervals describe question-level variation, not repeated-model-run reliability.",
+    "Hotpot official EM/F1 are retained; local semantic diagnostics from development are not substituted."
+  ],
+  "incident_diagnostic": {
+    "source": {
+      "path": "evidence/incident-validation-20261012.json",
+      "sha256": "acb44cabbd8c47aa55cd1d98e5cd713cc6103af1423ed85ff6d11dac9ebcab91"
+    },
+    "baseline": {
+      "path": "runs/incident-comparison-dev8-6-1-sol-20261012",
+      "complete": true,
+      "arms": 2,
+      "model": "gpt-6.1-sol",
+      "budget": {
+        "limit": 80,
+        "used": 77,
+        "remaining": 3,
+        "unit": "outer_provider_calls"
+      },
+      "generation_calls": 61,
+      "judge_calls": 16,
+      "metrics": {
+        "plain": {
+          "n": 8,
+          "status": {
+            "finished": 8
+          },
+          "errors": 0,
+          "tool_errors": 0,
+          "cases_with_tool_errors": 0,
+          "protocol_errors": 0,
+          "unseen_citations": 0,
+          "correct": 0.0,
+          "completeness": 0.5064685314685314,
+          "overall": 0.0,
+          "document_recall": 0.41666666666666663,
+          "retrieved_document_recall": 0.47916666666666663,
+          "all_gold_retrieved": 0,
+          "seconds": 48.71016656774373,
+          "model_calls": 3.75,
+          "tool_calls": 5.75,
+          "graded": 8,
+          "input_tokens": 496217,
+          "cached_input_tokens": 258944,
+          "output_tokens": 9586,
+          "requested": 8,
+          "quality_metrics_complete": true
+        },
+        "handoff": {
+          "n": 8,
+          "status": {
+            "finished": 8
+          },
+          "errors": 0,
+          "tool_errors": 0,
+          "cases_with_tool_errors": 0,
+          "protocol_errors": 0,
+          "unseen_citations": 0,
+          "correct": 0.0,
+          "completeness": 0.4175019425019425,
+          "overall": 0.0,
+          "document_recall": 0.53125,
+          "retrieved_document_recall": 0.53125,
+          "all_gold_retrieved": 0.125,
+          "seconds": 56.93875,
+          "model_calls": 3.875,
+          "tool_calls": 6.25,
+          "graded": 8,
+          "input_tokens": 500081,
+          "cached_input_tokens": 234496,
+          "output_tokens": 10433,
+          "requested": 8,
+          "quality_metrics_complete": true
+        }
+      },
+      "generation_usage": {
+        "complete": true,
+        "input_tokens": 996298,
+        "cached_input_tokens": 493440,
+        "output_tokens": 20019
+      },
+      "judge_usage": {
+        "complete": true,
+        "input_tokens": 90263,
+        "cached_input_tokens": 5632,
+        "output_tokens": 4995
+      },
+      "conclusion": "Both arms 0/8 strict correctness; handoff completeness is lower. Structure/provenance success is not task success. Known development cases and same-family local judge, no human calibration."
+    },
+    "repair": {
+      "path": "runs/incident-handoff-repair-dev8-6-1-sol-20261012",
+      "complete": true,
+      "budget": {
+        "limit": 40,
+        "used": 39,
+        "remaining": 1,
+        "unit": "outer_provider_calls"
+      },
+      "model": "gpt-6.1-sol",
+      "generation_calls": 32,
+      "judge_calls": 7,
+      "unfinished_answers_counted_zero": 1,
+      "metrics": {
+        "handoff": {
+          "n": 8,
+          "status": {
+            "finished": 7,
+            "budget_exhausted": 1
+          },
+          "errors": 1,
+          "tool_errors": 0,
+          "cases_with_tool_errors": 0,
+          "protocol_errors": 0,
+          "unseen_citations": 0,
+          "correct": 0.0,
+          "completeness": 0.5758838383838384,
+          "overall": 0.0,
+          "document_recall": 0.5104166666666666,
+          "retrieved_document_recall": 0.6145833333333333,
+          "all_gold_retrieved": 0.125,
+          "seconds": 105.103625,
+          "model_calls": 4,
+          "tool_calls": 9.375,
+          "graded": 8,
+          "input_tokens": 655359,
+          "cached_input_tokens": 371328,
+          "output_tokens": 17513,
+          "requested": 8,
+          "quality_metrics_complete": true
+        }
+      },
+      "judge_usage": {
+        "input_tokens": 46648,
+        "cached_input_tokens": 14080,
+        "output_tokens": 2162
+      },
+      "judge_token_usage_complete": true,
+      "promotion": "not_promoted",
+      "current_option": "--style coverage --source-previews 15",
+      "reason": "Strict correctness remains 0/8. More complete but slower and longer, with one unfinished answer. Original compact prompt restored."
+    }
+  },
+  "scoped_search_replay": {
+    "kind": "offline_known_query_replay",
+    "model_calls": 0,
+    "setup_seconds": 3.7157652500027325,
+    "queries": [
+      {
+        "query": {
+          "query": "ready readiness rollback before enable gate driver",
+          "scope": "dsid_db83694d8fbe459dac9964665ab38ca9",
+          "limit": 4
+        },
+        "baseline_seconds": 8.564462999987882,
+        "optimized_seconds": 0.03483083302853629,
+        "hits": 4,
+        "matches_cached": true,
+        "matches_baseline": true
+      },
+      {
+        "query": {
+          "query": "ready readiness rollback before enable gate driver",
+          "scope": "dsid_47be1728c0f14038af3d711575245ba8",
+          "limit": 3
+        },
+        "baseline_seconds": 2.6163432089961134,
+        "optimized_seconds": 0.03202379200956784,
+        "hits": 3,
+        "matches_cached": true,
+        "matches_baseline": true
+      },
+      {
+        "query": {
+          "query": "rollback readiness threshold",
+          "scope": "dsid_47be1728c0f14038af3d711575245ba8",
+          "limit": 3
+        },
+        "baseline_seconds": 4.6768987080140505,
+        "optimized_seconds": 0.015103208977961913,
+        "hits": 3,
+        "matches_cached": true,
+        "matches_baseline": true
+      }
+    ],
+    "all_identical": true,
+    "baseline_sha256": "53ebaedae39d9e7eb16446c816fa102489eaf38ccac82276cbebedd93ce4ccfd",
+    "candidate_sha256": "ea179ce5ba062ba5190927b126392d4a21f8c836beece64a3c18c5c701911b41",
+    "limitations": "Known exact-document queries; baseline precedes candidate and cache state may differ. This is not a service load test or an answer-quality evaluation."
+  },
+  "interpretation": [
+    "Historical generation used gpt-6-astra; this is not a fresh run of the reorganized package or a gpt-6.1-sol result.",
+    "HotpotQA scores use the official answer-scoring formula on a local sample of public dev-distractor questions; this is not an official test submission.",
+    "FinanceBench and EnterpriseRAG scores use a local gpt-6.1-sol judge, not official leaderboard judges or independently calibrated human labels.",
+    "Previously inspected questions are known regression sets today.",
+    "Index size demonstrates stored corpus scale, not high-concurrency service throughput or enterprise deployment.",
+    "The 11-document offline showcase replays authored decisions and answers; it is not live generation or a retrieval-quality evaluation."
+  ],
+  "raw_detail": {
+    "path": "runs/evidence/portfolio-summary.json",
+    "sha256": "fb244478e0715ab4f3aa7b1a2103f3e2e34f89f67e263a18720940a4d8b164e4"
+  }
+}

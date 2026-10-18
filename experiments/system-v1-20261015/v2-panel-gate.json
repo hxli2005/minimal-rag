@@ -1,0 +1,63 @@
+{
+  "version": "v2",
+  "current_best": "v0",
+  "night_anchor": "v0",
+  "stage": "panel",
+  "comparisons": {
+    "current_best": {
+      "passed": false,
+      "status": "fail",
+      "per_benchmark": {
+        "enterprise": {
+          "n": 30,
+          "candidate_correct": 23,
+          "baseline_correct": 26,
+          "delta_pp": -10.0,
+          "wins": 1,
+          "losses": 4,
+          "ties": 25
+        },
+        "browsecomp": {
+          "n": 30,
+          "candidate_correct": 28,
+          "baseline_correct": 28,
+          "delta_pp": 0.0,
+          "wins": 0,
+          "losses": 0,
+          "ties": 30
+        }
+      }
+    },
+    "night_anchor": {
+      "passed": false,
+      "status": "fail",
+      "per_benchmark": {
+        "enterprise": {
+          "n": 30,
+          "candidate_correct": 23,
+          "baseline_correct": 26,
+          "delta_pp": -10.0,
+          "wins": 1,
+          "losses": 4,
+          "ties": 25
+        },
+        "browsecomp": {
+          "n": 30,
+          "candidate_correct": 28,
+          "baseline_correct": 28,
+          "delta_pp": 0.0,
+          "wins": 0,
+          "losses": 0,
+          "ties": 30
+        }
+      }
+    }
+  },
+  "commit": "ca082369a36514b5f125700998655ed63025ac67",
+  "updated": "2026-10-15T11:06:44.377258-07:00",
+  "counts": {
+    "total": 823,
+    "exploration": 823,
+    "openrouter": 0
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "kind": "archived_real_model_run",
+  "generated_on": "2026-10-12",
+  "packaged_on": "2026-10-12",
+  "selection": "Normal case, first case of the original three-case compact diagnostic; no re-generation or answer editing for this showcase.",
+  "model": "gpt-6.1-sol",
+  "effort": "medium",
+  "retrieval": "bm25",
+  "documents": 511962,
+  "chunks": 1987477,
+  "per_case_outer_call_cap": 4,
+  "case_outer_calls": 4,
+  "original_batch_outer_call_cap": 12,
+  "judge_calls": 0,
+  "tool_calls": 8,
+  "seconds": 91.002,
+  "usage": {
+    "cache_write_input_tokens": 0,
+    "cached_input_tokens": 44672,
+    "input_tokens": 74661,
+    "output_tokens": 1505,
+    "reasoning_output_tokens": 96,
+    "total_tokens": 76166
+  },
+  "usage_checked_against_provider_records": true,
+  "current_source_passages_rechecked": 19,
+  "artifacts": {
+    "report.json": {
+      "source": "runs/incident-pilot-6-1-sol-20261012-compact/normal/report.json",
+      "sha256": "97df864edb5ec180a8b628da89b476ae61c93de21164520a688965b95e786516",
+      "byte_identical": true
+    },
+    "report.html": {
+      "source": "runs/incident-pilot-6-1-sol-20261012-compact/normal/report.html",
+      "sha256": "e079937b85f748ead1aa0fc74dca174a327f1588c71b84e318d0a2e48f6c0fdd",
+      "byte_identical": true
+    },
+    "batch-summary.json": {
+      "source": "runs/incident-pilot-6-1-sol-20261012-compact/summary.json",
+      "sha256": "2a29dcd125096e9474d81c4eb609140d89808c4810bc4d7dfeb3c58f67477a5c",
+      "byte_identical": true
+    },
+    "source-manifest.json": {
+      "source": "runs/incident-pilot-6-1-sol-20261012-compact/source_snapshot/manifest.json",
+      "sha256": "7f1279ef39f400ce1c55672d953645b7276ef7660450d231f8c954593657c051",
+      "byte_identical": true
+    }
+  },
+  "scope": "Real model decisions and answer over the full released synthetic-company corpus. Known diagnostic question; no correctness score, blind-test claim, or current-implementation reevaluation."
+}

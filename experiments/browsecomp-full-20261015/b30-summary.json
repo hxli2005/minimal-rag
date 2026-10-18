@@ -1,0 +1,143 @@
+{
+  "A": {
+    "denominator": 30,
+    "correct": 28,
+    "accuracy_percent": 93.33333333333333,
+    "wilson_95_percent": [
+      78.67654163738308,
+      98.15229762087296
+    ],
+    "graded": 30,
+    "completed": 30,
+    "terminal": 30,
+    "recall_percent": 88.42592592592592,
+    "status_counts": {
+      "completed": 30
+    },
+    "failure_categories": {
+      "部分检索到": 2
+    },
+    "calibration_error_percent": null,
+    "mean_search": 21.266666666666666,
+    "mean_read": 3.7666666666666666,
+    "mean_generation_requests": 9.633333333333333,
+    "mean_input_tokens": 591034.3666666667,
+    "mean_cached_input_tokens": 514692.26666666666,
+    "mean_uncached_input_tokens": 76342.1,
+    "mean_seconds": 144.0877818846658,
+    "generation_requests": 289,
+    "missing_usage_calls": 0,
+    "judge_requests": 42,
+    "judge_response_attempts": 34,
+    "judge_backfill_attempts": 0,
+    "judge_cost_usd_returned": 0.003153,
+    "judge_requests_without_cost": 8
+  },
+  "B": {
+    "denominator": 30,
+    "correct": 25,
+    "accuracy_percent": 83.33333333333334,
+    "wilson_95_percent": [
+      66.43564949358398,
+      92.66345762815145
+    ],
+    "graded": 29,
+    "completed": 29,
+    "terminal": 30,
+    "recall_percent": 79.71957671957671,
+    "status_counts": {
+      "completed": 29,
+      "timeout": 1
+    },
+    "failure_categories": {
+      "全部检索到但答错": 1,
+      "证据从没检索到": 2,
+      "部分检索到": 1,
+      "基础设施失败": 1
+    },
+    "calibration_error_percent": null,
+    "mean_search": 25.666666666666668,
+    "mean_read": 0.0,
+    "mean_generation_requests": 10.866666666666667,
+    "mean_input_tokens": 530385.5666666667,
+    "mean_cached_input_tokens": 446088.5333333333,
+    "mean_uncached_input_tokens": 84297.03333333334,
+    "mean_seconds": 184.56853061533184,
+    "generation_requests": 326,
+    "missing_usage_calls": 4,
+    "judge_requests": 47,
+    "judge_response_attempts": 29,
+    "judge_backfill_attempts": 3,
+    "judge_cost_usd_returned": 0.00238976,
+    "judge_requests_without_cost": 18
+  },
+  "A_minus_B": {
+    "planned": 30,
+    "paired": 30,
+    "bootstrap_samples": 10000,
+    "seed": 20261015,
+    "wins": 4,
+    "losses": 1,
+    "ties": 25,
+    "accuracy_pp": {
+      "mean_difference": 10.0,
+      "bootstrap_95": [
+        -3.3333333333333335,
+        23.333333333333332
+      ]
+    },
+    "recall_pp": {
+      "mean_difference": 8.706349206349206,
+      "bootstrap_95": [
+        -1.186507936507937,
+        20.279232804232798
+      ]
+    },
+    "search": {
+      "mean_difference": -4.4,
+      "bootstrap_95": [
+        -14.600833333333332,
+        6.0
+      ]
+    },
+    "uncached_input_tokens": {
+      "mean_difference": -7954.933333333333,
+      "bootstrap_95": [
+        -38328.89083333333,
+        24108.004166666662
+      ]
+    },
+    "query_ids": [
+      "131",
+      "1257",
+      "495",
+      "54",
+      "1010",
+      "1045",
+      "1034",
+      "713",
+      "125",
+      "596",
+      "469",
+      "418",
+      "666",
+      "769",
+      "814",
+      "972",
+      "738",
+      "414",
+      "175",
+      "968",
+      "560",
+      "810",
+      "1068",
+      "176",
+      "632",
+      "1234",
+      "1072",
+      "775",
+      "233",
+      "1081"
+    ]
+  }
+}

@@ -1,0 +1,202 @@
+{
+  "complete": true,
+  "dataset": "BrowseComp-Plus dev30",
+  "judge": "gpt-6.1-sol medium proxy with frozen official prompt",
+  "groups": {
+    "A": {
+      "correct": 28.0,
+      "n": 30,
+      "accuracy_percent": 93.33333333333333,
+      "wilson95_percent": [
+        78.67618227892791,
+        98.15233646723065
+      ],
+      "metrics": {
+        "n": 30,
+        "status": {
+          "finished": 30
+        },
+        "errors": 0,
+        "tool_errors": 0,
+        "cases_with_tool_errors": 0,
+        "protocol_errors": 0,
+        "unseen_citations": 0,
+        "correct": 0.9333333333333333,
+        "completeness": 1.0,
+        "overall": 0.9333333333333333,
+        "document_recall": 0.62010582010582,
+        "retrieved_document_recall": 0.8635449735449735,
+        "all_gold_retrieved": 0.5,
+        "seconds": 108.13789530546589,
+        "model_calls": 9,
+        "tool_calls": 22.133333333333333,
+        "graded": 30,
+        "input_tokens": 15563760,
+        "cached_input_tokens": 13162880,
+        "output_tokens": 94981
+      },
+      "requests": {
+        "generation": 270,
+        "judge": 30
+      },
+      "behavior": {
+        "calls": {
+          "search": 563,
+          "read": 101
+        },
+        "questions_using_tool": {
+          "read": 30,
+          "search": 30
+        },
+        "grep_output_modes": {},
+        "grep_head_limits": {},
+        "grep_empty": 0,
+        "grep_truncated": 0,
+        "grep_errors": 0,
+        "grep_output_chars": 0,
+        "missing_generation_usage": 0,
+        "tool_seconds": {
+          "search": {
+            "total": 118.85531978905783,
+            "median": 0.0238889169995673,
+            "p95": 0.7907705454956158
+          },
+          "read": {
+            "total": 0.017648837048909627,
+            "median": 7.754199032206088e-05,
+            "p95": 0.0007242090068757534
+          }
+        }
+      }
+    },
+    "B": {
+      "correct": 28.0,
+      "n": 30,
+      "accuracy_percent": 93.33333333333333,
+      "wilson95_percent": [
+        78.67618227892791,
+        98.15233646723065
+      ],
+      "metrics": {
+        "n": 30,
+        "status": {
+          "finished": 30
+        },
+        "errors": 0,
+        "tool_errors": 0,
+        "cases_with_tool_errors": 0,
+        "protocol_errors": 0,
+        "unseen_citations": 0,
+        "correct": 0.9333333333333333,
+        "completeness": 1.0,
+        "overall": 0.9333333333333333,
+        "document_recall": 0.6079232804232804,
+        "retrieved_document_recall": 0.8713359788359788,
+        "all_gold_retrieved": 0.6,
+        "seconds": 111.30298976519843,
+        "model_calls": 9.033333333333333,
+        "tool_calls": 19.266666666666666,
+        "graded": 30,
+        "input_tokens": 13719454,
+        "cached_input_tokens": 11700736,
+        "output_tokens": 84159
+      },
+      "requests": {
+        "generation": 271,
+        "judge": 30
+      },
+      "behavior": {
+        "calls": {
+          "search": 429,
+          "read": 105,
+          "Grep": 44
+        },
+        "questions_using_tool": {
+          "read": 30,
+          "search": 30,
+          "Grep": 12
+        },
+        "grep_output_modes": {
+          "files_with_matches": 10,
+          "content": 34
+        },
+        "grep_head_limits": {
+          "40": 4,
+          "100": 11,
+          "30": 5,
+          "10": 1,
+          "200": 1,
+          "80": 3,
+          "120": 3,
+          "50": 2,
+          "150": 3,
+          "60": 3,
+          "250": 1,
+          "158": 1,
+          "240": 1,
+          "35": 2,
+          "70": 2,
+          "90": 1
+        },
+        "grep_empty": 1,
+        "grep_truncated": 24,
+        "grep_errors": 0,
+        "grep_output_chars": 1135438,
+        "missing_generation_usage": 0,
+        "tool_seconds": {
+          "search": {
+            "total": 255.1802729962801,
+            "median": 0.030694832996232435,
+            "p95": 0.8574311250005847
+          },
+          "read": {
+            "total": 0.012510202956036665,
+            "median": 7.320799340959638e-05,
+            "p95": 0.00022799199796281753
+          },
+          "Grep": {
+            "total": 173.8949888739735,
+            "median": 4.077741478497046,
+            "p95": 4.723281491051603
+          }
+        }
+      }
+    }
+  },
+  "changes": {
+    "input_tokens_percent": -11.850002827080342,
+    "uncached_input_tokens_percent": -15.91758022058578,
+    "answer_seconds_percent": 2.926905920252887
+  },
+  "delta_pp": 0.0,
+  "paired_bootstrap_95_pp": [
+    -10.0,
+    10.0
+  ],
+  "wins": [
+    "418"
+  ],
+  "losses": [
+    "666"
+  ],
+  "ties": 28,
+  "bootstrap_samples": 100000,
+  "seed": 20261017,
+  "decision": "no_accuracy_gain_do_not_promote",
+  "limitations": [
+    "30 known development questions, sol proxy judge; not official scores or a comparison to historical 93.01%.",
+    "Single answer and first valid judgement; bootstrap does not include generation/judge variation.",
+    "All ties can produce a zero-width paired bootstrap interval; this does not establish population equivalence.",
+    "Same model-turn/time limits, not equal actual tokens; path/source ID bridge is part of the treatment.",
+    "Reported text exposure includes original text returned by search/read/Grep; filenames alone are discovery."
+  ],
+  "source_sha256": {
+    "src/minimal_rag/file_tools.py": "c431c2b1a0271d3a12e0eaa186ba356bac924706c4483006575bc67a8f685765",
+    "src/minimal_rag/indexed_rag.py": "becd044d4caac6d3aea6fdf1da907f70fd9c7f5c9d195b9cef2f4afff231bbb2",
+    "src/minimal_rag/loop.py": "78742611d30cf5de0eae493d947bdbcdd5a7db3597cb33cd24f085fd0c652464",
+    "src/minimal_rag/codex_adapter.py": "d713b3ca4c54740e75fb000319b0bfcc13bb09be8c31963c87ba8360c68418ed",
+    "experiments/grep-browsecomp-20261017/run.py": "f5f5f0cf0435b7d3d32c508def66c962dbdd7077ae9e5039f536cd290bbdb573",
+    "experiments/grep-browsecomp-20261017/sample.json": "31c5d4269750e19c980b48af3d5ed76fd15b590848aa9b6ce011fcf21724410e",
+    "data/benchmarks/browsecomp-plus/official/scripts_evaluation/evaluate_run.py": "1a21233937c377ab6323c98ff9af67742756a57fbacab4ebf9bc30852eae530a"
+  }
+}

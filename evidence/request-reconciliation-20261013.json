@@ -1,0 +1,45 @@
+{
+  "date": "2026-10-13",
+  "kind": "final_online_request_reconciliation",
+  "reserved": 498,
+  "retained_request_records": 498,
+  "status": {
+    "completed": 498
+  },
+  "missing_usage_call_ids": [],
+  "all_models": "gpt-6.1-sol",
+  "budget_limit": 500,
+  "new_model_calls_from_audit": 0,
+  "note": "Outer experiment requests including attempts/retries. No provider-internal request or UI-chat request count claimed.",
+  "usage": {
+    "generation": {
+      "cache_write_input_tokens": 0,
+      "cached_input_tokens": 1590528,
+      "input_tokens": 4428589,
+      "output_tokens": 73911,
+      "reasoning_output_tokens": 26205,
+      "total_tokens": 4502500
+    },
+    "judge": {
+      "cache_write_input_tokens": 0,
+      "cached_input_tokens": 159872,
+      "input_tokens": 762944,
+      "output_tokens": 21116,
+      "reasoning_output_tokens": 8950,
+      "total_tokens": 784060
+    },
+    "all": {
+      "cache_write_input_tokens": 0,
+      "cached_input_tokens": 1750400,
+      "input_tokens": 5191533,
+      "output_tokens": 95027,
+      "reasoning_output_tokens": 35155,
+      "total_tokens": 5286560
+    }
+  },
+  "usage_note": "Latest cumulative total per unique thread; input includes cached tokens, cached not added again. Not subscription-percent or pricing.",
+  "raw_detail": {
+    "path": "runs/evidence/request-reconciliation-20261013.json",
+    "sha256": "51818f588d8e5f0526263c4df8054668af20b406fc5f66f825ff2e893a26cffe"
+  }
+}

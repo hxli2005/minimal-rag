@@ -1,0 +1,30 @@
+[
+  {
+    "tool": "Grep-rare",
+    "seconds": 14.612236999993911,
+    "numFiles": 250,
+    "truncated": true,
+    "output_chars": 34234
+  },
+  {
+    "tool": "Grep-absent",
+    "seconds": 13.887412416006555,
+    "numFiles": 0,
+    "truncated": false,
+    "output_chars": 140
+  },
+  {
+    "tool": "Grep-content",
+    "seconds": 14.181294124995475,
+    "numFiles": 13,
+    "truncated": true,
+    "output_chars": 6469
+  },
+  {
+    "tool": "Glob",
+    "seconds": 2.0819924169918522,
+    "numFiles": 100,
+    "truncated": true,
+    "output_chars": 12929
+  }
+]

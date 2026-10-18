@@ -1,0 +1,27 @@
+{
+  "date": "2026-10-12",
+  "kind": "new_showcase_attempt_not_completed",
+  "model": "gpt-6.1-sol",
+  "corpus_documents": 11,
+  "planned_outer_call_cap": 4,
+  "attempted_outer_calls": 1,
+  "automatic_retries": 0,
+  "judge_calls": 0,
+  "result": {
+    "status": "runtime_error",
+    "sources": [],
+    "error": "RuntimeError",
+    "detail": "Selected model is at capacity. Please try a different model."
+  },
+  "token_usage_complete": false,
+  "attempts_without_complete_usage": [
+    1
+  ],
+  "source": "runs/real-showcase-20261012/normal/report.json",
+  "source_sha256": "6ffc4df46b67dd81bc542297c6597ab49a0e7852f0db00bce631add20d2fa1fc",
+  "fallback": "examples/real-run/ contains a pre-existing real run with explicit provenance; no failed attempt is replaced or scored as successful.",
+  "raw_detail": {
+    "path": "runs/evidence/showcase-attempt-20261012.json",
+    "sha256": "c1f73e25e828ee070b271d5a0a6d579e285b8c672b845db4d64f901aa86d1956"
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "enterprise": {
+    "cases": 400,
+    "generation_calls": 2285,
+    "max_calls_per_case": 12,
+    "run_statuses": {
+      "completed": 2285
+    },
+    "missing_generation_usage": 0,
+    "tool_calls": {
+      "search": 3342,
+      "read": 452
+    },
+    "cases_with_multiple_searches": 300,
+    "cases_with_read": 227
+  },
+  "financebench": {
+    "cases": 100,
+    "generation_calls": 325,
+    "max_calls_per_case": 8,
+    "run_statuses": {
+      "completed": 325
+    },
+    "missing_generation_usage": 0,
+    "tool_calls": {
+      "search": 262,
+      "read": 30
+    },
+    "cases_with_multiple_searches": 66,
+    "cases_with_read": 22
+  },
+  "hotpotqa": {
+    "cases": 100,
+    "generation_calls": 247,
+    "max_calls_per_case": 5,
+    "run_statuses": {
+      "completed": 247
+    },
+    "missing_generation_usage": 0,
+    "tool_calls": {
+      "search": 164
+    },
+    "cases_with_multiple_searches": 58,
+    "cases_with_read": 0
+  }
+}

@@ -1,0 +1,1181 @@
+{
+  "kind": "gold_containing_candidate_corpus_diagnostic",
+  "complete": true,
+  "questions": 100,
+  "documents": 4646,
+  "unit_stats": {
+    "chunk": {
+      "units": 22591,
+      "characters": 31990593,
+      "max_chars": 1600,
+      "p50_chars": 1549.0,
+      "p95_chars": 1600.0,
+      "unit_types": {
+        "chunk": 22591
+      }
+    },
+    "sentence": {
+      "units": 278980,
+      "characters": 28033074,
+      "max_chars": 7039,
+      "p50_chars": 70.0,
+      "p95_chars": 253.0,
+      "unit_types": {
+        "line": 95874,
+        "sentence": 183106
+      }
+    }
+  },
+  "hosted_model_calls": 0,
+  "arms": {
+    "bm25-chunk": {
+      "all": {
+        "questions": 100,
+        "scored": 94,
+        "no_gold": 6,
+        "recall@5": 0.6290780141843971,
+        "recall@10": 0.7319148936170212,
+        "recall@20": 0.8439716312056738,
+        "all_gold@20": 0.8191489361702128
+      },
+      "basic": {
+        "questions": 35,
+        "scored": 35,
+        "no_gold": 0,
+        "recall@5": 0.7142857142857143,
+        "recall@10": 0.8,
+        "recall@20": 0.9142857142857143,
+        "all_gold@20": 0.9142857142857143
+      },
+      "completeness": {
+        "questions": 4,
+        "scored": 4,
+        "no_gold": 0,
+        "recall@5": 0.575,
+        "recall@10": 0.7416666666666667,
+        "recall@20": 0.7916666666666666,
+        "all_gold@20": 0.75
+      },
+      "conflicting_info": {
+        "questions": 4,
+        "scored": 4,
+        "no_gold": 0,
+        "recall@5": 1.0,
+        "recall@10": 1.0,
+        "recall@20": 1.0,
+        "all_gold@20": 1.0
+      },
+      "constrained": {
+        "questions": 6,
+        "scored": 6,
+        "no_gold": 0,
+        "recall@5": 0.9166666666666666,
+        "recall@10": 0.9166666666666666,
+        "recall@20": 0.9166666666666666,
+        "all_gold@20": 0.8333333333333334
+      },
+      "high_level": {
+        "questions": 2,
+        "scored": 0,
+        "no_gold": 2
+      },
+      "info_not_found": {
+        "questions": 4,
+        "scored": 0,
+        "no_gold": 4
+      },
+      "intra_document_reasoning": {
+        "questions": 8,
+        "scored": 8,
+        "no_gold": 0,
+        "recall@5": 0.625,
+        "recall@10": 0.75,
+        "recall@20": 1.0,
+        "all_gold@20": 1.0
+      },
+      "miscellaneous": {
+        "questions": 4,
+        "scored": 4,
+        "no_gold": 0,
+        "recall@5": 1.0,
+        "recall@10": 1.0,
+        "recall@20": 1.0,
+        "all_gold@20": 1.0
+      },
+      "project_related": {
+        "questions": 8,
+        "scored": 8,
+        "no_gold": 0,
+        "recall@5": 0.41666666666666663,
+        "recall@10": 0.6666666666666666,
+        "recall@20": 0.8333333333333334,
+        "all_gold@20": 0.625
+      },
+      "semantic": {
+        "questions": 25,
+        "scored": 25,
+        "no_gold": 0,
+        "recall@5": 0.4,
+        "recall@10": 0.52,
+        "recall@20": 0.64,
+        "all_gold@20": 0.64
+      }
+    },
+    "bge-chunk": {
+      "all": {
+        "questions": 100,
+        "scored": 94,
+        "no_gold": 6,
+        "recall@5": 0.4375886524822695,
+        "recall@10": 0.499113475177305,
+        "recall@20": 0.6294326241134752,
+        "all_gold@20": 0.574468085106383
+      },
+      "basic": {
+        "questions": 35,
+        "scored": 35,
+        "no_gold": 0,
+        "recall@5": 0.4857142857142857,
+        "recall@10": 0.5142857142857142,
+        "recall@20": 0.6857142857142857,
+        "all_gold@20": 0.6857142857142857
+      },
+      "completeness": {
+        "questions": 4,
+        "scored": 4,
+        "no_gold": 0,
+        "recall@5": 0.45,
+        "recall@10": 0.5833333333333334,
+        "recall@20": 0.5833333333333334,
+        "all_gold@20": 0.5
+      },
+      "conflicting_info": {
+        "questions": 4,
+        "scored": 4,
+        "no_gold": 0,
+        "recall@5": 0.625,
+        "recall@10": 0.625,
+        "recall@20": 0.625,
+        "all_gold@20": 0.5
+      },
+      "constrained": {
+        "questions": 6,
+        "scored": 6,
+        "no_gold": 0,
+        "recall@5": 0.8333333333333334,
+        "recall@10": 0.9166666666666666,
+        "recall@20": 0.9166666666666666,
+        "all_gold@20": 0.8333333333333334
+      },
+      "high_level": {
+        "questions": 2,
+        "scored": 0,
+        "no_gold": 2
+      },
+      "info_not_found": {
+        "questions": 4,
+        "scored": 0,
+        "no_gold": 4
+      },
+      "intra_document_reasoning": {
+        "questions": 8,
+        "scored": 8,
+        "no_gold": 0,
+        "recall@5": 0.75,
+        "recall@10": 0.875,
+        "recall@20": 0.875,
+        "all_gold@20": 0.875
+      },
+      "miscellaneous": {
+        "questions": 4,
+        "scored": 4,
+        "no_gold": 0,
+        "recall@5": 1.0,
+        "recall@10": 1.0,
+        "recall@20": 1.0,
+        "all_gold@20": 1.0
+      },
+      "project_related": {
+        "questions": 8,
+        "scored": 8,
+        "no_gold": 0,
+        "recall@5": 0.35416666666666663,
+        "recall@10": 0.44791666666666663,
+        "recall@20": 0.6041666666666666,
+        "all_gold@20": 0.125
+      },
+      "semantic": {
+        "questions": 25,
+        "scored": 25,
+        "no_gold": 0,
+        "recall@5": 0.08,
+        "recall@10": 0.16,
+        "recall@20": 0.36,
+        "all_gold@20": 0.36
+      }
+    },
+    "qwen-chunk": {
+      "all": {
+        "questions": 100,
+        "scored": 94,
+        "no_gold": 6,
+        "recall@5": 0.5957446808510638,
+        "recall@10": 0.6923758865248227,
+        "recall@20": 0.8324468085106383,
+        "all_gold@20": 0.7872340425531915
+      },
+      "basic": {
+        "questions": 35,
+        "scored": 35,
+        "no_gold": 0,
+        "recall@5": 0.6857142857142857,
+        "recall@10": 0.8285714285714286,
+        "recall@20": 0.8857142857142857,
+        "all_gold@20": 0.8857142857142857
+      },
+      "completeness": {
+        "questions": 4,
+        "scored": 4,
+        "no_gold": 0,
+        "recall@5": 0.5416666666666666,
+        "recall@10": 0.5833333333333334,
+        "recall@20": 0.5833333333333334,
+        "all_gold@20": 0.5
+      },
+      "conflicting_info": {
+        "questions": 4,
+        "scored": 4,
+        "no_gold": 0,
+        "recall@5": 0.5,
+        "recall@10": 0.5,
+        "recall@20": 0.5,
+        "all_gold@20": 0.5
+      },
+      "constrained": {
+        "questions": 6,
+        "scored": 6,
+        "no_gold": 0,
+        "recall@5": 0.9166666666666666,
+        "recall@10": 0.9166666666666666,
+        "recall@20": 1.0,
+        "all_gold@20": 1.0
+      },
+      "high_level": {
+        "questions": 2,
+        "scored": 0,
+        "no_gold": 2
+      },
+      "info_not_found": {
+        "questions": 4,
+        "scored": 0,
+        "no_gold": 4
+      },
+      "intra_document_reasoning": {
+        "questions": 8,
+        "scored": 8,
+        "no_gold": 0,
+        "recall@5": 0.875,
+        "recall@10": 0.875,
+        "recall@20": 1.0,
+        "all_gold@20": 1.0
+      },
+      "miscellaneous": {
+        "questions": 4,
+        "scored": 4,
+        "no_gold": 0,
+        "recall@5": 1.0,
+        "recall@10": 1.0,
+        "recall@20": 1.0,
+        "all_gold@20": 1.0
+      },
+      "project_related": {
+        "questions": 8,
+        "scored": 8,
+        "no_gold": 0,
+        "recall@5": 0.41666666666666663,
+        "recall@10": 0.53125,
+        "recall@20": 0.7395833333333334,
+        "all_gold@20": 0.25
+      },
+      "semantic": {
+        "questions": 25,
+        "scored": 25,
+        "no_gold": 0,
+        "recall@5": 0.32,
+        "recall@10": 0.44,
+        "recall@20": 0.76,
+        "all_gold@20": 0.76
+      }
+    },
+    "bm25-sentence": {
+      "all": {
+        "questions": 100,
+        "scored": 94,
+        "no_gold": 6,
+        "recall@5": 0.6117021276595744,
+        "recall@10": 0.74822695035461,
+        "recall@20": 0.7890070921985816,
+        "all_gold@20": 0.7553191489361702
+      },
+      "basic": {
+        "questions": 35,
+        "scored": 35,
+        "no_gold": 0,
+        "recall@5": 0.6571428571428571,
+        "recall@10": 0.8285714285714286,
+        "recall@20": 0.8857142857142857,
+        "all_gold@20": 0.8857142857142857
+      },
+      "completeness": {
+        "questions": 4,
+        "scored": 4,
+        "no_gold": 0,
+        "recall@5": 0.7083333333333334,
+        "recall@10": 0.75,
+        "recall@20": 0.75,
+        "all_gold@20": 0.75
+      },
+      "conflicting_info": {
+        "questions": 4,
+        "scored": 4,
+        "no_gold": 0,
+        "recall@5": 0.875,
+        "recall@10": 1.0,
+        "recall@20": 1.0,
+        "all_gold@20": 1.0
+      },
+      "constrained": {
+        "questions": 6,
+        "scored": 6,
+        "no_gold": 0,
+        "recall@5": 0.6666666666666666,
+        "recall@10": 0.8333333333333334,
+        "recall@20": 1.0,
+        "all_gold@20": 1.0
+      },
+      "high_level": {
+        "questions": 2,
+        "scored": 0,
+        "no_gold": 2
+      },
+      "info_not_found": {
+        "questions": 4,
+        "scored": 0,
+        "no_gold": 4
+      },
+      "intra_document_reasoning": {
+        "questions": 8,
+        "scored": 8,
+        "no_gold": 0,
+        "recall@5": 1.0,
+        "recall@10": 1.0,
+        "recall@20": 1.0,
+        "all_gold@20": 1.0
+      },
+      "miscellaneous": {
+        "questions": 4,
+        "scored": 4,
+        "no_gold": 0,
+        "recall@5": 1.0,
+        "recall@10": 1.0,
+        "recall@20": 1.0,
+        "all_gold@20": 1.0
+      },
+      "project_related": {
+        "questions": 8,
+        "scored": 8,
+        "no_gold": 0,
+        "recall@5": 0.3958333333333333,
+        "recall@10": 0.5416666666666666,
+        "recall@20": 0.6458333333333334,
+        "all_gold@20": 0.25
+      },
+      "semantic": {
+        "questions": 25,
+        "scored": 25,
+        "no_gold": 0,
+        "recall@5": 0.36,
+        "recall@10": 0.52,
+        "recall@20": 0.52,
+        "all_gold@20": 0.52
+      }
+    },
+    "bge-sentence": {
+      "all": {
+        "questions": 100,
+        "scored": 94,
+        "no_gold": 6,
+        "recall@5": 0.43049645390070923,
+        "recall@10": 0.5398936170212766,
+        "recall@20": 0.6356382978723404,
+        "all_gold@20": 0.6063829787234043
+      },
+      "basic": {
+        "questions": 35,
+        "scored": 35,
+        "no_gold": 0,
+        "recall@5": 0.45714285714285713,
+        "recall@10": 0.6285714285714286,
+        "recall@20": 0.7428571428571429,
+        "all_gold@20": 0.7428571428571429
+      },
+      "completeness": {
+        "questions": 4,
+        "scored": 4,
+        "no_gold": 0,
+        "recall@5": 0.45,
+        "recall@10": 0.625,
+        "recall@20": 0.625,
+        "all_gold@20": 0.5
+      },
+      "conflicting_info": {
+        "questions": 4,
+        "scored": 4,
+        "no_gold": 0,
+        "recall@5": 0.875,
+        "recall@10": 1.0,
+        "recall@20": 1.0,
+        "all_gold@20": 1.0
+      },
+      "constrained": {
+        "questions": 6,
+        "scored": 6,
+        "no_gold": 0,
+        "recall@5": 0.9166666666666666,
+        "recall@10": 0.9166666666666666,
+        "recall@20": 1.0,
+        "all_gold@20": 1.0
+      },
+      "high_level": {
+        "questions": 2,
+        "scored": 0,
+        "no_gold": 2
+      },
+      "info_not_found": {
+        "questions": 4,
+        "scored": 0,
+        "no_gold": 4
+      },
+      "intra_document_reasoning": {
+        "questions": 8,
+        "scored": 8,
+        "no_gold": 0,
+        "recall@5": 0.625,
+        "recall@10": 0.75,
+        "recall@20": 0.75,
+        "all_gold@20": 0.75
+      },
+      "miscellaneous": {
+        "questions": 4,
+        "scored": 4,
+        "no_gold": 0,
+        "recall@5": 0.5,
+        "recall@10": 0.5,
+        "recall@20": 0.5,
+        "all_gold@20": 0.5
+      },
+      "project_related": {
+        "questions": 8,
+        "scored": 8,
+        "no_gold": 0,
+        "recall@5": 0.20833333333333331,
+        "recall@10": 0.34375,
+        "recall@20": 0.53125,
+        "all_gold@20": 0.25
+      },
+      "semantic": {
+        "questions": 25,
+        "scored": 25,
+        "no_gold": 0,
+        "recall@5": 0.2,
+        "recall@10": 0.24,
+        "recall@20": 0.36,
+        "all_gold@20": 0.36
+      }
+    },
+    "qwen-sentence": {
+      "all": {
+        "questions": 100,
+        "scored": 94,
+        "no_gold": 6,
+        "recall@5": 0.5469858156028369,
+        "recall@10": 0.6843971631205674,
+        "recall@20": 0.8191489361702128,
+        "all_gold@20": 0.776595744680851
+      },
+      "basic": {
+        "questions": 35,
+        "scored": 35,
+        "no_gold": 0,
+        "recall@5": 0.6285714285714286,
+        "recall@10": 0.7714285714285715,
+        "recall@20": 0.9142857142857143,
+        "all_gold@20": 0.9142857142857143
+      },
+      "completeness": {
+        "questions": 4,
+        "scored": 4,
+        "no_gold": 0,
+        "recall@5": 0.5,
+        "recall@10": 0.5416666666666666,
+        "recall@20": 0.625,
+        "all_gold@20": 0.5
+      },
+      "conflicting_info": {
+        "questions": 4,
+        "scored": 4,
+        "no_gold": 0,
+        "recall@5": 0.75,
+        "recall@10": 0.75,
+        "recall@20": 0.75,
+        "all_gold@20": 0.75
+      },
+      "constrained": {
+        "questions": 6,
+        "scored": 6,
+        "no_gold": 0,
+        "recall@5": 0.6666666666666666,
+        "recall@10": 0.75,
+        "recall@20": 0.9166666666666666,
+        "all_gold@20": 0.8333333333333334
+      },
+      "high_level": {
+        "questions": 2,
+        "scored": 0,
+        "no_gold": 2
+      },
+      "info_not_found": {
+        "questions": 4,
+        "scored": 0,
+        "no_gold": 4
+      },
+      "intra_document_reasoning": {
+        "questions": 8,
+        "scored": 8,
+        "no_gold": 0,
+        "recall@5": 0.75,
+        "recall@10": 0.875,
+        "recall@20": 0.875,
+        "all_gold@20": 0.875
+      },
+      "miscellaneous": {
+        "questions": 4,
+        "scored": 4,
+        "no_gold": 0,
+        "recall@5": 0.75,
+        "recall@10": 0.75,
+        "recall@20": 1.0,
+        "all_gold@20": 1.0
+      },
+      "project_related": {
+        "questions": 8,
+        "scored": 8,
+        "no_gold": 0,
+        "recall@5": 0.4270833333333333,
+        "recall@10": 0.5833333333333334,
+        "recall@20": 0.75,
+        "all_gold@20": 0.375
+      },
+      "semantic": {
+        "questions": 25,
+        "scored": 25,
+        "no_gold": 0,
+        "recall@5": 0.32,
+        "recall@10": 0.52,
+        "recall@20": 0.68,
+        "all_gold@20": 0.68
+      }
+    }
+  },
+  "paired": {
+    "qwen-chunk_minus_bge-chunk": {
+      "all": {
+        "n": 94,
+        "mean_delta_recall@20": 0.20301418439716312,
+        "wins": 22,
+        "losses": 2,
+        "ties": 70,
+        "changes": {
+          "count": 94,
+          "detail": "See raw_detail"
+        }
+      },
+      "semantic": {
+        "n": 25,
+        "mean_delta_recall@20": 0.4,
+        "wins": 11,
+        "losses": 1,
+        "ties": 13,
+        "changes": {
+          "count": 25,
+          "detail": "See raw_detail"
+        }
+      }
+    },
+    "qwen-sentence_minus_bge-sentence": {
+      "all": {
+        "n": 94,
+        "mean_delta_recall@20": 0.18351063829787234,
+        "wins": 23,
+        "losses": 4,
+        "ties": 67,
+        "changes": {
+          "count": 94,
+          "detail": "See raw_detail"
+        }
+      },
+      "semantic": {
+        "n": 25,
+        "mean_delta_recall@20": 0.32,
+        "wins": 8,
+        "losses": 0,
+        "ties": 17,
+        "changes": {
+          "count": 25,
+          "detail": "See raw_detail"
+        }
+      }
+    },
+    "bge-sentence_minus_bge-chunk": {
+      "all": {
+        "n": 94,
+        "mean_delta_recall@20": 0.006205673758865248,
+        "wins": 16,
+        "losses": 15,
+        "ties": 63,
+        "changes": {
+          "count": 94,
+          "detail": "See raw_detail"
+        }
+      },
+      "semantic": {
+        "n": 25,
+        "mean_delta_recall@20": 0.0,
+        "wins": 4,
+        "losses": 4,
+        "ties": 17,
+        "changes": {
+          "count": 25,
+          "detail": "See raw_detail"
+        }
+      }
+    },
+    "qwen-sentence_minus_qwen-chunk": {
+      "all": {
+        "n": 94,
+        "mean_delta_recall@20": -0.013297872340425532,
+        "wins": 9,
+        "losses": 10,
+        "ties": 75,
+        "changes": {
+          "count": 94,
+          "detail": "See raw_detail"
+        }
+      },
+      "semantic": {
+        "n": 25,
+        "mean_delta_recall@20": -0.08,
+        "wins": 2,
+        "losses": 4,
+        "ties": 19,
+        "changes": {
+          "count": 25,
+          "detail": "See raw_detail"
+        }
+      }
+    }
+  },
+  "complementarity": {
+    "bge-chunk/all": {
+      "n": 94,
+      "new_gold_occurrences": 5,
+      "lost_gold_occurrences": 35,
+      "mean_union_recall@20_each": 0.8705673758865248
+    },
+    "bge-chunk/semantic": {
+      "n": 25,
+      "new_gold_occurrences": 2,
+      "lost_gold_occurrences": 9,
+      "mean_union_recall@20_each": 0.72
+    },
+    "qwen-chunk/all": {
+      "n": 94,
+      "new_gold_occurrences": 11,
+      "lost_gold_occurrences": 19,
+      "mean_union_recall@20_each": 0.9202127659574468
+    },
+    "qwen-chunk/semantic": {
+      "n": 25,
+      "new_gold_occurrences": 5,
+      "lost_gold_occurrences": 2,
+      "mean_union_recall@20_each": 0.84
+    },
+    "bge-sentence/all": {
+      "n": 94,
+      "new_gold_occurrences": 9,
+      "lost_gold_occurrences": 28,
+      "mean_union_recall@20_each": 0.8590425531914894
+    },
+    "bge-sentence/semantic": {
+      "n": 25,
+      "new_gold_occurrences": 4,
+      "lost_gold_occurrences": 8,
+      "mean_union_recall@20_each": 0.68
+    },
+    "qwen-sentence/all": {
+      "n": 94,
+      "new_gold_occurrences": 16,
+      "lost_gold_occurrences": 16,
+      "mean_union_recall@20_each": 0.9060283687943262
+    },
+    "qwen-sentence/semantic": {
+      "n": 25,
+      "new_gold_occurrences": 7,
+      "lost_gold_occurrences": 3,
+      "mean_union_recall@20_each": 0.8
+    }
+  },
+  "limitations": [
+    "Known dev100 with gold-containing candidate corpus, not full Enterprise retrieval.",
+    "Native windows may right-truncate inputs; counts are recorded per model/granularity.",
+    "No reranking, generation, answer judging, ANN or full-corpus index build.",
+    "Gold document recall does not measure whether the answer-bearing sentence was found."
+  ],
+  "source_run": "runs/sentence-offline-dev100-20261012",
+  "source_summary_sha256": "2fa373cacbe245fa7369a5271c0afd7d3fc8c2cde6e981343c37801424b7ad94",
+  "source_results_sha256": "3b8766be10c27a9d8804bcca01ef7596c39779944af6118e39fbdf77e7893550",
+  "manifest": {
+    "kind": "gold_containing_candidate_corpus_diagnostic",
+    "complete": true,
+    "corpus_sha256": "14273e18fce565917c77e9b2cbf92e379883ffaddb38c27bae56d6f35495e8bc",
+    "dev_sha256": "423486e3ff043405c3c9a0e958fe903b43a57c55703b64753b39a90fe8f7d23f",
+    "cases_sha256": "09d643a9e37aa3ede76b59f0d382b47c116183ea1902048febcc0f251e67b464",
+    "units_sha256": "9b9522fea625d9ea061229f2dbf843f2a77b3fa0685bf5f4d0d07ffb3bfdb6c3",
+    "aliases_sha256": "75c103812f3614d64ddc95842f81ee8fec880343435457a080604c199604101c",
+    "documents_sha256": "9a688f6d7ac09664023c9413f24bcb3856b0954d49e7eeb799dfa7b9c24eeadf",
+    "documents": 4646,
+    "gold_documents": 135,
+    "random_background_documents": 1000,
+    "questions": 100,
+    "semantic_questions": 25,
+    "no_gold_questions": 6,
+    "unit_stats": {
+      "chunk": {
+        "units": 22591,
+        "characters": 31990593,
+        "max_chars": 1600,
+        "p50_chars": 1549.0,
+        "p95_chars": 1600.0,
+        "unit_types": {
+          "chunk": 22591
+        }
+      },
+      "sentence": {
+        "units": 278980,
+        "characters": 28033074,
+        "max_chars": 7039,
+        "p50_chars": 70.0,
+        "p95_chars": 253.0,
+        "unit_types": {
+          "line": 95874,
+          "sentence": 183106
+        }
+      }
+    },
+    "splitter_version": "source-lines-and-sentences-v1",
+    "source_hashes": {
+      "sentence_retrieval.py": "4561a8a9fb7b892be136bfe00c1562d88088406c7559dea0ca129f0afea03122",
+      "sentences.py": "ce4d33e3ea0d3cd568af8f2955eaa8c0f92064dfa068a8c68ed64d09d606cc9d",
+      "experiment-protocol.md": "1b7b7518d6896ec7f802fc7ddfdb3c0d3d791eab1e60effbb354a71cb9df6830"
+    },
+    "hosted_model_call_cap": 0,
+    "hosted_model_calls": 0,
+    "no_full_index_build": true,
+    "encoding_overflow_policy": "Native encoder windows; explicitly count right-truncated units. Offline diagnostic only, not full sentence-index acceptance.",
+    "comparison": "BGE-small / Qwen3-Embedding-0.6B x chunk / sentence, body-only, native dimensions, exact float32 ranking, no reranker"
+  },
+  "runtime": {
+    "python": "3.12.14",
+    "system": "Darwin",
+    "machine": "arm64",
+    "local_hardware": "Apple M5, 24 GiB unified memory (previously verified)",
+    "packages": {
+      "torch": "2.14.1",
+      "sentence-transformers": "5.7.0",
+      "transformers": "5.18.0",
+      "huggingface-hub": "1.33.0",
+      "numpy": "2.5.3",
+      "pytest": "9.1.1"
+    },
+    "core_loop_sha256": "48703c7225d952e3546a8ecf2cd6e6a30ea7e692653f28724bc9b0307bf5be49",
+    "core_loop_lines": 34,
+    "source_span_validation": {
+      "chunk_units": 22591,
+      "sentence_or_line_units": 278980,
+      "sqlite_source_slice_mismatches": 0
+    },
+    "tests": {
+      "total_passed": 122,
+      "failed": 0,
+      "command": "python -m pytest -q tests experiments/tests -m 'not live and not integration'"
+    },
+    "new_hosted_generation_or_judge_calls": 0
+  },
+  "pipeline": {
+    "started_at_utc": "2026-10-12T10:56:10.653310+00:00",
+    "status": "complete",
+    "completed": [
+      "encode-bge",
+      "encode-qwen",
+      "evaluate"
+    ],
+    "hosted_model_call_cap": 0,
+    "hosted_model_calls": 0,
+    "four_arms_only": true,
+    "full_corpus_build": false,
+    "steps": [
+      {
+        "name": "encode-bge",
+        "command": [
+          "/Users/lhx/Documents/ChatGPT/minimal-rag/.venv/bin/python",
+          "-u",
+          "-m",
+          "minimal_rag_experiments.sentence_retrieval",
+          "encode",
+          "--model",
+          "bge",
+          "--granularity",
+          "both",
+          "--max-seconds",
+          "10800",
+          "--root",
+          "/Users/lhx/Documents/ChatGPT/minimal-rag",
+          "--output",
+          "/Users/lhx/Documents/ChatGPT/minimal-rag/runs/sentence-offline-dev100-20261012",
+          "--device",
+          "mps"
+        ],
+        "started_at_utc": "2026-10-12T10:56:10.653473+00:00",
+        "log": "/Users/lhx/Documents/ChatGPT/minimal-rag/runs/sentence-offline-dev100-20261012/encode-bge.log",
+        "status": "complete",
+        "seconds": 189.70834033400752
+      },
+      {
+        "name": "encode-qwen",
+        "command": [
+          "/Users/lhx/Documents/ChatGPT/minimal-rag/.venv/bin/python",
+          "-u",
+          "-m",
+          "minimal_rag_experiments.sentence_retrieval",
+          "encode",
+          "--model",
+          "qwen",
+          "--granularity",
+          "both",
+          "--max-seconds",
+          "10800",
+          "--root",
+          "/Users/lhx/Documents/ChatGPT/minimal-rag",
+          "--output",
+          "/Users/lhx/Documents/ChatGPT/minimal-rag/runs/sentence-offline-dev100-20261012",
+          "--device",
+          "mps"
+        ],
+        "started_at_utc": "2026-10-12T10:59:20.360471+00:00",
+        "log": "/Users/lhx/Documents/ChatGPT/minimal-rag/runs/sentence-offline-dev100-20261012/encode-qwen.log",
+        "status": "complete",
+        "seconds": 2965.2064285000088
+      },
+      {
+        "name": "evaluate",
+        "command": [
+          "/Users/lhx/Documents/ChatGPT/minimal-rag/.venv/bin/python",
+          "-u",
+          "-m",
+          "minimal_rag_experiments.sentence_retrieval",
+          "evaluate",
+          "--root",
+          "/Users/lhx/Documents/ChatGPT/minimal-rag",
+          "--output",
+          "/Users/lhx/Documents/ChatGPT/minimal-rag/runs/sentence-offline-dev100-20261012",
+          "--device",
+          "mps"
+        ],
+        "started_at_utc": "2026-10-12T11:48:45.530295+00:00",
+        "log": "/Users/lhx/Documents/ChatGPT/minimal-rag/runs/sentence-offline-dev100-20261012/evaluate.log",
+        "status": "complete",
+        "seconds": 14.318456291977782
+      }
+    ],
+    "current": "evaluate",
+    "finished_at_utc": "2026-10-12T11:48:59.849673+00:00"
+  },
+  "performance": {
+    "bge-chunk": {
+      "identity": {
+        "encoder": {
+          "id": "BAAI/bge-small-en-v1.5",
+          "revision": "5c38ec7c405ec4b44b94cc5a9bb96e735b38267a",
+          "max_length": 512,
+          "query_prompt": "Represent this sentence for searching relevant passages: ",
+          "document_prompt": "",
+          "document_input": "original unit body only",
+          "model_dtype": "float16",
+          "vector_dtype": "float32",
+          "normalize": "float32 L2",
+          "overflow": "explicitly audited native-window right truncation in this offline diagnostic",
+          "batch_size_max": 64,
+          "padded_tokens_max": 32768,
+          "device": "mps",
+          "encoder_source_sha256": "cbc1b823fb045446989ae230efafba4a9a5d1a236d8d1a8bad50bd7bbcd48c45",
+          "dimension": 384
+        },
+        "granularity": "chunk",
+        "units": 22591,
+        "units_sha256": "9b9522fea625d9ea061229f2dbf843f2a77b3fa0685bf5f4d0d07ffb3bfdb6c3",
+        "cases_sha256": "09d643a9e37aa3ede76b59f0d382b47c116183ea1902048febcc0f251e67b464"
+      },
+      "encoding": {
+        "completed": 22591,
+        "total": 22591,
+        "encoding_seconds": 74.44079037039774,
+        "units_per_second": 303.4760900252824,
+        "process_peak_rss_bytes": 1031077888
+      },
+      "token_lengths": {
+        "units": 22591,
+        "original_tokens": 8567966,
+        "encoded_tokens": 8545849,
+        "right_truncated_units": 837,
+        "max_original_tokens": 886,
+        "p50_tokens": 391.0,
+        "p95_tokens": 505.0
+      },
+      "vector_bytes": 34699904,
+      "vectors_sha256": "a45a7b1f7ca809ab8617e74f5820aabfe3a2620bb2fb7b58d95d001b3be30b04",
+      "search_seconds_mean": 0.0006208013091236353,
+      "search_seconds_note": "Candidate-corpus exact ranking only; query encoding is separately batched."
+    },
+    "qwen-chunk": {
+      "identity": {
+        "encoder": {
+          "id": "Qwen/Qwen3-Embedding-0.6B",
+          "revision": "97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3",
+          "max_length": 8192,
+          "query_prompt": "Instruct: Given a question, retrieve relevant passages from enterprise documents that help answer it.\nQuery: ",
+          "document_prompt": "",
+          "document_input": "original unit body only",
+          "model_dtype": "float16",
+          "vector_dtype": "float32",
+          "normalize": "float32 L2",
+          "overflow": "explicitly audited native-window right truncation in this offline diagnostic",
+          "batch_size_max": 32,
+          "padded_tokens_max": 8192,
+          "device": "mps",
+          "encoder_source_sha256": "cbc1b823fb045446989ae230efafba4a9a5d1a236d8d1a8bad50bd7bbcd48c45",
+          "dimension": 1024
+        },
+        "granularity": "chunk",
+        "units": 22591,
+        "units_sha256": "9b9522fea625d9ea061229f2dbf843f2a77b3fa0685bf5f4d0d07ffb3bfdb6c3",
+        "cases_sha256": "09d643a9e37aa3ede76b59f0d382b47c116183ea1902048febcc0f251e67b464"
+      },
+      "encoding": {
+        "completed": 22591,
+        "total": 22591,
+        "encoding_seconds": 1497.740659048548,
+        "units_per_second": 15.083385673959814,
+        "process_peak_rss_bytes": 2804301824
+      },
+      "token_lengths": {
+        "units": 22591,
+        "original_tokens": 8042790,
+        "encoded_tokens": 8042790,
+        "right_truncated_units": 0,
+        "max_original_tokens": 959,
+        "p50_tokens": 367.0,
+        "p95_tokens": 479.0
+      },
+      "vector_bytes": 92532864,
+      "vectors_sha256": "9151cf79877b1045e1b9d52b7a97796777d4bc242d619b11c7d07b374d2bb442",
+      "search_seconds_mean": 0.001412680831272155,
+      "search_seconds_note": "Candidate-corpus exact ranking only; query encoding is separately batched."
+    },
+    "bge-sentence": {
+      "identity": {
+        "encoder": {
+          "id": "BAAI/bge-small-en-v1.5",
+          "revision": "5c38ec7c405ec4b44b94cc5a9bb96e735b38267a",
+          "max_length": 512,
+          "query_prompt": "Represent this sentence for searching relevant passages: ",
+          "document_prompt": "",
+          "document_input": "original unit body only",
+          "model_dtype": "float16",
+          "vector_dtype": "float32",
+          "normalize": "float32 L2",
+          "overflow": "explicitly audited native-window right truncation in this offline diagnostic",
+          "batch_size_max": 64,
+          "padded_tokens_max": 32768,
+          "device": "mps",
+          "encoder_source_sha256": "cbc1b823fb045446989ae230efafba4a9a5d1a236d8d1a8bad50bd7bbcd48c45",
+          "dimension": 384
+        },
+        "granularity": "sentence",
+        "units": 278980,
+        "units_sha256": "9b9522fea625d9ea061229f2dbf843f2a77b3fa0685bf5f4d0d07ffb3bfdb6c3",
+        "cases_sha256": "09d643a9e37aa3ede76b59f0d382b47c116183ea1902048febcc0f251e67b464"
+      },
+      "encoding": {
+        "completed": 278980,
+        "total": 278980,
+        "encoding_seconds": 96.7560129231424,
+        "units_per_second": 2883.3350152781327,
+        "process_peak_rss_bytes": 1254178816
+      },
+      "token_lengths": {
+        "units": 278980,
+        "original_tokens": 8109335,
+        "encoded_tokens": 8031261,
+        "right_truncated_units": 363,
+        "max_original_tokens": 1988,
+        "p50_tokens": 20.0,
+        "p95_tokens": 69.0
+      },
+      "vector_bytes": 428513408,
+      "vectors_sha256": "aa0932308793d1babfed1e8d4abfb7b2027f387d83f287f958119266f8435d03",
+      "search_seconds_mean": 0.007203647488495335,
+      "search_seconds_note": "Candidate-corpus exact ranking only; query encoding is separately batched."
+    },
+    "qwen-sentence": {
+      "identity": {
+        "encoder": {
+          "id": "Qwen/Qwen3-Embedding-0.6B",
+          "revision": "97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3",
+          "max_length": 8192,
+          "query_prompt": "Instruct: Given a question, retrieve relevant passages from enterprise documents that help answer it.\nQuery: ",
+          "document_prompt": "",
+          "document_input": "original unit body only",
+          "model_dtype": "float16",
+          "vector_dtype": "float32",
+          "normalize": "float32 L2",
+          "overflow": "explicitly audited native-window right truncation in this offline diagnostic",
+          "batch_size_max": 32,
+          "padded_tokens_max": 8192,
+          "device": "mps",
+          "encoder_source_sha256": "cbc1b823fb045446989ae230efafba4a9a5d1a236d8d1a8bad50bd7bbcd48c45",
+          "dimension": 1024
+        },
+        "granularity": "sentence",
+        "units": 278980,
+        "units_sha256": "9b9522fea625d9ea061229f2dbf843f2a77b3fa0685bf5f4d0d07ffb3bfdb6c3",
+        "cases_sha256": "09d643a9e37aa3ede76b59f0d382b47c116183ea1902048febcc0f251e67b464"
+      },
+      "encoding": {
+        "completed": 278980,
+        "total": 278980,
+        "encoding_seconds": 1442.1795333444607,
+        "units_per_second": 193.44332210361938,
+        "process_peak_rss_bytes": 2804301824
+      },
+      "token_lengths": {
+        "units": 278980,
+        "original_tokens": 7332437,
+        "encoded_tokens": 7332437,
+        "right_truncated_units": 0,
+        "max_original_tokens": 1803,
+        "p50_tokens": 18.0,
+        "p95_tokens": 63.0
+      },
+      "vector_bytes": 1142702208,
+      "vectors_sha256": "c976f2f13bc11fb8efb96491a2eef54cd40222767b4e17d39507a0a1a8f9b442",
+      "search_seconds_mean": 0.016707543667871506,
+      "search_seconds_note": "Candidate-corpus exact ranking only; query encoding is separately batched."
+    }
+  },
+  "selection_gate": {
+    "chunk": {
+      "semantic_delta": 0.4,
+      "all_delta": 0.20301418439716312,
+      "passes_quality_screen": true,
+      "interpretation": "Engineering screening threshold on a known, gold-containing candidate corpus; not statistical or full-corpus validation."
+    },
+    "sentence": {
+      "semantic_delta": 0.32,
+      "all_delta": 0.18351063829787234,
+      "passes_quality_screen": true,
+      "interpretation": "Engineering screening threshold on a known, gold-containing candidate corpus; not statistical or full-corpus validation."
+    }
+  },
+  "independent_audit": {
+    "kind": "independent_cached_result_audit",
+    "records_checked": 600,
+    "macro_metrics_match": true,
+    "ranking_checks": {
+      "count": 12,
+      "detail": "See raw_detail"
+    },
+    "semantic_distinct_document_counts": {
+      "bm25-chunk": {
+        "minimum": 20,
+        "under20": 0
+      },
+      "bge-chunk": {
+        "minimum": 20,
+        "under20": 0
+      },
+      "qwen-chunk": {
+        "minimum": 20,
+        "under20": 0
+      },
+      "bm25-sentence": {
+        "minimum": 20,
+        "under20": 0
+      },
+      "bge-sentence": {
+        "minimum": 20,
+        "under20": 0
+      },
+      "qwen-sentence": {
+        "minimum": 20,
+        "under20": 0
+      }
+    },
+    "hosted_model_calls": 0,
+    "new_encoder_calls": 0,
+    "diagnostic_note": "Cached original ranks and original gold-unit texts only; no settings or scores changed."
+  },
+  "semantic_granularity_losses": {
+    "count": 4,
+    "detail": "See raw_detail"
+  },
+  "per_question": {
+    "bm25-chunk": {
+      "count": 100,
+      "detail": "See raw_detail"
+    },
+    "bge-chunk": {
+      "count": 100,
+      "detail": "See raw_detail"
+    },
+    "qwen-chunk": {
+      "count": 100,
+      "detail": "See raw_detail"
+    },
+    "bm25-sentence": {
+      "count": 100,
+      "detail": "See raw_detail"
+    },
+    "bge-sentence": {
+      "count": 100,
+      "detail": "See raw_detail"
+    },
+    "qwen-sentence": {
+      "count": 100,
+      "detail": "See raw_detail"
+    }
+  },
+  "raw_detail": {
+    "path": "runs/evidence/offline-encoder-granularity-20261012.json",
+    "sha256": "da09c33750608a093a6573583f2b8783ce4ea44730a8cce4b04081edbb9b43d1"
+  }
+}

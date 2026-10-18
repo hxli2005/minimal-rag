@@ -1,0 +1,13 @@
+{
+  "authorized_at": "2026-10-15T09:53:47.388869+00:00",
+  "generation_concurrency": 5,
+  "judge_concurrency": 1,
+  "judge_429_affects": "judge_only",
+  "judge_max_model_responses_per_case": 3,
+  "transport_failures_count_against_response_cap": false,
+  "backfill_before": [
+    "dev_selection",
+    "final_report"
+  ],
+  "model_prompt_tools_samples_unchanged": true
+}

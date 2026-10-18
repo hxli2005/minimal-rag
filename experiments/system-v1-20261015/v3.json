@@ -1,0 +1,24 @@
+{
+  "version": "v3",
+  "reuse": {
+    "browsecomp_dev": "data/benchmarks/browsecomp-plus/full-20261015/A"
+  },
+  "enterprise": {
+    "adapter": "current",
+    "retrieval": "hybrid",
+    "excerpt_chars": 4000,
+    "variant": "v6",
+    "retrieval_snapshot": "historical"
+  },
+  "browsecomp": {
+    "adapter": "current",
+    "retrieval": "bm25",
+    "excerpt_chars": 2000
+  },
+  "parent": "v0",
+  "change": "仅统一当前适配器；保留v0检索和4000字符",
+  "benefit": "Shared current adapter, removing historical adapter restoration",
+  "simplifies_implementation": true,
+  "expected_requests": 2750,
+  "expected_seconds": 4800
+}

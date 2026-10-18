@@ -1,0 +1,505 @@
+{
+  "complete": true,
+  "kind": "gold_containing_10_percent_background_diagnostic",
+  "groups": {
+    "bm25": {
+      "all": {
+        "questions": 100,
+        "scored": 94,
+        "no_gold": 6,
+        "recall@5": 0.19414893617021275,
+        "recall@10": 0.2473404255319149,
+        "recall@20": 0.26861702127659576,
+        "all_gold@20": 0.24468085106382978
+      },
+      "basic": {
+        "questions": 35,
+        "scored": 35,
+        "no_gold": 0,
+        "recall@5": 0.02857142857142857,
+        "recall@10": 0.05714285714285714,
+        "recall@20": 0.05714285714285714,
+        "all_gold@20": 0.05714285714285714
+      },
+      "completeness": {
+        "questions": 4,
+        "scored": 4,
+        "no_gold": 0,
+        "recall@5": 0.08333333333333333,
+        "recall@10": 0.08333333333333333,
+        "recall@20": 0.08333333333333333,
+        "all_gold@20": 0.0
+      },
+      "conflicting_info": {
+        "questions": 4,
+        "scored": 4,
+        "no_gold": 0,
+        "recall@5": 0.25,
+        "recall@10": 0.25,
+        "recall@20": 0.25,
+        "all_gold@20": 0.0
+      },
+      "constrained": {
+        "questions": 6,
+        "scored": 6,
+        "no_gold": 0,
+        "recall@5": 0.0,
+        "recall@10": 0.0,
+        "recall@20": 0.0,
+        "all_gold@20": 0.0
+      },
+      "high_level": {
+        "questions": 2,
+        "scored": 0,
+        "no_gold": 2
+      },
+      "info_not_found": {
+        "questions": 4,
+        "scored": 0,
+        "no_gold": 4
+      },
+      "intra_document_reasoning": {
+        "questions": 8,
+        "scored": 8,
+        "no_gold": 0,
+        "recall@5": 0.0,
+        "recall@10": 0.0,
+        "recall@20": 0.0,
+        "all_gold@20": 0.0
+      },
+      "miscellaneous": {
+        "questions": 4,
+        "scored": 4,
+        "no_gold": 0,
+        "recall@5": 0.25,
+        "recall@10": 0.25,
+        "recall@20": 0.25,
+        "all_gold@20": 0.25
+      },
+      "project_related": {
+        "questions": 8,
+        "scored": 8,
+        "no_gold": 0,
+        "recall@5": 0.11458333333333333,
+        "recall@10": 0.11458333333333333,
+        "recall@20": 0.11458333333333333,
+        "all_gold@20": 0.0
+      },
+      "semantic": {
+        "questions": 25,
+        "scored": 25,
+        "no_gold": 0,
+        "recall@5": 0.56,
+        "recall@10": 0.72,
+        "recall@20": 0.8,
+        "all_gold@20": 0.8
+      }
+    },
+    "bge": {
+      "all": {
+        "questions": 100,
+        "scored": 94,
+        "no_gold": 6,
+        "recall@5": 0.08244680851063829,
+        "recall@10": 0.10372340425531915,
+        "recall@20": 0.11436170212765957,
+        "all_gold@20": 0.09574468085106383
+      },
+      "basic": {
+        "questions": 35,
+        "scored": 35,
+        "no_gold": 0,
+        "recall@5": 0.02857142857142857,
+        "recall@10": 0.02857142857142857,
+        "recall@20": 0.05714285714285714,
+        "all_gold@20": 0.05714285714285714
+      },
+      "completeness": {
+        "questions": 4,
+        "scored": 4,
+        "no_gold": 0,
+        "recall@5": 0.08333333333333333,
+        "recall@10": 0.08333333333333333,
+        "recall@20": 0.08333333333333333,
+        "all_gold@20": 0.0
+      },
+      "conflicting_info": {
+        "questions": 4,
+        "scored": 4,
+        "no_gold": 0,
+        "recall@5": 0.125,
+        "recall@10": 0.125,
+        "recall@20": 0.125,
+        "all_gold@20": 0.0
+      },
+      "constrained": {
+        "questions": 6,
+        "scored": 6,
+        "no_gold": 0,
+        "recall@5": 0.0,
+        "recall@10": 0.0,
+        "recall@20": 0.0,
+        "all_gold@20": 0.0
+      },
+      "high_level": {
+        "questions": 2,
+        "scored": 0,
+        "no_gold": 2
+      },
+      "info_not_found": {
+        "questions": 4,
+        "scored": 0,
+        "no_gold": 4
+      },
+      "intra_document_reasoning": {
+        "questions": 8,
+        "scored": 8,
+        "no_gold": 0,
+        "recall@5": 0.0,
+        "recall@10": 0.0,
+        "recall@20": 0.0,
+        "all_gold@20": 0.0
+      },
+      "miscellaneous": {
+        "questions": 4,
+        "scored": 4,
+        "no_gold": 0,
+        "recall@5": 0.25,
+        "recall@10": 0.25,
+        "recall@20": 0.25,
+        "all_gold@20": 0.25
+      },
+      "project_related": {
+        "questions": 8,
+        "scored": 8,
+        "no_gold": 0,
+        "recall@5": 0.11458333333333333,
+        "recall@10": 0.11458333333333333,
+        "recall@20": 0.11458333333333333,
+        "all_gold@20": 0.0
+      },
+      "semantic": {
+        "questions": 25,
+        "scored": 25,
+        "no_gold": 0,
+        "recall@5": 0.16,
+        "recall@10": 0.24,
+        "recall@20": 0.24,
+        "all_gold@20": 0.24
+      }
+    },
+    "qwen": {
+      "all": {
+        "questions": 100,
+        "scored": 94,
+        "no_gold": 6,
+        "recall@5": 0.08776595744680851,
+        "recall@10": 0.15336879432624115,
+        "recall@20": 0.17641843971631205,
+        "all_gold@20": 0.1595744680851064
+      },
+      "basic": {
+        "questions": 35,
+        "scored": 35,
+        "no_gold": 0,
+        "recall@5": 0.02857142857142857,
+        "recall@10": 0.02857142857142857,
+        "recall@20": 0.02857142857142857,
+        "all_gold@20": 0.02857142857142857
+      },
+      "completeness": {
+        "questions": 4,
+        "scored": 4,
+        "no_gold": 0,
+        "recall@5": 0.0,
+        "recall@10": 0.0,
+        "recall@20": 0.041666666666666664,
+        "all_gold@20": 0.0
+      },
+      "conflicting_info": {
+        "questions": 4,
+        "scored": 4,
+        "no_gold": 0,
+        "recall@5": 0.125,
+        "recall@10": 0.125,
+        "recall@20": 0.125,
+        "all_gold@20": 0.0
+      },
+      "constrained": {
+        "questions": 6,
+        "scored": 6,
+        "no_gold": 0,
+        "recall@5": 0.0,
+        "recall@10": 0.0,
+        "recall@20": 0.0,
+        "all_gold@20": 0.0
+      },
+      "high_level": {
+        "questions": 2,
+        "scored": 0,
+        "no_gold": 2
+      },
+      "info_not_found": {
+        "questions": 4,
+        "scored": 0,
+        "no_gold": 4
+      },
+      "intra_document_reasoning": {
+        "questions": 8,
+        "scored": 8,
+        "no_gold": 0,
+        "recall@5": 0.0,
+        "recall@10": 0.0,
+        "recall@20": 0.0,
+        "all_gold@20": 0.0
+      },
+      "miscellaneous": {
+        "questions": 4,
+        "scored": 4,
+        "no_gold": 0,
+        "recall@5": 0.25,
+        "recall@10": 0.25,
+        "recall@20": 0.25,
+        "all_gold@20": 0.25
+      },
+      "project_related": {
+        "questions": 8,
+        "scored": 8,
+        "no_gold": 0,
+        "recall@5": 0.09375,
+        "recall@10": 0.11458333333333333,
+        "recall@20": 0.11458333333333333,
+        "all_gold@20": 0.0
+      },
+      "semantic": {
+        "questions": 25,
+        "scored": 25,
+        "no_gold": 0,
+        "recall@5": 0.2,
+        "recall@10": 0.44,
+        "recall@20": 0.52,
+        "all_gold@20": 0.52
+      }
+    },
+    "hybrid": {
+      "all": {
+        "questions": 100,
+        "scored": 94,
+        "no_gold": 6,
+        "recall@5": 0.24202127659574468,
+        "recall@10": 0.2526595744680851,
+        "recall@20": 0.27925531914893614,
+        "all_gold@20": 0.2553191489361702
+      },
+      "basic": {
+        "questions": 35,
+        "scored": 35,
+        "no_gold": 0,
+        "recall@5": 0.05714285714285714,
+        "recall@10": 0.05714285714285714,
+        "recall@20": 0.05714285714285714,
+        "all_gold@20": 0.05714285714285714
+      },
+      "completeness": {
+        "questions": 4,
+        "scored": 4,
+        "no_gold": 0,
+        "recall@5": 0.08333333333333333,
+        "recall@10": 0.08333333333333333,
+        "recall@20": 0.08333333333333333,
+        "all_gold@20": 0.0
+      },
+      "conflicting_info": {
+        "questions": 4,
+        "scored": 4,
+        "no_gold": 0,
+        "recall@5": 0.125,
+        "recall@10": 0.125,
+        "recall@20": 0.25,
+        "all_gold@20": 0.0
+      },
+      "constrained": {
+        "questions": 6,
+        "scored": 6,
+        "no_gold": 0,
+        "recall@5": 0.0,
+        "recall@10": 0.0,
+        "recall@20": 0.0,
+        "all_gold@20": 0.0
+      },
+      "high_level": {
+        "questions": 2,
+        "scored": 0,
+        "no_gold": 2
+      },
+      "info_not_found": {
+        "questions": 4,
+        "scored": 0,
+        "no_gold": 4
+      },
+      "intra_document_reasoning": {
+        "questions": 8,
+        "scored": 8,
+        "no_gold": 0,
+        "recall@5": 0.0,
+        "recall@10": 0.0,
+        "recall@20": 0.0,
+        "all_gold@20": 0.0
+      },
+      "miscellaneous": {
+        "questions": 4,
+        "scored": 4,
+        "no_gold": 0,
+        "recall@5": 0.25,
+        "recall@10": 0.25,
+        "recall@20": 0.25,
+        "all_gold@20": 0.25
+      },
+      "project_related": {
+        "questions": 8,
+        "scored": 8,
+        "no_gold": 0,
+        "recall@5": 0.11458333333333333,
+        "recall@10": 0.11458333333333333,
+        "recall@20": 0.11458333333333333,
+        "all_gold@20": 0.0
+      },
+      "semantic": {
+        "questions": 25,
+        "scored": 25,
+        "no_gold": 0,
+        "recall@5": 0.72,
+        "recall@10": 0.76,
+        "recall@20": 0.84,
+        "all_gold@20": 0.84
+      }
+    }
+  },
+  "gate": {
+    "passed": false,
+    "comparisons": {
+      "semantic": {
+        "mean_gain": 0.04,
+        "wins": 1,
+        "losses": 0,
+        "scored": 25,
+        "questions": 25,
+        "candidate_recall": 0.84,
+        "baseline_recall": 0.8,
+        "ties": 24,
+        "passed": false
+      },
+      "all": {
+        "mean_gain": 0.010638297872340425,
+        "wins": 1,
+        "losses": 0,
+        "scored": 94,
+        "questions": 100,
+        "candidate_recall": 0.27925531914893614,
+        "baseline_recall": 0.26861702127659576,
+        "ties": 93,
+        "passed": true
+      }
+    },
+    "rule": {
+      "metric": "recall@20",
+      "candidate": "hybrid",
+      "baseline": "bm25",
+      "category": "semantic",
+      "minimum_gain": 0.1,
+      "require_more_wins_than_losses": true,
+      "overall_minimum_gain": 0.0
+    },
+    "note": "Known-development engineering gate, not a significance test or SOTA claim."
+  },
+  "sample": {
+    "documents": 51219,
+    "chunks": 198398,
+    "chunk_chars": 1600,
+    "overlap": 200,
+    "complete": true,
+    "source_documents": 511962,
+    "source_corpus_sha256": "14273e18fce565917c77e9b2cbf92e379883ffaddb38c27bae56d6f35495e8bc",
+    "sample_corpus_sha256": "097a72d960135da1c64a3f4c834e2a0b2a6c2ed9db1004184bdf816c043a8faa",
+    "selection": "uniform hash 10% background plus explicit development references",
+    "random_documents": 51197,
+    "reference_additions": [
+      "dsid_019864ee09fa428e919e9a0de11ca467",
+      "dsid_0a2cd37d53ff47d4aced289cd9a76fe8",
+      "dsid_1a4563b5332f41a499464ea69f92c9b0",
+      "dsid_25b0de9bfa854d3c9acfa961555c9d45",
+      "dsid_36d7605113204cdca94405cb30fc2c10",
+      "dsid_3b1c14ab4cc647369b783b7abdfc32f3",
+      "dsid_3d745c88c7e4426c9548350824f0d9b8",
+      "dsid_45e2a8ccc16c4c048894f98c6cd8833c",
+      "dsid_5402831508734a51adf649603be4b075",
+      "dsid_6091c41379e04d07adcf0a5646c65909",
+      "dsid_62ff534dc35a425896b265216f94f69a",
+      "dsid_72b2bd3c2a094fdca6d5f3187a752c24",
+      "dsid_730ed8ee5fc84e0b9be761003b9a60d3",
+      "dsid_74cd6ebda84547e2a534f8f6d1b49739",
+      "dsid_77351104a57140ac8e065d0a6bcf2046",
+      "dsid_7d925287f5224f72b641acbd515beb2a",
+      "dsid_97750eeb49894690aa3d425669af4de0",
+      "dsid_a15c0247e9de4e128293bd820fc4c659",
+      "dsid_a193f9b7483248ad86c52e684d98a760",
+      "dsid_e20c31eb5466411ab6c7be17d08d02f5",
+      "dsid_ef492479c7dc4a3c9dd55d6771e5df54",
+      "dsid_f09cf2d633174b7ab7105ef0a7498e74"
+    ],
+    "actual_document_fraction": 0.10004453455529902,
+    "cases_sha256": "924be969048a5c7397b67a8c6c1c914afc9d923f0e98b48e9056130412fafdad",
+    "bge_vectors_sha256": "43d55d23bff05177e18b6ec4a3e9f6d9686bac8d6e117a6bc62413e5abac1fbe",
+    "bge_documents_sha256": "20307b0ef11fa7b0f0b7d1cd988b80c283c81d34cbbe6efe1f35dc6bed58097a",
+    "legacy_manifest": {
+      "corpus_sha256": "14273e18fce565917c77e9b2cbf92e379883ffaddb38c27bae56d6f35495e8bc",
+      "chunks": 1987477,
+      "dimension": 384,
+      "embedding": {
+        "embedding": {
+          "id": "BAAI/bge-small-en-v1.5",
+          "revision": "5c38ec7c405ec4b44b94cc5a9bb96e735b38267a"
+        },
+        "query_prompt": "Represent this sentence for searching relevant passages: ",
+        "max_length": 512,
+        "precision": "float16"
+      },
+      "input_format": "title + newline + original chunk text",
+      "dtype": "float32",
+      "similarity": "normalized dot product; exact search",
+      "complete": true,
+      "source_path": "/Users/lhx/Documents/ChatGPT/即兴学习/study/benchmarks/enterprise/corpus.sqlite",
+      "device": "mps",
+      "builder_sha256": "c414659187ad0d4374fced9d68ea9144149365c9abab6d7072566ca3f692c79d"
+    },
+    "hosted_model_calls": 0
+  },
+  "questions": 100,
+  "fusion": {
+    "method": "rrf",
+    "k": 60,
+    "candidates_per_retriever": 100,
+    "output_documents": 20
+  },
+  "evaluation_plan_sha256": "5132ba491e58fcbe64b4e19a7a8d4307e92b9f6ab328ba7a1a3f62b0e6d96a92",
+  "reference_coverage": {
+    "all": {
+      "questions": 100,
+      "gold_occurrences_absent": 100,
+      "note": "Absent references remain in recall denominators for every arm; no-gold cases are unscored."
+    },
+    "semantic": {
+      "questions": 25,
+      "gold_occurrences_absent": 0,
+      "note": "Absent references remain in recall denominators for every arm; no-gold cases are unscored."
+    }
+  },
+  "input_format": "title + newline + original chunk text for both dense encoders",
+  "qwen_right_truncated_this_session": 0,
+  "hosted_model_calls": 0,
+  "limits": "Known dev100 including semantic dev25; only semantic references injected. Overall guard is within the fixed sampled corpus. Document recall only; no answer accuracy or SOTA evidence.",
+  "raw_detail": {
+    "path": "runs/evidence/qwen3-chunk-scale-20261012.json",
+    "sha256": "223405f8c7444cc0663ee8cac53d5d79014a6b8c8ae6fb715f4b2f7fa748e7b3"
+  }
+}

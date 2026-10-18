@@ -1,0 +1,55 @@
+{
+  "retrieved_at": "2026-10-15T11:22:57.488084-07:00",
+  "url": "https://huggingface.co/datasets/Tevatron/BrowseComp-Plus-results/resolve/main/agent_results.csv",
+  "space": "https://huggingface.co/spaces/Tevatron/BrowseComp-Plus",
+  "rows": 85,
+  "csv_sha256": "7b68ade4b54260902d3ef353b8f217087ecbe1a432a442479e59e3c214bfaf12",
+  "top_rows": [
+    {
+      "LLM": "GPT-5",
+      "Retriever": "Hybrid Qwen2-7B + Reason-ModernColBERT",
+      "Submitted By": "AI21",
+      "Accuracy (%)": "95.18",
+      "Recall (%)": "93.17",
+      "Search Calls": "209.27",
+      "Evaluation Date": "April 28, 2026"
+    },
+    {
+      "LLM": "GLM-5.1-FP8",
+      "Retriever": "Hybrid BM25 + Qwen3-Embed-8B",
+      "Submitted By": "Sail Research",
+      "Accuracy (%)": "90.72",
+      "Recall (%)": "84.31",
+      "Search Calls": "12.53",
+      "Evaluation Date": "April 17, 2026"
+    },
+    {
+      "LLM": "GPT-5",
+      "Retriever": "Mixedbread Search (v3)",
+      "Submitted By": "Mixedbread",
+      "Accuracy (%)": "90.48",
+      "Recall (%)": "83.03",
+      "Search Calls": "11.53",
+      "Evaluation Date": "Mar 19, 2026"
+    },
+    {
+      "LLM": "GPT-5.5",
+      "Retriever": "BM25 + Question's Gambit",
+      "Submitted By": "Hamidi Rad et al.",
+      "Accuracy (%)": "90.48",
+      "Recall (%)": "96.58",
+      "Search Calls": "33.67",
+      "Evaluation Date": "Sep 19, 2026"
+    },
+    {
+      "LLM": "GPT-5",
+      "Retriever": "Reason-ModernColBERT",
+      "Submitted By": "LightOn",
+      "Accuracy (%)": "87.59",
+      "Recall (%)": "81.55",
+      "Search Calls": "13.27",
+      "Evaluation Date": "Mar 16, 2026"
+    }
+  ],
+  "boundary": "Published point estimates, different scaffolds/budgets; no automatic rank or paired significance claim."
+}

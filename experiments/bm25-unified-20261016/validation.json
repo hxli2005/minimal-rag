@@ -1,0 +1,108 @@
+{
+  "tests": {
+    "passed": 138,
+    "command": ".venv/bin/python -m pytest -q tests experiments/tests"
+  },
+  "smoke": {
+    "enterprise": {
+      "complete": true,
+      "metrics": {
+        "n": 1,
+        "status": {
+          "finished": 1
+        },
+        "errors": 0,
+        "tool_errors": 0,
+        "cases_with_tool_errors": 0,
+        "protocol_errors": 0,
+        "unseen_citations": 0,
+        "correct": 1.0,
+        "completeness": 1,
+        "overall": 1.0,
+        "document_recall": 1.0,
+        "retrieved_document_recall": 1.0,
+        "all_gold_retrieved": 1,
+        "seconds": 28.52906866700141,
+        "model_calls": 3,
+        "tool_calls": 3,
+        "graded": 1,
+        "input_tokens": 30471,
+        "cached_input_tokens": 12544,
+        "output_tokens": 289
+      },
+      "requests": {
+        "generation": 3,
+        "judge": 1
+      },
+      "summary_sha256": "6115f4a7b46505282ffa3809294f1a29b7695f44ced5b1ee829bcf189c6c1378"
+    },
+    "financebench": {
+      "complete": true,
+      "metrics": {
+        "n": 1,
+        "status": {
+          "finished": 1
+        },
+        "errors": 0,
+        "tool_errors": 0,
+        "cases_with_tool_errors": 0,
+        "protocol_errors": 0,
+        "unseen_citations": 0,
+        "correct": 1.0,
+        "completeness": 1,
+        "overall": 1.0,
+        "document_recall": 1.0,
+        "retrieved_document_recall": 1.0,
+        "all_gold_retrieved": 1,
+        "seconds": 36.52092624999932,
+        "model_calls": 3,
+        "tool_calls": 2,
+        "graded": 1,
+        "input_tokens": 27171,
+        "cached_input_tokens": 4096,
+        "output_tokens": 589
+      },
+      "requests": {
+        "generation": 3,
+        "judge": 1
+      },
+      "summary_sha256": "2ee88694bcb3b514f6297eeaa0d0d1a5f7f743c1853bbf6ed063c97fa18e561b"
+    },
+    "hotpotqa": {
+      "complete": true,
+      "metrics": {
+        "n": 1,
+        "status": {
+          "finished": 1
+        },
+        "errors": 0,
+        "tool_errors": 0,
+        "cases_with_tool_errors": 0,
+        "protocol_errors": 0,
+        "unseen_citations": 0,
+        "em": 1.0,
+        "f1": 1.0,
+        "document_recall": 1.0,
+        "retrieved_document_recall": 1.0,
+        "all_gold_retrieved": 1,
+        "seconds": 23.22784058400066,
+        "model_calls": 4,
+        "tool_calls": 3,
+        "all_gold_sentences_exposed": 1,
+        "graded": 1,
+        "input_tokens": 19089,
+        "cached_input_tokens": 8448,
+        "output_tokens": 173
+      },
+      "requests": {
+        "generation": 4,
+        "judge": 0
+      },
+      "summary_sha256": "c4d1441c977fa8b736b386c6ef380063dc037aabaea6de33b3f1d716c33b6ee5"
+    }
+  },
+  "runtime_optional_retrieval_modules_loaded": [],
+  "core_wheel_contains_hybrid_or_experiments": false,
+  "core_wheel_requires_numpy": false,
+  "historical_loader_help_exit_code": 0
+}

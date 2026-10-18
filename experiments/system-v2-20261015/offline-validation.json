@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "model_requests": 0,
+  "only_effective_change": "search excerpt_chars 4000 -> 2000 on Enterprise; BrowseComp remains A/2000",
+  "historical_adapter_restored": true,
+  "prompt_and_format_match_v0": true,
+  "models": {
+    "embedding": {
+      "id": "BAAI/bge-small-en-v1.5",
+      "revision": "5c38ec7c405ec4b44b94cc5a9bb96e735b38267a"
+    },
+    "reranker": {
+      "id": "BAAI/bge-reranker-v2-m3",
+      "revision": "953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e"
+    },
+    "prefilter": {
+      "id": "cross-encoder/ms-marco-MiniLM-L6-v2",
+      "revision": "233902d25c440f23af6f7d6e94d2946bac0bee0a"
+    }
+  },
+  "search_hits": 5,
+  "preview_count": 15,
+  "max_excerpt_chars": 2000,
+  "source_slices_match": true,
+  "no_unmeasured_benefit_adoption": true,
+  "model_manifest_matches_v0": true
+}

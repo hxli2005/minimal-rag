@@ -1,0 +1,5 @@
+Single-agent gpt-6.1-sol (high), at most 30 model calls/turns per question; no external web.
+SQLite FTS5 BM25 over the fixed corpus: 1600-character chunks, 200-character overlap, title/body weights 2/1.
+search returns 1–20 documents with 2000-character excerpts; read defaults to 4000 characters and supports paging.
+The dev100 was inspected; three later nightly candidates were rejected and the original A/v0 remained frozen.
+Scored with official 0469490, Qwen3-32B BF16 and TP=2; first valid judgements retained.

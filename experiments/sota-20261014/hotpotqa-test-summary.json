@@ -1,0 +1,325 @@
+{
+  "phase": "hotpotqa-test",
+  "completed": 100,
+  "requested": 100,
+  "complete": true,
+  "evaluation_kind": "known_regression",
+  "metrics": {
+    "n": 100,
+    "status": {
+      "finished": 100
+    },
+    "errors": 0,
+    "tool_errors": 0,
+    "cases_with_tool_errors": 0,
+    "protocol_errors": 0,
+    "unseen_citations": 0,
+    "em": 0.75,
+    "f1": 0.8673333333333333,
+    "document_recall": 0.925,
+    "retrieved_document_recall": 0.985,
+    "all_gold_retrieved": 0.97,
+    "seconds": 11.757212555379956,
+    "model_calls": 2.29,
+    "tool_calls": 1.43,
+    "all_gold_sentences_exposed": 0.97,
+    "graded": 100,
+    "input_tokens": 1160612,
+    "cached_input_tokens": 542592,
+    "output_tokens": 11636
+  },
+  "by_category": {
+    "bridge": {
+      "n": 83,
+      "status": {
+        "finished": 83
+      },
+      "errors": 0,
+      "tool_errors": 0,
+      "cases_with_tool_errors": 0,
+      "protocol_errors": 0,
+      "unseen_citations": 0,
+      "em": 0.7108433734939759,
+      "f1": 0.8461847389558232,
+      "document_recall": 0.9096385542168675,
+      "retrieved_document_recall": 0.9819277108433735,
+      "all_gold_retrieved": 0.963855421686747,
+      "seconds": 12.05346470731307,
+      "model_calls": 2.3493975903614457,
+      "tool_calls": 1.3734939759036144,
+      "all_gold_sentences_exposed": 0.963855421686747,
+      "graded": 83,
+      "input_tokens": 995167,
+      "cached_input_tokens": 480256,
+      "output_tokens": 9852
+    },
+    "comparison": {
+      "n": 17,
+      "status": {
+        "finished": 17
+      },
+      "errors": 0,
+      "tool_errors": 0,
+      "cases_with_tool_errors": 0,
+      "protocol_errors": 0,
+      "unseen_citations": 0,
+      "em": 0.9411764705882353,
+      "f1": 0.9705882352941176,
+      "document_recall": 1.0,
+      "retrieved_document_recall": 1.0,
+      "all_gold_retrieved": 1,
+      "seconds": 10.310804990059456,
+      "model_calls": 2,
+      "tool_calls": 1.7058823529411764,
+      "all_gold_sentences_exposed": 1,
+      "graded": 17,
+      "input_tokens": 165445,
+      "cached_input_tokens": 62336,
+      "output_tokens": 1784
+    }
+  },
+  "costs": {
+    "generation_requests": 229,
+    "judge_requests": 0,
+    "sol_requests": 229,
+    "generation_statuses": {
+      "finished": 100
+    },
+    "failed_requests": 0,
+    "judge_retry_requests": 0,
+    "mean_generation_calls": 2.29,
+    "generation_input_tokens": 1160612,
+    "mean_generation_input_tokens": 11606.12,
+    "counting_note": "persisted application attempts; failed/retried runs included; judge_runs not double-counted",
+    "counting_limitations": [
+      "Live counts exclude calls not yet saved to a trace; SDK-internal HTTP retries are not recorded.",
+      "completed excludes generation failures even when runner assigns an automatic incorrect grade.",
+      "Missing/unscored cases remain in the requested denominator; mean_scored uses only saved grades.",
+      "Startup failures can only be counted when a startup-failure.json record exists."
+    ],
+    "judge_input_tokens": 0,
+    "total_input_tokens": 1160612
+  },
+  "comparisons": {
+    "historical_v6": {
+      "metrics": {
+        "n": 100,
+        "status": {
+          "finished": 100
+        },
+        "errors": 0,
+        "unseen_citations": 0,
+        "em": 0.78,
+        "f1": 0.871,
+        "document_recall": 0.92,
+        "retrieved_document_recall": 0.985,
+        "all_gold_retrieved": 0.97,
+        "seconds": 8.792596777118451,
+        "model_calls": 2.28,
+        "tool_calls": 1.47,
+        "all_gold_sentences_exposed": 0.97,
+        "graded": 100,
+        "input_tokens": 1154322,
+        "cached_input_tokens": 784768,
+        "output_tokens": 9917
+      },
+      "paired": {
+        "em": {
+          "n": 100,
+          "difference": -0.03,
+          "paired_bootstrap_95_interval": [
+            -0.07,
+            0.0
+          ],
+          "wins": 0,
+          "losses": 3,
+          "ties": 97,
+          "bootstrap_samples": 10000,
+          "seed": 20261012
+        },
+        "f1": {
+          "n": 100,
+          "difference": -0.003666666666666667,
+          "paired_bootstrap_95_interval": [
+            -0.017333333333333333,
+            0.011000000000000001
+          ],
+          "wins": 1,
+          "losses": 3,
+          "ties": 96,
+          "bootstrap_samples": 10000,
+          "seed": 20261012
+        }
+      },
+      "by_category": {
+        "bridge": {
+          "candidate": {
+            "n": 83,
+            "em": 0.7108433734939759,
+            "f1": 0.8461847389558232,
+            "document_recall": 0.9096385542168675,
+            "document_recall_n": 83,
+            "retrieved_document_recall": 0.9819277108433735,
+            "retrieved_document_recall_n": 83,
+            "model_calls": 2.3493975903614457
+          },
+          "reference": {
+            "n": 83,
+            "em": 0.7469879518072289,
+            "f1": 0.8566265060240964,
+            "document_recall": 0.9036144578313253,
+            "document_recall_n": 83,
+            "retrieved_document_recall": 0.9819277108433735,
+            "retrieved_document_recall_n": 83,
+            "model_calls": 2.3373493975903616
+          },
+          "paired": {
+            "em": {
+              "n": 83,
+              "difference": -0.03614457831325301,
+              "paired_bootstrap_95_interval": [
+                -0.08433734939759036,
+                0.0
+              ],
+              "wins": 0,
+              "losses": 3,
+              "ties": 80,
+              "bootstrap_samples": 10000,
+              "seed": 20261012
+            },
+            "f1": {
+              "n": 83,
+              "difference": -0.010441767068273093,
+              "paired_bootstrap_95_interval": [
+                -0.02409638554216868,
+                0.0
+              ],
+              "wins": 0,
+              "losses": 3,
+              "ties": 80,
+              "bootstrap_samples": 10000,
+              "seed": 20261012
+            }
+          }
+        },
+        "comparison": {
+          "candidate": {
+            "n": 17,
+            "em": 0.9411764705882353,
+            "f1": 0.9705882352941176,
+            "document_recall": 1.0,
+            "document_recall_n": 17,
+            "retrieved_document_recall": 1.0,
+            "retrieved_document_recall_n": 17,
+            "model_calls": 2
+          },
+          "reference": {
+            "n": 17,
+            "em": 0.9411764705882353,
+            "f1": 0.9411764705882353,
+            "document_recall": 1.0,
+            "document_recall_n": 17,
+            "retrieved_document_recall": 1.0,
+            "retrieved_document_recall_n": 17,
+            "model_calls": 2
+          },
+          "paired": {
+            "em": {
+              "n": 17,
+              "difference": 0.0,
+              "paired_bootstrap_95_interval": [
+                0.0,
+                0.0
+              ],
+              "wins": 0,
+              "losses": 0,
+              "ties": 17,
+              "bootstrap_samples": 10000,
+              "seed": 20261012
+            },
+            "f1": {
+              "n": 17,
+              "difference": 0.029411764705882353,
+              "paired_bootstrap_95_interval": [
+                0.0,
+                0.08823529411764706
+              ],
+              "wins": 1,
+              "losses": 0,
+              "ties": 16,
+              "bootstrap_samples": 10000,
+              "seed": 20261012
+            }
+          }
+        }
+      },
+      "discordant_ids": {
+        "wins": [],
+        "losses": [
+          "5a89e1bf5542992e4fca8433",
+          "5a7a5ec855429941d65f25e4",
+          "5ab965f25542996be20204c3"
+        ]
+      }
+    }
+  },
+  "infrastructure_failed_cases": 0,
+  "criterion": "Answer EM >=78% and F1 >=87% on local test100 distractor",
+  "passed": false,
+  "config_audit": {
+    "historical_config": "data/benchmarks/optimization-20261011/holdout/hotpotqa/config.json",
+    "checked_fields": [
+      "variant",
+      "settings",
+      "judge_model",
+      "max_turns",
+      "timeout",
+      "case_timeout",
+      "judge_prompt",
+      "format_request",
+      "no_gold_in_generation",
+      "compact_pdf",
+      "short_style",
+      "retrieval parameters, model IDs/revisions, prefilter, preview, dense manifest"
+    ],
+    "parameter_differences": {},
+    "historical_adapter_identical": true,
+    "core_loop_ast_identical": true,
+    "allowed_metadata_differences": [
+      "generation model astra -> sol",
+      "relocated paths/imports",
+      "smoke dev prefix versus full cohort",
+      "known-regression scope on formal test",
+      "brief-specified concurrency"
+    ]
+  },
+  "source_sha256": {
+    "data/benchmarks/sota-20261014/hotpotqa-test/summary.json": "955dfd7c6eaaab4e58e5dee966439494339724949c757d058bcd4a1ac074cfba",
+    "data/benchmarks/sota-20261014/hotpotqa-test/config.json": "ee43bc6dacc11c7ecb104265e70b2fd82d7719ded43962931b3561d3988eef9e",
+    "data/benchmarks/optimization-20261011/holdout/hotpotqa/summary.json": "c28537638959fd6ab9fc0f39b83de61b3f0257bcd3ee7ac12477e27a52237f5e",
+    "data/benchmarks/optimization-20261011/holdout/hotpotqa/config.json": "b91597e81888afea3433eaab3f4f5578de1ce55e5b97d3b194d562bccca2c536"
+  },
+  "limitations": [
+    "Local sol judge, known regression tests, not official leaderboard results.",
+    "Paired bootstrap: 10,000 samples, seed 20261012; captures question variation, not repeated-run randomness.",
+    "Enterprise test changes retrieval fixed -> cascade plus model astra -> sol; no isolated model-effect claim.",
+    "Finance corpus 368 PDFs versus Dewey 85 filings; five historical baseline-metadata exposures retained.",
+    "Hotpot local test100 comes from public distractor dev data; official test leaderboard is scale reference only.",
+    "Citation document recall and observed document recall are multi-turn outcomes, not retrieval recall@k."
+  ],
+  "validation": {
+    "official_scorer_recomputed_from_all_raw_predictions": 100,
+    "all_saved_em_f1_match": true
+  },
+  "em_regression_audit": {
+    "wins": 0,
+    "losses": 3,
+    "ties": 97,
+    "observations": [
+      "Daniel Inouye omitted reference full middle name/nickname.",
+      "the endorheic Sistan Basin added a modifier.",
+      "an American animated television series added modifiers."
+    ],
+    "interpretation": "All three EM losses are answer-string differences; retain official scoring and original output, do not regrade or tune on test."
+  }
+}

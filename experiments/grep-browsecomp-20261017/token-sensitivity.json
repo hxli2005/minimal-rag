@@ -1,0 +1,65 @@
+{
+  "method": "Same token_usage accounting as the original report; post-hoc sensitivity, not a revised benchmark score.",
+  "slices": [
+    {
+      "excluded_ids": [],
+      "n": 30,
+      "totals": {
+        "A": {
+          "input": 15563760,
+          "uncached": 2400880
+        },
+        "B": {
+          "input": 13719454,
+          "uncached": 2018718
+        }
+      },
+      "B_minus_A_percent": {
+        "input": -11.850002827080342,
+        "uncached": -15.91758022058578
+      }
+    },
+    {
+      "excluded_ids": [
+        "418"
+      ],
+      "n": 29,
+      "totals": {
+        "A": {
+          "input": 12887218,
+          "uncached": 2183346
+        },
+        "B": {
+          "input": 13271261,
+          "uncached": 1936733
+        }
+      },
+      "B_minus_A_percent": {
+        "input": 2.980030290478508,
+        "uncached": -11.295186379071387
+      }
+    },
+    {
+      "excluded_ids": [
+        "1081",
+        "418",
+        "775"
+      ],
+      "n": 27,
+      "totals": {
+        "A": {
+          "input": 5682181,
+          "uncached": 1364101
+        },
+        "B": {
+          "input": 8731372,
+          "uncached": 1539308
+        }
+      },
+      "B_minus_A_percent": {
+        "input": 53.662334937940194,
+        "uncached": 12.844136907750968
+      }
+    }
+  ]
+}

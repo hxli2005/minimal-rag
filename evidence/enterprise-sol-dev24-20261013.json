@@ -1,0 +1,248 @@
+{
+  "date": "2026-10-13",
+  "kind": "small_stratified_dev_controlled_comparison",
+  "model": "gpt-6.1-sol",
+  "n": 24,
+  "ids": {
+    "count": 24,
+    "detail": "See raw_detail"
+  },
+  "groups": {
+    "enterprise/closed": {
+      "planned": 24,
+      "terminal": 24,
+      "finished": 24,
+      "scored": 24,
+      "complete": true,
+      "successful_mean": 0.08333333333333333,
+      "planned_denominator_score": 0.08333333333333333,
+      "score_is_final": true,
+      "f1": null,
+      "generation_calls": 24,
+      "generation_tokens": {
+        "input_tokens": 94645,
+        "cached_input_tokens": 22528,
+        "output_tokens": 2074
+      }
+    },
+    "enterprise/once": {
+      "planned": 24,
+      "terminal": 24,
+      "finished": 24,
+      "scored": 24,
+      "complete": true,
+      "successful_mean": 0.5,
+      "planned_denominator_score": 0.5,
+      "score_is_final": true,
+      "f1": null,
+      "generation_calls": 24,
+      "generation_tokens": {
+        "input_tokens": 220548,
+        "cached_input_tokens": 19712,
+        "output_tokens": 8701
+      }
+    },
+    "enterprise/agent": {
+      "planned": 24,
+      "terminal": 24,
+      "finished": 24,
+      "scored": 24,
+      "complete": true,
+      "successful_mean": 0.8333333333333334,
+      "planned_denominator_score": 0.8333333333333334,
+      "score_is_final": true,
+      "f1": null,
+      "generation_calls": 98,
+      "generation_tokens": {
+        "input_tokens": 1915063,
+        "cached_input_tokens": 897664,
+        "output_tokens": 12967
+      }
+    }
+  },
+  "paired_agent_minus": {
+    "closed": {
+      "n": 24,
+      "wins": 18,
+      "losses": 0,
+      "ties": 6,
+      "difference": 0.75,
+      "paired_bootstrap95": [
+        0.5833333333333334,
+        0.9166666666666666
+      ],
+      "seed": 20261013,
+      "replicates": 10000
+    },
+    "once": {
+      "n": 24,
+      "wins": 9,
+      "losses": 1,
+      "ties": 14,
+      "difference": 0.3333333333333333,
+      "paired_bootstrap95": [
+        0.125,
+        0.5416666666666666
+      ],
+      "seed": 20261013,
+      "replicates": 10000
+    }
+  },
+  "by_category": {
+    "basic": {
+      "closed": {
+        "n": 3,
+        "correct": 0.0
+      },
+      "once": {
+        "n": 3,
+        "correct": 1.0
+      },
+      "agent": {
+        "n": 3,
+        "correct": 2.0
+      }
+    },
+    "completeness": {
+      "closed": {
+        "n": 3,
+        "correct": 0.0
+      },
+      "once": {
+        "n": 3,
+        "correct": 2.0
+      },
+      "agent": {
+        "n": 3,
+        "correct": 3.0
+      }
+    },
+    "conflicting_info": {
+      "closed": {
+        "n": 3,
+        "correct": 0.0
+      },
+      "once": {
+        "n": 3,
+        "correct": 3.0
+      },
+      "agent": {
+        "n": 3,
+        "correct": 3.0
+      }
+    },
+    "constrained": {
+      "closed": {
+        "n": 3,
+        "correct": 0.0
+      },
+      "once": {
+        "n": 3,
+        "correct": 0.0
+      },
+      "agent": {
+        "n": 3,
+        "correct": 3.0
+      }
+    },
+    "high_level": {
+      "closed": {
+        "n": 2,
+        "correct": 0.0
+      },
+      "once": {
+        "n": 2,
+        "correct": 1.0
+      },
+      "agent": {
+        "n": 2,
+        "correct": 1.0
+      }
+    },
+    "info_not_found": {
+      "closed": {
+        "n": 2,
+        "correct": 2.0
+      },
+      "once": {
+        "n": 2,
+        "correct": 2.0
+      },
+      "agent": {
+        "n": 2,
+        "correct": 2.0
+      }
+    },
+    "intra_document_reasoning": {
+      "closed": {
+        "n": 2,
+        "correct": 0.0
+      },
+      "once": {
+        "n": 2,
+        "correct": 1.0
+      },
+      "agent": {
+        "n": 2,
+        "correct": 2.0
+      }
+    },
+    "miscellaneous": {
+      "closed": {
+        "n": 2,
+        "correct": 0.0
+      },
+      "once": {
+        "n": 2,
+        "correct": 2.0
+      },
+      "agent": {
+        "n": 2,
+        "correct": 2.0
+      }
+    },
+    "project_related": {
+      "closed": {
+        "n": 2,
+        "correct": 0.0
+      },
+      "once": {
+        "n": 2,
+        "correct": 0.0
+      },
+      "agent": {
+        "n": 2,
+        "correct": 0.0
+      }
+    },
+    "semantic": {
+      "closed": {
+        "n": 2,
+        "correct": 0.0
+      },
+      "once": {
+        "n": 2,
+        "correct": 0.0
+      },
+      "agent": {
+        "n": 2,
+        "correct": 2.0
+      }
+    }
+  },
+  "limitations": [
+    "One generation per condition, known stratified dev; does not estimate official 500-question distribution or official score.",
+    "Grounding prompt retained for closed-book: conservative no-retrieval control, not an unrestricted parametric-knowledge benchmark.",
+    "Agent max6 calls versus baseline max1; resource and evidence-access tradeoffs, not equal-compute superiority.",
+    "Once-RAG uses fixed natural question as query; stronger LLM query rewriting or reranked one-shot baselines are not tested.",
+    "No historical best hybrid rerun; old model, retrieval and budget differ."
+  ],
+  "source": {
+    "path": "runs/overnight-20261012/enterprise-comparison.json",
+    "sha256": "28f836139fbbf9f94f812c91331470afd716f3832b2cc9eb120ed6269253c13b"
+  },
+  "raw_detail": {
+    "path": "runs/evidence/enterprise-sol-dev24-20261013.json",
+    "sha256": "532d5ef60bf53b257d8630e12c13b59f4de50ba7e7b0d66ac35c489259811471"
+  }
+}

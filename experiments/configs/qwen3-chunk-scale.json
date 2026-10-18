@@ -1,0 +1,28 @@
+{
+  "experiment": "dense_scale",
+  "dataset": "enterprise",
+  "category": "semantic",
+  "evaluation_category": "all",
+  "fraction": 0.1,
+  "seed": "qwen3-chunk-scale-20261012",
+  "preserve_references": true,
+  "device": "mps",
+  "sample_output": "runs/qwen3-chunk-scale-20261012",
+  "full_output": "data/benchmarks/enterprise/corpus.qwen3-0.6b.dense",
+  "fusion": {
+    "method": "rrf",
+    "k": 60,
+    "candidates_per_retriever": 100,
+    "output_documents": 20
+  },
+  "gate": {
+    "metric": "recall@20",
+    "candidate": "hybrid",
+    "baseline": "bm25",
+    "category": "semantic",
+    "minimum_gain": 0.10,
+    "require_more_wins_than_losses": true,
+    "overall_minimum_gain": 0.0
+  },
+  "build_full_on_pass": true
+}

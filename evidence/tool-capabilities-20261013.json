@@ -1,0 +1,188 @@
+{
+  "kind": "known_dev24_tool_capability_comparison",
+  "model": "gpt-6.1-sol",
+  "complete": true,
+  "groups": {
+    "baseline": {
+      "planned": 24,
+      "completed": 24,
+      "correct": 21.0,
+      "accuracy": 0.875,
+      "result_status": {
+        "finished": 24
+      },
+      "generation_calls": 97,
+      "judge_calls": 24,
+      "generation_tokens": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 871808,
+        "input_tokens": 1795732,
+        "output_tokens": 13472,
+        "reasoning_output_tokens": 2032,
+        "total_tokens": 1809204
+      },
+      "judge_tokens": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 2816,
+        "input_tokens": 106792,
+        "output_tokens": 3571,
+        "reasoning_output_tokens": 1647,
+        "total_tokens": 110363
+      },
+      "search_calls": 102,
+      "read_calls": 25,
+      "toc_reads": 0,
+      "section_reads": 0,
+      "cases_using_toc_or_section": 0,
+      "observed_unique_documents": 609,
+      "observed_documents_with_sections": 270,
+      "observed_document_metadata_known": {
+        "date": 1,
+        "version": 0,
+        "superseded": 0
+      },
+      "metadata_observations": 0,
+      "metadata_known_fields": {
+        "date": 0,
+        "version": 0,
+        "superseded": 0
+      }
+    },
+    "document_tools": {
+      "planned": 24,
+      "completed": 24,
+      "correct": 21.0,
+      "accuracy": 0.875,
+      "result_status": {
+        "finished": 24
+      },
+      "generation_calls": 98,
+      "judge_calls": 24,
+      "generation_tokens": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 921472,
+        "input_tokens": 1933631,
+        "output_tokens": 13124,
+        "reasoning_output_tokens": 1749,
+        "total_tokens": 1946755
+      },
+      "judge_tokens": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 8448,
+        "input_tokens": 106714,
+        "output_tokens": 3543,
+        "reasoning_output_tokens": 1694,
+        "total_tokens": 110257
+      },
+      "search_calls": 108,
+      "read_calls": 20,
+      "toc_reads": 0,
+      "section_reads": 0,
+      "cases_using_toc_or_section": 0,
+      "observed_unique_documents": 709,
+      "observed_documents_with_sections": 320,
+      "observed_document_metadata_known": {
+        "date": 1,
+        "version": 0,
+        "superseded": 0
+      },
+      "metadata_observations": 783,
+      "metadata_known_fields": {
+        "date": 1,
+        "version": 0,
+        "superseded": 0
+      }
+    }
+  },
+  "paired": {
+    "wins": 0,
+    "losses": 0,
+    "ties": 24,
+    "gain": 0.0,
+    "paired_bootstrap95": [
+      0.0,
+      0.0
+    ]
+  },
+  "decision": "Keep document tools opt-in; no promotion. No accuracy gain, no section usage, sparse source metadata.",
+  "next_recommendation": "Offline corpus-terminology, rare-term and entity-discrimination tool evaluation, then >=24-case matched QA; no additional online arm in this round.",
+  "generation_input_increase": 0.0767926394361742,
+  "validation": {
+    "core_tests_passed": 58,
+    "core_and_related_migration_tests_passed": 84,
+    "isolated_wheel_demo": "passed",
+    "wheel_document_structure_included": true,
+    "wheel_experiments_excluded": true
+  },
+  "new_calls": 243,
+  "new_call_limit": 336,
+  "prior_closed_budget_calls": 498,
+  "all_tokens": {
+    "cache_write_input_tokens": 0,
+    "cached_input_tokens": 1804544,
+    "input_tokens": 3942869,
+    "output_tokens": 33710,
+    "reasoning_output_tokens": 7122,
+    "total_tokens": 3976579
+  },
+  "requests_reconciled": true,
+  "protocol": {
+    "model": "gpt-6.1-sol",
+    "calls_limit": 336,
+    "arms": [
+      "baseline",
+      "document_tools"
+    ],
+    "generation_effort": "high",
+    "max_generation_calls": 6,
+    "judge": "sol medium, same frozen references",
+    "context_chars": 4000,
+    "index": "unchanged full SQLite BM25",
+    "ordering": "Interleaved baseline/candidate per case",
+    "selection": "Exact prior frozen dev24; known development set, not untouched.",
+    "changed": "Tool response metadata and read toc/section capability only; no system prompt change."
+  },
+  "system_prompt_unchanged": true,
+  "core_loop_unchanged": true,
+  "gpu_used": false,
+  "sources": [
+    {
+      "path": "runs/tool-capabilities-20261013/calls.jsonl",
+      "sha256": "e01bc98202e79ac6c4a7d1d54e98277fdb747624b26fe10c45e21b821fa9eb1e"
+    },
+    {
+      "path": "runs/tool-capabilities-20261013/protocol.json",
+      "sha256": "ab4fc3af3564632bc2a451bcda18d904ca443c0961668a226bd7942b51dcc5e7"
+    },
+    {
+      "path": "experiments/overnight-20261012/cohort.json",
+      "sha256": "0ddad086ae95b97d7ae79c59833145d9a5259006df853f603d42b3e7c80fd304"
+    },
+    {
+      "path": "experiments/tool-capabilities-20261013/evaluate.py",
+      "sha256": "6a122f3678bb6403f8e12bb5d70e917b2c84d15ae26da4d326ebf9824131d74b"
+    },
+    {
+      "path": "experiments/tool-capabilities-20261013/finalize.py",
+      "sha256": "a7a6248b2e0427378779bad4f211847534b6e6dacd667ce601749f3ecabcfb0e"
+    },
+    {
+      "path": "src/minimal_rag/document_structure.py",
+      "sha256": "2dfecb74e2b1b7abd7a9935f3021c083586e8d89b1c1ea58d4bb1cfa47c34fa9"
+    },
+    {
+      "path": "src/minimal_rag/indexed_rag.py",
+      "sha256": "cbca4f8549a674d46f1cd85a9f79f3eb5cfe3751d9e773d0ed5a7a1987a6d171"
+    }
+  ],
+  "limits": [
+    "Known development questions, local sol judge, not an untouched benchmark or official score.",
+    "One generation per arm; paired bootstrap describes question sampling only, not repeat-generation variance. A zero-width interval for 24 ties does not prove a true population effect of zero.",
+    "Metadata availability depends on original source; null is unknown. No inferred source-date/version corrections.",
+    "Retains all planned outcomes; no best-of, gold changes or extra experimental arms."
+  ],
+  "raw_detail": {
+    "path": "runs/evidence/tool-capabilities-20261013.json",
+    "sha256": "36dc8e133870259c0b82333b513e735e498eb38a1013e20e7336f63290f49516"
+  }
+}

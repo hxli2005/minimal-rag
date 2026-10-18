@@ -1,0 +1,43 @@
+{
+  "version": "v3",
+  "status": "adopted",
+  "decision_basis": "explicit_user_acceptance_after_review",
+  "decided_at": "2026-10-15T19:12:03.967358-07:00",
+  "user_instruction": "v3可以通过，之前标准太严",
+  "previous_selection": "v0",
+  "current_best": "v3",
+  "night_anchor": "v0",
+  "scope": "Accept v3 as the current system and next optimization baseline; no new experiment or automation restart.",
+  "configuration": "experiments/system-v1-20261015/v3.json",
+  "original_dev_gate": "experiments/system-v1-20261015/v3-dev-gate.json",
+  "original_gate_passed": false,
+  "evidence": {
+    "enterprise_dev_correct": 82,
+    "enterprise_dev_n": 100,
+    "baseline_enterprise_dev_correct": 83,
+    "paired_wins": 3,
+    "paired_losses": 4,
+    "combined_delta_pp": -0.5,
+    "combined_bootstrap_95_pp": [
+      -3,
+      2
+    ],
+    "enterprise_uncached": 3126067,
+    "baseline_enterprise_uncached": 2988999,
+    "enterprise_missing_usage": 0,
+    "benefit": "Both primary benchmarks use the current adapter; Enterprise no longer restores the historical adapter."
+  },
+  "boundaries": {
+    "enterprise_test400": "not_run_for_v3",
+    "historical_enterprise_test400": {
+      "version": "v0",
+      "correct": 324,
+      "n": 400
+    },
+    "browsecomp": "Same A configuration and reused answers as v0; existing official result remains attributed to A.",
+    "original_cost_gate": "undetermined; unchanged",
+    "global_numeric_gate_change": null,
+    "future_new_experiments_authorized": false
+  },
+  "new_model_requests": 0
+}

@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "n": 3,
+  "tool_calls": 20,
+  "max_search_excerpt_chars": 800,
+  "judge_valid": true,
+  "citations_seen": true,
+  "score_not_used_for_assembly": true
+}

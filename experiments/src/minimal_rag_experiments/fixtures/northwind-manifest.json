@@ -1,0 +1,57 @@
+{
+  "dataset": "onyx-dot-app/EnterpriseRAG-Bench",
+  "revision": "69916e31c68aa5963c00248fd7f0bc12d04fd235",
+  "documents": 11,
+  "source_corpus_documents": 511962,
+  "source_kind": "released synthetic-company benchmark documents",
+  "license_metadata": "MIT; see upstream dataset README",
+  "source_url": "https://huggingface.co/datasets/onyx-dot-app/EnterpriseRAG-Bench",
+  "selection": "Two fixed BM25 queries against the original full corpus; this small exported illustration is not a full-corpus evaluation. No question labels or gold answers are included.",
+  "queries": [
+    {
+      "arguments": {
+        "query": "Northwind L40S",
+        "all_terms": true,
+        "limit": 6
+      },
+      "returned_ids": [
+        "dsid_db83694d8fbe459dac9964665ab38ca9",
+        "dsid_f5db113b21114efe8f65c736ab8319ac",
+        "dsid_47be1728c0f14038af3d711575245ba8",
+        "dsid_abfb68dde21f4fd2aa7d70c472447f89",
+        "dsid_8761a5900a7f422e8a2606576740f2bc",
+        "dsid_21066424d3cc4f3a956a77a7a5f5b0fb"
+      ]
+    },
+    {
+      "arguments": {
+        "query": "\"long-context\" \"prefill\" \"thresholds\"",
+        "all_terms": true,
+        "limit": 6
+      },
+      "returned_ids": [
+        "dsid_0f9c8d82259c4d5a95bc5865fc492919",
+        "dsid_ec4de529f7d94415919de9949d8bf89a",
+        "dsid_bf43b17034b0470382a95a02d30d8ec6",
+        "dsid_18ac88b8d1ce4470a99abeebfca95cd4",
+        "dsid_4c9d333f4d414e6fae72bcfc28266021",
+        "dsid_abfb68dde21f4fd2aa7d70c472447f89"
+      ]
+    }
+  ],
+  "fixture_sha256": "e3ee70a3169da6fddf15d0dc8dd9a1fe99618c63a4686b87b5c3289d85f019d4",
+  "source_records": {
+    "dsid_db83694d8fbe459dac9964665ab38ca9": "ee698e9c3d0e8db6c4cf53c1dc2e8350d91d67286b0ca8e264e5bd7d9fcb1727",
+    "dsid_f5db113b21114efe8f65c736ab8319ac": "357d7a7d57dab40e4b1c5ee0204fd00bd5ba8ef1925606322fc1aebd94b7678f",
+    "dsid_47be1728c0f14038af3d711575245ba8": "29c3cd76bce3147e48a23eef1dfbeca5b6929012167a95c6102f70cf7c86a235",
+    "dsid_abfb68dde21f4fd2aa7d70c472447f89": "8820c4360f725a520a976480cf548f8217246f88ae0788197ca8c92ea3325a8e",
+    "dsid_8761a5900a7f422e8a2606576740f2bc": "1f175868351f442353a8fb2c177b205988f5cc5720d0c38b795090cfbc4713c2",
+    "dsid_21066424d3cc4f3a956a77a7a5f5b0fb": "ead475768b254333791b8d556143a52b2990271664e41f08b40851d8d8174638",
+    "dsid_0f9c8d82259c4d5a95bc5865fc492919": "aa6b3de513e02de604f74e792d8fcd96abcc439b13816ca270aa9a3a02660517",
+    "dsid_ec4de529f7d94415919de9949d8bf89a": "b271a11e0e7df724faa59624d762faafa87c9c6b36d79999ca23d691e0b3d534",
+    "dsid_bf43b17034b0470382a95a02d30d8ec6": "675e97706c64007328e080d0a6a4dbefd852a69f6139f8c0b44f195f70566a77",
+    "dsid_18ac88b8d1ce4470a99abeebfca95cd4": "0f8d7b7d66e6d2a4554969e0b61107de88df6195b31d5a4ec24cc1230f7b8c19",
+    "dsid_4c9d333f4d414e6fae72bcfc28266021": "4a44726aed7ce8e989845893812e253a366a6f46288ed29ee186188baf8c5ad1"
+  },
+  "quality_status": "Known curated demonstration, not an unseen test."
+}

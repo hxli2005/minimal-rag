@@ -1,0 +1,58 @@
+{
+  "A": {
+    "answers": 30,
+    "finished": 30,
+    "model_requests": 270,
+    "model_calls_per_question": {
+      "7": 4,
+      "5": 3,
+      "10": 1,
+      "9": 2,
+      "6": 6,
+      "3": 1,
+      "11": 2,
+      "8": 5,
+      "12": 1,
+      "4": 2,
+      "30": 1,
+      "23": 1,
+      "25": 1
+    },
+    "missing_generation_usage": 0,
+    "new_tool_paths_checked": 0,
+    "tool_names": [
+      "read",
+      "search"
+    ]
+  },
+  "B": {
+    "answers": 30,
+    "finished": 30,
+    "model_requests": 271,
+    "model_calls_per_question": {
+      "8": 4,
+      "5": 4,
+      "13": 2,
+      "3": 1,
+      "11": 2,
+      "21": 1,
+      "6": 8,
+      "14": 1,
+      "7": 2,
+      "9": 2,
+      "27": 1,
+      "16": 1,
+      "10": 1
+    },
+    "missing_generation_usage": 0,
+    "new_tool_paths_checked": 1853,
+    "tool_names": [
+      "Grep",
+      "read",
+      "search"
+    ]
+  },
+  "valid_first_judgements": 60,
+  "identical_reference_pairs": 30,
+  "framework_bm25_adapter_unchanged": true
+}

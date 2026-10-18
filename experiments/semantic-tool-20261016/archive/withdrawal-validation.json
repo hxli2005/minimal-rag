@@ -1,0 +1,18 @@
+{
+  "checked_at": 1792230314.1788092,
+  "targeted_tests": {
+    "command": ".venv/bin/python -m pytest -q tests experiments/tests/test_benchmark.py",
+    "passed": 48
+  },
+  "semantic_module_importable": false,
+  "clean_wheel": "minimal_rag-0.1.0-py3-none-any.whl",
+  "clean_wheel_excludes_semantic_tool": true,
+  "clean_wheel_excludes_experiment_package": true,
+  "frozen_core_source_unchanged": [
+    "codex_adapter.py",
+    "indexed_rag.py",
+    "loop.py",
+    "rag_judge.py",
+    "benchmark_metrics.py"
+  ]
+}

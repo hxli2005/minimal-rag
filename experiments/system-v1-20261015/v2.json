@@ -1,0 +1,22 @@
+{
+  "version": "v2",
+  "reuse": {
+    "browsecomp_dev": "data/benchmarks/browsecomp-plus/full-20261015/A"
+  },
+  "enterprise": {
+    "adapter": "historical",
+    "retrieval": "hybrid",
+    "excerpt_chars": 2000,
+    "variant": "v6-e2000"
+  },
+  "browsecomp": {
+    "adapter": "current",
+    "retrieval": "bm25",
+    "excerpt_chars": 2000
+  },
+  "parent": "v0",
+  "change": "保留v0检索/适配器，仅统一search摘录2000字符",
+  "benefit": "Measured lower primary uncached input, subject to all frozen gates",
+  "expected_requests": 2750,
+  "expected_seconds": 4800
+}

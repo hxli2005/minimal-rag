@@ -1,0 +1,81 @@
+{
+  "evaluation_finished": true,
+  "passed_benchmarks": 1,
+  "benchmark_count": 3,
+  "threshold_source": "experiments/sota-20261014/brief.md",
+  "known_regression_test_cases": 600,
+  "formal_cases_including_dev": 700,
+  "unique_cases_including_smoke": 704,
+  "finished_generation": 702,
+  "timeout_cases": 2,
+  "request_totals": {
+    "generation_requests": 2769,
+    "judge_requests": 600,
+    "sol_requests": 3369,
+    "failed_requests": 2,
+    "judge_retry_requests": 0
+  },
+  "counts_by_run": {
+    "enterprise-dev": {
+      "requested": 100,
+      "completed": 100,
+      "generation_finished": 100,
+      "sol_requests": 513,
+      "failed_requests": 0
+    },
+    "enterprise-test": {
+      "requested": 400,
+      "completed": 398,
+      "generation_finished": 398,
+      "sol_requests": 2228,
+      "failed_requests": 2
+    },
+    "financebench-test": {
+      "requested": 100,
+      "completed": 100,
+      "generation_finished": 100,
+      "sol_requests": 385,
+      "failed_requests": 0
+    },
+    "hotpotqa-test": {
+      "requested": 100,
+      "completed": 100,
+      "generation_finished": 100,
+      "sol_requests": 229,
+      "failed_requests": 0
+    },
+    "smoke-financebench": {
+      "requested": 2,
+      "completed": 2,
+      "generation_finished": 2,
+      "sol_requests": 8,
+      "failed_requests": 0
+    },
+    "smoke-hotpotqa": {
+      "requested": 2,
+      "completed": 2,
+      "generation_finished": 2,
+      "sol_requests": 6,
+      "failed_requests": 0
+    }
+  },
+  "all_request_caps_respected": true,
+  "enterprise_smoke_reused_without_regeneration": true,
+  "passed": {
+    "enterprise-test": false,
+    "financebench-test": true,
+    "hotpotqa-test": false
+  },
+  "source_sha256": {
+    "experiments/sota-20261014/enterprise-dev-summary.json": "9edbf595cb559265971907f80017dd8241329421487d57f7831277619f2d9311",
+    "experiments/sota-20261014/enterprise-test-summary.json": "3254ece573d36bdcf75b67a639affe4e6ff476341dc130e67adcd0420de42c08",
+    "experiments/sota-20261014/financebench-test-summary.json": "ab8d7c3a6123f2f24738c5c69f7743d282f903fed130cc026073ce8b35997cc0",
+    "experiments/sota-20261014/hotpotqa-test-summary.json": "3ce91c7740d54189195d0a2574d1af65631065e245649e91aa4eae6d6eaa7a11"
+  },
+  "limitations": [
+    "All application attempts counted, including two failures; underlying SDK HTTP retries are unobservable.",
+    "Enterprise timeout cases remain in the 400 denominator. Their missing token usage is not estimated.",
+    "Local common judge and known regression cohorts; no official leaderboard/SOTA claim.",
+    "Paired intervals cover question-level variation, not generation/judge rerun variation."
+  ]
+}

@@ -1,0 +1,108 @@
+{
+  "kind": "read_only_capacity_probe_not_final_sentence_index",
+  "date": "2026-10-12",
+  "source_commit": "a12be3a",
+  "corpus": {
+    "path": "data/benchmarks/enterprise/corpus.sqlite",
+    "read_only": true,
+    "documents": 511962,
+    "characters_exact_sql": 2464904317,
+    "character_count_sql": "SELECT COUNT(*), SUM(length(text)), MIN(length(text)), MAX(length(text)) FROM documents",
+    "min_chars": 0,
+    "max_chars": 41317,
+    "count_scan_seconds": 29.314008332963567,
+    "bytes": 8518115328
+  },
+  "sample": {
+    "method": "Python Random(20261012).sample from contiguous rowids 1..511962; 4096 documents",
+    "seed": 20261012,
+    "documents": 4096,
+    "characters": 19862702,
+    "rowids_sha256": "30c81c9aa08f0681584417a3b8c10a56778a9b40da89d51606ecb0380df2bdd1",
+    "document_ids_sha256": "d70f1c3ad51f5566a56f941a2891842ad5cc000c22ade43cfa78486ab5238fcc",
+    "seconds": 0.9388504579546861
+  },
+  "approximations": {
+    "punctuation_whitespace": {
+      "regex": "(?<=[.!?。！？])\\s+",
+      "sample_units": 141918,
+      "mean_units_per_document": 34.64794921875,
+      "estimated_full_units": 17738433
+    },
+    "line_or_punctuation": {
+      "regex": "\\r?\\n+|(?<=[.!?。！？])[^\\S\\r\\n]+",
+      "sample_units": 190481,
+      "mean_units_per_document": 46.504150390625,
+      "estimated_full_units": 23808358
+    }
+  },
+  "assumed_units_for_storage_scenarios": 24000000,
+  "storage_scenarios": [
+    {
+      "dimension": 2560,
+      "bytes_per_component": 4,
+      "bytes": 245760000000,
+      "GB": 245.76,
+      "GiB": 228.8818359375
+    },
+    {
+      "dimension": 1024,
+      "bytes_per_component": 4,
+      "bytes": 98304000000,
+      "GB": 98.304,
+      "GiB": 91.552734375
+    },
+    {
+      "dimension": 512,
+      "bytes_per_component": 2,
+      "bytes": 24576000000,
+      "GB": 24.576,
+      "GiB": 22.88818359375
+    },
+    {
+      "dimension": 256,
+      "bytes_per_component": 2,
+      "bytes": 12288000000,
+      "GB": 12.288,
+      "GiB": 11.444091796875
+    }
+  ],
+  "online_call_ceiling_scenarios": [
+    {
+      "questions": 2,
+      "arms": 2,
+      "generation_cap": 4,
+      "judge_cap_per_answer": 1,
+      "total_outer_call_cap": 20,
+      "planned_or_executed": false
+    },
+    {
+      "questions": 50,
+      "arms": 2,
+      "generation_cap": 12,
+      "judge_cap_per_answer": 1,
+      "total_outer_call_cap": 1300,
+      "planned_or_executed": false
+    },
+    {
+      "questions": 100,
+      "arms": 2,
+      "generation_cap": 12,
+      "judge_cap_per_answer": 1,
+      "total_outer_call_cap": 2600,
+      "planned_or_executed": false
+    }
+  ],
+  "new_model_calls": 0,
+  "new_embeddings": 0,
+  "limits": [
+    "Regexes are rough counting proxies, not the planned production sentence splitter.",
+    "Counts depend on how line-oriented records, abbreviations, lists and code are handled.",
+    "No SSD bandwidth or model encoding throughput was measured.",
+    "Storage arithmetic excludes metadata, temporary build space and model weights."
+  ],
+  "raw_detail": {
+    "path": "runs/evidence/sentence-capacity-probe-20261012.json",
+    "sha256": "dd5e28de28fcbf859995418b0d0d797fb9c9744ca1d2957277dc113aa90cf7d0"
+  }
+}

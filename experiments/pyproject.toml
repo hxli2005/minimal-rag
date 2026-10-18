@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "minimal-rag-experiments"
+version = "0.1.0"
+description = "Optional retrieval variants and benchmark tooling for Minimal RAG"
+requires-python = ">=3.12"
+dependencies = ["minimal-rag==0.1.0"]
+
+[project.optional-dependencies]
+test = ["numpy==2.5.3"]
+historical = ["numpy==2.5.3", "sentence-transformers==5.7.0", "transformers==5.18.0", "huggingface-hub==1.33.0", "torch==2.14.1"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+minimal_rag_experiments = ["fixtures/*.jsonl", "fixtures/*.json"]

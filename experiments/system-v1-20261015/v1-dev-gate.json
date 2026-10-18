@@ -1,0 +1,91 @@
+{
+  "version": "v1",
+  "current_best": "v0",
+  "night_anchor": "v0",
+  "stage": "dev",
+  "comparisons": {
+    "current_best": {
+      "passed": false,
+      "status": "undetermined",
+      "per_benchmark": {
+        "enterprise": {
+          "n": 100,
+          "candidate_correct": 79,
+          "baseline_correct": 83,
+          "delta_pp": -4.0,
+          "wins": 2,
+          "losses": 6,
+          "ties": 92
+        },
+        "browsecomp": {
+          "n": 100,
+          "candidate_correct": 96,
+          "baseline_correct": 93,
+          "delta_pp": 3.0,
+          "wins": 4,
+          "losses": 1,
+          "ties": 95
+        }
+      },
+      "delta_pp": -0.5000000000000001,
+      "bootstrap_95_pp": [
+        -4.0,
+        3.0
+      ],
+      "cost_ratio": null,
+      "cost_ratio_kind": "undetermined",
+      "recorded_cost_ratio_diagnostic": 0.9087843985663191,
+      "candidate_missing_usage": 1,
+      "baseline_missing_usage": 1,
+      "candidate_uncached": 8609638,
+      "baseline_uncached": 9473796,
+      "quality_passed": false,
+      "cost_passed": false
+    },
+    "night_anchor": {
+      "passed": false,
+      "status": "undetermined",
+      "per_benchmark": {
+        "enterprise": {
+          "n": 100,
+          "candidate_correct": 79,
+          "baseline_correct": 83,
+          "delta_pp": -4.0,
+          "wins": 2,
+          "losses": 6,
+          "ties": 92
+        },
+        "browsecomp": {
+          "n": 100,
+          "candidate_correct": 96,
+          "baseline_correct": 93,
+          "delta_pp": 3.0,
+          "wins": 4,
+          "losses": 1,
+          "ties": 95
+        }
+      },
+      "delta_pp": -0.5000000000000001,
+      "bootstrap_95_pp": [
+        -4.0,
+        3.0
+      ],
+      "cost_ratio": null,
+      "cost_ratio_kind": "undetermined",
+      "recorded_cost_ratio_diagnostic": 0.9087843985663191,
+      "candidate_missing_usage": 1,
+      "baseline_missing_usage": 1,
+      "candidate_uncached": 8609638,
+      "baseline_uncached": 9473796,
+      "quality_passed": false,
+      "cost_passed": false
+    }
+  },
+  "commit": "8bbc7e0d680807b43a6c05da77247f27e9e0381d",
+  "updated": "2026-10-15T10:58:12.488213-07:00",
+  "counts": {
+    "total": 686,
+    "exploration": 686,
+    "openrouter": 0
+  }
+}

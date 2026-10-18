@@ -1,0 +1,39 @@
+{
+  "date": "2026-10-13",
+  "kind": "official_prompt_compatibility_only",
+  "model": "gpt-6.1-sol",
+  "n": 4,
+  "correct": 4,
+  "all_facts_supported": true,
+  "model_calls": 29,
+  "upstream_source": {
+    "repository": "https://github.com/onyx-dot-app/EnterpriseRAG-Bench",
+    "revision": "d36685e273713975ee20299bbf1ab64165575b3c",
+    "sources": {
+      "src/prompts/answer_evaluation.py": {
+        "url": "https://raw.githubusercontent.com/onyx-dot-app/EnterpriseRAG-Bench/d36685e273713975ee20299bbf1ab64165575b3c/src/prompts/answer_evaluation.py",
+        "sha256": "46a400be52ddead8605c5e0845e4e2c1e5fca1037a08e157eae5fd747f27aeab"
+      },
+      "LICENSE": {
+        "url": "https://raw.githubusercontent.com/onyx-dot-app/EnterpriseRAG-Bench/d36685e273713975ee20299bbf1ab64165575b3c/LICENSE",
+        "sha256": "9eab95dae84867fa8ba1450e4bf34addf74e841923f4b6877f4d2df82bed3508"
+      }
+    },
+    "downloaded_on": "2026-10-12",
+    "model_calls": 0
+  },
+  "limitations": [
+    "Fixed first4 successful known-dev answers, not official benchmark quality.",
+    "Sol Codex outer protocol differs from upstream default OpenAI gpt-5.4 transport.",
+    "No citation stripping, consensus document correction or gold rewriting.",
+    "First4 contain no appended duplicate aliases; export nevertheless preserves local-to-official ID mapping for future use."
+  ],
+  "source": {
+    "path": "runs/overnight-20261012/official-summary.json",
+    "sha256": "0d67d0e2310e6ddaa9ad837fdeb3691cd3179a52c328a2fd73ff3e4e0ce4b470"
+  },
+  "raw_detail": {
+    "path": "runs/evidence/official-prompt-compatibility-20261013.json",
+    "sha256": "75d5b2a8cb1f77a905d2ded25b645daf530b587c124ad36022f16a88a8280390"
+  }
+}

@@ -1,0 +1,2 @@
+# Preserve whitespace in the byte-identical archived model report and its sources.
+examples/real-run/report.html -whitespace

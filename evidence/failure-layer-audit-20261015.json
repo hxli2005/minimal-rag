@@ -1,0 +1,389 @@
+{
+  "kind": "read_only_replication_and_exposure_audit",
+  "new_model_calls": 0,
+  "source_version": "v0/sota-20261014 Enterprise test400, not v3",
+  "local": {
+    "n": 400,
+    "correct": 324,
+    "wrong": 76,
+    "incorrect_partial_fact_support": 56,
+    "partial_all_reference_ids_seen": 30,
+    "wrong_loss_pp": 19.0,
+    "correct_incomplete_loss_pp": 1.8412826153315285,
+    "all_reference_text_exposed_in_selected30": 22,
+    "partial_reference_text_exposed_in_selected30": 8,
+    "source_slice_mismatches": 0,
+    "alias_variant_slices": 0
+  },
+  "public": {
+    "source": "c4b7d6ed680f16770c498583ebcba1cd63c30470",
+    "all_n": 34,
+    "all_spearman": 0.4872421695951108,
+    "top10_keys": [
+      "flexor",
+      "cdl",
+      "mixedbread",
+      "neurond_ai",
+      "prism",
+      "metor",
+      "znv",
+      "skyllerai",
+      "persona",
+      "troml"
+    ],
+    "top10_spearman": 0.3939393939393939,
+    "top10_pairs": {
+      "discordant_pairs": 3130,
+      "counts": {
+        "shorter": 1614,
+        "longer": 1515,
+        "equal": 1
+      },
+      "fraction_correct_answer_longer": 0.4840255591054313,
+      "distinct_questions": 195
+    },
+    "at_least74_n": 12,
+    "at_least74_spearman": 0.35664335664335667,
+    "at_least74_pairs": {
+      "discordant_pairs": 4852,
+      "counts": {
+        "shorter": 2457,
+        "longer": 2394,
+        "equal": 1
+      },
+      "fraction_correct_answer_longer": 0.4934047815333883,
+      "distinct_questions": 218
+    },
+    "systems": [
+      {
+        "key": "flexor",
+        "n": 500,
+        "median_chars": 1896.0,
+        "overall": 91.47926,
+        "corrected": 12
+      },
+      {
+        "key": "cdl",
+        "n": 500,
+        "median_chars": 8787.5,
+        "overall": 90.91236,
+        "corrected": 25
+      },
+      {
+        "key": "mixedbread",
+        "n": 500,
+        "median_chars": 1025.5,
+        "overall": 86.58296,
+        "corrected": 12
+      },
+      {
+        "key": "neurond_ai",
+        "n": 500,
+        "median_chars": 784.0,
+        "overall": 82.74434,
+        "corrected": 9
+      },
+      {
+        "key": "prism",
+        "n": 500,
+        "median_chars": 872.5,
+        "overall": 80.46202000000001,
+        "corrected": 21
+      },
+      {
+        "key": "metor",
+        "n": 500,
+        "median_chars": 3281.0,
+        "overall": 80.336,
+        "corrected": 16
+      },
+      {
+        "key": "znv",
+        "n": 500,
+        "median_chars": 2585.0,
+        "overall": 80.26010000000001,
+        "corrected": 18
+      },
+      {
+        "key": "skyllerai",
+        "n": 500,
+        "median_chars": 6304.0,
+        "overall": 79.30156,
+        "corrected": 16
+      },
+      {
+        "key": "persona",
+        "n": 500,
+        "median_chars": 636.5,
+        "overall": 77.1928,
+        "corrected": 20
+      },
+      {
+        "key": "troml",
+        "n": 500,
+        "median_chars": 421.0,
+        "overall": 76.7866,
+        "corrected": 18
+      },
+      {
+        "key": "nacre",
+        "n": 500,
+        "median_chars": 479.0,
+        "overall": 76.72825999999999,
+        "corrected": 10
+      },
+      {
+        "key": "ahoy",
+        "n": 500,
+        "median_chars": 2345.0,
+        "overall": 74.95166,
+        "corrected": 19
+      },
+      {
+        "key": "memondemand",
+        "n": 500,
+        "median_chars": 388.5,
+        "overall": 70.31168,
+        "corrected": 15
+      },
+      {
+        "key": "openclaw",
+        "n": 500,
+        "median_chars": 349.0,
+        "overall": 68.22074,
+        "corrected": 12
+      },
+      {
+        "key": "sovrarag",
+        "n": 500,
+        "median_chars": 479.5,
+        "overall": 65.60762,
+        "corrected": 19
+      },
+      {
+        "key": "fgroo",
+        "n": 500,
+        "median_chars": 679.5,
+        "overall": 63.26818,
+        "corrected": 20
+      },
+      {
+        "key": "openai_filesearch",
+        "n": 500,
+        "median_chars": 627.0,
+        "overall": 61.03232,
+        "corrected": 18
+      },
+      {
+        "key": "agent",
+        "n": 500,
+        "median_chars": 455.0,
+        "overall": 52.63212,
+        "corrected": 19
+      },
+      {
+        "key": "bm25",
+        "n": 500,
+        "median_chars": 166.0,
+        "overall": 50.59704,
+        "corrected": 1
+      },
+      {
+        "key": "ragflow",
+        "n": 500,
+        "median_chars": 1342.0,
+        "overall": 50.2446,
+        "corrected": 13
+      },
+      {
+        "key": "amazon_q_kendra",
+        "n": 500,
+        "median_chars": 762.0,
+        "overall": 48.96004,
+        "corrected": 14
+      },
+      {
+        "key": "azure_ai_search",
+        "n": 500,
+        "median_chars": 597.0,
+        "overall": 48.4156,
+        "corrected": 14
+      },
+      {
+        "key": "hrag",
+        "n": 500,
+        "median_chars": 404.0,
+        "overall": 44.74164,
+        "corrected": 17
+      },
+      {
+        "key": "cortexdb_kz",
+        "n": 500,
+        "median_chars": 366.5,
+        "overall": 42.04132,
+        "corrected": 21
+      },
+      {
+        "key": "vertexai",
+        "n": 500,
+        "median_chars": 1522.5,
+        "overall": 41.86814,
+        "corrected": 13
+      },
+      {
+        "key": "xfloor",
+        "n": 500,
+        "median_chars": 225.5,
+        "overall": 40.009339999999995,
+        "corrected": 15
+      },
+      {
+        "key": "nvidia_ai_blueprints",
+        "n": 500,
+        "median_chars": 173.0,
+        "overall": 37.7332,
+        "corrected": 20
+      },
+      {
+        "key": "vector",
+        "n": 500,
+        "median_chars": 179.0,
+        "overall": 37.7249,
+        "corrected": 2
+      },
+      {
+        "key": "anythingllm",
+        "n": 500,
+        "median_chars": 308.5,
+        "overall": 35.582300000000004,
+        "corrected": 17
+      },
+      {
+        "key": "weaviate_verba",
+        "n": 500,
+        "median_chars": 858.5,
+        "overall": 34.48158,
+        "corrected": 16
+      },
+      {
+        "key": "cymatix_context",
+        "n": 500,
+        "median_chars": 420.0,
+        "overall": 33.93074,
+        "corrected": 19
+      },
+      {
+        "key": "llamaindex_semantic_k2",
+        "n": 500,
+        "median_chars": 633.5,
+        "overall": 27.19848,
+        "corrected": 19
+      },
+      {
+        "key": "langchain",
+        "n": 500,
+        "median_chars": 1302.0,
+        "overall": 24.983880000000003,
+        "corrected": 14
+      },
+      {
+        "key": "owui_chroma",
+        "n": 500,
+        "median_chars": 591.0,
+        "overall": 24.890459999999997,
+        "corrected": 18
+      }
+    ]
+  },
+  "manual_check_summary": [
+    {
+      "id": "qst_0146",
+      "kind": "visible_fact_omitted",
+      "note": "Answer omits the background-worker handling and top-N/LRU details.",
+      "document_id": "dsid_7764c4d15ed141ecbeaaecf606098288",
+      "offset": 2077,
+      "end": 2357,
+      "fully_exposed": true
+    },
+    {
+      "id": "qst_0146",
+      "kind": "visible_fact_omitted",
+      "note": "Top-N and LRU policy was visible.",
+      "document_id": "dsid_7764c4d15ed141ecbeaaecf606098288",
+      "offset": 969,
+      "end": 1244,
+      "fully_exposed": true
+    },
+    {
+      "id": "qst_0461",
+      "kind": "reference_boundary",
+      "note": "Source says check smell/appearance then discard, as the candidate does; reference/judge additionally require if needed. Preserve original grade.",
+      "document_id": "dsid_22b0987227cd4fdb94d67e5a62bbde40",
+      "offset": 1301,
+      "end": 1598,
+      "fully_exposed": true
+    },
+    {
+      "id": "qst_0089",
+      "kind": "visible_fact_omitted_despite_partial_document",
+      "note": "Recent validator success condition was visible even though the entire document was not.",
+      "document_id": "dsid_426ca69578a84dd4af512e5a2782086e",
+      "offset": 544,
+      "end": 901,
+      "fully_exposed": true
+    },
+    {
+      "id": "qst_0378",
+      "kind": "visible_fact_omitted_or_confused_despite_partial_document",
+      "note": "The 14-day spend and 30-day compliance cooldowns were visible.",
+      "document_id": "dsid_2c8a0d14578d4789ae96d9f993d04ae1",
+      "offset": 6350,
+      "end": 6720,
+      "fully_exposed": true
+    },
+    {
+      "id": "qst_0378",
+      "kind": "visible_fact_omitted_or_confused_despite_partial_document",
+      "note": "The 2+ sessions/48h or supporting-event gate was visible.",
+      "document_id": "dsid_7a516d063b50468fa0d1a543ece71e1b",
+      "offset": 1050,
+      "end": 1400,
+      "fully_exposed": true
+    },
+    {
+      "id": "qst_0380",
+      "kind": "visible_fact_confused_despite_partial_document",
+      "note": "The standardized header name and semicolon k=v payload were visible.",
+      "document_id": "dsid_3e7cf5be42d84f2880858c726b65998f",
+      "offset": 4020,
+      "end": 4420,
+      "fully_exposed": true
+    },
+    {
+      "id": "qst_0373",
+      "kind": "reference_boundary",
+      "note": "The source escalates to the Duty Manager at the second checkpoint; the reference/judge require both checkpoints. Preserve original grade.",
+      "document_id": "dsid_16996cd96c1c4fa1ab399cbc446b186f",
+      "offset": 5650,
+      "end": 6120,
+      "fully_exposed": true
+    },
+    {
+      "id": "qst_0342",
+      "kind": "specific_reference_passage_unseen",
+      "note": "Explicit prohibition on disclosing exact outage thresholds is outside returned intervals in this reference; this does not prove absence of all semantic alternatives.",
+      "document_id": "dsid_86b915e7a2a3492c82224174383cd9f9",
+      "offset": 2928,
+      "end": 3216,
+      "fully_exposed": false
+    }
+  ],
+  "limits": [
+    "The 22 fully exposed cases are not automatically 22 answer-layer failures; reference support, semantic correctness and judgement boundaries remain to be audited.",
+    "The 8 partially exposed cases are not automatically reading failures; important facts can be inside returned spans.",
+    "The 30/400=7.5pp count is a cohort size, not an achievable gain estimate.",
+    "Observed same-question comparisons still vary model, retrieval, evidence and sometimes corrected reference; pair observations are dependent.",
+    "Only two particular prompts were tested on small known samples; these trials cannot establish that prompt-only methods are universally ineffective."
+  ],
+  "raw_detail": "runs/failure-layer-audit-20261015/"
+}

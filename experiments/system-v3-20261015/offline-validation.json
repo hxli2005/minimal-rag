@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "model_requests": 0,
+  "adapter": "src/minimal_rag/codex_adapter.py",
+  "retrieval_snapshot": "historical",
+  "identical_ast": [
+    "SYSTEM_PROMPT",
+    "PROTOCOL",
+    "CODEX_RAG_CONFIG",
+    "rag_codex_config",
+    "token_usage"
+  ],
+  "legacy_tool_schemas_identical": true,
+  "variant_format_judge_identical": true,
+  "browsecomp_reuse_A_config_identical": true,
+  "adapter_diff": "--- \n\n+++ \n\n@@ -3,4 +3,6 @@\n\n \n     def __init__(self, client, cwd, model='gpt-6.1-sol', timeout=90, as_of='2026-10-11', effort='medium', system_prompt=SYSTEM_PROMPT, max_calls=None):\n+        if max_calls is not None and (type(max_calls) is not int or max_calls < 1):\n+            raise ValueError('max_calls must be a positive integer or None')\n         self.client, self.cwd, self.model, self.timeout = (client, cwd, model, timeout)\n         self.as_of = as_of\n@@ -19,4 +21,6 @@\n\n         elif self._failed:\n             raise RuntimeError('failed conversation cannot be silently resumed')\n+        if self.max_calls is not None and self._calls >= self.max_calls:\n+            raise RuntimeError('model conversation call budget exhausted')\n         delta = messages if fresh else [m for m in messages[self._cursor:] if m['role'] != 'assistant']\n         payload = {'messages': delta}\n@@ -27,6 +31,10 @@\n\n         schema = Reply.model_json_schema()\n         schema['required'] = list(schema['properties'])\n+        final_call = self.max_calls is not None and self._calls == self.max_calls - 1\n+        if final_call:\n+            schema['properties']['tool_calls']['maxItems'] = 0\n+            payload['final_response_required'] = 'This is the last permitted model call. Return an answer from already observed evidence, or name the evidence still missing. No more tool requests are permitted; do not invent facts.'\n         wire = json.dumps(payload, ensure_ascii=False, separators=(',', ':'))\n-        record = {'status': 'started', 'transport': 'incremental-v1', 'request_chars': len(wire), 'sent_roles': [m['role'] for m in delta], 'usage': None}\n+        record = {'status': 'started', 'transport': 'incremental-v1', 'request_chars': len(wire), 'sent_roles': [m['role'] for m in delta], 'usage': None, 'final_response_required': final_call}\n         self.runs.append(record)\n         self._calls += 1\n@@ -59,3 +67,12 @@\n\n             self._failed = True\n             raise RuntimeError(f'本轮出现教学协议之外的Codex活动：{sorted(unexpected)}')\n+        if final_call:\n+            try:\n+                invalid_tools = bool(Reply.model_validate_json(result.final_response or '').tool_calls)\n+            except ValidationError:\n+                invalid_tools = False\n+            if invalid_tools:\n+                self._failed = True\n+                record.update(status='failed', error_type='FinalizationProtocolError')\n+                raise RuntimeError('final response attempted tool calls despite the exhausted call budget')\n         return result.final_response or ''",
+  "startup_incident": "First import-only launch failed before any model request; tool type relocation repaired without changing schemas."
+}

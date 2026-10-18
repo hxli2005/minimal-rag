@@ -1,0 +1,69 @@
+{
+  "kind": "offline_historical_official_format_export",
+  "date": "2026-10-13",
+  "model_calls": 0,
+  "generation_model": "gpt-6-astra (historical, no new generation)",
+  "variant": "v6",
+  "questions": 500,
+  "finished": 500,
+  "missing_as_empty_answer": true,
+  "unobserved_citation_cases": 0,
+  "unknown_citation_ids": [],
+  "unbound_parquet_versions": [],
+  "parquet": {
+    "path": "data/benchmarks/enterprise/source/data/documents/test.parquet",
+    "sha256": "6b0747bf160af9427b12101537d53056ac592ada9831c1a98ae01fa50a8d2a9f"
+  },
+  "alias_citation_cases": {
+    "count": 1,
+    "detail": "See raw_detail"
+  },
+  "answers": {
+    "path": "evidence/historical-enterprise-500-answers.jsonl",
+    "sha256": "4942de2a0bdf8b245acbb26309489d56a4bfb99184ec5f8a965c487de32a80bf"
+  },
+  "sources": [
+    {
+      "path": "data/benchmarks/enterprise/dev.json",
+      "sha256": "423486e3ff043405c3c9a0e958fe903b43a57c55703b64753b39a90fe8f7d23f"
+    },
+    {
+      "path": "data/benchmarks/optimization-20261011/runs/enterprise-dev100-hybrid-minilm-wide/config.json",
+      "sha256": "1d10fc4d419152619ebc99bee3db82324b41cb8f710f8f1dbbda3106e178e8b9"
+    },
+    {
+      "path": "data/benchmarks/optimization-20261011/runs/enterprise-dev100-hybrid-minilm-wide/summary.json",
+      "sha256": "99379ae8679c6bc0ada547b59193f2fea6c78af2b55687950d3efc43b5f514e2"
+    },
+    {
+      "path": "data/benchmarks/enterprise/test.json",
+      "sha256": "15128ac27b0463f08f14433bd122755bf94956b3c25bce1e20b8260d0eea9d28"
+    },
+    {
+      "path": "data/benchmarks/optimization-20261011/holdout/enterprise/config.json",
+      "sha256": "42a85337eecd8a58bd1173bed2ea98cfadfab88440fb7528d0e7e28545455d70"
+    },
+    {
+      "path": "data/benchmarks/optimization-20261011/holdout/enterprise/summary.json",
+      "sha256": "ef3d2d13fe672c8c29d80b422213fe936f2794eddc230f3e80195bae17d85d41"
+    },
+    {
+      "path": "data/benchmarks/enterprise/duplicate-id-aliases.json",
+      "sha256": "75c103812f3614d64ddc95842f81ee8fec880343435457a080604c199604101c"
+    }
+  ],
+  "limits": [
+    "No new score, official evaluation or submission; historical local scores unchanged.",
+    "Retains the exact native answer, including in-text citations. Upstream citation removal has not run.",
+    "Canonical export collapses four aliases; each mapped text is bound to its release-Parquet row, not an upstream Git JSON filename.",
+    "The upstream UUID traversal mapping must still be aligned before evaluation; this is the local corpus mapping.",
+    "All500 questions are now known regression questions, not an untouched holdout."
+  ],
+  "cited_local_documents": 899,
+  "cited_official_ids": 898,
+  "bound_document_versions": 905,
+  "raw_detail": {
+    "path": "runs/evidence/official-history-export-20261013.json",
+    "sha256": "1fc31f2e23937e4e95d0a3eeec0c781c8423e0cd0bb9d0e1a6b328cbb78c19d1"
+  }
+}

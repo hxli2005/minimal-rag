@@ -1,0 +1,38 @@
+{
+  "panel": {
+    "enterprise": {
+      "n": 30,
+      "correct": 26,
+      "uncached": 779690,
+      "missing_usage": 0
+    },
+    "browsecomp": {
+      "n": 30,
+      "correct": 28,
+      "uncached": 2290263,
+      "missing_usage": 0
+    }
+  },
+  "dev": {
+    "enterprise": {
+      "n": 100,
+      "correct": 83,
+      "uncached": 2988999,
+      "missing_usage": 0
+    },
+    "browsecomp": {
+      "n": 100,
+      "correct": 93,
+      "uncached": 6484797,
+      "missing_usage": 1
+    }
+  },
+  "test": {
+    "enterprise": {
+      "n": 400,
+      "correct": 324,
+      "uncached": 13845153,
+      "missing_usage": 2
+    }
+  }
+}

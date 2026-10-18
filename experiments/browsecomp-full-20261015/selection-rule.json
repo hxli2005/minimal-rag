@@ -1,0 +1,8 @@
+{
+  "only_candidate": "A-lean",
+  "excerpt_chars": 800,
+  "minimum_uncached_token_reduction": 0.4,
+  "maximum_losses_minus_wins": 2,
+  "require_complete_paired_dev100_and_usage": true,
+  "fallback": "A"
+}

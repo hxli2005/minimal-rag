@@ -1,0 +1,9 @@
+{
+  "verified_documents": 511962,
+  "source_documents": 511962,
+  "catalog_documents": 511962,
+  "max_chars": 41317,
+  "documents_with_NUL": 37,
+  "all_original_text_equal": true,
+  "seconds": 77.18410591699649
+}

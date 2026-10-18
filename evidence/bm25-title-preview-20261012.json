@@ -1,0 +1,145 @@
+{
+  "kind": "bm25_title_pointer_discoverability_and_two_case_selection",
+  "date": "2026-10-12",
+  "scope": "Summary only; per-question observations, traces and control records are in the ignored runs directory.",
+  "conclusion": "标题预览对 semantic 类帮助很小（全量语料 36%→44%），替代不了向量检索；下一步推进 Qwen3-0.6B。",
+  "configuration": {
+    "retrieval": "SQLite FTS5 BM25, porter unicode61, title/body weights 2/1",
+    "primary_hits": 5,
+    "title_previews": 15,
+    "query": "unmodified original question",
+    "known_development_set": true
+  },
+  "offline": {
+    "small": {
+      "documents": 4646,
+      "questions": 100,
+      "completed": 100,
+      "scored": 94,
+      "semantic_questions": 25,
+      "groups": {
+        "all": {
+          "questions": 100,
+          "scored": 94,
+          "no_gold": 6,
+          "body_document_recall": 0.6104609929078014,
+          "body_plus_title_discovery_recall": 0.8090425531914893,
+          "all_gold_body": 0.5425531914893617,
+          "all_gold_discoverable": 0.7659574468085106,
+          "additional_gold_occurrences_in_titles": 29,
+          "questions_with_additional_gold_in_titles": 24
+        },
+        "semantic": {
+          "questions": 25,
+          "scored": 25,
+          "no_gold": 0,
+          "body_document_recall": 0.32,
+          "body_plus_title_discovery_recall": 0.52,
+          "all_gold_body": 0.32,
+          "all_gold_discoverable": 0.52,
+          "additional_gold_occurrences_in_titles": 5,
+          "questions_with_additional_gold_in_titles": 5
+        }
+      },
+      "mean_body_chars": 18540.22,
+      "mean_preview_overhead_chars": 4665.19,
+      "source_summary": "runs/bm25-title-preview-dev100-20261012/small/summary.json",
+      "source_records": "runs/bm25-title-preview-dev100-20261012/small/records.json"
+    },
+    "full": {
+      "documents": 511962,
+      "questions": 100,
+      "completed": 100,
+      "scored": 94,
+      "semantic_questions": 25,
+      "groups": {
+        "all": {
+          "questions": 100,
+          "scored": 94,
+          "no_gold": 6,
+          "body_document_recall": 0.6184397163120567,
+          "body_plus_title_discovery_recall": 0.7859929078014184,
+          "all_gold_body": 0.5531914893617021,
+          "all_gold_discoverable": 0.7446808510638298,
+          "additional_gold_occurrences_in_titles": 26,
+          "questions_with_additional_gold_in_titles": 22
+        },
+        "semantic": {
+          "questions": 25,
+          "scored": 25,
+          "no_gold": 0,
+          "body_document_recall": 0.36,
+          "body_plus_title_discovery_recall": 0.44,
+          "all_gold_body": 0.36,
+          "all_gold_discoverable": 0.44,
+          "additional_gold_occurrences_in_titles": 2,
+          "questions_with_additional_gold_in_titles": 2
+        }
+      },
+      "mean_body_chars": 18541.81,
+      "mean_preview_overhead_chars": 4544.54,
+      "source_summary": "runs/bm25-title-preview-dev100-20261012/full/summary.json",
+      "source_records": "runs/bm25-title-preview-dev100-20261012/full/records.json"
+    }
+  },
+  "online": {
+    "complete": true,
+    "questions": 2,
+    "case_arms": 4,
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "generation_calls": 13,
+    "generation_call_cap": 16,
+    "judge_calls": 0,
+    "totals_by_arm": {
+      "plain": {
+        "generation_calls": 6,
+        "input_tokens": 61409,
+        "cached_input_tokens": 21632,
+        "output_tokens": 456,
+        "seconds": 49.3797872920004,
+        "documents_read_from_unread_titles": 0
+      },
+      "preview": {
+        "generation_calls": 7,
+        "input_tokens": 79782,
+        "cached_input_tokens": 14336,
+        "output_tokens": 631,
+        "seconds": 54.15205233300003,
+        "documents_read_from_unread_titles": 2
+      }
+    },
+    "preview_input_token_increase_fraction": 0.29919067237701324,
+    "observations": "两题未增加参考文档读取覆盖，预览组读到两个额外非参考文档；不作整体答案质量结论。",
+    "source_summary": "runs/bm25-title-preview-online2-20261012/summary.json"
+  },
+  "source_hashes": {
+    "small_summary": "bd06ba5f6d0b715ec0aedd1d4fafc5eee11db32c8e8f2890ceb5d1b0d1076d17",
+    "small_records": "5453e4dde303be75c17393da54de69e1ad2c9768f4e8d62a2907fb45ecc9dc61",
+    "full_summary": "46538417ce1c9dedf29aa7cde983e856563c7abc87f85c804f4e3e6813312102",
+    "full_records": "4bbfbf24943ce08689798035144a5747f3fe238c551f517a72ee6d4efeaba65a",
+    "online_summary": "03b48e34e043bdf53dd5af2a7876b6b485902bc5b5d00652acb95e4c1555664f"
+  },
+  "details": {
+    "path": "runs/bm25-title-preview-20261012/full-evidence.json",
+    "sha256": "7272f88bf718c71debe9befd83a0dd6f213f95e25e75272b36fd065cd7a7c62a",
+    "bytes": 458223,
+    "contains": [
+      "offline per-question records",
+      "online case rows and quota ledger",
+      "model answers and tool traces",
+      "literal-name observations"
+    ],
+    "tracked_by_git": false
+  },
+  "notes": [
+    "Title discoverability is not body evidence, improved ranking or answer accuracy.",
+    "The two-case single-draw comparison is an interface/selection diagnostic, not a quality estimate.",
+    "Current BM25 uses porter and title/body weights 2/1; the previous body-only embedding study used different lexical settings.",
+    "Quota display was unchanged at integer precision; generation had nonzero actual token usage."
+  ],
+  "raw_detail": {
+    "path": "runs/evidence/bm25-title-preview-20261012.json",
+    "sha256": "5869e4a05f10fb5a97a2a79654e68b653c2287e627fd20a0ff044c415819dc90"
+  }
+}

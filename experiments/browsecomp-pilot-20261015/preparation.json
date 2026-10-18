@@ -1,0 +1,14 @@
+{
+  "documents": 100195,
+  "chunks": 2696026,
+  "chunk_chars": 1600,
+  "overlap": 200,
+  "seconds": 186.36830608398304,
+  "official_revision": "046949032b0328319cc9a02663a759ec601d9402",
+  "data_revisions": {
+    "Tevatron/browsecomp-plus": "144cff8e35b5eaef7e526346aa60774a9deb941f",
+    "Tevatron/browsecomp-plus-corpus": "b27b02bc3e45511b8b82a13e6f90ce761df726f6"
+  },
+  "sample_evidence_documents": 189,
+  "sample_evidence_missing": 0
+}

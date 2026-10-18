@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "cases": 2,
+  "graded": 2,
+  "search_calls": 37,
+  "snippet_max_observed_tokens": 512,
+  "all_snippets_equal_document_prefix": true,
+  "ranking_matches_project_fts5": true,
+  "only_search": true,
+  "official_export_valid": true,
+  "judge_provider": "DeepInfra",
+  "all_reasoning_tokens_zero": true
+}

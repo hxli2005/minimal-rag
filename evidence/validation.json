@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "kind": "consolidated_meta_validation_records",
+  "date": "2026-10-12",
+  "note": "Index of historical validation records only. Full checks, hashes and nested payloads are preserved in raw_detail and byte-preserving archive paths; not new benchmark scores.",
+  "raw_detail": {
+    "path": "runs/evidence/validation.json",
+    "sha256": "7c3d41995c11dea9bdb3730cb26cba0c41c2f4d2bf75bb15452f1fa5adf6a6b3"
+  },
+  "records": {
+    "design-documentation-validation-20261012.json": {
+      "original_path": "evidence/design-documentation-validation-20261012.json",
+      "original_sha256": "e6812dbb72372f01a56291d3bb861a009933d1f476ee211ede3c2aedb08a31b1",
+      "archive_path": "docs/archive/2026-10-12-before-core-split/evidence/design-documentation-validation-20261012.json"
+    },
+    "design-review-validation-20261012.json": {
+      "original_path": "evidence/design-review-validation-20261012.json",
+      "original_sha256": "6329d3013c8f3a7f96c08cef727faf375ceeb886963dbc69939d85fb757bdff7",
+      "archive_path": "docs/archive/2026-10-12-before-core-split/evidence/design-review-validation-20261012.json"
+    },
+    "extraction-validation.json": {
+      "original_path": "evidence/extraction-validation.json",
+      "original_sha256": "43f313f123dd7db71ad6e96b5b5826a43e1c7fc0b9c86b4349701661ab941e7e",
+      "archive_path": "docs/archive/2026-10-12-before-core-split/evidence/extraction-validation.json"
+    },
+    "incident-validation-20261012.json": {
+      "original_path": "evidence/incident-validation-20261012.json",
+      "original_sha256": "acb44cabbd8c47aa55cd1d98e5cd713cc6103af1423ed85ff6d11dac9ebcab91",
+      "archive_path": "docs/archive/2026-10-12-before-core-split/evidence/incident-validation-20261012.json"
+    },
+    "offline-encoder-granularity-validation-20261012.json": {
+      "original_path": "evidence/offline-encoder-granularity-validation-20261012.json",
+      "original_sha256": "fe1bca83625881ca15ee0f9a0edb2490323a5770340a3398816a130f7cf40963",
+      "archive_path": "docs/archive/2026-10-12-before-core-split/evidence/offline-encoder-granularity-validation-20261012.json"
+    },
+    "portfolio-validation.json": {
+      "original_path": "evidence/portfolio-validation.json",
+      "original_sha256": "7e548f837a4a7d0d8aad7cd915672d04c80256a684bd8c2cfe2b9ced2330e4a6",
+      "archive_path": "docs/archive/2026-10-12-before-core-split/evidence/portfolio-validation.json"
+    },
+    "qwen3-chunk-scale-gate-amendment-20261012.json": {
+      "original_path": "evidence/qwen3-chunk-scale-gate-amendment-20261012.json",
+      "original_sha256": "c2338835e0b5421a6ea32af0afda4c4b09249d5f2c93361f9b183d93f0813bcb",
+      "archive_path": "docs/archive/2026-10-12-before-core-split/evidence/qwen3-chunk-scale-gate-amendment-20261012.json"
+    },
+    "review-validation.json": {
+      "original_path": "evidence/review-validation.json",
+      "original_sha256": "4d87aeda28da71ba7638fd0c1597f2cdbc7e88da6b8d5221de517fa146e92cb4",
+      "archive_path": "docs/archive/2026-10-12-before-core-split/evidence/review-validation.json"
+    },
+    "transport-provenance.json": {
+      "original_path": "evidence/transport-provenance.json",
+      "original_sha256": "0cf9024ac954eebd8b7838fa0023fd681f806bbbb6afa5d19c3af29a5208ac65",
+      "archive_path": "docs/archive/2026-10-12-before-core-split/evidence/transport-provenance.json"
+    },
+    "core-refactor-20261012": {},
+    "qwen-core-layout-amendment-20261012": {},
+    "encoding-only-resume-20261012": {},
+    "overnight-core-boundary-validation-20261013": {},
+    "qwen-sample-gate-audit-20261013": {},
+    "qwen-cpu-rerank-audit-20261013": {},
+    "official-history-export-20261013": {},
+    "sol-showcase-visual-20261013": {},
+    "loss-query-replay-20261013": {},
+    "cached-rrf-grid-20261013": {},
+    "qwen-encoder-contract-readonly-20261013": {}
+  },
+  "record_count": 20
+}

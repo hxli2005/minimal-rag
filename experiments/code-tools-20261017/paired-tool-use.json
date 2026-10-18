@@ -1,0 +1,88 @@
+[
+  {
+    "id": "qst_0112",
+    "change": "wins",
+    "B_tool_calls": {
+      "search": 5,
+      "Grep": 12,
+      "read": 3
+    }
+  },
+  {
+    "id": "qst_0143",
+    "change": "wins",
+    "B_tool_calls": {
+      "search": 1
+    }
+  },
+  {
+    "id": "qst_0173",
+    "change": "wins",
+    "B_tool_calls": {
+      "search": 10,
+      "Grep": 7
+    }
+  },
+  {
+    "id": "qst_0116",
+    "change": "wins",
+    "B_tool_calls": {
+      "search": 3,
+      "Grep": 2,
+      "read": 1
+    }
+  },
+  {
+    "id": "qst_0177",
+    "change": "wins",
+    "B_tool_calls": {
+      "search": 8,
+      "read": 3,
+      "Grep": 3
+    }
+  },
+  {
+    "id": "qst_0203",
+    "change": "wins",
+    "B_tool_calls": {
+      "search": 10,
+      "read": 2,
+      "Glob": 2,
+      "Grep": 2
+    }
+  },
+  {
+    "id": "qst_0166",
+    "change": "wins",
+    "B_tool_calls": {
+      "search": 9,
+      "Grep": 5,
+      "read": 2
+    }
+  },
+  {
+    "id": "qst_0240",
+    "change": "losses",
+    "B_tool_calls": {
+      "search": 3
+    }
+  },
+  {
+    "id": "qst_0250",
+    "change": "losses",
+    "B_tool_calls": {
+      "search": 9,
+      "read": 2,
+      "Grep": 10
+    }
+  },
+  {
+    "id": "qst_0180",
+    "change": "losses",
+    "B_tool_calls": {
+      "search": 9,
+      "Grep": 2,
+      "read": 1
+    }
+  }
+]

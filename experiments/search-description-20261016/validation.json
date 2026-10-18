@@ -1,0 +1,14 @@
+{
+  "completed_and_graded": 400,
+  "correct": 309.0,
+  "unchanged_frozen_sources": true,
+  "search_description_only_ast_change": true,
+  "preserved_completed_answers": 64,
+  "preserved_valid_grades": 46,
+  "published_summary_matches": true,
+  "actual_requests_including_interruption": {
+    "generation": 1994,
+    "judge": 402
+  },
+  "offline_tests_passed_before_generation": 138
+}

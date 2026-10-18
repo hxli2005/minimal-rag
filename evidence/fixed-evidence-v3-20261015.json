@@ -1,0 +1,274 @@
+{
+  "baseline": "v3",
+  "new_calls": 104,
+  "request_limit": 208,
+  "cohorts": {
+    "main24": {
+      "groups": {
+        "baseline": {
+          "n": 24,
+          "generated": 24,
+          "scored": 24,
+          "correct": 21,
+          "generation_calls": 24,
+          "missing_generation_usage": 0,
+          "generation_tokens": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 8448,
+            "input_tokens": 629800,
+            "output_tokens": 8545,
+            "reasoning_output_tokens": 2301,
+            "total_tokens": 638345,
+            "uncached_input_tokens": 621352
+          },
+          "judge_calls": 24,
+          "judge_tokens": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 11264,
+            "input_tokens": 105964,
+            "output_tokens": 3232,
+            "reasoning_output_tokens": 1361,
+            "total_tokens": 109196
+          },
+          "result_status": {
+            "finished": 24
+          },
+          "answer_chars_mean": 758.5833333333334,
+          "answer_chars_median": 408.0,
+          "accuracy": 0.875,
+          "completeness_macro": 0.9189636752136752,
+          "completeness_micro": 0.85,
+          "overall": 0.84375
+        },
+        "conditions": {
+          "n": 24,
+          "generated": 24,
+          "scored": 24,
+          "correct": 21,
+          "generation_calls": 24,
+          "missing_generation_usage": 0,
+          "generation_tokens": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 11264,
+            "input_tokens": 631600,
+            "output_tokens": 13063,
+            "reasoning_output_tokens": 3959,
+            "total_tokens": 644663,
+            "uncached_input_tokens": 620336
+          },
+          "judge_calls": 24,
+          "judge_tokens": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 11264,
+            "input_tokens": 108781,
+            "output_tokens": 3074,
+            "reasoning_output_tokens": 1254,
+            "total_tokens": 111855
+          },
+          "result_status": {
+            "finished": 24
+          },
+          "answer_chars_mean": 1138.4166666666667,
+          "answer_chars_median": 604.0,
+          "accuracy": 0.875,
+          "completeness_macro": 0.9450854700854701,
+          "completeness_micro": 0.875,
+          "overall": 0.875
+        }
+      },
+      "comparison": {
+        "wins": 0,
+        "losses": 0,
+        "ties": 24,
+        "correct_delta": 0.0,
+        "correct_delta_bootstrap95": [
+          0.0,
+          0.0
+        ],
+        "completeness_delta": 0.026121794871794873,
+        "completeness_delta_bootstrap95": [
+          -0.014583333333333342,
+          0.08143429487179453
+        ],
+        "input_tokens_ratio": 1.0028580501746587,
+        "uncached_input_tokens_ratio": 0.9983648559914509,
+        "output_tokens_ratio": 1.5287302516091281,
+        "cost_complete": true
+      },
+      "pairs": {
+        "count": 24,
+        "detail": "See raw_detail"
+      }
+    },
+    "diagnostic2": {
+      "groups": {
+        "baseline": {
+          "n": 2,
+          "generated": 2,
+          "scored": 2,
+          "correct": 0,
+          "generation_calls": 2,
+          "missing_generation_usage": 0,
+          "generation_tokens": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 0,
+            "input_tokens": 50849,
+            "output_tokens": 1848,
+            "reasoning_output_tokens": 451,
+            "total_tokens": 52697,
+            "uncached_input_tokens": 50849
+          },
+          "judge_calls": 2,
+          "judge_tokens": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 0,
+            "input_tokens": 10209,
+            "output_tokens": 449,
+            "reasoning_output_tokens": 246,
+            "total_tokens": 10658
+          },
+          "result_status": {
+            "finished": 2
+          },
+          "answer_chars_mean": 2571.5,
+          "answer_chars_median": 2571.5,
+          "accuracy": 0.0,
+          "completeness_macro": 0.8,
+          "completeness_micro": 0.8,
+          "overall": 0.0
+        },
+        "conditions": {
+          "n": 2,
+          "generated": 2,
+          "scored": 2,
+          "correct": 1,
+          "generation_calls": 2,
+          "missing_generation_usage": 0,
+          "generation_tokens": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 0,
+            "input_tokens": 50999,
+            "output_tokens": 3612,
+            "reasoning_output_tokens": 830,
+            "total_tokens": 54611,
+            "uncached_input_tokens": 50999
+          },
+          "judge_calls": 2,
+          "judge_tokens": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 5632,
+            "input_tokens": 11469,
+            "output_tokens": 369,
+            "reasoning_output_tokens": 177,
+            "total_tokens": 11838
+          },
+          "result_status": {
+            "finished": 2
+          },
+          "answer_chars_mean": 4987.5,
+          "answer_chars_median": 4987.5,
+          "accuracy": 0.5,
+          "completeness_macro": 0.95,
+          "completeness_micro": 0.95,
+          "overall": 0.5
+        }
+      },
+      "comparison": {
+        "wins": 1,
+        "losses": 0,
+        "ties": 1,
+        "correct_delta": 0.5,
+        "correct_delta_bootstrap95": [
+          0.0,
+          1.0
+        ],
+        "completeness_delta": 0.15000000000000002,
+        "completeness_delta_bootstrap95": [
+          0.0,
+          0.30000000000000004
+        ],
+        "input_tokens_ratio": 1.0029499105193809,
+        "uncached_input_tokens_ratio": 1.0029499105193809,
+        "output_tokens_ratio": 1.9545454545454546,
+        "cost_complete": true
+      },
+      "pairs": {
+        "count": 2,
+        "detail": "See raw_detail"
+      }
+    }
+  },
+  "complete": true,
+  "scope": "Fresh answer-only comparison on fixed v3 evidence; not full RAG accuracy or cost.",
+  "total_new_usage": {
+    "cache_write_input_tokens": 0,
+    "cached_input_tokens": 47872,
+    "input_tokens": 1599671,
+    "output_tokens": 34192,
+    "reasoning_output_tokens": 10579,
+    "total_tokens": 1633863,
+    "uncached_input_tokens": 1551799
+  },
+  "calls_by_role": {
+    "generation": 52,
+    "judge": 52
+  },
+  "missing_usage": 0,
+  "protocol_path": "runs/fixed-evidence-v3-20261015/protocol.json",
+  "raw_path": "runs/fixed-evidence-v3-20261015",
+  "new_retrieval_calls": 0,
+  "no_generation_retries": true,
+  "first_valid_judgements_preserved": true,
+  "directional_screen": {
+    "quality_signal": false,
+    "cost_acceptable": true,
+    "promising": false,
+    "note": "A small-sample screening signal, not a formal promotion gate or automatic full-run trigger."
+  },
+  "decision": {
+    "current_system": "v3",
+    "candidate_adopted": false,
+    "full_evaluation_started": false,
+    "recommendation": "Do not expand this unchanged answer prompt to full evaluation yet.",
+    "reason": "All 24 main accuracy outcomes tied; modest coverage gains were concentrated in a few questions, while important visible facts remained omitted and output grew. One of two deliberately selected probes improved.",
+    "threshold_note": "The decision is not based solely on the 2.61pp gain falling just below the prespecified 3pp screening signal or on a confidence interval crossing zero."
+  },
+  "limitations": [
+    "Known, category-balanced dev24; not prevalence-weighted and not unseen evaluation.",
+    "Two deliberately selected omission probes are reported separately from main24.",
+    "Observed v3 text is deduplicated and supplied in a fresh answer-only context without retrieval history or tools.",
+    "Costs measure new final-answer generation only; they exclude sunk v3 retrieval and are not full-RAG costs.",
+    "Paired bootstrap resamples questions; it does not capture repeat-generation/judge variation.",
+    "Frozen local sol judgements retained, including known qst_0240/qst_0422 reference/judge disputes."
+  ],
+  "sources": [
+    {
+      "path": "experiments/fixed-evidence-v3-20261015/evaluate.py",
+      "sha256": "55afa69f7839647466a52309945dfeb0df70505f24725f65ded2df5954bae753"
+    },
+    {
+      "path": "experiments/fixed-evidence-v3-20261015/finalize.py",
+      "sha256": "2c028edf46c4eed86107218e4029f4c389bfa21b1a6f2dadde3cbc54df0d68b7"
+    },
+    {
+      "path": "experiments/fixed-evidence-v3-20261015/frozen.json",
+      "sha256": "35ad35a9fb576413e39b7941902add1f07edf76945e8661a1eb059a5c32f3f89"
+    },
+    {
+      "path": "runs/fixed-evidence-v3-20261015/calls.jsonl",
+      "sha256": "1ee1369848eacea143888980aec57eaf899512deacbe7100f0ce7cc89c64794a"
+    },
+    {
+      "path": "src/minimal_rag/codex_adapter.py",
+      "sha256": "d713b3ca4c54740e75fb000319b0bfcc13bb09be8c31963c87ba8360c68418ed"
+    },
+    {
+      "path": "experiments/src/minimal_rag_experiments/rag_judge.py",
+      "sha256": "de6f77ca10a3354256779b992d021f20539f5b06fa4511d4eef664aea4f7ee3c"
+    }
+  ],
+  "raw_detail": {
+    "path": "runs/evidence/fixed-evidence-v3-20261015.json",
+    "sha256": "65699ad86af7cde4c66039936372368896a5f0df2c16abf5c1700fc5c6bc09ab"
+  }
+}

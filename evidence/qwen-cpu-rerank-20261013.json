@@ -1,0 +1,139 @@
+{
+  "requested": 100,
+  "completed": 100,
+  "complete": true,
+  "groups": {
+    "all": {
+      "questions": 100,
+      "scored": 94,
+      "no_gold": 6,
+      "recall@5": 0.18351063829787234,
+      "recall@10": 0.2473404255319149,
+      "recall@20": 0.2579787234042553,
+      "all_gold@20": 0.23404255319148937
+    },
+    "basic": {
+      "questions": 35,
+      "scored": 35,
+      "no_gold": 0,
+      "recall@5": 0.02857142857142857,
+      "recall@10": 0.05714285714285714,
+      "recall@20": 0.05714285714285714,
+      "all_gold@20": 0.05714285714285714
+    },
+    "completeness": {
+      "questions": 4,
+      "scored": 4,
+      "no_gold": 0,
+      "recall@5": 0.08333333333333333,
+      "recall@10": 0.08333333333333333,
+      "recall@20": 0.08333333333333333,
+      "all_gold@20": 0.0
+    },
+    "conflicting_info": {
+      "questions": 4,
+      "scored": 4,
+      "no_gold": 0,
+      "recall@5": 0.25,
+      "recall@10": 0.25,
+      "recall@20": 0.25,
+      "all_gold@20": 0.0
+    },
+    "constrained": {
+      "questions": 6,
+      "scored": 6,
+      "no_gold": 0,
+      "recall@5": 0.0,
+      "recall@10": 0.0,
+      "recall@20": 0.0,
+      "all_gold@20": 0.0
+    },
+    "high_level": {
+      "questions": 2,
+      "scored": 0,
+      "no_gold": 2
+    },
+    "info_not_found": {
+      "questions": 4,
+      "scored": 0,
+      "no_gold": 4
+    },
+    "intra_document_reasoning": {
+      "questions": 8,
+      "scored": 8,
+      "no_gold": 0,
+      "recall@5": 0.0,
+      "recall@10": 0.0,
+      "recall@20": 0.0,
+      "all_gold@20": 0.0
+    },
+    "miscellaneous": {
+      "questions": 4,
+      "scored": 4,
+      "no_gold": 0,
+      "recall@5": 0.25,
+      "recall@10": 0.25,
+      "recall@20": 0.25,
+      "all_gold@20": 0.25
+    },
+    "project_related": {
+      "questions": 8,
+      "scored": 8,
+      "no_gold": 0,
+      "recall@5": 0.11458333333333333,
+      "recall@10": 0.11458333333333333,
+      "recall@20": 0.11458333333333333,
+      "all_gold@20": 0.0
+    },
+    "semantic": {
+      "questions": 25,
+      "scored": 25,
+      "no_gold": 0,
+      "recall@5": 0.52,
+      "recall@10": 0.72,
+      "recall@20": 0.76,
+      "all_gold@20": 0.76
+    }
+  },
+  "model_calls": 0,
+  "gpu": false,
+  "post_hoc": true,
+  "decision": "Reject this post-hoc CPU MiniLM rerank: semantic76% below BM25 80% and RRF84%, overall25.80% below BM25 26.86%. Original failed gate unchanged.",
+  "config": {
+    "model": {
+      "id": "cross-encoder/ms-marco-MiniLM-L6-v2",
+      "revision": "233902d25c440f23af6f7d6e94d2946bac0bee0a",
+      "path": "/Users/lhx/Documents/ChatGPT/minimal-rag/models/hybrid-rag/models--cross-encoder--ms-marco-MiniLM-L6-v2/snapshots/233902d25c440f23af6f7d6e94d2946bac0bee0a"
+    },
+    "device": "cpu",
+    "threads": 1,
+    "dtype": "torch.float32",
+    "max_length": 512,
+    "model_calls": 0,
+    "candidate_rule": "Best BM25 chunk per top100 canonical docs plus best Qwen chunk per top100 canonical docs; union unique chunk IDs, at most200 passages. Rank raw logits, then canonical document dedup, top20.",
+    "limits": "Post-hoc known dev diagnostic; original gate unchanged. No new encodings, GPU or hosted model calls; not full-corpus results."
+  },
+  "seconds": 626.5403747919809,
+  "paired_vs_bm25": {
+    "all": {
+      "n": 94,
+      "gain20": -0.010638297872340425,
+      "wins": 2,
+      "losses": 3
+    },
+    "semantic": {
+      "n": 25,
+      "gain20": -0.04,
+      "wins": 2,
+      "losses": 3
+    }
+  },
+  "source": {
+    "path": "runs/overnight-20261012/qwen-posthoc-rerank/summary.json",
+    "sha256": "fd5fcc84b39ebd2c4ebd6178246ec4b4660be8415bc5c5e4f383d7a86e9c5cec"
+  },
+  "raw_detail": {
+    "path": "runs/evidence/qwen-cpu-rerank-20261013.json",
+    "sha256": "97396205daba937b5d4102735f8f355ba80d8769ac7d4430adb7cbba8b2eddef"
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "question": "What are the proposed internal time to mitigate targets by severity for incident response, regardless of customer deployment tier?",
+  "answer": "The proposed internal time-to-mitigate (TTM) targets are the same across Hosted, Dedicated, and Private deployments:\n\n| Severity | Target |\n|---|---|\n| Sev0 | 30 minutes |\n| Sev1 | 2 hours |\n| Sev2 | 1 business day |\n| Sev3 | 5 business days, or the next planned release train |\n\nTTM runs from incident declaration to restored SLOs or a documented, acceptable degradation mode. These are draft internal targets for breach alerting and leadership escalation, not finalized customer commitments. [dsid_c83811391709468fa9534e6495c205e3]",
+  "model": "gpt-6.1-sol",
+  "calls": 3,
+  "input": 25079,
+  "cached": 13440,
+  "search": {
+    "query": "\"time to mitigate\"",
+    "limit": 5
+  },
+  "read": {
+    "document_id": "dsid_c83811391709468fa9534e6495c205e3",
+    "offset": 3900,
+    "limit": 6000
+  },
+  "hits": [
+    {
+      "title": "incidents",
+      "offset": 951,
+      "chars": 4000,
+      "selected": false
+    },
+    {
+      "title": "Incident Ownership Mapping + Remediation SLA Matrix (v1)",
+      "offset": 0,
+      "chars": 4000,
+      "selected": false
+    },
+    {
+      "title": "SLO Launch Field Kit and Ops Liaison Rotations",
+      "offset": 2819,
+      "chars": 4000,
+      "selected": false
+    },
+    {
+      "title": "Remediation SLA options + customer tier mapping (Hosted / Dedicated / Private) — working doc",
+      "offset": 0,
+      "chars": 4000,
+      "selected": true
+    },
+    {
+      "title": "incidents",
+      "offset": 565,
+      "chars": 4000,
+      "selected": false
+    }
+  ],
+  "source": {
+    "id": "dsid_c83811391709468fa9534e6495c205e3",
+    "title": "Remediation SLA options + customer tier mapping (Hosted / Dedicated / Private) — working doc",
+    "offset": 4911,
+    "text": "Proposed draft SLA targets (v1 candidate)\n========================================\nNotes:\n- Times are proposed internal targets for breach alerting + leadership escalation.\n- TTM measured to: restored SLO or reduced to acceptable degradation mode (documented).\n- TTF measured to: fix deployed OR (Sev2/Sev3 only) fix scheduled with owner + date.\n\nTTM (same across tiers)\n-----------------------\nSev0: 30 minutes\nSev1: 2 hours\nSev2: 1 business day\nSev3: 5 business days (or next planned release train)"
+  },
+  "read_chars": 6000
+}

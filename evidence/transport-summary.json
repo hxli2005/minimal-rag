@@ -1,0 +1,273 @@
+{
+  "change": "Override Codex base instructions, disable unrelated context/tools locally, reuse one ephemeral thread per question, append only observations, count cumulative usage once per thread.",
+  "core_lines": 34,
+  "core_sha256": "48703c7225d952e3546a8ecf2cd6e6a30ea7e692653f28724bc9b0307bf5be49",
+  "short_request_probe": [
+    {
+      "arm": "default",
+      "cache_write_input_tokens": 0,
+      "cached_input_tokens": 13312,
+      "input_tokens": 22635,
+      "output_tokens": 22,
+      "reasoning_output_tokens": 0,
+      "total_tokens": 22657
+    },
+    {
+      "arm": "base_only",
+      "cache_write_input_tokens": 0,
+      "cached_input_tokens": 9088,
+      "input_tokens": 18423,
+      "output_tokens": 22,
+      "reasoning_output_tokens": 0,
+      "total_tokens": 18445
+    },
+    {
+      "arm": "lean",
+      "cache_write_input_tokens": 0,
+      "cached_input_tokens": 0,
+      "input_tokens": 4840,
+      "output_tokens": 46,
+      "reasoning_output_tokens": 22,
+      "total_tokens": 4886
+    },
+    {
+      "arm": "lean_disabled_mcp",
+      "cache_write_input_tokens": 0,
+      "cached_input_tokens": 0,
+      "input_tokens": 4060,
+      "output_tokens": 22,
+      "reasoning_output_tokens": 0,
+      "total_tokens": 4082
+    }
+  ],
+  "regressions": [
+    {
+      "dataset": "hotpotqa",
+      "complete": true,
+      "n_requested": 20,
+      "before_run": "hotpot-dev100-v5",
+      "after_run": "hotpot-dev20-v5-lean",
+      "before": {
+        "n": 20,
+        "status": {
+          "finished": 20
+        },
+        "errors": 0,
+        "unseen_citations": 0,
+        "em": 0.65,
+        "f1": 0.7,
+        "document_recall": 0.825,
+        "retrieved_document_recall": 0.95,
+        "all_gold_retrieved": 0.9,
+        "seconds": 17.217024420853704,
+        "model_calls": 2.4,
+        "tool_calls": 1.45,
+        "all_gold_sentences_exposed": 0.9,
+        "graded": 20,
+        "input_tokens": 1119117,
+        "cached_input_tokens": 1001856,
+        "output_tokens": 2087
+      },
+      "after": {
+        "n": 20,
+        "status": {
+          "finished": 19,
+          "runtime_error": 1
+        },
+        "errors": 1,
+        "unseen_citations": 0,
+        "em": 0.65,
+        "f1": 0.7090909090909091,
+        "document_recall": 0.8,
+        "retrieved_document_recall": 0.875,
+        "all_gold_retrieved": 0.8,
+        "seconds": 14.601638577003905,
+        "model_calls": 2.4,
+        "tool_calls": 1.55,
+        "all_gold_sentences_exposed": 0.8,
+        "graded": 20,
+        "input_tokens": 223239,
+        "cached_input_tokens": 97152,
+        "output_tokens": 2009
+      },
+      "same_retriever": true,
+      "same_model": true,
+      "same_format": true,
+      "resource_settings": {
+        "before": {
+          "timeout": 180.0,
+          "case_timeout": 720.0,
+          "concurrency": 3
+        },
+        "after": {
+          "timeout": 90.0,
+          "case_timeout": 360.0,
+          "concurrency": 2
+        }
+      },
+      "attempts_without_usage": {
+        "before": 0,
+        "after": 1
+      },
+      "answer_changes": []
+    },
+    {
+      "dataset": "financebench",
+      "complete": true,
+      "n_requested": 15,
+      "before_run": "finance-dev50-v5-original",
+      "after_run": "finance-dev15-v5-lean",
+      "before": {
+        "n": 15,
+        "status": {
+          "finished": 15
+        },
+        "errors": 0,
+        "unseen_citations": 0,
+        "correct": 0.9333333333333333,
+        "completeness": 0.9333333333333333,
+        "overall": 0.9333333333333333,
+        "document_recall": 0.6333333333333333,
+        "retrieved_document_recall": 0.7,
+        "all_gold_retrieved": 0.6666666666666666,
+        "seconds": 25.355422452738274,
+        "model_calls": 2.7333333333333334,
+        "tool_calls": 1.8666666666666667,
+        "graded": 15,
+        "input_tokens": 1081953,
+        "cached_input_tokens": 864128,
+        "output_tokens": 4088
+      },
+      "after": {
+        "n": 15,
+        "status": {
+          "finished": 15
+        },
+        "errors": 0,
+        "unseen_citations": 0,
+        "correct": 0.9333333333333333,
+        "completeness": 0.9333333333333333,
+        "overall": 0.9333333333333333,
+        "document_recall": 0.6666666666666666,
+        "retrieved_document_recall": 0.7333333333333333,
+        "all_gold_retrieved": 0.7333333333333333,
+        "seconds": 14.623624900000868,
+        "model_calls": 2.8666666666666667,
+        "tool_calls": 2.066666666666667,
+        "graded": 15,
+        "input_tokens": 354333,
+        "cached_input_tokens": 158592,
+        "output_tokens": 3520
+      },
+      "same_retriever": true,
+      "same_model": true,
+      "same_format": true,
+      "resource_settings": {
+        "before": {
+          "timeout": 180.0,
+          "case_timeout": 720.0,
+          "concurrency": 3
+        },
+        "after": {
+          "timeout": 90.0,
+          "case_timeout": 360.0,
+          "concurrency": 2
+        }
+      },
+      "attempts_without_usage": {
+        "before": 0,
+        "after": 0
+      },
+      "input_reduction_fraction": 0.6725061070120422,
+      "uncached_input_reduction_fraction": 0.10138413864340645,
+      "answer_changes": []
+    },
+    {
+      "dataset": "enterprise",
+      "complete": true,
+      "n_requested": 20,
+      "before_run": "enterprise-dev20-v5",
+      "after_run": "enterprise-dev20-v5-lean",
+      "before": {
+        "n": 20,
+        "status": {
+          "finished": 20
+        },
+        "errors": 0,
+        "unseen_citations": 0,
+        "correct": 0.85,
+        "completeness": 0.9136538461538461,
+        "overall": 0.8375,
+        "document_recall": 0.9166666666666666,
+        "retrieved_document_recall": 0.9166666666666666,
+        "all_gold_retrieved": 0.7894736842105263,
+        "seconds": 75.0157295208046,
+        "model_calls": 4.4,
+        "tool_calls": 5,
+        "graded": 20,
+        "input_tokens": 4082567,
+        "cached_input_tokens": 1838336,
+        "output_tokens": 11927
+      },
+      "after": {
+        "n": 20,
+        "status": {
+          "finished": 20
+        },
+        "errors": 0,
+        "unseen_citations": 0,
+        "correct": 0.8,
+        "completeness": 0.918525641025641,
+        "overall": 0.7875,
+        "document_recall": 0.9298245614035088,
+        "retrieved_document_recall": 0.9692982456140351,
+        "all_gold_retrieved": 0.8947368421052632,
+        "seconds": 30.03647104149859,
+        "model_calls": 4.3,
+        "tool_calls": 5.25,
+        "graded": 20,
+        "input_tokens": 2046108,
+        "cached_input_tokens": 1422336,
+        "output_tokens": 10924
+      },
+      "same_retriever": true,
+      "same_model": true,
+      "same_format": true,
+      "resource_settings": {
+        "before": {
+          "timeout": 180.0,
+          "case_timeout": 720.0,
+          "concurrency": 3
+        },
+        "after": {
+          "timeout": 120.0,
+          "case_timeout": 480.0,
+          "concurrency": 2
+        }
+      },
+      "attempts_without_usage": {
+        "before": 0,
+        "after": 0
+      },
+      "input_reduction_fraction": 0.4988182680161771,
+      "uncached_input_reduction_fraction": 0.7220553499171877,
+      "answer_changes": {
+        "count": 1,
+        "detail": "See raw_detail"
+      }
+    }
+  ],
+  "limitations": [
+    "Short-request probe has one request per arm; its token reduction is not a universal reduction for long RAG tasks.",
+    "Input includes cached tokens. Cached tokens are reported separately, not treated as free or as a known subscription-price equivalent.",
+    "Incremental transport does not remove history from model context. Earlier context still contributes to per-turn input usage.",
+    "Development samples are small and reused for tuning; no heldout or frontier-quality claim.",
+    "The judge also uses the revised adapter. Semantic scores across old/new runs are regression diagnostics, not a controlled judge-isolated experiment.",
+    "Resource timeouts and process concurrency differ as recorded; latency is descriptive, not a speed benchmark."
+  ],
+  "complete": true,
+  "raw_detail": {
+    "path": "runs/evidence/transport-summary.json",
+    "sha256": "c27c08ffdda174f8eda0444dcad1811e54150bdc7caf48647648eab6fd7df3a3"
+  }
+}

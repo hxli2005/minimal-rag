@@ -1,0 +1,258 @@
+{
+  "selected_version": "v0",
+  "selected_group": "A",
+  "official_script_revision": "046949032b0328319cc9a02663a759ec601d9402",
+  "evaluation_date_client": "2026-10-15",
+  "evaluation_date_raw_server": "2026-10-16",
+  "results": {
+    "A830": {
+      "n": 830,
+      "correct": 772,
+      "accuracy_percent": 93.01204819277109,
+      "wilson95_percent": [
+        91.07216810691237,
+        94.55562029902912
+      ]
+    },
+    "A_dev100": {
+      "n": 100,
+      "correct": 95,
+      "accuracy_percent": 95.0,
+      "wilson95_percent": [
+        88.82495307680807,
+        97.84563208456319
+      ]
+    },
+    "A_remaining730": {
+      "n": 730,
+      "correct": 677,
+      "accuracy_percent": 92.73972602739725,
+      "wilson95_percent": [
+        90.62531309173221,
+        94.40667746966062
+      ]
+    },
+    "B230": {
+      "n": 230,
+      "correct": 194,
+      "accuracy_percent": 84.34782608695652,
+      "wilson95_percent": [
+        79.0924572167799,
+        88.47468883029975
+      ]
+    }
+  },
+  "official_summaries": {
+    "A": {
+      "LLM": "change me when submitting",
+      "Accuracy (%)": 93.01,
+      "Recall (%)": 86.23,
+      "avg_tool_stats": {
+        "search": 13.23855421686747,
+        "read": 3.463855421686747
+      },
+      "Calibration Error (%)": 2.63,
+      "Retriever": "change me when submitting",
+      "Link": "change me when submitting",
+      "Evaluation Date": "2026-10-16"
+    },
+    "B": {
+      "LLM": "change me when submitting",
+      "Accuracy (%)": 84.35,
+      "Recall (%)": 89.71,
+      "avg_tool_stats": {
+        "search": 19.843478260869563
+      },
+      "Calibration Error (%)": 1.6,
+      "Retriever": "change me when submitting",
+      "Link": "change me when submitting",
+      "Evaluation Date": "2026-10-16"
+    }
+  },
+  "A_minus_B_paired230": {
+    "planned": 230,
+    "paired": 230,
+    "bootstrap_samples": 10000,
+    "seed": 20261015,
+    "wins": 28,
+    "losses": 5,
+    "ties": 197,
+    "accuracy_pp": {
+      "mean_difference": 10.0,
+      "bootstrap_95": [
+        5.217391304347826,
+        14.782608695652174
+      ]
+    },
+    "A_correct": 217,
+    "B_correct": 194
+  },
+  "costs": {
+    "A830": {
+      "n": 830,
+      "recorded_uncached_input": 40998785,
+      "recorded_mean_uncached_input": 49396.1265060241,
+      "generation_requests": 6049,
+      "missing_usage_calls": 5
+    },
+    "A_paired230": {
+      "n": 230,
+      "recorded_uncached_input": 10582039,
+      "recorded_mean_uncached_input": 46008.86521739131,
+      "generation_requests": 1582,
+      "missing_usage_calls": 2
+    },
+    "B230": {
+      "n": 230,
+      "recorded_uncached_input": 14780879,
+      "recorded_mean_uncached_input": 64264.69130434783,
+      "generation_requests": 2035,
+      "missing_usage_calls": 5
+    },
+    "paired_recorded_ratio": 0.7159275845502828,
+    "paired_ratio_interpretation": "recorded-only diagnostic, not an exact saving rate"
+  },
+  "judge_agreement": {
+    "A": {
+      "common_valid": 826,
+      "agree": 823,
+      "agreement_percent": 99.63680387409201,
+      "disagreements": [
+        {
+          "query_id": "764",
+          "proxy": false,
+          "official": true
+        },
+        {
+          "query_id": "1117",
+          "proxy": false,
+          "official": true
+        },
+        {
+          "query_id": "1234",
+          "proxy": false,
+          "official": true
+        }
+      ],
+      "missing_proxy_decisions": 0,
+      "generation_failures_excluded": 4,
+      "official_confidence_missing": 0
+    },
+    "B": {
+      "common_valid": 228,
+      "agree": 228,
+      "agreement_percent": 100.0,
+      "disagreements": [],
+      "missing_proxy_decisions": 0,
+      "generation_failures_excluded": 2,
+      "official_confidence_missing": 0
+    },
+    "combined": {
+      "common_valid": 1054,
+      "agree": 1051,
+      "agreement_percent": 99.71537001897534
+    }
+  },
+  "timings": {
+    "environment_preparation_span_seconds": 5385.15413236618,
+    "weights_final_process_including_verification_seconds": 6079.331206560135,
+    "first64_seconds": 12.7,
+    "model_weight_load_seconds_per_worker": [
+      14.035216,
+      14.461205,
+      13.260557,
+      13.483847,
+      14.12011,
+      14.165352
+    ],
+    "official_processes": [
+      {
+        "group": "A",
+        "label": "smoke",
+        "started": 1792098590.830664,
+        "log": "smoke.log",
+        "exit_code": 0,
+        "ended": 1792098842.7987046,
+        "seconds": 251.96804070472717
+      },
+      {
+        "group": "A",
+        "label": "A-full",
+        "started": 1792098842.8940396,
+        "log": "A-full.log",
+        "exit_code": 0,
+        "ended": 1792099116.4394534,
+        "seconds": 273.5454137325287
+      },
+      {
+        "group": "B",
+        "label": "B-full",
+        "started": 1792099116.5908878,
+        "log": "B-full.log",
+        "exit_code": 0,
+        "ended": 1792099273.0501962,
+        "seconds": 156.459308385849
+      }
+    ],
+    "official_total_seconds": 682.2716286182404,
+    "note": "Cold start/compilation included in process durations; install and download overlap. Earlier transport recovery is additional."
+  },
+  "new_sol_requests": 0,
+  "new_openrouter_requests": 0,
+  "new_GPU_model_responses": 1054,
+  "generation_failures": 6,
+  "backfill_model_responses": 0,
+  "retrieval_verification": {
+    "evals_tar_sha256": "b5e9c7a0a20e4ee5bcc79bbc12ccd2bd4ef00335e78fd2ad4195202699e0c0eb",
+    "runtime_tar_sha256": "dcf5f5b6d4c35bbb124a180a67d1cb136b664ec0e6c3bce846c6e66a98d8035f",
+    "groups": {
+      "A": {
+        "planned": 830,
+        "evals": 830,
+        "valid_model_judgements": 826,
+        "generation_failures_retained": 4,
+        "correct": 772,
+        "accuracy_percent": 93.01,
+        "recall_percent": 86.23
+      },
+      "B": {
+        "planned": 230,
+        "evals": 230,
+        "valid_model_judgements": 228,
+        "generation_failures_retained": 2,
+        "correct": 194,
+        "accuracy_percent": 84.35,
+        "recall_percent": 89.71
+      }
+    }
+  },
+  "submission_ready": true,
+  "submission_sha256": "60671213a4747989e6f274a97c12c825bfa997cf8c4449af32818a2b1205bfd7",
+  "billing": {
+    "checked_at": "2026-10-15T14:50:48.401330-07:00",
+    "daily_bill_filter": [
+      "2026-10-15",
+      "2026-10-16"
+    ],
+    "matching_daily_bill_rows": 0,
+    "billed_amount_available": false,
+    "gpu_hourly_rmb": 19.95,
+    "paid_storage_gb": 0,
+    "note": "Instance stopped and task timer removed; exact daily-settled charge not yet displayed. Cost remains an estimate until the bill is issued.",
+    "conservative_time_window_estimate_upper_rmb": 58.45050731158334,
+    "basis": "Treat the entire post-final preparation-to-shutdown-verification window as billable, although GPU creation was later. Not a settled invoice."
+  },
+  "cleanup": {
+    "private_payload_removed": true,
+    "gpu_active": false,
+    "paid_storage_gb": 0,
+    "retained": "public environment on free disk only"
+  },
+  "limits": [
+    "Known dev/regression samples; no unseen-generalization claim.",
+    "No candidate reselection after official grading.",
+    "Official calibration implementation retained, including its omitted final bin.",
+    "Local official-script result; not maintainer-verified leaderboard placement.",
+    "Server summary date uses Asia/Shanghai; submission metadata uses America/Los_Angeles. Raw summaries unchanged."
+  ]
+}

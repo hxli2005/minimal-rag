@@ -1,0 +1,75 @@
+{
+  "calls": 107,
+  "valid_calls": 106,
+  "errors": 1,
+  "empty_calls": 2,
+  "truncated_calls": 59,
+  "by_scope": {
+    "all": {
+      "calls": 51,
+      "empty": 0,
+      "truncated": 32,
+      "median_files": 41,
+      "median_output_chars": 34108,
+      "content_calls": 36
+    },
+    "file": {
+      "calls": 1,
+      "empty": 1,
+      "truncated": 0,
+      "median_files": 0,
+      "median_output_chars": 142,
+      "content_calls": 1
+    },
+    "filtered": {
+      "calls": 54,
+      "empty": 1,
+      "truncated": 27,
+      "median_files": 34.5,
+      "median_output_chars": 23791.5,
+      "content_calls": 44
+    }
+  },
+  "output_chars": 3557948,
+  "path_chars_in_content_and_filename_list": 1057594,
+  "path_char_fraction": 0.29724830154909515,
+  "parsed_content_lines": 4253,
+  "unparsed_content_lines": 1,
+  "source_body_chars": 2412311,
+  "repeated_source_lines_across_calls_in_same_question": 132,
+  "repeated_source_body_chars": 39813,
+  "repeated_body_fraction": 0.0165040908904366,
+  "content_calls_with_reference": 14,
+  "top_output_questions": [
+    {
+      "id": "qst_0250",
+      "calls": 10,
+      "output_chars": 442644
+    },
+    {
+      "id": "qst_0234",
+      "calls": 11,
+      "output_chars": 303089
+    },
+    {
+      "id": "qst_0112",
+      "calls": 11,
+      "output_chars": 298251
+    },
+    {
+      "id": "qst_0251",
+      "calls": 6,
+      "output_chars": 234620
+    },
+    {
+      "id": "qst_0281",
+      "calls": 7,
+      "output_chars": 219737
+    }
+  ],
+  "limitations": [
+    "No human relevance labels: non-reference documents are not automatically noise.",
+    "Repeated text may support deliberate verification; duplicate is not synonymous with useless.",
+    "Character fractions are not token fractions. Paths include document IDs and titles, so not all path text is useless."
+  ]
+}

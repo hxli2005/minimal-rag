@@ -1,0 +1,19 @@
+{
+  "version": "v0",
+  "reuse": {
+    "enterprise_dev": "data/benchmarks/sota-20261014/enterprise-dev",
+    "enterprise_test": "data/benchmarks/sota-20261014/enterprise-test",
+    "browsecomp_dev": "data/benchmarks/browsecomp-plus/full-20261015/A"
+  },
+  "enterprise": {
+    "adapter": "historical",
+    "retrieval": "hybrid",
+    "excerpt_chars": 4000,
+    "variant": "v6"
+  },
+  "browsecomp": {
+    "adapter": "current",
+    "retrieval": "bm25",
+    "excerpt_chars": 2000
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "date": "2026-10-13",
+  "kind": "frozen_prefix_dev12_resource_quality_comparison",
+  "model": "gpt-6.1-sol",
+  "ids": {
+    "count": 12,
+    "detail": "See raw_detail"
+  },
+  "groups": {
+    "once": {
+      "n": 12,
+      "correct": 6.0,
+      "generation_calls": 12,
+      "input_tokens": 110657,
+      "cached_input_tokens": 0,
+      "output_tokens": 4603
+    },
+    "guided_once": {
+      "n": 12,
+      "correct": 5.0,
+      "generation_calls": 24,
+      "input_tokens": 162583,
+      "cached_input_tokens": 60544,
+      "output_tokens": 4838
+    },
+    "agent": {
+      "n": 12,
+      "correct": 10.0,
+      "generation_calls": 49,
+      "input_tokens": 961762,
+      "cached_input_tokens": 435200,
+      "output_tokens": 6588
+    },
+    "snippet": {
+      "n": 12,
+      "correct": 10.0,
+      "generation_calls": 52,
+      "input_tokens": 711762,
+      "cached_input_tokens": 332928,
+      "output_tokens": 6634
+    }
+  },
+  "paired_minus_agent": {
+    "once": {
+      "wins": {
+        "count": 1,
+        "detail": "See raw_detail"
+      },
+      "losses": {
+        "count": 5,
+        "detail": "See raw_detail"
+      },
+      "ties": {
+        "count": 6,
+        "detail": "See raw_detail"
+      },
+      "difference": -0.3333333333333333
+    },
+    "guided_once": {
+      "wins": [],
+      "losses": {
+        "count": 5,
+        "detail": "See raw_detail"
+      },
+      "ties": {
+        "count": 7,
+        "detail": "See raw_detail"
+      },
+      "difference": -0.4166666666666667
+    },
+    "snippet": {
+      "wins": {
+        "count": 1,
+        "detail": "See raw_detail"
+      },
+      "losses": {
+        "count": 1,
+        "detail": "See raw_detail"
+      },
+      "ties": {
+        "count": 10,
+        "detail": "See raw_detail"
+      },
+      "difference": 0.0
+    }
+  },
+  "snippet_input_reduction": 0.259939569248941,
+  "decision": "Keep 4000-char default. 1600-char variant reduces total input but changes which question fails, with more generation calls; insufficient independent validation. Guided once did not outperform natural-question once.",
+  "limitations": [
+    "Known fixed first12, single generations; no population, pricing, quota or SOTA claim.",
+    "Snippet changes search windows and scoped-window dedup; model can choose different subsequent tools. It is not an exact offline lexical-density-window implementation.",
+    "Equal aggregate correctness with one win and one loss is not proof of quality equivalence.",
+    "Guided once changes query generation and adds a model call, not all once-RAG systems."
+  ],
+  "source": {
+    "path": "runs/overnight-20261012/prefix12-comparison.json",
+    "sha256": "fe209466847f0a1bd05b112ff2d9efb68459facf53900b52ab498c6eb44dbc7e"
+  },
+  "raw_detail": {
+    "path": "runs/evidence/sol-prefix12-20261013.json",
+    "sha256": "23b53df6e00bd4eff1411163b4c314ec84da03257e5971e0d1e4d443ad6dff1d"
+  }
+}

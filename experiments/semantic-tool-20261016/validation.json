@@ -1,0 +1,25 @@
+{
+  "offline_tests": {
+    "passed": 139,
+    "command": ".venv/bin/python -m pytest -q tests experiments/tests"
+  },
+  "l40s_sample": {
+    "documents": 4096,
+    "dimension": 4096,
+    "unit_norms_and_document_ids_verified": true,
+    "seconds": 561.5680626439862
+  },
+  "browsecomp_official_index": {
+    "documents": 100195,
+    "all_ids_match_local_corpus": true
+  },
+  "quota_guard": {
+    "read_only_check_succeeded": true,
+    "reset_performed_during_setup": false
+  },
+  "not_yet_verified": [
+    "full Enterprise index completion",
+    "two-index GPU query service",
+    "B generation and paired final adoption"
+  ]
+}

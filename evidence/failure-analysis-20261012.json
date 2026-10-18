@@ -1,0 +1,80 @@
+{
+  "date": "2026-10-12",
+  "kind": "retrospective_failure_diagnostic",
+  "new_model_calls": 0,
+  "labels_method": "Manual reading of saved local judge reasons; primary answer-error label plus trace-based document-exposure bucket. Causal root needs oracle/retrieval counterfactual validation.",
+  "groups": {
+    "dev_wrong": {
+      "n": 22,
+      "document_exposure_buckets": {
+        "all_reference_documents_seen_answer_failed": 10,
+        "reference_documents_missing_or_partial": 11,
+        "no_reference_ids": 1
+      },
+      "answer_error_labels": {
+        "wrong_value_or_condition": 8,
+        "required_detail_omission": 7,
+        "wrong_document_or_entity": 1,
+        "abstention": 2,
+        "unsupported_extra_requirement": 2,
+        "unresolved_conflict_or_overcaution": 2
+      },
+      "categories": {
+        "project_related": 7,
+        "semantic": 10,
+        "basic": 3,
+        "conflicting_info": 1,
+        "high_level": 1
+      }
+    },
+    "cdl_losses": {
+      "n": 48,
+      "document_exposure_buckets": {
+        "reference_documents_missing_or_partial": 26,
+        "all_reference_documents_seen_answer_failed": 21,
+        "no_reference_ids": 1
+      },
+      "answer_error_labels": {
+        "wrong_value_or_condition": 13,
+        "required_detail_omission": 17,
+        "wrong_document_or_entity": 5,
+        "unresolved_conflict_or_overcaution": 7,
+        "abstention": 5,
+        "unsupported_extra_requirement": 1
+      },
+      "categories": {
+        "project_related": 7,
+        "semantic": 20,
+        "basic": 10,
+        "intra_document_reasoning": 2,
+        "constrained": 4,
+        "conflicting_info": 3,
+        "high_level": 1,
+        "completeness": 1
+      }
+    }
+  },
+  "limitations": [
+    "Document identity exposure does not prove key facts were exposed or understood.",
+    "Missing labeled documents does not prove no alternate evidence exists. Buckets are diagnostic signals, not causal judgments.",
+    "Historical generation astra, current online tests sol. Known regression sets; no untouched holdout claims."
+  ],
+  "sources": [
+    {
+      "path": "data/benchmarks/optimization-20261011/runs/enterprise-dev100-hybrid-minilm-wide/summary.json",
+      "sha256": "99379ae8679c6bc0ada547b59193f2fea6c78af2b55687950d3efc43b5f514e2"
+    },
+    {
+      "path": "data/benchmarks/optimization-20261011/holdout/enterprise/summary.json",
+      "sha256": "ef3d2d13fe672c8c29d80b422213fe936f2794eddc230f3e80195bae17d85d41"
+    },
+    {
+      "path": "data/benchmarks/optimization-20261011/holdout/public-comparisons/cdl/summary.json",
+      "sha256": "0a6173a23562511e14af44df85dd1a17d67ec98d65305c7ac7c50875cdeafe94"
+    }
+  ],
+  "raw_detail": {
+    "path": "runs/evidence/failure-analysis-20261012.json",
+    "sha256": "4f121e9ea5e78a2ec5d3db385dbfa5530d22e526d730fb8309890e94ec2a6605"
+  }
+}

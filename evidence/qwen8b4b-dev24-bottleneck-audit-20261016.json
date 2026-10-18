@@ -1,0 +1,3765 @@
+{
+  "scope": "Offline case audit of all 24 questions. No new generation, judgement or cloud compute; original scores remain frozen.",
+  "read_stage_definition": "Top20 already available but not selected/read, or required passage outside supplied window. Top20 misses are ranked-retrieval gaps; mixed cases retain both tags.",
+  "fixed24_retrieval": {
+    "A": {
+      "recall@5": 0.6733333333333333,
+      "recall@20": 0.89,
+      "all_gold@5": 0.5,
+      "all_gold@20": 0.75
+    },
+    "B": {
+      "recall@5": 0.7733333333333333,
+      "recall@20": 0.925,
+      "all_gold@5": 0.6,
+      "all_gold@20": 0.85
+    },
+    "n_with_gold": 20
+  },
+  "frozen_answer_result": {
+    "bm25": 12,
+    "qwen": 14,
+    "wins": 4,
+    "losses": 2,
+    "both_correct": 10,
+    "both_wrong": 8
+  },
+  "qwen_false_case_primary_counts": {
+    "候选消费/读取": 4,
+    "裁判争议": 2,
+    "检索＋读取混合": 2,
+    "证据覆盖待定位": 1,
+    "检索/排序": 1
+  },
+  "facts_reachable_in_existing_qwen_top20_wrong_cases": [
+    "qst_0449",
+    "qst_0410",
+    "qst_0403",
+    "qst_0401"
+  ],
+  "title_budget_audit": {
+    "bm25": {
+      "body_chars": 419122,
+      "title_chars": 31859,
+      "titles_over_1000_chars": 5,
+      "max_title_chars": 7681
+    },
+    "qwen": {
+      "body_chars": 425073,
+      "title_chars": 6295,
+      "titles_over_1000_chars": 0,
+      "max_title_chars": 155
+    }
+  },
+  "proofs": [
+    {
+      "question_id": "qst_0105",
+      "document_id": "dsid_c83811391709468fa9534e6495c205e3",
+      "offset_zero_based": 5258,
+      "quote": "TTM (same across tiers)\n-----------------------\nSev0: 30 minutes\nSev1: 2 hours\nSev2: 1 business day\nSev3: 5 business days (or next planned release train)\n\nTTF (tier-adjusted)\n-------------------\nHosted:\n- Sev0: 24 hours\n- Sev1: 3 ",
+      "within_current_body": {
+        "bm25": false,
+        "qwen": true
+      }
+    },
+    {
+      "question_id": "qst_0401",
+      "document_id": "dsid_f7dc91cc70e14c94a6215a13cd829cbf",
+      "offset_zero_based": 4033,
+      "quote": "chunked' causing our naive keysync microservice to truncate key exports; this produced a malformed pubkey blob on some runners.\n- Reproduced locally by fetching key export via existing keysync service: got truncated payload result",
+      "within_current_body": {
+        "bm25": false,
+        "qwen": false
+      }
+    },
+    {
+      "question_id": "qst_0136",
+      "document_id": "dsid_9619c1f3ff3c4626a2bd029e907e1f76",
+      "offset_zero_based": 4489,
+      "quote": "pinned their routing to a more stable edge pool (no handoffs) and asked them to resume traffic; reporting zero failures in 6 hours.\n\nresolution:\nWorkaround: Pin affected customer to a stable edge pool and increase drain timeout fo",
+      "within_current_body": {
+        "bm25": false,
+        "qwen": false
+      }
+    },
+    {
+      "question_id": "qst_0422",
+      "document_id": "dsid_8733ed2132dc4232b2797c1d9a167cb9",
+      "offset_zero_based": 2010,
+      "quote": "RBAC v2 is enforced server-side for every exported row.\n\nPermissions:\n- audit.export.create: can initiate exports\n- audit.export.read: can view export status and download links for exports they initiated\n- audit.export.read_all: c",
+      "within_current_body": {
+        "bm25": true,
+        "qwen": true
+      }
+    }
+  ],
+  "historical_qualification": {
+    "same_24_ids": true,
+    "fixed_evidence_both_correct": 21,
+    "reference": "experiments/reports/fixed-evidence-v3-20261015.md",
+    "qst_0377_evidence_chars": 104291,
+    "qst_0377_document_count": 18,
+    "qst_0377_still_incorrect_with_relevant_commands_visible": true,
+    "not_same_budget_as_current": true
+  },
+  "cases": [
+    {
+      "id": "qst_0105",
+      "category": "basic",
+      "question": "What are the proposed internal time to mitigate targets by severity for incident response, regardless of customer deployment tier?",
+      "frozen_correct": {
+        "bm25": false,
+        "qwen": true
+      },
+      "frozen_judgements": {
+        "bm25": {
+          "correct": false,
+          "facts_supported": [
+            false,
+            true,
+            false,
+            false,
+            false
+          ],
+          "reason": "Only Sev0 matches. The candidate gives incorrect Sev1 and Sev2 targets, omits the Sev3 target, and does not affirm that the proposed internal targets apply equally across all deployment tiers."
+        },
+        "qwen": {
+          "correct": true,
+          "facts_supported": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "reason": "The candidate matches all severity-specific targets and explicitly states they are identical across deployment tiers."
+        }
+      },
+      "retrieval": {
+        "id": "qst_0105",
+        "category": "basic",
+        "A": {
+          "recall@5": 1.0,
+          "recall@20": 1.0,
+          "all_gold@5": 1.0,
+          "all_gold@20": 1.0
+        },
+        "B": {
+          "recall@5": 1.0,
+          "recall@20": 1.0,
+          "all_gold@5": 1.0,
+          "all_gold@20": 1.0
+        }
+      },
+      "diagnosis": "命中段落改善",
+      "confidence": "高",
+      "finding": "正确文档两组均命中；BM25读0–4000，Qwen读2785–6785。TTM目标表位于5258附近，只进入Qwen上下文，错→对。",
+      "reference_ranks": [
+        {
+          "document_id": "dsid_c83811391709468fa9534e6495c205e3",
+          "bm25": 2,
+          "qwen": 1
+        }
+      ],
+      "actual_windows": {
+        "bm25": [
+          {
+            "document_id": "dsid_2dc6ac1e1db14588913165002c062961",
+            "canonical_id": "dsid_2dc6ac1e1db14588913165002c062961",
+            "offset": 0,
+            "full_length": 13209,
+            "body_chars": 4000,
+            "title_chars": 76
+          },
+          {
+            "document_id": "dsid_c83811391709468fa9534e6495c205e3",
+            "canonical_id": "dsid_c83811391709468fa9534e6495c205e3",
+            "offset": 0,
+            "full_length": 12121,
+            "body_chars": 4000,
+            "title_chars": 92
+          },
+          {
+            "document_id": "dsid_ccaaf04e765740eebcad08c676fd3bf5",
+            "canonical_id": "dsid_ccaaf04e765740eebcad08c676fd3bf5",
+            "offset": 2822,
+            "full_length": 10563,
+            "body_chars": 4000,
+            "title_chars": 108
+          },
+          {
+            "document_id": "dsid_5324918997644ea090703e088b166214",
+            "canonical_id": "dsid_5324918997644ea090703e088b166214",
+            "offset": 0,
+            "full_length": 9176,
+            "body_chars": 4000,
+            "title_chars": 69
+          },
+          {
+            "document_id": "dsid_6dbc09e1f9b5497aa4a0a316ca820a0c",
+            "canonical_id": "dsid_6dbc09e1f9b5497aa4a0a316ca820a0c",
+            "offset": 4023,
+            "full_length": 9717,
+            "body_chars": 4000,
+            "title_chars": 76
+          }
+        ],
+        "qwen": [
+          {
+            "document_id": "dsid_c83811391709468fa9534e6495c205e3",
+            "canonical_id": "dsid_c83811391709468fa9534e6495c205e3",
+            "offset": 2785,
+            "full_length": 12121,
+            "body_chars": 4000,
+            "title_chars": 92
+          },
+          {
+            "document_id": "dsid_fe5b2e04db744e708cdbf3e54ea78d8e",
+            "canonical_id": "dsid_fe5b2e04db744e708cdbf3e54ea78d8e",
+            "offset": 21,
+            "full_length": 9535,
+            "body_chars": 4000,
+            "title_chars": 76
+          },
+          {
+            "document_id": "dsid_5324918997644ea090703e088b166214",
+            "canonical_id": "dsid_5324918997644ea090703e088b166214",
+            "offset": 0,
+            "full_length": 9176,
+            "body_chars": 4000,
+            "title_chars": 69
+          },
+          {
+            "document_id": "dsid_6dbc09e1f9b5497aa4a0a316ca820a0c",
+            "canonical_id": "dsid_6dbc09e1f9b5497aa4a0a316ca820a0c",
+            "offset": 65,
+            "full_length": 9717,
+            "body_chars": 4000,
+            "title_chars": 76
+          },
+          {
+            "document_id": "dsid_114b4b815f6c485296b17eef41864ccc",
+            "canonical_id": "dsid_114b4b815f6c485296b17eef41864ccc",
+            "offset": 4400,
+            "full_length": 8752,
+            "body_chars": 4000,
+            "title_chars": 68
+          }
+        ]
+      },
+      "trace_paths": {
+        "bm25": "runs/qwen-bm25-20261015/answers/bm25/qst_0105.json",
+        "qwen": "runs/qwen-bm25-20261015/answers/qwen/qst_0105.json"
+      }
+    },
+    {
+      "id": "qst_0449",
+      "category": "completeness",
+      "question": "In March 2026, which deployment offering-Hosted API, Dedicated, or Private-had the most customer support escalations where the primary symptom was request timeouts?",
+      "frozen_correct": {
+        "bm25": false,
+        "qwen": false
+      },
+      "frozen_judgements": {
+        "bm25": {
+          "correct": false,
+          "facts_supported": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "reason": "The candidate leaves the overall ranking uncertain and gives Hosted API 2 escalations instead of 3. It also omits the Dedicated total of 2 and Private total of 1."
+        },
+        "qwen": {
+          "correct": false,
+          "facts_supported": [
+            false,
+            false,
+            false,
+            true
+          ],
+          "reason": "The candidate incorrectly reports a three-way tie at 1 each instead of Hosted API leading with 3, followed by Dedicated with 2 and Private with 1. Only the Private count agrees."
+        }
+      },
+      "retrieval": {
+        "id": "qst_0449",
+        "category": "completeness",
+        "A": {
+          "recall@5": 0.3333333333333333,
+          "recall@20": 0.8333333333333334,
+          "all_gold@5": 0.0,
+          "all_gold@20": 0.0
+        },
+        "B": {
+          "recall@5": 0.5,
+          "recall@20": 1.0,
+          "all_gold@5": 0.0,
+          "all_gold@20": 1.0
+        }
+      },
+      "diagnosis": "候选消费/读取",
+      "confidence": "高",
+      "finding": "6份事件记录在Qwen第2/3/4/6/7/8名，实际只交付前5篇，因此只读到其中3份。6份完整正文共5914字符，固定文档数上限造成统计覆盖不足。",
+      "reference_ranks": [
+        {
+          "document_id": "dsid_8dff963a50774cdd84131d9ae5e4f4f3",
+          "bm25": 2,
+          "qwen": 6
+        },
+        {
+          "document_id": "dsid_5cf1a6657f1848968b2fd154066950ae",
+          "bm25": 8,
+          "qwen": 7
+        },
+        {
+          "document_id": "dsid_97992c0043184c7b9c10ed2106482ae1",
+          "bm25": 3,
+          "qwen": 2
+        },
+        {
+          "document_id": "dsid_e17e3ec88d4947bbb53c8190ccc90c54",
+          "bm25": 23,
+          "qwen": 8
+        },
+        {
+          "document_id": "dsid_19354d85a1d14a469274135ccb314a20",
+          "bm25": 16,
+          "qwen": 4
+        },
+        {
+          "document_id": "dsid_cc49c932507c42959ba9e4824f0d6b7f",
+          "bm25": 10,
+          "qwen": 3
+        }
+      ],
+      "actual_windows": {
+        "bm25": [
+          {
+            "document_id": "dsid_ce9befdefce647ff90c069ec021612c3",
+            "canonical_id": "dsid_ce9befdefce647ff90c069ec021612c3",
+            "offset": 0,
+            "full_length": 1909,
+            "body_chars": 1909,
+            "title_chars": 45
+          },
+          {
+            "document_id": "dsid_8dff963a50774cdd84131d9ae5e4f4f3",
+            "canonical_id": "dsid_8dff963a50774cdd84131d9ae5e4f4f3",
+            "offset": 0,
+            "full_length": 991,
+            "body_chars": 991,
+            "title_chars": 78
+          },
+          {
+            "document_id": "dsid_97992c0043184c7b9c10ed2106482ae1",
+            "canonical_id": "dsid_97992c0043184c7b9c10ed2106482ae1",
+            "offset": 0,
+            "full_length": 1004,
+            "body_chars": 1004,
+            "title_chars": 77
+          },
+          {
+            "document_id": "dsid_df5306310578458ab6cd8b566707ed90",
+            "canonical_id": "dsid_df5306310578458ab6cd8b566707ed90",
+            "offset": 0,
+            "full_length": 1869,
+            "body_chars": 1869,
+            "title_chars": 84
+          },
+          {
+            "document_id": "dsid_014604b8e4e14c5484b5fe7ac56efa0a",
+            "canonical_id": "dsid_014604b8e4e14c5484b5fe7ac56efa0a",
+            "offset": 1510,
+            "full_length": 9317,
+            "body_chars": 4000,
+            "title_chars": 55
+          }
+        ],
+        "qwen": [
+          {
+            "document_id": "dsid_ce9befdefce647ff90c069ec021612c3",
+            "canonical_id": "dsid_ce9befdefce647ff90c069ec021612c3",
+            "offset": 0,
+            "full_length": 1909,
+            "body_chars": 1909,
+            "title_chars": 45
+          },
+          {
+            "document_id": "dsid_97992c0043184c7b9c10ed2106482ae1",
+            "canonical_id": "dsid_97992c0043184c7b9c10ed2106482ae1",
+            "offset": 0,
+            "full_length": 1004,
+            "body_chars": 1004,
+            "title_chars": 77
+          },
+          {
+            "document_id": "dsid_cc49c932507c42959ba9e4824f0d6b7f",
+            "canonical_id": "dsid_cc49c932507c42959ba9e4824f0d6b7f",
+            "offset": 0,
+            "full_length": 972,
+            "body_chars": 972,
+            "title_chars": 65
+          },
+          {
+            "document_id": "dsid_19354d85a1d14a469274135ccb314a20",
+            "canonical_id": "dsid_19354d85a1d14a469274135ccb314a20",
+            "offset": 0,
+            "full_length": 817,
+            "body_chars": 817,
+            "title_chars": 69
+          },
+          {
+            "document_id": "dsid_5aec783077bc4240af93a86156a260e3",
+            "canonical_id": "dsid_5aec783077bc4240af93a86156a260e3",
+            "offset": 0,
+            "full_length": 4986,
+            "body_chars": 4000,
+            "title_chars": 99
+          }
+        ]
+      },
+      "trace_paths": {
+        "bm25": "runs/qwen-bm25-20261015/answers/bm25/qst_0449.json",
+        "qwen": "runs/qwen-bm25-20261015/answers/qwen/qst_0449.json"
+      }
+    },
+    {
+      "id": "qst_0422",
+      "category": "conflicting_info",
+      "question": "How do audit log exports access records older than the retention cutoff (super-admin override vs legal hold)?",
+      "frozen_correct": {
+        "bm25": true,
+        "qwen": false
+      },
+      "frozen_judgements": {
+        "bm25": {
+          "correct": true,
+          "facts_supported": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "reason": "The candidate correctly distinguishes the deprecated super-admin override from current Legal Hold requirements, including tenant enablement and immutable logging with a ticket reference. It does not claim a current super-admin bypass or invent retention durations or cutoff dates."
+        },
+        "qwen": {
+          "correct": false,
+          "facts_supported": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false
+          ],
+          "reason": "The candidate covers the core retention and Legal Hold policy, but adds a server-side RBAC requirement not established by the reference."
+        }
+      },
+      "retrieval": {
+        "id": "qst_0422",
+        "category": "conflicting_info",
+        "A": {
+          "recall@5": 1.0,
+          "recall@20": 1.0,
+          "all_gold@5": 1.0,
+          "all_gold@20": 1.0
+        },
+        "B": {
+          "recall@5": 1.0,
+          "recall@20": 1.0,
+          "all_gold@5": 1.0,
+          "all_gold@20": 1.0
+        }
+      },
+      "diagnosis": "裁判争议",
+      "confidence": "高",
+      "finding": "Qwen已答齐核心Legal Hold规则；裁判以额外RBAC要求无依据判错，但实际输入在原文offset2010明确写有server-side RBAC。保留原分数，单列争议。",
+      "reference_ranks": [
+        {
+          "document_id": "dsid_9cde32cd0645459b80ec513df27d1eb6",
+          "bm25": 2,
+          "qwen": 2
+        },
+        {
+          "document_id": "dsid_8733ed2132dc4232b2797c1d9a167cb9",
+          "bm25": 1,
+          "qwen": 3
+        }
+      ],
+      "actual_windows": {
+        "bm25": [
+          {
+            "document_id": "dsid_8733ed2132dc4232b2797c1d9a167cb9",
+            "canonical_id": "dsid_8733ed2132dc4232b2797c1d9a167cb9",
+            "offset": 95,
+            "full_length": 8608,
+            "body_chars": 4000,
+            "title_chars": 49
+          },
+          {
+            "document_id": "dsid_9cde32cd0645459b80ec513df27d1eb6",
+            "canonical_id": "dsid_9cde32cd0645459b80ec513df27d1eb6",
+            "offset": 0,
+            "full_length": 4186,
+            "body_chars": 4000,
+            "title_chars": 46
+          },
+          {
+            "document_id": "dsid_cc4728cc46b24f608b510abd20edf5e3",
+            "canonical_id": "dsid_cc4728cc46b24f608b510abd20edf5e3",
+            "offset": 87,
+            "full_length": 5191,
+            "body_chars": 4000,
+            "title_chars": 7
+          },
+          {
+            "document_id": "dsid_62bf7e4042234bd4b9f17d42f9bdf724",
+            "canonical_id": "dsid_62bf7e4042234bd4b9f17d42f9bdf724",
+            "offset": 11,
+            "full_length": 4011,
+            "body_chars": 4000,
+            "title_chars": 4
+          },
+          {
+            "document_id": "dsid_d17f4560982e421b9e26058747d3b8d1",
+            "canonical_id": "dsid_d17f4560982e421b9e26058747d3b8d1",
+            "offset": 1129,
+            "full_length": 5129,
+            "body_chars": 4000,
+            "title_chars": 4
+          }
+        ],
+        "qwen": [
+          {
+            "document_id": "dsid_9bd47db8244242f0abf090c292c00aa6",
+            "canonical_id": "dsid_9bd47db8244242f0abf090c292c00aa6",
+            "offset": 0,
+            "full_length": 7304,
+            "body_chars": 4000,
+            "title_chars": 57
+          },
+          {
+            "document_id": "dsid_9cde32cd0645459b80ec513df27d1eb6",
+            "canonical_id": "dsid_9cde32cd0645459b80ec513df27d1eb6",
+            "offset": 0,
+            "full_length": 4186,
+            "body_chars": 4000,
+            "title_chars": 46
+          },
+          {
+            "document_id": "dsid_8733ed2132dc4232b2797c1d9a167cb9",
+            "canonical_id": "dsid_8733ed2132dc4232b2797c1d9a167cb9",
+            "offset": 95,
+            "full_length": 8608,
+            "body_chars": 4000,
+            "title_chars": 49
+          },
+          {
+            "document_id": "dsid_61dc796261df431daf12a0c830776559",
+            "canonical_id": "dsid_61dc796261df431daf12a0c830776559",
+            "offset": 1600,
+            "full_length": 7873,
+            "body_chars": 4000,
+            "title_chars": 70
+          },
+          {
+            "document_id": "dsid_d17f4560982e421b9e26058747d3b8d1",
+            "canonical_id": "dsid_d17f4560982e421b9e26058747d3b8d1",
+            "offset": 1129,
+            "full_length": 5129,
+            "body_chars": 4000,
+            "title_chars": 4
+          }
+        ]
+      },
+      "trace_paths": {
+        "bm25": "runs/qwen-bm25-20261015/answers/bm25/qst_0422.json",
+        "qwen": "runs/qwen-bm25-20261015/answers/qwen/qst_0422.json"
+      }
+    },
+    {
+      "id": "qst_0410",
+      "category": "constrained",
+      "question": "In the EU hosted API, streaming generate requests over HTTP/2 intermittently returned 502 only when the client included a ~12KB base64-encoded user-metadata header. What was the root cause in our proxy chain, and what server-side mitigation did we deploy to stop the 502s (include the header and cutoff/behavior)?",
+      "frozen_correct": {
+        "bm25": false,
+        "qwen": false
+      },
+      "frozen_judgements": {
+        "bm25": {
+          "correct": false,
+          "facts_supported": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            true,
+            true,
+            true
+          ],
+          "reason": "The candidate conflates a different X-Client-Meta/431 incident with this EU case and incorrectly says the mitigation is undocumented. It omits the midproxy NGINX-to-edge Envoy failure mechanism and the deployed edge filter dropping X-User-Meta headers larger than 4096 bytes, which stopped the 502s."
+        },
+        "qwen": {
+          "correct": false,
+          "facts_supported": [
+            false,
+            false,
+            false,
+            false,
+            true,
+            true,
+            true,
+            true,
+            false
+          ],
+          "reason": "The candidate substitutes a different Tenant-Meta clamping incident and rollback for the EU incident. It fails to identify midproxy NGINX rejecting ~12KB X-User-Meta, the resulting edge Envoy HTTP/2 502s, or the deployed edge filter dropping X-User-Meta above 4096 bytes that stopped them. Its rollback claim contradicts the reference mitigation."
+        }
+      },
+      "retrieval": {
+        "id": "qst_0410",
+        "category": "constrained",
+        "A": {
+          "recall@5": 0.0,
+          "recall@20": 1.0,
+          "all_gold@5": 0.0,
+          "all_gold@20": 1.0
+        },
+        "B": {
+          "recall@5": 0.0,
+          "recall@20": 1.0,
+          "all_gold@5": 0.0,
+          "all_gold@20": 1.0
+        }
+      },
+      "diagnosis": "候选消费/读取",
+      "confidence": "高",
+      "finding": "正确EU事故文档BM25第11、Qwen第6，均落在交付的前5外；两组回答转向相似但不匹配的事故。补读第6名即可取得正确来源，不需要重新建索引。",
+      "reference_ranks": [
+        {
+          "document_id": "dsid_ab50b630b14e4bfda87847286157b739",
+          "bm25": 11,
+          "qwen": 6
+        }
+      ],
+      "actual_windows": {
+        "bm25": [
+          {
+            "document_id": "dsid_99d974b12df149f382755ec1e08f7669",
+            "canonical_id": "dsid_99d974b12df149f382755ec1e08f7669",
+            "offset": 88,
+            "full_length": 7681,
+            "body_chars": 4000,
+            "title_chars": 7681
+          },
+          {
+            "document_id": "dsid_cacad47d919d4a4ab819de0c78811dff",
+            "canonical_id": "dsid_cacad47d919d4a4ab819de0c78811dff",
+            "offset": 746,
+            "full_length": 4746,
+            "body_chars": 4000,
+            "title_chars": 4746
+          },
+          {
+            "document_id": "dsid_46da2fd234b34a43b7e57c2f626ba1e0",
+            "canonical_id": "dsid_46da2fd234b34a43b7e57c2f626ba1e0",
+            "offset": 0,
+            "full_length": 3986,
+            "body_chars": 3986,
+            "title_chars": 7
+          },
+          {
+            "document_id": "dsid_0a9de39609d64192b20e7e2e80326ec1",
+            "canonical_id": "dsid_0a9de39609d64192b20e7e2e80326ec1",
+            "offset": 1184,
+            "full_length": 6260,
+            "body_chars": 4000,
+            "title_chars": 7
+          },
+          {
+            "document_id": "dsid_cc86d7f3ef90469f8e4cd4acb7b462bc",
+            "canonical_id": "dsid_cc86d7f3ef90469f8e4cd4acb7b462bc",
+            "offset": 0,
+            "full_length": 6544,
+            "body_chars": 4000,
+            "title_chars": 104
+          }
+        ],
+        "qwen": [
+          {
+            "document_id": "dsid_966a7c4df170438c8ce53f99d9f5a12d",
+            "canonical_id": "dsid_966a7c4df170438c8ce53f99d9f5a12d",
+            "offset": 419,
+            "full_length": 4419,
+            "body_chars": 4000,
+            "title_chars": 119
+          },
+          {
+            "document_id": "dsid_46da2fd234b34a43b7e57c2f626ba1e0",
+            "canonical_id": "dsid_46da2fd234b34a43b7e57c2f626ba1e0",
+            "offset": 0,
+            "full_length": 3986,
+            "body_chars": 3986,
+            "title_chars": 7
+          },
+          {
+            "document_id": "dsid_028bb51be79e4108b88c8341b84ae178",
+            "canonical_id": "dsid_028bb51be79e4108b88c8341b84ae178",
+            "offset": 0,
+            "full_length": 3149,
+            "body_chars": 3149,
+            "title_chars": 7
+          },
+          {
+            "document_id": "dsid_75d0ee0fe09549a5b29badaff973acb9",
+            "canonical_id": "dsid_75d0ee0fe09549a5b29badaff973acb9",
+            "offset": 573,
+            "full_length": 4573,
+            "body_chars": 4000,
+            "title_chars": 7
+          },
+          {
+            "document_id": "dsid_0a9de39609d64192b20e7e2e80326ec1",
+            "canonical_id": "dsid_0a9de39609d64192b20e7e2e80326ec1",
+            "offset": 1184,
+            "full_length": 6260,
+            "body_chars": 4000,
+            "title_chars": 7
+          }
+        ]
+      },
+      "trace_paths": {
+        "bm25": "runs/qwen-bm25-20261015/answers/bm25/qst_0410.json",
+        "qwen": "runs/qwen-bm25-20261015/answers/qwen/qst_0410.json"
+      }
+    },
+    {
+      "id": "qst_0476",
+      "category": "high_level",
+      "question": "What is the stated differentiation around reliability and graceful degradation in Redwood's platform?",
+      "frozen_correct": {
+        "bm25": true,
+        "qwen": true
+      },
+      "frozen_judgements": {
+        "bm25": {
+          "correct": true,
+          "facts_supported": [
+            true,
+            true,
+            true
+          ],
+          "reason": "The candidate directly describes built-in graceful degradation, automatic fallback to model variants and alternate regions, and maintaining application availability during failures or congestion."
+        },
+        "qwen": {
+          "correct": true,
+          "facts_supported": [
+            true,
+            true,
+            true
+          ],
+          "reason": "The candidate describes built-in graceful degradation, automatic fallback across models, regions, and capacity, and continued operation during capacity constraints or failures. Additional details do not contradict the reference."
+        }
+      },
+      "retrieval": {
+        "id": "qst_0476",
+        "category": "high_level",
+        "A": null,
+        "B": null
+      },
+      "diagnosis": "两组通过",
+      "confidence": "—",
+      "finding": "两组均覆盖兼容模型/区域/容量层回退；当前对照未暴露失败。此题无参考文档ID，不纳入文档召回。",
+      "reference_ranks": [],
+      "actual_windows": {
+        "bm25": [
+          {
+            "document_id": "dsid_4e78e81ddaba41bf8d8396625f67214d",
+            "canonical_id": "dsid_4e78e81ddaba41bf8d8396625f67214d",
+            "offset": 0,
+            "full_length": 8202,
+            "body_chars": 4000,
+            "title_chars": 82
+          },
+          {
+            "document_id": "dsid_3f1b1a15cfc84d57a82e6c53055b962f",
+            "canonical_id": "dsid_3f1b1a15cfc84d57a82e6c53055b962f",
+            "offset": 1494,
+            "full_length": 13940,
+            "body_chars": 4000,
+            "title_chars": 48
+          },
+          {
+            "document_id": "dsid_7a84df85574c4f3782c0cdef5fe10343",
+            "canonical_id": "dsid_7a84df85574c4f3782c0cdef5fe10343",
+            "offset": 0,
+            "full_length": 4395,
+            "body_chars": 4000,
+            "title_chars": 4395
+          },
+          {
+            "document_id": "dsid_7b2f0f3306eb440a917f546f7392823b",
+            "canonical_id": "dsid_7b2f0f3306eb440a917f546f7392823b",
+            "offset": 0,
+            "full_length": 8720,
+            "body_chars": 4000,
+            "title_chars": 65
+          },
+          {
+            "document_id": "dsid_4ae3e445220e40c790bd97cd50681519",
+            "canonical_id": "dsid_4ae3e445220e40c790bd97cd50681519",
+            "offset": 0,
+            "full_length": 6590,
+            "body_chars": 4000,
+            "title_chars": 37
+          }
+        ],
+        "qwen": [
+          {
+            "document_id": "dsid_c7395f3a1bea4e5985baed6fc51d4e5b",
+            "canonical_id": "dsid_c7395f3a1bea4e5985baed6fc51d4e5b",
+            "offset": 0,
+            "full_length": 11784,
+            "body_chars": 4000,
+            "title_chars": 55
+          },
+          {
+            "document_id": "dsid_36ea57ce2a3a449e91efb8639b14c16e",
+            "canonical_id": "dsid_36ea57ce2a3a449e91efb8639b14c16e",
+            "offset": 0,
+            "full_length": 7800,
+            "body_chars": 4000,
+            "title_chars": 61
+          },
+          {
+            "document_id": "dsid_caaf1e511a094da79978f082e10f14c9",
+            "canonical_id": "dsid_caaf1e511a094da79978f082e10f14c9",
+            "offset": 0,
+            "full_length": 9408,
+            "body_chars": 4000,
+            "title_chars": 40
+          },
+          {
+            "document_id": "dsid_66361eb144cf4caf9beed1b36e024b41",
+            "canonical_id": "dsid_66361eb144cf4caf9beed1b36e024b41",
+            "offset": 5472,
+            "full_length": 10368,
+            "body_chars": 4000,
+            "title_chars": 59
+          },
+          {
+            "document_id": "dsid_7b2f0f3306eb440a917f546f7392823b",
+            "canonical_id": "dsid_7b2f0f3306eb440a917f546f7392823b",
+            "offset": 0,
+            "full_length": 8720,
+            "body_chars": 4000,
+            "title_chars": 65
+          }
+        ]
+      },
+      "trace_paths": {
+        "bm25": "runs/qwen-bm25-20261015/answers/bm25/qst_0476.json",
+        "qwen": "runs/qwen-bm25-20261015/answers/qwen/qst_0476.json"
+      }
+    },
+    {
+      "id": "qst_0493",
+      "category": "info_not_found",
+      "question": "What are the exact Azure Marketplace metering dimension names and units we use for Hosted API (input tokens, output tokens, embeddings, rerank), and what rounding/aggregation policy do we apply when reporting usage to Azure?",
+      "frozen_correct": {
+        "bm25": true,
+        "qwen": true
+      },
+      "frozen_judgements": {
+        "bm25": {
+          "correct": true,
+          "facts_supported": [
+            true
+          ],
+          "reason": "The candidate explicitly states that the available documents do not specify Azure’s exact metering dimensions, units, or rounding/aggregation policy, and distinguishes related GCP information from Azure."
+        },
+        "qwen": {
+          "correct": true,
+          "facts_supported": [
+            true
+          ],
+          "reason": "The candidate explicitly states that the documents do not establish all requested Azure dimensions or the Azure-specific rounding and aggregation policy, and clearly distinguishes related GCP information."
+        }
+      },
+      "retrieval": {
+        "id": "qst_0493",
+        "category": "info_not_found",
+        "A": null,
+        "B": null
+      },
+      "diagnosis": "两组通过",
+      "confidence": "—",
+      "finding": "两组均明确Azure信息不完整，并区分GCP计量配置，正确保留不确定性。",
+      "reference_ranks": [],
+      "actual_windows": {
+        "bm25": [
+          {
+            "document_id": "dsid_438e745853924b8cb66fd71ec1c6ad2e",
+            "canonical_id": "dsid_438e745853924b8cb66fd71ec1c6ad2e",
+            "offset": 2625,
+            "full_length": 12735,
+            "body_chars": 4000,
+            "title_chars": 46
+          },
+          {
+            "document_id": "dsid_ba315071cf004479bb8ebd1f8ff5b36a",
+            "canonical_id": "dsid_ba315071cf004479bb8ebd1f8ff5b36a",
+            "offset": 2811,
+            "full_length": 14538,
+            "body_chars": 4000,
+            "title_chars": 113
+          },
+          {
+            "document_id": "dsid_6c4c1c875e704f09b4d791d64d7bc7e5",
+            "canonical_id": "dsid_6c4c1c875e704f09b4d791d64d7bc7e5",
+            "offset": 2280,
+            "full_length": 28596,
+            "body_chars": 4000,
+            "title_chars": 63
+          },
+          {
+            "document_id": "dsid_8e7b1b4f15604654811fb44b5270fa28",
+            "canonical_id": "dsid_8e7b1b4f15604654811fb44b5270fa28",
+            "offset": 0,
+            "full_length": 6841,
+            "body_chars": 4000,
+            "title_chars": 103
+          },
+          {
+            "document_id": "dsid_0144ab23f6bf4ea595d4fb53853bf393",
+            "canonical_id": "dsid_0144ab23f6bf4ea595d4fb53853bf393",
+            "offset": 2967,
+            "full_length": 14817,
+            "body_chars": 4000,
+            "title_chars": 76
+          }
+        ],
+        "qwen": [
+          {
+            "document_id": "dsid_2df082473dec4145826ed859eedb5e33",
+            "canonical_id": "dsid_2df082473dec4145826ed859eedb5e33",
+            "offset": 1600,
+            "full_length": 11029,
+            "body_chars": 4000,
+            "title_chars": 65
+          },
+          {
+            "document_id": "dsid_0144ab23f6bf4ea595d4fb53853bf393",
+            "canonical_id": "dsid_0144ab23f6bf4ea595d4fb53853bf393",
+            "offset": 9708,
+            "full_length": 14817,
+            "body_chars": 4000,
+            "title_chars": 76
+          },
+          {
+            "document_id": "dsid_438e745853924b8cb66fd71ec1c6ad2e",
+            "canonical_id": "dsid_438e745853924b8cb66fd71ec1c6ad2e",
+            "offset": 2625,
+            "full_length": 12735,
+            "body_chars": 4000,
+            "title_chars": 46
+          },
+          {
+            "document_id": "dsid_7a4bd68017b74d0eacedefa103439213",
+            "canonical_id": "dsid_7a4bd68017b74d0eacedefa103439213",
+            "offset": 32,
+            "full_length": 7427,
+            "body_chars": 4000,
+            "title_chars": 74
+          },
+          {
+            "document_id": "dsid_b849dfa9e2b84783bfe085ab7fef4c3c",
+            "canonical_id": "dsid_b849dfa9e2b84783bfe085ab7fef4c3c",
+            "offset": 25,
+            "full_length": 7181,
+            "body_chars": 4000,
+            "title_chars": 85
+          }
+        ]
+      },
+      "trace_paths": {
+        "bm25": "runs/qwen-bm25-20261015/answers/bm25/qst_0493.json",
+        "qwen": "runs/qwen-bm25-20261015/answers/qwen/qst_0493.json"
+      }
+    },
+    {
+      "id": "qst_0309",
+      "category": "intra_document_reasoning",
+      "question": "After the docs deploy failed due to mkdocs linkcheck reporting broken anchor fragments from an include refactor, what final deploy-bot status was reported once prod was updated?",
+      "frozen_correct": {
+        "bm25": false,
+        "qwen": true
+      },
+      "frozen_judgements": {
+        "bm25": {
+          "correct": false,
+          "facts_supported": [
+            false,
+            false,
+            false
+          ],
+          "reason": "The candidate abstains, but the reference reports a final status of success with linkcheck warnings only and no broken fragments."
+        },
+        "qwen": {
+          "correct": true,
+          "facts_supported": [
+            true,
+            true,
+            true
+          ],
+          "reason": "The candidate matches the final success status, linkcheck warnings only, and absence of broken fragments."
+        }
+      },
+      "retrieval": {
+        "id": "qst_0309",
+        "category": "intra_document_reasoning",
+        "A": {
+          "recall@5": 0.0,
+          "recall@20": 1.0,
+          "all_gold@5": 0.0,
+          "all_gold@20": 1.0
+        },
+        "B": {
+          "recall@5": 1.0,
+          "recall@20": 1.0,
+          "all_gold@5": 1.0,
+          "all_gold@20": 1.0
+        }
+      },
+      "diagnosis": "文档命中改善",
+      "confidence": "高",
+      "finding": "参考文档从前5外进入Qwen前5，成功读到最终deploy-bot状态，错→对。",
+      "reference_ranks": [
+        {
+          "document_id": "dsid_107621ec137a40e5a966e429a531125e",
+          "bm25": 17,
+          "qwen": 3
+        }
+      ],
+      "actual_windows": {
+        "bm25": [
+          {
+            "document_id": "dsid_171dfe2936d240dfb11096ac09071cf4",
+            "canonical_id": "dsid_171dfe2936d240dfb11096ac09071cf4",
+            "offset": 0,
+            "full_length": 1779,
+            "body_chars": 1779,
+            "title_chars": 4
+          },
+          {
+            "document_id": "dsid_69acc9826f7c4f14bd678ea089b07f9b",
+            "canonical_id": "dsid_69acc9826f7c4f14bd678ea089b07f9b",
+            "offset": 0,
+            "full_length": 2737,
+            "body_chars": 2737,
+            "title_chars": 4
+          },
+          {
+            "document_id": "dsid_c5a4d958cde542ab95e3015541b8ab2f",
+            "canonical_id": "dsid_c5a4d958cde542ab95e3015541b8ab2f",
+            "offset": 0,
+            "full_length": 2755,
+            "body_chars": 2755,
+            "title_chars": 4
+          },
+          {
+            "document_id": "dsid_2f455f8a12044ccab52a6aa9e91d0e47",
+            "canonical_id": "dsid_2f455f8a12044ccab52a6aa9e91d0e47",
+            "offset": 0,
+            "full_length": 2955,
+            "body_chars": 2955,
+            "title_chars": 4
+          },
+          {
+            "document_id": "dsid_e50414edae4d41eea9031e47ff25af94",
+            "canonical_id": "dsid_e50414edae4d41eea9031e47ff25af94",
+            "offset": 0,
+            "full_length": 1763,
+            "body_chars": 1763,
+            "title_chars": 4
+          }
+        ],
+        "qwen": [
+          {
+            "document_id": "dsid_804891ad4dd745dfa54936869e8ca512",
+            "canonical_id": "dsid_804891ad4dd745dfa54936869e8ca512",
+            "offset": 0,
+            "full_length": 3741,
+            "body_chars": 3741,
+            "title_chars": 4
+          },
+          {
+            "document_id": "dsid_d4eddf3f437345e79b76ca7c022c0e9d",
+            "canonical_id": "dsid_d4eddf3f437345e79b76ca7c022c0e9d",
+            "offset": 0,
+            "full_length": 3314,
+            "body_chars": 3314,
+            "title_chars": 4
+          },
+          {
+            "document_id": "dsid_107621ec137a40e5a966e429a531125e",
+            "canonical_id": "dsid_107621ec137a40e5a966e429a531125e",
+            "offset": 0,
+            "full_length": 3119,
+            "body_chars": 3119,
+            "title_chars": 4
+          },
+          {
+            "document_id": "dsid_95264a8479a94237a1b89140199edc1f",
+            "canonical_id": "dsid_95264a8479a94237a1b89140199edc1f",
+            "offset": 0,
+            "full_length": 3682,
+            "body_chars": 3682,
+            "title_chars": 4
+          },
+          {
+            "document_id": "dsid_9982dd65e7974cdc8d4a928f948fa812",
+            "canonical_id": "dsid_9982dd65e7974cdc8d4a928f948fa812",
+            "offset": 0,
+            "full_length": 3005,
+            "body_chars": 3005,
+            "title_chars": 4
+          }
+        ]
+      },
+      "trace_paths": {
+        "bm25": "runs/qwen-bm25-20261015/answers/bm25/qst_0309.json",
+        "qwen": "runs/qwen-bm25-20261015/answers/qwen/qst_0309.json"
+      }
+    },
+    {
+      "id": "qst_0468",
+      "category": "miscellaneous",
+      "question": "In the chat about an office cat knocking over equipment and jokes about caching, what was the short bash command meme about forcefully ending a process named after a cat?",
+      "frozen_correct": {
+        "bm25": true,
+        "qwen": true
+      },
+      "frozen_judgements": {
+        "bm25": {
+          "correct": true,
+          "facts_supported": [
+            true
+          ],
+          "reason": "The candidate gives the exact bash command meme from the reference."
+        },
+        "qwen": {
+          "correct": true,
+          "facts_supported": [
+            true
+          ],
+          "reason": "The candidate gives the exact command in the reference: `kill -9 purr`."
+        }
+      },
+      "retrieval": {
+        "id": "qst_0468",
+        "category": "miscellaneous",
+        "A": {
+          "recall@5": 1.0,
+          "recall@20": 1.0,
+          "all_gold@5": 1.0,
+          "all_gold@20": 1.0
+        },
+        "B": {
+          "recall@5": 1.0,
+          "recall@20": 1.0,
+          "all_gold@5": 1.0,
+          "all_gold@20": 1.0
+        }
+      },
+      "diagnosis": "两组通过",
+      "confidence": "—",
+      "finding": "短命令事实均答对，当前无待归因失败。",
+      "reference_ranks": [
+        {
+          "document_id": "dsid_3e0b3c67d6d647c185afb1c7633ac292",
+          "bm25": 1,
+          "qwen": 1
+        }
+      ],
+      "actual_windows": {
+        "bm25": [
+          {
+            "document_id": "dsid_3e0b3c67d6d647c185afb1c7633ac292",
+            "canonical_id": "dsid_3e0b3c67d6d647c185afb1c7633ac292",
+            "offset": 0,
+            "full_length": 883,
+            "body_chars": 883,
+            "title_chars": 5
+          },
+          {
+            "document_id": "dsid_b4f526add3d242d891cf359730830d4b",
+            "canonical_id": "dsid_b4f526add3d242d891cf359730830d4b",
+            "offset": 0,
+            "full_length": 2189,
+            "body_chars": 2189,
+            "title_chars": 6
+          },
+          {
+            "document_id": "dsid_b734b52224e44c9db34846a9595465b3",
+            "canonical_id": "dsid_b734b52224e44c9db34846a9595465b3",
+            "offset": 0,
+            "full_length": 1414,
+            "body_chars": 1414,
+            "title_chars": 6
+          },
+          {
+            "document_id": "dsid_8724ab6d8c55487aaaa1309c003971a1",
+            "canonical_id": "dsid_8724ab6d8c55487aaaa1309c003971a1",
+            "offset": 0,
+            "full_length": 3369,
+            "body_chars": 3369,
+            "title_chars": 6
+          },
+          {
+            "document_id": "dsid_168cb3c64dc44dcebab7c857bd8506b4",
+            "canonical_id": "dsid_168cb3c64dc44dcebab7c857bd8506b4",
+            "offset": 0,
+            "full_length": 3083,
+            "body_chars": 3083,
+            "title_chars": 6
+          }
+        ],
+        "qwen": [
+          {
+            "document_id": "dsid_3e0b3c67d6d647c185afb1c7633ac292",
+            "canonical_id": "dsid_3e0b3c67d6d647c185afb1c7633ac292",
+            "offset": 0,
+            "full_length": 883,
+            "body_chars": 883,
+            "title_chars": 5
+          },
+          {
+            "document_id": "dsid_9afae71aeea9486f959fce9617cbca7e",
+            "canonical_id": "dsid_9afae71aeea9486f959fce9617cbca7e",
+            "offset": 0,
+            "full_length": 1278,
+            "body_chars": 1278,
+            "title_chars": 6
+          },
+          {
+            "document_id": "dsid_ad3633009e154678a95d097b4d07b9d8",
+            "canonical_id": "dsid_ad3633009e154678a95d097b4d07b9d8",
+            "offset": 0,
+            "full_length": 1133,
+            "body_chars": 1133,
+            "title_chars": 7
+          },
+          {
+            "document_id": "dsid_b4f526add3d242d891cf359730830d4b",
+            "canonical_id": "dsid_b4f526add3d242d891cf359730830d4b",
+            "offset": 0,
+            "full_length": 2189,
+            "body_chars": 2189,
+            "title_chars": 6
+          },
+          {
+            "document_id": "dsid_a2596450fc27412c87951a2dbb916a1a",
+            "canonical_id": "dsid_a2596450fc27412c87951a2dbb916a1a",
+            "offset": 0,
+            "full_length": 2067,
+            "body_chars": 2067,
+            "title_chars": 6
+          }
+        ]
+      },
+      "trace_paths": {
+        "bm25": "runs/qwen-bm25-20261015/answers/bm25/qst_0468.json",
+        "qwen": "runs/qwen-bm25-20261015/answers/qwen/qst_0468.json"
+      }
+    },
+    {
+      "id": "qst_0374",
+      "category": "project_related",
+      "question": "For the runtime 1.19 Dedicated canary, what TP watchdog mode and default timeouts should we start with, and what specific metrics or alert conditions should trigger an immediate rollback if we see false positives or drain storms?",
+      "frozen_correct": {
+        "bm25": false,
+        "qwen": false
+      },
+      "frozen_judgements": {
+        "bm25": {
+          "correct": false,
+          "facts_supported": [
+            false,
+            true,
+            true,
+            true,
+            false,
+            false,
+            true,
+            false,
+            true,
+            false,
+            false,
+            false,
+            false
+          ],
+          "reason": "The timeout values and abort-without-timeout-improvement criterion match, as does the p99 rollback threshold. However, the candidate starts with OFF rather than observe-only and omits or declines key rollback criteria: >3 drains/restarts per hour per cluster, ReplicaDrainStormTP, the precise customer-error threshold, 10-minute wedge recovery, and both named stall-correlation conditions."
+        },
+        "qwen": {
+          "correct": false,
+          "facts_supported": [
+            true,
+            true,
+            true,
+            true,
+            false,
+            false,
+            false,
+            false,
+            true,
+            false,
+            false,
+            false,
+            false
+          ],
+          "reason": "The candidate matches observe-only mode, all phase-specific timeout defaults, and the sustained p99 rollback threshold. However, it substitutes different drain and heartbeat thresholds and omits the specified drain-storm condition, abort/drain spikes without timeout improvement, quantified customer-error rollback threshold, 10-minute recovery limit, and required stall-signal correlations."
+        }
+      },
+      "retrieval": {
+        "id": "qst_0374",
+        "category": "project_related",
+        "A": {
+          "recall@5": 0.6666666666666666,
+          "recall@20": 1.0,
+          "all_gold@5": 0.0,
+          "all_gold@20": 1.0
+        },
+        "B": {
+          "recall@5": 0.6666666666666666,
+          "recall@20": 0.6666666666666666,
+          "all_gold@5": 0.0,
+          "all_gold@20": 0.0
+        }
+      },
+      "diagnosis": "检索＋读取混合",
+      "confidence": "高",
+      "finding": "Dashboard文档BM25第15、Qwen前20无；已选release plan窗口始于5872，截掉5674等位置的回滚条件，窗口首句只剩ts >3 per hour。还存在不同阶段/版本阈值冲突，不能只归因于生成。",
+      "reference_ranks": [
+        {
+          "document_id": "dsid_30b0460f0ef74192b50be29ea518aef1",
+          "bm25": 2,
+          "qwen": 1
+        },
+        {
+          "document_id": "dsid_cf2557c60954460bb002ad1f17ad4369",
+          "bm25": 1,
+          "qwen": 2
+        },
+        {
+          "document_id": "dsid_c67e1098ee1e4d438a041539a79bfc15",
+          "bm25": 15,
+          "qwen": null
+        }
+      ],
+      "actual_windows": {
+        "bm25": [
+          {
+            "document_id": "dsid_cf2557c60954460bb002ad1f17ad4369",
+            "canonical_id": "dsid_cf2557c60954460bb002ad1f17ad4369",
+            "offset": 5872,
+            "full_length": 9872,
+            "body_chars": 4000,
+            "title_chars": 84
+          },
+          {
+            "document_id": "dsid_30b0460f0ef74192b50be29ea518aef1",
+            "canonical_id": "dsid_30b0460f0ef74192b50be29ea518aef1",
+            "offset": 2738,
+            "full_length": 7085,
+            "body_chars": 4000,
+            "title_chars": 11
+          },
+          {
+            "document_id": "dsid_d8cd978156d44f9aa965b2ab6428d50d",
+            "canonical_id": "dsid_d8cd978156d44f9aa965b2ab6428d50d",
+            "offset": 2905,
+            "full_length": 11463,
+            "body_chars": 4000,
+            "title_chars": 60
+          },
+          {
+            "document_id": "dsid_16d20be96ee94081ab20814d7a47650f",
+            "canonical_id": "dsid_16d20be96ee94081ab20814d7a47650f",
+            "offset": 6971,
+            "full_length": 12041,
+            "body_chars": 4000,
+            "title_chars": 55
+          },
+          {
+            "document_id": "dsid_c3869980ce004c839ef241e61ca67067",
+            "canonical_id": "dsid_c3869980ce004c839ef241e61ca67067",
+            "offset": 2933,
+            "full_length": 6933,
+            "body_chars": 4000,
+            "title_chars": 70
+          }
+        ],
+        "qwen": [
+          {
+            "document_id": "dsid_30b0460f0ef74192b50be29ea518aef1",
+            "canonical_id": "dsid_30b0460f0ef74192b50be29ea518aef1",
+            "offset": 2738,
+            "full_length": 7085,
+            "body_chars": 4000,
+            "title_chars": 11
+          },
+          {
+            "document_id": "dsid_cf2557c60954460bb002ad1f17ad4369",
+            "canonical_id": "dsid_cf2557c60954460bb002ad1f17ad4369",
+            "offset": 5872,
+            "full_length": 9872,
+            "body_chars": 4000,
+            "title_chars": 84
+          },
+          {
+            "document_id": "dsid_16d20be96ee94081ab20814d7a47650f",
+            "canonical_id": "dsid_16d20be96ee94081ab20814d7a47650f",
+            "offset": 6971,
+            "full_length": 12041,
+            "body_chars": 4000,
+            "title_chars": 55
+          },
+          {
+            "document_id": "dsid_888785a067784b0aaebb23addae6afe3",
+            "canonical_id": "dsid_888785a067784b0aaebb23addae6afe3",
+            "offset": 4062,
+            "full_length": 13640,
+            "body_chars": 4000,
+            "title_chars": 73
+          },
+          {
+            "document_id": "dsid_0f2930a84a2e4540b6aac877651d997f",
+            "canonical_id": "dsid_0f2930a84a2e4540b6aac877651d997f",
+            "offset": 0,
+            "full_length": 6237,
+            "body_chars": 4000,
+            "title_chars": 11
+          }
+        ]
+      },
+      "trace_paths": {
+        "bm25": "runs/qwen-bm25-20261015/answers/bm25/qst_0374.json",
+        "qwen": "runs/qwen-bm25-20261015/answers/qwen/qst_0374.json"
+      }
+    },
+    {
+      "id": "qst_0192",
+      "category": "semantic",
+      "question": "In our GPU inference runtime, what change was introduced to cut the worst-case temporary device-memory spike when short and long requests are interleaved, especially for attention-heavy ops that used to grab per-op temp buffers?",
+      "frozen_correct": {
+        "bm25": false,
+        "qwen": true
+      },
+      "frozen_judgements": {
+        "bm25": {
+          "correct": false,
+          "facts_supported": [
+            true,
+            false,
+            false,
+            false
+          ],
+          "reason": "The candidate identifies reusable scratch, but omits lifetime tagging and reuse across operators within the same execution frame. It does not establish that attention, rotary, and layernorm stop allocating per-op scratch, and introduces unsupported claims about quotas and lower-scratch kernel variants."
+        },
+        "qwen": {
+          "correct": true,
+          "facts_supported": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "reason": "The candidate supports all reference facts: lifetime-aware scratch management, reuse across operators within an execution frame, and migration of attention, rotary, and layernorm away from per-op scratch allocations to reduce transient memory peaks. Additional claims do not contradict the reference."
+        }
+      },
+      "retrieval": {
+        "id": "qst_0192",
+        "category": "semantic",
+        "A": {
+          "recall@5": 0.0,
+          "recall@20": 1.0,
+          "all_gold@5": 0.0,
+          "all_gold@20": 1.0
+        },
+        "B": {
+          "recall@5": 1.0,
+          "recall@20": 1.0,
+          "all_gold@5": 1.0,
+          "all_gold@20": 1.0
+        }
+      },
+      "diagnosis": "文档命中改善",
+      "confidence": "高",
+      "finding": "参考文档从前5外进入Qwen第1，dynamic scratch reuse的生命周期/算子范围被读到，错→对。",
+      "reference_ranks": [
+        {
+          "document_id": "dsid_a193f9b7483248ad86c52e684d98a760",
+          "bm25": 15,
+          "qwen": 1
+        }
+      ],
+      "actual_windows": {
+        "bm25": [
+          {
+            "document_id": "dsid_6ac9e571bc1a49e5a147ff2dc74f3838",
+            "canonical_id": "dsid_6ac9e571bc1a49e5a147ff2dc74f3838",
+            "offset": 0,
+            "full_length": 4846,
+            "body_chars": 4000,
+            "title_chars": 11
+          },
+          {
+            "document_id": "dsid_190e2182ccc54cd1b4e780977c6a9494",
+            "canonical_id": "dsid_190e2182ccc54cd1b4e780977c6a9494",
+            "offset": 0,
+            "full_length": 5816,
+            "body_chars": 4000,
+            "title_chars": 75
+          },
+          {
+            "document_id": "dsid_ded6e9ee59f340c8867851914396dd36",
+            "canonical_id": "dsid_ded6e9ee59f340c8867851914396dd36",
+            "offset": 0,
+            "full_length": 8755,
+            "body_chars": 4000,
+            "title_chars": 65
+          },
+          {
+            "document_id": "dsid_825f925812214de5b617af25f00c7f4e",
+            "canonical_id": "dsid_825f925812214de5b617af25f00c7f4e",
+            "offset": 0,
+            "full_length": 8808,
+            "body_chars": 4000,
+            "title_chars": 44
+          },
+          {
+            "document_id": "dsid_55c740f9caba45b8bf53fdfe81162f1e",
+            "canonical_id": "dsid_55c740f9caba45b8bf53fdfe81162f1e",
+            "offset": 0,
+            "full_length": 9205,
+            "body_chars": 4000,
+            "title_chars": 96
+          }
+        ],
+        "qwen": [
+          {
+            "document_id": "dsid_a193f9b7483248ad86c52e684d98a760",
+            "canonical_id": "dsid_a193f9b7483248ad86c52e684d98a760",
+            "offset": 0,
+            "full_length": 4957,
+            "body_chars": 4000,
+            "title_chars": 84
+          },
+          {
+            "document_id": "dsid_87c207a2190c459193771ee5289ed4c1",
+            "canonical_id": "dsid_87c207a2190c459193771ee5289ed4c1",
+            "offset": 0,
+            "full_length": 5765,
+            "body_chars": 4000,
+            "title_chars": 11
+          },
+          {
+            "document_id": "dsid_a669f4de3b754591a546c96875dae9d7",
+            "canonical_id": "dsid_a669f4de3b754591a546c96875dae9d7",
+            "offset": 0,
+            "full_length": 4860,
+            "body_chars": 4000,
+            "title_chars": 64
+          },
+          {
+            "document_id": "dsid_01262212c0424a1797765c343f407393",
+            "canonical_id": "dsid_01262212c0424a1797765c343f407393",
+            "offset": 3406,
+            "full_length": 7406,
+            "body_chars": 4000,
+            "title_chars": 84
+          },
+          {
+            "document_id": "dsid_190e2182ccc54cd1b4e780977c6a9494",
+            "canonical_id": "dsid_190e2182ccc54cd1b4e780977c6a9494",
+            "offset": 200,
+            "full_length": 5816,
+            "body_chars": 4000,
+            "title_chars": 75
+          }
+        ]
+      },
+      "trace_paths": {
+        "bm25": "runs/qwen-bm25-20261015/answers/bm25/qst_0192.json",
+        "qwen": "runs/qwen-bm25-20261015/answers/qwen/qst_0192.json"
+      }
+    },
+    {
+      "id": "qst_0017",
+      "category": "basic",
+      "question": "What service credit percentages were proposed in the tiered uptime SLA counteroffer for the maritime logistics SaaS customer using dedicated GPU capacity?",
+      "frozen_correct": {
+        "bm25": true,
+        "qwen": true
+      },
+      "frozen_judgements": {
+        "bm25": {
+          "correct": true,
+          "facts_supported": [
+            true,
+            true,
+            true
+          ],
+          "reason": "The candidate accurately states all three service credit percentages and their corresponding uptime tiers."
+        },
+        "qwen": {
+          "correct": true,
+          "facts_supported": [
+            true,
+            true,
+            true
+          ],
+          "reason": "The candidate matches all three proposed service credit percentages and their corresponding uptime tiers."
+        }
+      },
+      "retrieval": {
+        "id": "qst_0017",
+        "category": "basic",
+        "A": {
+          "recall@5": 1.0,
+          "recall@20": 1.0,
+          "all_gold@5": 1.0,
+          "all_gold@20": 1.0
+        },
+        "B": {
+          "recall@5": 1.0,
+          "recall@20": 1.0,
+          "all_gold@5": 1.0,
+          "all_gold@20": 1.0
+        }
+      },
+      "diagnosis": "两组通过",
+      "confidence": "—",
+      "finding": "两组均正确给出10/30/60%的服务信用分档。",
+      "reference_ranks": [
+        {
+          "document_id": "dsid_03af1e44970d4d6db6e85bc2c5fce8de",
+          "bm25": 1,
+          "qwen": 1
+        }
+      ],
+      "actual_windows": {
+        "bm25": [
+          {
+            "document_id": "dsid_03af1e44970d4d6db6e85bc2c5fce8de",
+            "canonical_id": "dsid_03af1e44970d4d6db6e85bc2c5fce8de",
+            "offset": 0,
+            "full_length": 4042,
+            "body_chars": 4000,
+            "title_chars": 30
+          },
+          {
+            "document_id": "dsid_5043fca5d94d454aaa1ed1b9d404e0e5",
+            "canonical_id": "dsid_5043fca5d94d454aaa1ed1b9d404e0e5",
+            "offset": 0,
+            "full_length": 4548,
+            "body_chars": 4000,
+            "title_chars": 18
+          },
+          {
+            "document_id": "dsid_bf14d5eaf9b34c819dc63a956b939b9c",
+            "canonical_id": "dsid_bf14d5eaf9b34c819dc63a956b939b9c",
+            "offset": 1600,
+            "full_length": 7114,
+            "body_chars": 4000,
+            "title_chars": 61
+          },
+          {
+            "document_id": "dsid_1be5108d0320498697af33e57c0dc918",
+            "canonical_id": "dsid_1be5108d0320498697af33e57c0dc918",
+            "offset": 200,
+            "full_length": 8486,
+            "body_chars": 4000,
+            "title_chars": 48
+          },
+          {
+            "document_id": "dsid_87cf09d67f3d4f2bb99025213b6a2d76",
+            "canonical_id": "dsid_87cf09d67f3d4f2bb99025213b6a2d76",
+            "offset": 0,
+            "full_length": 1968,
+            "body_chars": 1968,
+            "title_chars": 24
+          }
+        ],
+        "qwen": [
+          {
+            "document_id": "dsid_03af1e44970d4d6db6e85bc2c5fce8de",
+            "canonical_id": "dsid_03af1e44970d4d6db6e85bc2c5fce8de",
+            "offset": 0,
+            "full_length": 4042,
+            "body_chars": 4000,
+            "title_chars": 30
+          },
+          {
+            "document_id": "dsid_99ce4825107148fbad2e42a6661d5458",
+            "canonical_id": "dsid_99ce4825107148fbad2e42a6661d5458",
+            "offset": 0,
+            "full_length": 4571,
+            "body_chars": 4000,
+            "title_chars": 22
+          },
+          {
+            "document_id": "dsid_bf14d5eaf9b34c819dc63a956b939b9c",
+            "canonical_id": "dsid_bf14d5eaf9b34c819dc63a956b939b9c",
+            "offset": 1600,
+            "full_length": 7114,
+            "body_chars": 4000,
+            "title_chars": 61
+          },
+          {
+            "document_id": "dsid_e58b13acc4184b649570348a4094a6b5",
+            "canonical_id": "dsid_e58b13acc4184b649570348a4094a6b5",
+            "offset": 200,
+            "full_length": 6083,
+            "body_chars": 4000,
+            "title_chars": 80
+          },
+          {
+            "document_id": "dsid_1be5108d0320498697af33e57c0dc918",
+            "canonical_id": "dsid_1be5108d0320498697af33e57c0dc918",
+            "offset": 200,
+            "full_length": 8486,
+            "body_chars": 4000,
+            "title_chars": 48
+          }
+        ]
+      },
+      "trace_paths": {
+        "bm25": "runs/qwen-bm25-20261015/answers/bm25/qst_0017.json",
+        "qwen": "runs/qwen-bm25-20261015/answers/qwen/qst_0017.json"
+      }
+    },
+    {
+      "id": "qst_0446",
+      "category": "completeness",
+      "question": "Has any customer other than Kestrel Labs reported timeouts specifically when using the JSON-schema structured output feature on the hosted API?",
+      "frozen_correct": {
+        "bm25": true,
+        "qwen": false
+      },
+      "frozen_judgements": {
+        "bm25": {
+          "correct": true,
+          "facts_supported": [
+            true,
+            true,
+            false,
+            false
+          ],
+          "reason": "The candidate directly answers the question and identifies Northwind Analytics. It omits us-east and does not fully support the root-cause detail concerning large or complex schemas; these are noncritical background to the question."
+        },
+        "qwen": {
+          "correct": false,
+          "facts_supported": [
+            true,
+            true,
+            false,
+            false
+          ],
+          "reason": "The candidate correctly identifies Northwind Analytics as another affected customer, but omits the us-east region and does not fully support the root cause involving long-tail constrained-decoding latency with large or complex schemas."
+        }
+      },
+      "retrieval": {
+        "id": "qst_0446",
+        "category": "completeness",
+        "A": {
+          "recall@5": 0.8,
+          "recall@20": 0.8,
+          "all_gold@5": 0.0,
+          "all_gold@20": 0.0
+        },
+        "B": {
+          "recall@5": 0.8,
+          "recall@20": 1.0,
+          "all_gold@5": 0.0,
+          "all_gold@20": 1.0
+        }
+      },
+      "diagnosis": "裁判争议",
+      "confidence": "高",
+      "finding": "两份答案语义几乎相同、均直接回答Northwind Analytics；facts_supported均为[true,true,false,false]，但一对一错，判分标准对是否必须补背景信息不一致。",
+      "reference_ranks": [
+        {
+          "document_id": "dsid_312eed72d5d04d27a52717f94e178341",
+          "bm25": 2,
+          "qwen": 5
+        },
+        {
+          "document_id": "dsid_f97baf7b89b34cac9fc2fcde251a2502",
+          "bm25": 3,
+          "qwen": 1
+        },
+        {
+          "document_id": "dsid_1507ad6f9a704d4fb86aac359ade8c51",
+          "bm25": 4,
+          "qwen": 3
+        },
+        {
+          "document_id": "dsid_e0cd6ae5755943258ef361ce2a1c0295",
+          "bm25": 24,
+          "qwen": 7
+        },
+        {
+          "document_id": "dsid_b43656ed184842b8a54c51137141d3cc",
+          "bm25": 1,
+          "qwen": 2
+        }
+      ],
+      "actual_windows": {
+        "bm25": [
+          {
+            "document_id": "dsid_b43656ed184842b8a54c51137141d3cc",
+            "canonical_id": "dsid_b43656ed184842b8a54c51137141d3cc",
+            "offset": 0,
+            "full_length": 2100,
+            "body_chars": 2100,
+            "title_chars": 72
+          },
+          {
+            "document_id": "dsid_312eed72d5d04d27a52717f94e178341",
+            "canonical_id": "dsid_312eed72d5d04d27a52717f94e178341",
+            "offset": 0,
+            "full_length": 2022,
+            "body_chars": 2022,
+            "title_chars": 76
+          },
+          {
+            "document_id": "dsid_f97baf7b89b34cac9fc2fcde251a2502",
+            "canonical_id": "dsid_f97baf7b89b34cac9fc2fcde251a2502",
+            "offset": 0,
+            "full_length": 1400,
+            "body_chars": 1400,
+            "title_chars": 7
+          },
+          {
+            "document_id": "dsid_1507ad6f9a704d4fb86aac359ade8c51",
+            "canonical_id": "dsid_1507ad6f9a704d4fb86aac359ade8c51",
+            "offset": 0,
+            "full_length": 3238,
+            "body_chars": 3238,
+            "title_chars": 72
+          },
+          {
+            "document_id": "dsid_b2d656a0db2148eda30131d9fc20cf41",
+            "canonical_id": "dsid_b2d656a0db2148eda30131d9fc20cf41",
+            "offset": 3745,
+            "full_length": 9311,
+            "body_chars": 4000,
+            "title_chars": 58
+          }
+        ],
+        "qwen": [
+          {
+            "document_id": "dsid_f97baf7b89b34cac9fc2fcde251a2502",
+            "canonical_id": "dsid_f97baf7b89b34cac9fc2fcde251a2502",
+            "offset": 0,
+            "full_length": 1400,
+            "body_chars": 1400,
+            "title_chars": 7
+          },
+          {
+            "document_id": "dsid_b43656ed184842b8a54c51137141d3cc",
+            "canonical_id": "dsid_b43656ed184842b8a54c51137141d3cc",
+            "offset": 0,
+            "full_length": 2100,
+            "body_chars": 2100,
+            "title_chars": 72
+          },
+          {
+            "document_id": "dsid_1507ad6f9a704d4fb86aac359ade8c51",
+            "canonical_id": "dsid_1507ad6f9a704d4fb86aac359ade8c51",
+            "offset": 0,
+            "full_length": 3238,
+            "body_chars": 3238,
+            "title_chars": 72
+          },
+          {
+            "document_id": "dsid_bee1f543e7104c6d80def079cb14a607",
+            "canonical_id": "dsid_bee1f543e7104c6d80def079cb14a607",
+            "offset": 0,
+            "full_length": 5698,
+            "body_chars": 4000,
+            "title_chars": 115
+          },
+          {
+            "document_id": "dsid_312eed72d5d04d27a52717f94e178341",
+            "canonical_id": "dsid_312eed72d5d04d27a52717f94e178341",
+            "offset": 0,
+            "full_length": 2022,
+            "body_chars": 2022,
+            "title_chars": 76
+          }
+        ]
+      },
+      "trace_paths": {
+        "bm25": "runs/qwen-bm25-20261015/answers/bm25/qst_0446.json",
+        "qwen": "runs/qwen-bm25-20261015/answers/qwen/qst_0446.json"
+      }
+    },
+    {
+      "id": "qst_0412",
+      "category": "conflicting_info",
+      "question": "For extraction, what price-normalization correctness is reported at temp=0.0 with strict JSON + canonicalization, and what earlier % is it compared to?",
+      "frozen_correct": {
+        "bm25": true,
+        "qwen": true
+      },
+      "frozen_judgements": {
+        "bm25": {
+          "correct": true,
+          "facts_supported": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "reason": "The candidate correctly reports ~96% with strict JSON and canonicalization at temp=0.0, compared with ~89% previously without canonicalization, with no conflicting percentages."
+        },
+        "qwen": {
+          "correct": true,
+          "facts_supported": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "reason": "The candidate correctly reports ~96% with strict JSON plus canonicalization at temp=0.0, compared with ~89% previously without canonicalization, and introduces no conflicting percentages."
+        }
+      },
+      "retrieval": {
+        "id": "qst_0412",
+        "category": "conflicting_info",
+        "A": {
+          "recall@5": 1.0,
+          "recall@20": 1.0,
+          "all_gold@5": 1.0,
+          "all_gold@20": 1.0
+        },
+        "B": {
+          "recall@5": 1.0,
+          "recall@20": 1.0,
+          "all_gold@5": 1.0,
+          "all_gold@20": 1.0
+        }
+      },
+      "diagnosis": "两组通过",
+      "confidence": "—",
+      "finding": "两组均区分更新后的96%与此前89%，当前无失败。",
+      "reference_ranks": [
+        {
+          "document_id": "dsid_89c0c31e220c4777b15c3c6ff0eff61d",
+          "bm25": 2,
+          "qwen": 2
+        },
+        {
+          "document_id": "dsid_a2bf755670ad44e09b42c11e9d73e5d3",
+          "bm25": 1,
+          "qwen": 1
+        }
+      ],
+      "actual_windows": {
+        "bm25": [
+          {
+            "document_id": "dsid_a2bf755670ad44e09b42c11e9d73e5d3",
+            "canonical_id": "dsid_a2bf755670ad44e09b42c11e9d73e5d3",
+            "offset": 4715,
+            "full_length": 8715,
+            "body_chars": 4000,
+            "title_chars": 53
+          },
+          {
+            "document_id": "dsid_89c0c31e220c4777b15c3c6ff0eff61d",
+            "canonical_id": "dsid_89c0c31e220c4777b15c3c6ff0eff61d",
+            "offset": 1508,
+            "full_length": 6555,
+            "body_chars": 4000,
+            "title_chars": 40
+          },
+          {
+            "document_id": "dsid_b420eaa4422e4eb589dc0d354ab7bb24",
+            "canonical_id": "dsid_b420eaa4422e4eb589dc0d354ab7bb24",
+            "offset": 804,
+            "full_length": 4804,
+            "body_chars": 4000,
+            "title_chars": 39
+          },
+          {
+            "document_id": "dsid_6dd82c5e1a4a4d1b91a1e77cdd7b962b",
+            "canonical_id": "dsid_6dd82c5e1a4a4d1b91a1e77cdd7b962b",
+            "offset": 0,
+            "full_length": 2513,
+            "body_chars": 2513,
+            "title_chars": 5
+          },
+          {
+            "document_id": "dsid_e18f8a9779474a498a3f088c99ea92c5",
+            "canonical_id": "dsid_e18f8a9779474a498a3f088c99ea92c5",
+            "offset": 200,
+            "full_length": 5908,
+            "body_chars": 4000,
+            "title_chars": 42
+          }
+        ],
+        "qwen": [
+          {
+            "document_id": "dsid_a2bf755670ad44e09b42c11e9d73e5d3",
+            "canonical_id": "dsid_a2bf755670ad44e09b42c11e9d73e5d3",
+            "offset": 4715,
+            "full_length": 8715,
+            "body_chars": 4000,
+            "title_chars": 53
+          },
+          {
+            "document_id": "dsid_89c0c31e220c4777b15c3c6ff0eff61d",
+            "canonical_id": "dsid_89c0c31e220c4777b15c3c6ff0eff61d",
+            "offset": 1508,
+            "full_length": 6555,
+            "body_chars": 4000,
+            "title_chars": 40
+          },
+          {
+            "document_id": "dsid_c2652d930e53464ab949308b919ad5fa",
+            "canonical_id": "dsid_c2652d930e53464ab949308b919ad5fa",
+            "offset": 0,
+            "full_length": 2720,
+            "body_chars": 2720,
+            "title_chars": 6
+          },
+          {
+            "document_id": "dsid_1905e018238943bfaccd800562b67314",
+            "canonical_id": "dsid_1905e018238943bfaccd800562b67314",
+            "offset": 0,
+            "full_length": 3079,
+            "body_chars": 3079,
+            "title_chars": 6
+          },
+          {
+            "document_id": "dsid_e18f8a9779474a498a3f088c99ea92c5",
+            "canonical_id": "dsid_e18f8a9779474a498a3f088c99ea92c5",
+            "offset": 200,
+            "full_length": 5908,
+            "body_chars": 4000,
+            "title_chars": 42
+          }
+        ]
+      },
+      "trace_paths": {
+        "bm25": "runs/qwen-bm25-20261015/answers/bm25/qst_0412.json",
+        "qwen": "runs/qwen-bm25-20261015/answers/qwen/qst_0412.json"
+      }
+    },
+    {
+      "id": "qst_0403",
+      "category": "constrained",
+      "question": "In the March 2026 fix for Hosted API issues where SSE streams were truncated/partial behind corporate proxies (e.g., NGINX/Envoy idle timeouts), what resume identifier format did we choose for Last-Event-ID-style reconnects, and per our 2026 partial-result checkpointing/resume standard what are the default checkpoint emission cadence and checkpoint TTL?",
+      "frozen_correct": {
+        "bm25": false,
+        "qwen": false
+      },
+      "frozen_judgements": {
+        "bm25": {
+          "correct": false,
+          "facts_supported": [
+            true,
+            false,
+            false,
+            true,
+            true,
+            true,
+            true
+          ],
+          "reason": "The resume identifier format is correct, but the candidate does not provide the required standard defaults: checkpoints every 512 tokens or 10 seconds, whichever comes first, and a TTL of 86400 seconds (24 hours). Instead, it cites different settings and says the defaults cannot be confirmed."
+        },
+        "qwen": {
+          "correct": false,
+          "facts_supported": [
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "reason": "The candidate gives the correct checkpoint cadence and TTL, but does not provide the required base64-encoded v1:{stream_id}:{flush_offset}:{crc8} resume identifier, instead stating that its format is unestablished. It avoids the explicitly prohibited alternatives."
+        }
+      },
+      "retrieval": {
+        "id": "qst_0403",
+        "category": "constrained",
+        "A": {
+          "recall@5": 0.5,
+          "recall@20": 0.5,
+          "all_gold@5": 0.0,
+          "all_gold@20": 0.0
+        },
+        "B": {
+          "recall@5": 0.5,
+          "recall@20": 1.0,
+          "all_gold@5": 0.0,
+          "all_gold@20": 1.0
+        }
+      },
+      "diagnosis": "候选消费/读取",
+      "confidence": "高",
+      "finding": "两组分别只读到两个互补来源之一。Qwen标准文档第1、标识格式文档第11；前20已同时包含两份，前5消费丢掉另一半答案。",
+      "reference_ranks": [
+        {
+          "document_id": "dsid_a98ada14af2142a7a46266584d05c846",
+          "bm25": 3,
+          "qwen": 11
+        },
+        {
+          "document_id": "dsid_91d7f359508c4476a6f717ea2b33aecc",
+          "bm25": 29,
+          "qwen": 1
+        }
+      ],
+      "actual_windows": {
+        "bm25": [
+          {
+            "document_id": "dsid_650bf01ef8844f1bbaf5e73fb4602988",
+            "canonical_id": "dsid_650bf01ef8844f1bbaf5e73fb4602988",
+            "offset": 0,
+            "full_length": 4531,
+            "body_chars": 4000,
+            "title_chars": 4531
+          },
+          {
+            "document_id": "dsid_3888c4df0ed9442fb777203855558f6a",
+            "canonical_id": "dsid_3888c4df0ed9442fb777203855558f6a",
+            "offset": 0,
+            "full_length": 5053,
+            "body_chars": 4000,
+            "title_chars": 79
+          },
+          {
+            "document_id": "dsid_a98ada14af2142a7a46266584d05c846",
+            "canonical_id": "dsid_a98ada14af2142a7a46266584d05c846",
+            "offset": 3857,
+            "full_length": 7857,
+            "body_chars": 4000,
+            "title_chars": 74
+          },
+          {
+            "document_id": "dsid_1ea139b158454f52a8d7be4609144c09",
+            "canonical_id": "dsid_1ea139b158454f52a8d7be4609144c09",
+            "offset": 0,
+            "full_length": 5079,
+            "body_chars": 4000,
+            "title_chars": 7
+          },
+          {
+            "document_id": "dsid_10d5b74c3b5d4e22a70f328257c2908f",
+            "canonical_id": "dsid_10d5b74c3b5d4e22a70f328257c2908f",
+            "offset": 0,
+            "full_length": 6686,
+            "body_chars": 4000,
+            "title_chars": 7
+          }
+        ],
+        "qwen": [
+          {
+            "document_id": "dsid_91d7f359508c4476a6f717ea2b33aecc",
+            "canonical_id": "dsid_91d7f359508c4476a6f717ea2b33aecc",
+            "offset": 3976,
+            "full_length": 10775,
+            "body_chars": 4000,
+            "title_chars": 55
+          },
+          {
+            "document_id": "dsid_70ae779dcf924c448f6f2044ebcc203e",
+            "canonical_id": "dsid_70ae779dcf924c448f6f2044ebcc203e",
+            "offset": 1462,
+            "full_length": 5462,
+            "body_chars": 4000,
+            "title_chars": 54
+          },
+          {
+            "document_id": "dsid_0f7d07dec73444bc832d07988831b825",
+            "canonical_id": "dsid_0f7d07dec73444bc832d07988831b825",
+            "offset": 2733,
+            "full_length": 6733,
+            "body_chars": 4000,
+            "title_chars": 55
+          },
+          {
+            "document_id": "dsid_319c23d024c242cc8e83a4d6fe3d0cf1",
+            "canonical_id": "dsid_319c23d024c242cc8e83a4d6fe3d0cf1",
+            "offset": 0,
+            "full_length": 3846,
+            "body_chars": 3846,
+            "title_chars": 12
+          },
+          {
+            "document_id": "dsid_400929f69f2b4fee8803b04f6aa50502",
+            "canonical_id": "dsid_400929f69f2b4fee8803b04f6aa50502",
+            "offset": 0,
+            "full_length": 5915,
+            "body_chars": 4000,
+            "title_chars": 65
+          }
+        ]
+      },
+      "trace_paths": {
+        "bm25": "runs/qwen-bm25-20261015/answers/bm25/qst_0403.json",
+        "qwen": "runs/qwen-bm25-20261015/answers/qwen/qst_0403.json"
+      }
+    },
+    {
+      "id": "qst_0474",
+      "category": "high_level",
+      "question": "Which serving-runtime optimizations are explicitly called out as part of Redwood's inference engine design?",
+      "frozen_correct": {
+        "bm25": false,
+        "qwen": false
+      },
+      "frozen_judgements": {
+        "bm25": {
+          "correct": false,
+          "facts_supported": [
+            false,
+            true,
+            true,
+            false,
+            false
+          ],
+          "reason": "The candidate supports continuous batching and KV caching, but omits modern attention optimizations, does not identify quantization-friendly execution paths, and lacks architecture-, sequence-length-, and hardware-aware kernel selection. It also questions whether the runtime features belong to Redwood’s engine design."
+        },
+        "qwen": {
+          "correct": false,
+          "facts_supported": [
+            false,
+            true,
+            true,
+            true,
+            false
+          ],
+          "reason": "The candidate includes continuous batching, KV/prefix caching, and quantization-aware execution, but omits modern attention optimizations and does not specify kernel selection aware of architecture, sequence length, and hardware."
+        }
+      },
+      "retrieval": {
+        "id": "qst_0474",
+        "category": "high_level",
+        "A": null,
+        "B": null
+      },
+      "diagnosis": "证据覆盖待定位",
+      "confidence": "中",
+      "finding": "Qwen实际前5偏GTM/Marketplace文案，完整这5篇也不足以支持modern attention与明确的架构/序列长度/硬件适配因素。无gold文档ID，不能仅凭排名确定具体缺失来源或宣称全库可补齐。",
+      "reference_ranks": [],
+      "actual_windows": {
+        "bm25": [
+          {
+            "document_id": "dsid_02858d9273ea47f485b68a0c7640a486",
+            "canonical_id": "dsid_02858d9273ea47f485b68a0c7640a486",
+            "offset": 1600,
+            "full_length": 8033,
+            "body_chars": 4000,
+            "title_chars": 54
+          },
+          {
+            "document_id": "dsid_9df45afdcc54450f9d89e8c4e72eb8a2",
+            "canonical_id": "dsid_9df45afdcc54450f9d89e8c4e72eb8a2",
+            "offset": 163,
+            "full_length": 12454,
+            "body_chars": 4000,
+            "title_chars": 90
+          },
+          {
+            "document_id": "dsid_f825e6690b184bc4a1036008c10bd753",
+            "canonical_id": "dsid_f825e6690b184bc4a1036008c10bd753",
+            "offset": 5593,
+            "full_length": 9593,
+            "body_chars": 4000,
+            "title_chars": 78
+          },
+          {
+            "document_id": "dsid_58752e7f15454e61b0bfd20cf4d32070",
+            "canonical_id": "dsid_58752e7f15454e61b0bfd20cf4d32070",
+            "offset": 200,
+            "full_length": 7389,
+            "body_chars": 4000,
+            "title_chars": 67
+          },
+          {
+            "document_id": "dsid_751d40bbffa24c15a8718e64c94c809c",
+            "canonical_id": "dsid_751d40bbffa24c15a8718e64c94c809c",
+            "offset": 0,
+            "full_length": 5277,
+            "body_chars": 4000,
+            "title_chars": 57
+          }
+        ],
+        "qwen": [
+          {
+            "document_id": "dsid_66361eb144cf4caf9beed1b36e024b41",
+            "canonical_id": "dsid_66361eb144cf4caf9beed1b36e024b41",
+            "offset": 40,
+            "full_length": 10368,
+            "body_chars": 4000,
+            "title_chars": 59
+          },
+          {
+            "document_id": "dsid_62e64d4d37224298957760b228d482e0",
+            "canonical_id": "dsid_62e64d4d37224298957760b228d482e0",
+            "offset": 84,
+            "full_length": 6723,
+            "body_chars": 4000,
+            "title_chars": 47
+          },
+          {
+            "document_id": "dsid_8ba920638589414685b2f6abc51f8ae6",
+            "canonical_id": "dsid_8ba920638589414685b2f6abc51f8ae6",
+            "offset": 3947,
+            "full_length": 8766,
+            "body_chars": 4000,
+            "title_chars": 50
+          },
+          {
+            "document_id": "dsid_f377f3651bc34c78936ef40095398578",
+            "canonical_id": "dsid_f377f3651bc34c78936ef40095398578",
+            "offset": 1377,
+            "full_length": 8033,
+            "body_chars": 4000,
+            "title_chars": 51
+          },
+          {
+            "document_id": "dsid_cd1a0d41b15f4f8c8dbcde03e7d0afb9",
+            "canonical_id": "dsid_cd1a0d41b15f4f8c8dbcde03e7d0afb9",
+            "offset": 2647,
+            "full_length": 8396,
+            "body_chars": 4000,
+            "title_chars": 39
+          }
+        ]
+      },
+      "trace_paths": {
+        "bm25": "runs/qwen-bm25-20261015/answers/bm25/qst_0474.json",
+        "qwen": "runs/qwen-bm25-20261015/answers/qwen/qst_0474.json"
+      }
+    },
+    {
+      "id": "qst_0497",
+      "category": "info_not_found",
+      "question": "When the Security Risk Committee reviews a high-risk control exception (e.g., risk rating above 7), what quorum is required for the vote to be valid, and how are tie votes resolved?",
+      "frozen_correct": {
+        "bm25": true,
+        "qwen": true
+      },
+      "frozen_judgements": {
+        "bm25": {
+          "correct": true,
+          "facts_supported": [
+            true
+          ],
+          "reason": "The candidate explicitly states that the available excerpts do not specify either the quorum requirement or tie-vote resolution, satisfying the reference’s requirement to acknowledge that the question is not fully answerable."
+        },
+        "qwen": {
+          "correct": true,
+          "facts_supported": [
+            true
+          ],
+          "reason": "The candidate explicitly states that the available excerpts do not specify quorum or tie-breaking rules and that the question cannot be answered definitively."
+        }
+      },
+      "retrieval": {
+        "id": "qst_0497",
+        "category": "info_not_found",
+        "A": null,
+        "B": null
+      },
+      "diagnosis": "两组通过",
+      "confidence": "—",
+      "finding": "两组均未把应急Risk Board的规则错当目标委员会法定人数，正确拒绝确定回答。",
+      "reference_ranks": [],
+      "actual_windows": {
+        "bm25": [
+          {
+            "document_id": "dsid_740d08eb30a24bf085d205d92c9694ca",
+            "canonical_id": "dsid_740d08eb30a24bf085d205d92c9694ca",
+            "offset": 200,
+            "full_length": 8990,
+            "body_chars": 4000,
+            "title_chars": 44
+          },
+          {
+            "document_id": "dsid_fbf3e9bf4d0c4e9ebb0eafb74c9a1dfc",
+            "canonical_id": "dsid_fbf3e9bf4d0c4e9ebb0eafb74c9a1dfc",
+            "offset": 0,
+            "full_length": 3248,
+            "body_chars": 3248,
+            "title_chars": 12
+          },
+          {
+            "document_id": "dsid_a92e78ff103747c3a9e68d8dd589376f",
+            "canonical_id": "dsid_a92e78ff103747c3a9e68d8dd589376f",
+            "offset": 1471,
+            "full_length": 8293,
+            "body_chars": 4000,
+            "title_chars": 42
+          },
+          {
+            "document_id": "dsid_a949d9fb10aa4510bc89da8cef5e7a4b",
+            "canonical_id": "dsid_a949d9fb10aa4510bc89da8cef5e7a4b",
+            "offset": 0,
+            "full_length": 2598,
+            "body_chars": 2598,
+            "title_chars": 64
+          },
+          {
+            "document_id": "dsid_7c24b29943fe4624b957ff1f7715f17f",
+            "canonical_id": "dsid_7c24b29943fe4624b957ff1f7715f17f",
+            "offset": 0,
+            "full_length": 3950,
+            "body_chars": 3950,
+            "title_chars": 12
+          }
+        ],
+        "qwen": [
+          {
+            "document_id": "dsid_fbab829698ec45698d28f9b17087337c",
+            "canonical_id": "dsid_fbab829698ec45698d28f9b17087337c",
+            "offset": 4400,
+            "full_length": 9283,
+            "body_chars": 4000,
+            "title_chars": 48
+          },
+          {
+            "document_id": "dsid_740d08eb30a24bf085d205d92c9694ca",
+            "canonical_id": "dsid_740d08eb30a24bf085d205d92c9694ca",
+            "offset": 200,
+            "full_length": 8990,
+            "body_chars": 4000,
+            "title_chars": 44
+          },
+          {
+            "document_id": "dsid_fafc6b7b4e86492b8336f6b317cf44b5",
+            "canonical_id": "dsid_fafc6b7b4e86492b8336f6b317cf44b5",
+            "offset": 4400,
+            "full_length": 9088,
+            "body_chars": 4000,
+            "title_chars": 49
+          },
+          {
+            "document_id": "dsid_38407827729a471b8f9d39c5eb49aba3",
+            "canonical_id": "dsid_38407827729a471b8f9d39c5eb49aba3",
+            "offset": 2746,
+            "full_length": 7205,
+            "body_chars": 4000,
+            "title_chars": 53
+          },
+          {
+            "document_id": "dsid_cad53070d5b046c0b1bdca8bee87163d",
+            "canonical_id": "dsid_cad53070d5b046c0b1bdca8bee87163d",
+            "offset": 1600,
+            "full_length": 6313,
+            "body_chars": 4000,
+            "title_chars": 50
+          }
+        ]
+      },
+      "trace_paths": {
+        "bm25": "runs/qwen-bm25-20261015/answers/bm25/qst_0497.json",
+        "qwen": "runs/qwen-bm25-20261015/answers/qwen/qst_0497.json"
+      }
+    },
+    {
+      "id": "qst_0334",
+      "category": "intra_document_reasoning",
+      "question": "Why were SSE streaming connections getting cleanly closed after about 60 seconds only when going through the edge proxy, and what heartbeat change was implemented to mitigate it?",
+      "frozen_correct": {
+        "bm25": true,
+        "qwen": true
+      },
+      "frozen_judgements": {
+        "bm25": {
+          "correct": true,
+          "facts_supported": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "reason": "The candidate identifies the approximately 60-second edge idle timeout, explains that comment heartbeats did not keep the connection active, and describes switching to non-empty data: ping events every 25 seconds."
+        },
+        "qwen": {
+          "correct": true,
+          "facts_supported": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "reason": "The candidate identifies the edge proxy’s approximately 60-second idle timeout, explains that comment heartbeats failed to keep the stream active, and specifies switching to non-empty data: ping events every 25 seconds. Uncertainty about buffering versus ignoring does not contradict the effective cause."
+        }
+      },
+      "retrieval": {
+        "id": "qst_0334",
+        "category": "intra_document_reasoning",
+        "A": {
+          "recall@5": 1.0,
+          "recall@20": 1.0,
+          "all_gold@5": 1.0,
+          "all_gold@20": 1.0
+        },
+        "B": {
+          "recall@5": 1.0,
+          "recall@20": 1.0,
+          "all_gold@5": 1.0,
+          "all_gold@20": 1.0
+        }
+      },
+      "diagnosis": "两组通过",
+      "confidence": "—",
+      "finding": "两组均答出edge约60秒idle timeout及改为25秒data heartbeat。",
+      "reference_ranks": [
+        {
+          "document_id": "dsid_98525cb72fd948ef9797c6d35b504b9d",
+          "bm25": 4,
+          "qwen": 3
+        }
+      ],
+      "actual_windows": {
+        "bm25": [
+          {
+            "document_id": "dsid_650bf01ef8844f1bbaf5e73fb4602988",
+            "canonical_id": "dsid_650bf01ef8844f1bbaf5e73fb4602988",
+            "offset": 0,
+            "full_length": 4531,
+            "body_chars": 4000,
+            "title_chars": 4531
+          },
+          {
+            "document_id": "dsid_e64e93de51f547ffab5fdea9955294dc",
+            "canonical_id": "dsid_e64e93de51f547ffab5fdea9955294dc",
+            "offset": 1235,
+            "full_length": 5905,
+            "body_chars": 4000,
+            "title_chars": 5
+          },
+          {
+            "document_id": "dsid_2390ac5430aa4c45b78eaaa059f8b4cc",
+            "canonical_id": "dsid_2390ac5430aa4c45b78eaaa059f8b4cc",
+            "offset": 1259,
+            "full_length": 5321,
+            "body_chars": 4000,
+            "title_chars": 7
+          },
+          {
+            "document_id": "dsid_98525cb72fd948ef9797c6d35b504b9d",
+            "canonical_id": "dsid_98525cb72fd948ef9797c6d35b504b9d",
+            "offset": 0,
+            "full_length": 4778,
+            "body_chars": 4000,
+            "title_chars": 12
+          },
+          {
+            "document_id": "dsid_dd97e231fbcc463185d72ef1dfad9309",
+            "canonical_id": "dsid_dd97e231fbcc463185d72ef1dfad9309",
+            "offset": 1357,
+            "full_length": 5994,
+            "body_chars": 4000,
+            "title_chars": 83
+          }
+        ],
+        "qwen": [
+          {
+            "document_id": "dsid_48147d8287d04e928ecaf0bd7b35859a",
+            "canonical_id": "dsid_48147d8287d04e928ecaf0bd7b35859a",
+            "offset": 931,
+            "full_length": 4931,
+            "body_chars": 4000,
+            "title_chars": 115
+          },
+          {
+            "document_id": "dsid_b9f1d2122ca646e68992ab6c294f6c74",
+            "canonical_id": "dsid_b9f1d2122ca646e68992ab6c294f6c74",
+            "offset": 1571,
+            "full_length": 6891,
+            "body_chars": 4000,
+            "title_chars": 7
+          },
+          {
+            "document_id": "dsid_98525cb72fd948ef9797c6d35b504b9d",
+            "canonical_id": "dsid_98525cb72fd948ef9797c6d35b504b9d",
+            "offset": 0,
+            "full_length": 4778,
+            "body_chars": 4000,
+            "title_chars": 12
+          },
+          {
+            "document_id": "dsid_9bfbf41c9e454429bf4d06012d309e94",
+            "canonical_id": "dsid_9bfbf41c9e454429bf4d06012d309e94",
+            "offset": 200,
+            "full_length": 4501,
+            "body_chars": 4000,
+            "title_chars": 7
+          },
+          {
+            "document_id": "dsid_911f5998d3654b119c5e73aede0193de",
+            "canonical_id": "dsid_911f5998d3654b119c5e73aede0193de",
+            "offset": 1158,
+            "full_length": 6263,
+            "body_chars": 4000,
+            "title_chars": 7
+          }
+        ]
+      },
+      "trace_paths": {
+        "bm25": "runs/qwen-bm25-20261015/answers/bm25/qst_0334.json",
+        "qwen": "runs/qwen-bm25-20261015/answers/qwen/qst_0334.json"
+      }
+    },
+    {
+      "id": "qst_0470",
+      "category": "miscellaneous",
+      "question": "In a backend inference engineer interview about multi-tenant GPU scheduling, what strategy did the candidate propose to reduce cold misses for growing attention cache in long chat histories?",
+      "frozen_correct": {
+        "bm25": true,
+        "qwen": true
+      },
+      "frozen_judgements": {
+        "bm25": {
+          "correct": true,
+          "facts_supported": [
+            true,
+            true,
+            true
+          ],
+          "reason": "The candidate directly supports all three reference facts, including locality pinning, sequence-length-aware LRU eviction, and optional host-memory offloading with added fetch latency."
+        },
+        "qwen": {
+          "correct": true,
+          "facts_supported": [
+            true,
+            true,
+            true
+          ],
+          "reason": "The candidate directly supports all three reference facts: GPU locality through pinning, sequence-length-aware LRU eviction, and optional host-memory offloading with on-demand fetching and added latency."
+        }
+      },
+      "retrieval": {
+        "id": "qst_0470",
+        "category": "miscellaneous",
+        "A": {
+          "recall@5": 1.0,
+          "recall@20": 1.0,
+          "all_gold@5": 1.0,
+          "all_gold@20": 1.0
+        },
+        "B": {
+          "recall@5": 1.0,
+          "recall@20": 1.0,
+          "all_gold@5": 1.0,
+          "all_gold@20": 1.0
+        }
+      },
+      "diagnosis": "两组通过",
+      "confidence": "—",
+      "finding": "两组均答出会话/GPU局部性、按长度LRU及冷KV卸载策略。",
+      "reference_ranks": [
+        {
+          "document_id": "dsid_aea4790d4bcc45859208d7d705f682a1",
+          "bm25": 1,
+          "qwen": 1
+        }
+      ],
+      "actual_windows": {
+        "bm25": [
+          {
+            "document_id": "dsid_aea4790d4bcc45859208d7d705f682a1",
+            "canonical_id": "dsid_aea4790d4bcc45859208d7d705f682a1",
+            "offset": 0,
+            "full_length": 7966,
+            "body_chars": 4000,
+            "title_chars": 50
+          },
+          {
+            "document_id": "dsid_026f8b54a4734bbaa79008dae4fcf6cd",
+            "canonical_id": "dsid_026f8b54a4734bbaa79008dae4fcf6cd",
+            "offset": 1314,
+            "full_length": 7157,
+            "body_chars": 4000,
+            "title_chars": 50
+          },
+          {
+            "document_id": "dsid_b3169029e77c4347aa321e5e1dda660f",
+            "canonical_id": "dsid_b3169029e77c4347aa321e5e1dda660f",
+            "offset": 1600,
+            "full_length": 8242,
+            "body_chars": 4000,
+            "title_chars": 79
+          },
+          {
+            "document_id": "dsid_baba9d9bd74741e78688b9c6411011bc",
+            "canonical_id": "dsid_baba9d9bd74741e78688b9c6411011bc",
+            "offset": 0,
+            "full_length": 6088,
+            "body_chars": 4000,
+            "title_chars": 27
+          },
+          {
+            "document_id": "dsid_dfc235ef707e4b7a89c5803b90ab02a9",
+            "canonical_id": "dsid_dfc235ef707e4b7a89c5803b90ab02a9",
+            "offset": 0,
+            "full_length": 6285,
+            "body_chars": 4000,
+            "title_chars": 34
+          }
+        ],
+        "qwen": [
+          {
+            "document_id": "dsid_aea4790d4bcc45859208d7d705f682a1",
+            "canonical_id": "dsid_aea4790d4bcc45859208d7d705f682a1",
+            "offset": 0,
+            "full_length": 7966,
+            "body_chars": 4000,
+            "title_chars": 50
+          },
+          {
+            "document_id": "dsid_dec3c9b9d5c5453f9047d1a0c67bff9b",
+            "canonical_id": "dsid_dec3c9b9d5c5453f9047d1a0c67bff9b",
+            "offset": 6607,
+            "full_length": 10607,
+            "body_chars": 4000,
+            "title_chars": 74
+          },
+          {
+            "document_id": "dsid_dfc235ef707e4b7a89c5803b90ab02a9",
+            "canonical_id": "dsid_dfc235ef707e4b7a89c5803b90ab02a9",
+            "offset": 0,
+            "full_length": 6285,
+            "body_chars": 4000,
+            "title_chars": 34
+          },
+          {
+            "document_id": "dsid_026f8b54a4734bbaa79008dae4fcf6cd",
+            "canonical_id": "dsid_026f8b54a4734bbaa79008dae4fcf6cd",
+            "offset": 1314,
+            "full_length": 7157,
+            "body_chars": 4000,
+            "title_chars": 50
+          },
+          {
+            "document_id": "dsid_32f6270a96b8447e9246933e26aa3998",
+            "canonical_id": "dsid_32f6270a96b8447e9246933e26aa3998",
+            "offset": 6179,
+            "full_length": 10179,
+            "body_chars": 4000,
+            "title_chars": 52
+          }
+        ]
+      },
+      "trace_paths": {
+        "bm25": "runs/qwen-bm25-20261015/answers/bm25/qst_0470.json",
+        "qwen": "runs/qwen-bm25-20261015/answers/qwen/qst_0470.json"
+      }
+    },
+    {
+      "id": "qst_0377",
+      "category": "project_related",
+      "question": "If the demo tenant starts returning 429s mid-demo and the Console dashboards are empty, what are the fastest recovery steps to keep the call moving and what fixes were put in place to prevent this from happening again?",
+      "frozen_correct": {
+        "bm25": false,
+        "qwen": false
+      },
+      "frozen_judgements": {
+        "bm25": {
+          "correct": false,
+          "facts_supported": [
+            true,
+            false,
+            false,
+            true,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            true,
+            false,
+            false,
+            false,
+            false
+          ],
+          "reason": "The candidate supports immediate backup mode, reduced concurrency/retries, and idempotent demo quotas, but omits critical healthcheck, scoped-key, generator, and escalation details. It substitutes a 60-second dashboard cutoff for the specified recovery timing and incorrectly describes completed dashboard/reset fixes as unconfirmed proposals."
+        },
+        "qwen": {
+          "correct": false,
+          "facts_supported": [
+            true,
+            false,
+            false,
+            true,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            true,
+            false,
+            false,
+            false,
+            false
+          ],
+          "reason": "The candidate supports immediate backup mode, reducing parallelism/retries, and the quota-provisioning idempotency fix. However, it omits required healthcheck details, recovery commands, tenant/project selections, isolation steps, and escalation procedures. It substitutes different dashboard recovery timing and incorrectly treats automatic post-reset seeding as unconfirmed, while omitting the shipped Console default-selection and empty-state improvements."
+        }
+      },
+      "retrieval": {
+        "id": "qst_0377",
+        "category": "project_related",
+        "A": {
+          "recall@5": 0.3333333333333333,
+          "recall@20": 0.6666666666666666,
+          "all_gold@5": 0.0,
+          "all_gold@20": 0.0
+        },
+        "B": {
+          "recall@5": 0.3333333333333333,
+          "recall@20": 0.8333333333333334,
+          "all_gold@5": 0.0,
+          "all_gold@20": 0.0
+        }
+      },
+      "diagnosis": "检索＋读取混合",
+      "confidence": "高",
+      "finding": "关键Reset Runbook在Qwen第6，空图修复事件第13，均未读；gold 6份只交付2份，tracker还仅读5364–9364，遗漏2100附近的默认项目修复条目。历史更充分证据下仍漏操作条件，存在残余回答/取舍问题。",
+      "reference_ranks": [
+        {
+          "document_id": "dsid_1d6255db99894b2794c36318f654f085",
+          "bm25": 20,
+          "qwen": 6
+        },
+        {
+          "document_id": "dsid_052d0c27569145c5896b910eb6f3c063",
+          "bm25": 2,
+          "qwen": 2
+        },
+        {
+          "document_id": "dsid_4ecb42b192a1421885f6fbe8a7cbde8b",
+          "bm25": 10,
+          "qwen": 13
+        },
+        {
+          "document_id": "dsid_1878e91704a24813a12f69b40444f168",
+          "bm25": 24,
+          "qwen": 1
+        },
+        {
+          "document_id": "dsid_b9c347b4608541aabe8b7d2f7f90339e",
+          "bm25": 22,
+          "qwen": null
+        },
+        {
+          "document_id": "dsid_adaebcf9535f47b5903bbaa5e48fd0e6",
+          "bm25": 1,
+          "qwen": 16
+        }
+      ],
+      "actual_windows": {
+        "bm25": [
+          {
+            "document_id": "dsid_adaebcf9535f47b5903bbaa5e48fd0e6",
+            "canonical_id": "dsid_adaebcf9535f47b5903bbaa5e48fd0e6",
+            "offset": 0,
+            "full_length": 7782,
+            "body_chars": 4000,
+            "title_chars": 7
+          },
+          {
+            "document_id": "dsid_052d0c27569145c5896b910eb6f3c063",
+            "canonical_id": "dsid_052d0c27569145c5896b910eb6f3c063",
+            "offset": 1464,
+            "full_length": 6373,
+            "body_chars": 4000,
+            "title_chars": 81
+          },
+          {
+            "document_id": "dsid_2bed74a2d5b54b6fac454b19029c3363",
+            "canonical_id": "dsid_2bed74a2d5b54b6fac454b19029c3363",
+            "offset": 1490,
+            "full_length": 11055,
+            "body_chars": 4000,
+            "title_chars": 46
+          },
+          {
+            "document_id": "dsid_b7c680dd1f6f4b0384e24ace4cc61df5",
+            "canonical_id": "dsid_b7c680dd1f6f4b0384e24ace4cc61df5",
+            "offset": 2569,
+            "full_length": 20871,
+            "body_chars": 4000,
+            "title_chars": 74
+          },
+          {
+            "document_id": "dsid_9b2ede513ebe4912b415f00e0132b972",
+            "canonical_id": "dsid_9b2ede513ebe4912b415f00e0132b972",
+            "offset": 4165,
+            "full_length": 9660,
+            "body_chars": 4000,
+            "title_chars": 63
+          }
+        ],
+        "qwen": [
+          {
+            "document_id": "dsid_1878e91704a24813a12f69b40444f168",
+            "canonical_id": "dsid_1878e91704a24813a12f69b40444f168",
+            "offset": 5364,
+            "full_length": 10428,
+            "body_chars": 4000,
+            "title_chars": 55
+          },
+          {
+            "document_id": "dsid_052d0c27569145c5896b910eb6f3c063",
+            "canonical_id": "dsid_052d0c27569145c5896b910eb6f3c063",
+            "offset": 2373,
+            "full_length": 6373,
+            "body_chars": 4000,
+            "title_chars": 81
+          },
+          {
+            "document_id": "dsid_9b2ede513ebe4912b415f00e0132b972",
+            "canonical_id": "dsid_9b2ede513ebe4912b415f00e0132b972",
+            "offset": 4165,
+            "full_length": 9660,
+            "body_chars": 4000,
+            "title_chars": 63
+          },
+          {
+            "document_id": "dsid_3c148db9f43048a0bed44242e99465f4",
+            "canonical_id": "dsid_3c148db9f43048a0bed44242e99465f4",
+            "offset": 9308,
+            "full_length": 13308,
+            "body_chars": 4000,
+            "title_chars": 75
+          },
+          {
+            "document_id": "dsid_b7c680dd1f6f4b0384e24ace4cc61df5",
+            "canonical_id": "dsid_b7c680dd1f6f4b0384e24ace4cc61df5",
+            "offset": 2569,
+            "full_length": 20871,
+            "body_chars": 4000,
+            "title_chars": 74
+          }
+        ]
+      },
+      "trace_paths": {
+        "bm25": "runs/qwen-bm25-20261015/answers/bm25/qst_0377.json",
+        "qwen": "runs/qwen-bm25-20261015/answers/qwen/qst_0377.json"
+      }
+    },
+    {
+      "id": "qst_0240",
+      "category": "semantic",
+      "question": "During a multi region switchover, what is causing some customers to get bursty too many requests and occasional service unavailable responses because different parts of the traffic gatekeeper disagree briefly on the time boundary used for quota calculations?",
+      "frozen_correct": {
+        "bm25": false,
+        "qwen": true
+      },
+      "frozen_judgements": {
+        "bm25": {
+          "correct": false,
+          "facts_supported": [
+            false,
+            true,
+            false,
+            false
+          ],
+          "reason": "The candidate identifies transient epoch-boundary disagreement but omits the asynchronous policy-cache refresh race, burst-credit miscalculation, and resulting aggressive admission drops causing 429 spikes and downstream 503s. It also presents the explanation as unconfirmed rather than giving the reference root cause."
+        },
+        "qwen": {
+          "correct": true,
+          "facts_supported": [
+            true,
+            false,
+            true,
+            true
+          ],
+          "reason": "The candidate captures the race, inconsistent epoch anchors, burst-credit miscalculation, and resulting 429/503 responses. It does not mention host rate controllers, so the second reference fact is incomplete, but the core causal answer is aligned."
+        }
+      },
+      "retrieval": {
+        "id": "qst_0240",
+        "category": "semantic",
+        "A": {
+          "recall@5": 0.0,
+          "recall@20": 0.0,
+          "all_gold@5": 0.0,
+          "all_gold@20": 0.0
+        },
+        "B": {
+          "recall@5": 1.0,
+          "recall@20": 1.0,
+          "all_gold@5": 1.0,
+          "all_gold@20": 1.0
+        }
+      },
+      "diagnosis": "文档命中改善",
+      "confidence": "高",
+      "finding": "参考文档从前5外进入Qwen第1，读到epoch与非原子策略缓存更新的竞态，错→对。",
+      "reference_ranks": [
+        {
+          "document_id": "dsid_5402831508734a51adf649603be4b075",
+          "bm25": 32,
+          "qwen": 1
+        }
+      ],
+      "actual_windows": {
+        "bm25": [
+          {
+            "document_id": "dsid_68649cea385a428cbd184b47ada0dc5a",
+            "canonical_id": "dsid_68649cea385a428cbd184b47ada0dc5a",
+            "offset": 0,
+            "full_length": 6217,
+            "body_chars": 4000,
+            "title_chars": 91
+          },
+          {
+            "document_id": "dsid_4bc10f8cfd5649c4bd61ec63ee3737ef",
+            "canonical_id": "dsid_4bc10f8cfd5649c4bd61ec63ee3737ef",
+            "offset": 0,
+            "full_length": 6342,
+            "body_chars": 4000,
+            "title_chars": 81
+          },
+          {
+            "document_id": "dsid_d32e7200829d43a6829e3c287d5cba22",
+            "canonical_id": "dsid_d32e7200829d43a6829e3c287d5cba22",
+            "offset": 111,
+            "full_length": 9322,
+            "body_chars": 4000,
+            "title_chars": 11
+          },
+          {
+            "document_id": "dsid_fa16c6f930e24ec5bf55f405dfb50f7b",
+            "canonical_id": "dsid_fa16c6f930e24ec5bf55f405dfb50f7b",
+            "offset": 0,
+            "full_length": 3645,
+            "body_chars": 3645,
+            "title_chars": 81
+          },
+          {
+            "document_id": "dsid_c893c82c84b243af9f49c3beba8a6af1",
+            "canonical_id": "dsid_c893c82c84b243af9f49c3beba8a6af1",
+            "offset": 1448,
+            "full_length": 6852,
+            "body_chars": 4000,
+            "title_chars": 46
+          }
+        ],
+        "qwen": [
+          {
+            "document_id": "dsid_5402831508734a51adf649603be4b075",
+            "canonical_id": "dsid_5402831508734a51adf649603be4b075",
+            "offset": 0,
+            "full_length": 5386,
+            "body_chars": 4000,
+            "title_chars": 91
+          },
+          {
+            "document_id": "dsid_7c215442b2184751b3dc81325d38c1bd",
+            "canonical_id": "dsid_7c215442b2184751b3dc81325d38c1bd",
+            "offset": 0,
+            "full_length": 6665,
+            "body_chars": 4000,
+            "title_chars": 82
+          },
+          {
+            "document_id": "dsid_bfdf5f441fc34923801ff6fbeb2d9d63",
+            "canonical_id": "dsid_bfdf5f441fc34923801ff6fbeb2d9d63",
+            "offset": 0,
+            "full_length": 4284,
+            "body_chars": 4000,
+            "title_chars": 86
+          },
+          {
+            "document_id": "dsid_e4e808a2003a407299eedce22d3a3d1c",
+            "canonical_id": "dsid_e4e808a2003a407299eedce22d3a3d1c",
+            "offset": 0,
+            "full_length": 5758,
+            "body_chars": 4000,
+            "title_chars": 100
+          },
+          {
+            "document_id": "dsid_56fc8ad89ffb4763aeea3bb04fb5401d",
+            "canonical_id": "dsid_56fc8ad89ffb4763aeea3bb04fb5401d",
+            "offset": 0,
+            "full_length": 6626,
+            "body_chars": 4000,
+            "title_chars": 64
+          }
+        ]
+      },
+      "trace_paths": {
+        "bm25": "runs/qwen-bm25-20261015/answers/bm25/qst_0240.json",
+        "qwen": "runs/qwen-bm25-20261015/answers/qwen/qst_0240.json"
+      }
+    },
+    {
+      "id": "qst_0136",
+      "category": "basic",
+      "question": "What was the temporary mitigation applied for the enterprise customer whose SSE streaming chat responses were getting truncated after an edge proxy handoff in us-east?",
+      "frozen_correct": {
+        "bm25": false,
+        "qwen": false
+      },
+      "frozen_judgements": {
+        "bm25": {
+          "correct": false,
+          "facts_supported": [
+            false,
+            false,
+            false
+          ],
+          "reason": "The candidate incorrectly abstains. It omits the temporary pinning to a stable edge pool, its purpose of avoiding proxy handoffs, and its elimination of streaming truncation failures."
+        },
+        "qwen": {
+          "correct": false,
+          "facts_supported": [
+            false,
+            false,
+            false
+          ],
+          "reason": "The candidate names a different customer and mitigation. It does not mention pinning traffic to a stable edge pool, avoiding proxy handoffs, or eliminating streaming truncation through that pinning."
+        }
+      },
+      "retrieval": {
+        "id": "qst_0136",
+        "category": "basic",
+        "A": {
+          "recall@5": 1.0,
+          "recall@20": 1.0,
+          "all_gold@5": 1.0,
+          "all_gold@20": 1.0
+        },
+        "B": {
+          "recall@5": 0.0,
+          "recall@20": 0.0,
+          "all_gold@5": 0.0,
+          "all_gold@20": 0.0
+        }
+      },
+      "diagnosis": "检索/排序",
+      "confidence": "高",
+      "finding": "正确Slateware文档BM25第1且在候选并集中，却未留在Qwen前20；BM25自己也只读0–4000，漏掉4489附近的pin stable edge pool。Qwen缺正确事故来源，BM25缺关键尾段，两组均错。",
+      "reference_ranks": [
+        {
+          "document_id": "dsid_9619c1f3ff3c4626a2bd029e907e1f76",
+          "bm25": 1,
+          "qwen": null
+        }
+      ],
+      "actual_windows": {
+        "bm25": [
+          {
+            "document_id": "dsid_9619c1f3ff3c4626a2bd029e907e1f76",
+            "canonical_id": "dsid_9619c1f3ff3c4626a2bd029e907e1f76",
+            "offset": 0,
+            "full_length": 6189,
+            "body_chars": 4000,
+            "title_chars": 86
+          },
+          {
+            "document_id": "dsid_2bdd623bdb734b65befc003d4ca277c7",
+            "canonical_id": "dsid_2bdd623bdb734b65befc003d4ca277c7",
+            "offset": 24,
+            "full_length": 6434,
+            "body_chars": 4000,
+            "title_chars": 118
+          },
+          {
+            "document_id": "dsid_9ad82a10c0594d24824a36fcdab4b450",
+            "canonical_id": "dsid_9ad82a10c0594d24824a36fcdab4b450",
+            "offset": 1245,
+            "full_length": 5245,
+            "body_chars": 4000,
+            "title_chars": 84
+          },
+          {
+            "document_id": "dsid_70124860f38d4604981c3c41c45308ce",
+            "canonical_id": "dsid_70124860f38d4604981c3c41c45308ce",
+            "offset": 84,
+            "full_length": 7527,
+            "body_chars": 4000,
+            "title_chars": 106
+          },
+          {
+            "document_id": "dsid_3ee38b8d923645e99038ab3a6c0d6ac9",
+            "canonical_id": "dsid_3ee38b8d923645e99038ab3a6c0d6ac9",
+            "offset": 0,
+            "full_length": 6121,
+            "body_chars": 4000,
+            "title_chars": 89
+          }
+        ],
+        "qwen": [
+          {
+            "document_id": "dsid_749ede95436e4780acec9712dda243fa",
+            "canonical_id": "dsid_749ede95436e4780acec9712dda243fa",
+            "offset": 1898,
+            "full_length": 5898,
+            "body_chars": 4000,
+            "title_chars": 81
+          },
+          {
+            "document_id": "dsid_70124860f38d4604981c3c41c45308ce",
+            "canonical_id": "dsid_70124860f38d4604981c3c41c45308ce",
+            "offset": 3527,
+            "full_length": 7527,
+            "body_chars": 4000,
+            "title_chars": 106
+          },
+          {
+            "document_id": "dsid_9ad82a10c0594d24824a36fcdab4b450",
+            "canonical_id": "dsid_9ad82a10c0594d24824a36fcdab4b450",
+            "offset": 1245,
+            "full_length": 5245,
+            "body_chars": 4000,
+            "title_chars": 84
+          },
+          {
+            "document_id": "dsid_446079b305a74a69aab1eb5fa92409be",
+            "canonical_id": "dsid_446079b305a74a69aab1eb5fa92409be",
+            "offset": 2517,
+            "full_length": 6517,
+            "body_chars": 4000,
+            "title_chars": 155
+          },
+          {
+            "document_id": "dsid_85cded5ab6334fb380566c85812b714d",
+            "canonical_id": "dsid_85cded5ab6334fb380566c85812b714d",
+            "offset": 2562,
+            "full_length": 6562,
+            "body_chars": 4000,
+            "title_chars": 126
+          }
+        ]
+      },
+      "trace_paths": {
+        "bm25": "runs/qwen-bm25-20261015/answers/bm25/qst_0136.json",
+        "qwen": "runs/qwen-bm25-20261015/answers/qwen/qst_0136.json"
+      }
+    },
+    {
+      "id": "qst_0435",
+      "category": "completeness",
+      "question": "How many weekly status updates for Project Orion marked the project as 'At Risk'?",
+      "frozen_correct": {
+        "bm25": true,
+        "qwen": true
+      },
+      "frozen_judgements": {
+        "bm25": {
+          "correct": true,
+          "facts_supported": [
+            true,
+            true
+          ],
+          "reason": "The candidate gives the correct count of three and matches all three dates."
+        },
+        "qwen": {
+          "correct": true,
+          "facts_supported": [
+            true,
+            true
+          ],
+          "reason": "The candidate gives the correct count of three and matches all three dates."
+        }
+      },
+      "retrieval": {
+        "id": "qst_0435",
+        "category": "completeness",
+        "A": {
+          "recall@5": 0.8333333333333334,
+          "recall@20": 1.0,
+          "all_gold@5": 0.0,
+          "all_gold@20": 1.0
+        },
+        "B": {
+          "recall@5": 0.6666666666666666,
+          "recall@20": 1.0,
+          "all_gold@5": 0.0,
+          "all_gold@20": 1.0
+        }
+      },
+      "diagnosis": "两组通过",
+      "confidence": "高",
+      "finding": "参考ID Recall@5由5/6降至4/6，但三个At Risk周报均被读到，答案仍都正确；标注文档召回不等于必要事实覆盖。",
+      "reference_ranks": [
+        {
+          "document_id": "dsid_7fc490f8522b486c8f4b665d5189066c",
+          "bm25": 2,
+          "qwen": 5
+        },
+        {
+          "document_id": "dsid_a134a3fd3c244a52a8d3e1ff515fdf58",
+          "bm25": 1,
+          "qwen": 3
+        },
+        {
+          "document_id": "dsid_ce60931a1aea428b8186228ee40bb497",
+          "bm25": 4,
+          "qwen": 1
+        },
+        {
+          "document_id": "dsid_03e22d519f9b40a5ac61a03e5c4620d3",
+          "bm25": 3,
+          "qwen": 10
+        },
+        {
+          "document_id": "dsid_431b0713c42847bbac15f3354776db68",
+          "bm25": 5,
+          "qwen": 2
+        },
+        {
+          "document_id": "dsid_8116cb3e580543d7bde1c57df351a3f3",
+          "bm25": 6,
+          "qwen": 6
+        }
+      ],
+      "actual_windows": {
+        "bm25": [
+          {
+            "document_id": "dsid_a134a3fd3c244a52a8d3e1ff515fdf58",
+            "canonical_id": "dsid_a134a3fd3c244a52a8d3e1ff515fdf58",
+            "offset": 0,
+            "full_length": 965,
+            "body_chars": 965,
+            "title_chars": 49
+          },
+          {
+            "document_id": "dsid_7fc490f8522b486c8f4b665d5189066c",
+            "canonical_id": "dsid_7fc490f8522b486c8f4b665d5189066c",
+            "offset": 0,
+            "full_length": 824,
+            "body_chars": 824,
+            "title_chars": 49
+          },
+          {
+            "document_id": "dsid_03e22d519f9b40a5ac61a03e5c4620d3",
+            "canonical_id": "dsid_03e22d519f9b40a5ac61a03e5c4620d3",
+            "offset": 0,
+            "full_length": 944,
+            "body_chars": 944,
+            "title_chars": 49
+          },
+          {
+            "document_id": "dsid_ce60931a1aea428b8186228ee40bb497",
+            "canonical_id": "dsid_ce60931a1aea428b8186228ee40bb497",
+            "offset": 0,
+            "full_length": 1105,
+            "body_chars": 1105,
+            "title_chars": 49
+          },
+          {
+            "document_id": "dsid_431b0713c42847bbac15f3354776db68",
+            "canonical_id": "dsid_431b0713c42847bbac15f3354776db68",
+            "offset": 0,
+            "full_length": 1042,
+            "body_chars": 1042,
+            "title_chars": 49
+          }
+        ],
+        "qwen": [
+          {
+            "document_id": "dsid_ce60931a1aea428b8186228ee40bb497",
+            "canonical_id": "dsid_ce60931a1aea428b8186228ee40bb497",
+            "offset": 0,
+            "full_length": 1105,
+            "body_chars": 1105,
+            "title_chars": 49
+          },
+          {
+            "document_id": "dsid_431b0713c42847bbac15f3354776db68",
+            "canonical_id": "dsid_431b0713c42847bbac15f3354776db68",
+            "offset": 0,
+            "full_length": 1042,
+            "body_chars": 1042,
+            "title_chars": 49
+          },
+          {
+            "document_id": "dsid_a134a3fd3c244a52a8d3e1ff515fdf58",
+            "canonical_id": "dsid_a134a3fd3c244a52a8d3e1ff515fdf58",
+            "offset": 0,
+            "full_length": 965,
+            "body_chars": 965,
+            "title_chars": 49
+          },
+          {
+            "document_id": "dsid_d7b31690f0834106b3a68c7c77c1ad68",
+            "canonical_id": "dsid_d7b31690f0834106b3a68c7c77c1ad68",
+            "offset": 0,
+            "full_length": 8019,
+            "body_chars": 4000,
+            "title_chars": 74
+          },
+          {
+            "document_id": "dsid_7fc490f8522b486c8f4b665d5189066c",
+            "canonical_id": "dsid_7fc490f8522b486c8f4b665d5189066c",
+            "offset": 0,
+            "full_length": 824,
+            "body_chars": 824,
+            "title_chars": 49
+          }
+        ]
+      },
+      "trace_paths": {
+        "bm25": "runs/qwen-bm25-20261015/answers/bm25/qst_0435.json",
+        "qwen": "runs/qwen-bm25-20261015/answers/qwen/qst_0435.json"
+      }
+    },
+    {
+      "id": "qst_0423",
+      "category": "conflicting_info",
+      "question": "For the office keycard audit, how many months of access logs should we export?",
+      "frozen_correct": {
+        "bm25": true,
+        "qwen": true
+      },
+      "frozen_judgements": {
+        "bm25": {
+          "correct": true,
+          "facts_supported": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "reason": "The candidate specifies a 12-month initial export, rejects 18 months, and limits expansion to cases where anomalies are found, without adding unrelated requirements."
+        },
+        "qwen": {
+          "correct": true,
+          "facts_supported": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "reason": "The candidate correctly specifies an initial 12-month export, rejects 18 months, and limits expansion to cases where anomalies are found, without adding unrelated requirements."
+        }
+      },
+      "retrieval": {
+        "id": "qst_0423",
+        "category": "conflicting_info",
+        "A": {
+          "recall@5": 1.0,
+          "recall@20": 1.0,
+          "all_gold@5": 1.0,
+          "all_gold@20": 1.0
+        },
+        "B": {
+          "recall@5": 1.0,
+          "recall@20": 1.0,
+          "all_gold@5": 1.0,
+          "all_gold@20": 1.0
+        }
+      },
+      "diagnosis": "两组通过",
+      "confidence": "—",
+      "finding": "两组均答出先导出12个月、仅异常时扩展，并排除旧18个月口径。",
+      "reference_ranks": [
+        {
+          "document_id": "dsid_c5288dd4874345adb80f4a71c9a18773",
+          "bm25": 2,
+          "qwen": 1
+        },
+        {
+          "document_id": "dsid_03b2db544a6d4cf886fb9869058a05f2",
+          "bm25": 1,
+          "qwen": 2
+        }
+      ],
+      "actual_windows": {
+        "bm25": [
+          {
+            "document_id": "dsid_03b2db544a6d4cf886fb9869058a05f2",
+            "canonical_id": "dsid_03b2db544a6d4cf886fb9869058a05f2",
+            "offset": 0,
+            "full_length": 3570,
+            "body_chars": 3570,
+            "title_chars": 93
+          },
+          {
+            "document_id": "dsid_c5288dd4874345adb80f4a71c9a18773",
+            "canonical_id": "dsid_c5288dd4874345adb80f4a71c9a18773",
+            "offset": 0,
+            "full_length": 1984,
+            "body_chars": 1984,
+            "title_chars": 48
+          },
+          {
+            "document_id": "dsid_546abec38bdd4d1f8f0024d7c54886d1",
+            "canonical_id": "dsid_546abec38bdd4d1f8f0024d7c54886d1",
+            "offset": 3000,
+            "full_length": 7415,
+            "body_chars": 4000,
+            "title_chars": 85
+          },
+          {
+            "document_id": "dsid_002bce548182471eb477f4805a57d2e4",
+            "canonical_id": "dsid_002bce548182471eb477f4805a57d2e4",
+            "offset": 0,
+            "full_length": 3478,
+            "body_chars": 3478,
+            "title_chars": 228
+          },
+          {
+            "document_id": "dsid_f2b5d64e164a4bb8952c2d71efaed8ee",
+            "canonical_id": "dsid_f2b5d64e164a4bb8952c2d71efaed8ee",
+            "offset": 0,
+            "full_length": 10395,
+            "body_chars": 4000,
+            "title_chars": 71
+          }
+        ],
+        "qwen": [
+          {
+            "document_id": "dsid_c5288dd4874345adb80f4a71c9a18773",
+            "canonical_id": "dsid_c5288dd4874345adb80f4a71c9a18773",
+            "offset": 0,
+            "full_length": 1984,
+            "body_chars": 1984,
+            "title_chars": 48
+          },
+          {
+            "document_id": "dsid_03b2db544a6d4cf886fb9869058a05f2",
+            "canonical_id": "dsid_03b2db544a6d4cf886fb9869058a05f2",
+            "offset": 0,
+            "full_length": 3570,
+            "body_chars": 3570,
+            "title_chars": 93
+          },
+          {
+            "document_id": "dsid_758844520f7149d49cf5b32fb709de01",
+            "canonical_id": "dsid_758844520f7149d49cf5b32fb709de01",
+            "offset": 3849,
+            "full_length": 7849,
+            "body_chars": 4000,
+            "title_chars": 76
+          },
+          {
+            "document_id": "dsid_7218bf2501624cc5a69c451bea13688d",
+            "canonical_id": "dsid_7218bf2501624cc5a69c451bea13688d",
+            "offset": 1600,
+            "full_length": 9992,
+            "body_chars": 4000,
+            "title_chars": 56
+          },
+          {
+            "document_id": "dsid_d417b614467040e0b9f40ab37dece165",
+            "canonical_id": "dsid_d417b614467040e0b9f40ab37dece165",
+            "offset": 200,
+            "full_length": 7899,
+            "body_chars": 4000,
+            "title_chars": 77
+          }
+        ]
+      },
+      "trace_paths": {
+        "bm25": "runs/qwen-bm25-20261015/answers/bm25/qst_0423.json",
+        "qwen": "runs/qwen-bm25-20261015/answers/qwen/qst_0423.json"
+      }
+    },
+    {
+      "id": "qst_0401",
+      "category": "constrained",
+      "question": "After the org GPG signing-key rotation on 2026-03-09, our GitLab release promotion pipelines started failing on prod release runners during artifact verification. What was the root cause of the signature verification failures, and what immediate operational mitigations unblocked hotfix promotions while the permanent fix was rolled out?",
+      "frozen_correct": {
+        "bm25": false,
+        "qwen": false
+      },
+      "frozen_judgements": {
+        "bm25": {
+          "correct": false,
+          "facts_supported": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            true,
+            true,
+            true,
+            true
+          ],
+          "reason": "The candidate substitutes inconsistent signing/keyserver state for the confirmed malformed-key import caused by keysync mishandling chunked responses. It does not establish the GPG/keyring drift contribution, omits rollback of the signing host, and describes keyring refresh as planned rather than an immediate mitigation. It avoids the unrelated incident explanations."
+        },
+        "qwen": {
+          "correct": false,
+          "facts_supported": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            true,
+            true,
+            true,
+            true
+          ],
+          "reason": "The candidate substitutes a signing/keyserver mismatch for the confirmed keysync chunked-transfer bug and malformed public-key imports. It does not establish the combined key-material/GPG drift cause, omits rollback of the signing host, and describes the required forced keyring refresh as merely planned. It avoids the unrelated incident explanations."
+        }
+      },
+      "retrieval": {
+        "id": "qst_0401",
+        "category": "constrained",
+        "A": {
+          "recall@5": 1.0,
+          "recall@20": 1.0,
+          "all_gold@5": 1.0,
+          "all_gold@20": 1.0
+        },
+        "B": {
+          "recall@5": 1.0,
+          "recall@20": 1.0,
+          "all_gold@5": 1.0,
+          "all_gold@20": 1.0
+        }
+      },
+      "diagnosis": "候选消费/读取",
+      "confidence": "高",
+      "finding": "正确文档BM25第1/Qwen第3，均只读0–4000；keysync chunked根因从4033附近开始，签名主机回滚和force-import确认在更后面。两组依据早期调查作答，不能算已见完整证据仍不会答。",
+      "reference_ranks": [
+        {
+          "document_id": "dsid_f7dc91cc70e14c94a6215a13cd829cbf",
+          "bm25": 1,
+          "qwen": 3
+        }
+      ],
+      "actual_windows": {
+        "bm25": [
+          {
+            "document_id": "dsid_f7dc91cc70e14c94a6215a13cd829cbf",
+            "canonical_id": "dsid_f7dc91cc70e14c94a6215a13cd829cbf",
+            "offset": 0,
+            "full_length": 6444,
+            "body_chars": 4000,
+            "title_chars": 98
+          },
+          {
+            "document_id": "dsid_f5545e84d0af43e38eebc77467015394",
+            "canonical_id": "dsid_f5545e84d0af43e38eebc77467015394",
+            "offset": 0,
+            "full_length": 4812,
+            "body_chars": 4000,
+            "title_chars": 87
+          },
+          {
+            "document_id": "dsid_96e93c3206494b8caa21cf12687ae74c",
+            "canonical_id": "dsid_96e93c3206494b8caa21cf12687ae74c",
+            "offset": 0,
+            "full_length": 2913,
+            "body_chars": 2913,
+            "title_chars": 12
+          },
+          {
+            "document_id": "dsid_919f7bfde2e442fe8211614fd5063587",
+            "canonical_id": "dsid_919f7bfde2e442fe8211614fd5063587",
+            "offset": 0,
+            "full_length": 2929,
+            "body_chars": 2929,
+            "title_chars": 12
+          },
+          {
+            "document_id": "dsid_1de3573620e44cc6a2f4018cd7074ba3",
+            "canonical_id": "dsid_1de3573620e44cc6a2f4018cd7074ba3",
+            "offset": 0,
+            "full_length": 4278,
+            "body_chars": 4000,
+            "title_chars": 12
+          }
+        ],
+        "qwen": [
+          {
+            "document_id": "dsid_6960b5b58be8460dbeb0716c0738a821",
+            "canonical_id": "dsid_6960b5b58be8460dbeb0716c0738a821",
+            "offset": 0,
+            "full_length": 4760,
+            "body_chars": 4000,
+            "title_chars": 12
+          },
+          {
+            "document_id": "dsid_96e93c3206494b8caa21cf12687ae74c",
+            "canonical_id": "dsid_96e93c3206494b8caa21cf12687ae74c",
+            "offset": 0,
+            "full_length": 2913,
+            "body_chars": 2913,
+            "title_chars": 12
+          },
+          {
+            "document_id": "dsid_f7dc91cc70e14c94a6215a13cd829cbf",
+            "canonical_id": "dsid_f7dc91cc70e14c94a6215a13cd829cbf",
+            "offset": 0,
+            "full_length": 6444,
+            "body_chars": 4000,
+            "title_chars": 98
+          },
+          {
+            "document_id": "dsid_919f7bfde2e442fe8211614fd5063587",
+            "canonical_id": "dsid_919f7bfde2e442fe8211614fd5063587",
+            "offset": 0,
+            "full_length": 2929,
+            "body_chars": 2929,
+            "title_chars": 12
+          },
+          {
+            "document_id": "dsid_957baa823492476fb641cb438f8c902b",
+            "canonical_id": "dsid_957baa823492476fb641cb438f8c902b",
+            "offset": 0,
+            "full_length": 3088,
+            "body_chars": 3088,
+            "title_chars": 12
+          }
+        ]
+      },
+      "trace_paths": {
+        "bm25": "runs/qwen-bm25-20261015/answers/bm25/qst_0401.json",
+        "qwen": "runs/qwen-bm25-20261015/answers/qwen/qst_0401.json"
+      }
+    }
+  ],
+  "coverage_examples": {
+    "qst_0449": {
+      "reference_documents": 6,
+      "reference_full_body_chars": 5914,
+      "qwen_reference_ranks": [
+        2,
+        3,
+        4,
+        6,
+        7,
+        8
+      ]
+    },
+    "qst_0410": {
+      "correct_source_rank_bm25": 11,
+      "correct_source_rank_qwen": 6,
+      "X-User-Meta_visible_in_either_arm": false,
+      "4096_visible_in_either_arm": false
+    }
+  },
+  "existing_request_ledger_count": 96
+}

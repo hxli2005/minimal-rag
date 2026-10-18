@@ -1,0 +1,30 @@
+{
+  "planned": 12,
+  "terminal": 12,
+  "correct": 5.0,
+  "score_is_final": true,
+  "effort": "max",
+  "judge_effort": "medium",
+  "model": "gpt-6.1-sol",
+  "calls_reserved_total": 495,
+  "limits": [
+    "Gold-only known-failure diagnostic, not a benchmark score.",
+    "Same raw gold-document input, prompt, model and one generation as the high-effort run; only generation effort and timeout change.",
+    "Both successful and failed grades retained. No reference corrections, no choosing better per-case answer.",
+    "Whole-night shared 500 cap includes this experiment and retries; no other model or GPU."
+  ],
+  "high_correct": 5.0,
+  "paired_disagreements": [],
+  "request_chars_identical": true,
+  "high_generation_and_judge_wall_seconds": 444.96319416900224,
+  "max_generation_and_judge_wall_seconds": 756.4523840830025,
+  "decision": "Keep high; requested max did not change any correctness outcome on these 12 gold-only known failures. Wall time includes shared-provider variation and judge time.",
+  "source": {
+    "path": "runs/overnight-20261012/oracle-max-summary.json",
+    "sha256": "12142620b6de7a0c4e515d420e6cef3a3920f1440c6074ad11217935b315bc4f"
+  },
+  "raw_detail": {
+    "path": "runs/evidence/oracle-effort-20261013.json",
+    "sha256": "bf5e9acf9b8cbab3fd3d67bb9a9ea0be3889467a670a9912f16b660806a4a857"
+  }
+}

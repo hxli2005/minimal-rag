@@ -1,0 +1,245 @@
+{
+  "source": "Official Qwen repositories on ModelScope; per-file revisions frozen before inference",
+  "files": [
+    {
+      "role": "embedding",
+      "repo": "Qwen/Qwen3-Embedding-8B",
+      "path": "1_Pooling/config.json",
+      "revision": "807d9e22a84f48f65f5e1060faa235008f54216e",
+      "bytes": 313,
+      "sha256": "2e1da26b3fd65cf7e370d2fabf28a8c59efa7edb525d1b8b50be8e5ca1048ea6"
+    },
+    {
+      "role": "embedding",
+      "repo": "Qwen/Qwen3-Embedding-8B",
+      "path": "LICENSE",
+      "revision": "fcd9221ff0c460fdd81bfd04f4bc5b014e58da5b",
+      "bytes": 11343,
+      "sha256": "832dd9e00a68dd83b3c3fb9f5588dad7dcf337a0db50f7d9483f310cd292e92e"
+    },
+    {
+      "role": "embedding",
+      "repo": "Qwen/Qwen3-Embedding-8B",
+      "path": "config.json",
+      "revision": "97c301461cf93c4f844d422e4fc6151b6ca1692f",
+      "bytes": 729,
+      "sha256": "dcccf7c7890c8debc4af8dace8d6acd8dd50bd56d50d4d8b60529381ba3de3d7"
+    },
+    {
+      "role": "embedding",
+      "repo": "Qwen/Qwen3-Embedding-8B",
+      "path": "config_sentence_transformers.json",
+      "revision": "807d9e22a84f48f65f5e1060faa235008f54216e",
+      "bytes": 215,
+      "sha256": "10667c72ddb772627bf1780cb7f86af8e2ae0032b8c243c731172064105c6961"
+    },
+    {
+      "role": "embedding",
+      "repo": "Qwen/Qwen3-Embedding-8B",
+      "path": "generation_config.json",
+      "revision": "c0cad4727336a0576787572e60d081b4617eceef",
+      "bytes": 117,
+      "sha256": "28396d421a2108acce96383f6a7de78008f7f1b17f807958f3c14c51dbfb65fb"
+    },
+    {
+      "role": "embedding",
+      "repo": "Qwen/Qwen3-Embedding-8B",
+      "path": "merges.txt",
+      "revision": "c0cad4727336a0576787572e60d081b4617eceef",
+      "bytes": 1671853,
+      "sha256": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5"
+    },
+    {
+      "role": "embedding",
+      "repo": "Qwen/Qwen3-Embedding-8B",
+      "path": "model-00001-of-00004.safetensors",
+      "revision": "6d1603f428571c924b68d88bf82a30c481a8423d",
+      "bytes": 4900037024,
+      "sha256": "99b343597fe840706146144699a8b9188dd3387e43eb61faf0231b70b249d451"
+    },
+    {
+      "role": "embedding",
+      "repo": "Qwen/Qwen3-Embedding-8B",
+      "path": "model-00002-of-00004.safetensors",
+      "revision": "6d1603f428571c924b68d88bf82a30c481a8423d",
+      "bytes": 4915959512,
+      "sha256": "dff635b0f6dbbaad2a2d633ef037ec0a39bc165cc1806c712fbd6fcbcb4526c0"
+    },
+    {
+      "role": "embedding",
+      "repo": "Qwen/Qwen3-Embedding-8B",
+      "path": "model-00003-of-00004.safetensors",
+      "revision": "6d1603f428571c924b68d88bf82a30c481a8423d",
+      "bytes": 4983067656,
+      "sha256": "30b1d4c53d84eb018f642cad7b373f0aabf79699872d8702c1f38577c0a59a2f"
+    },
+    {
+      "role": "embedding",
+      "repo": "Qwen/Qwen3-Embedding-8B",
+      "path": "model-00004-of-00004.safetensors",
+      "revision": "6d1603f428571c924b68d88bf82a30c481a8423d",
+      "bytes": 335570376,
+      "sha256": "36cbc9c60375693629f25743c1e77ebb1724af58e671b2376463193c7fd21ef6"
+    },
+    {
+      "role": "embedding",
+      "repo": "Qwen/Qwen3-Embedding-8B",
+      "path": "model.safetensors.index.json",
+      "revision": "c0cad4727336a0576787572e60d081b4617eceef",
+      "bytes": 30432,
+      "sha256": "ceaf1429bfa18eecc75d079737e8d1fe8dc0627f5ec7e6a985514626d1ac6a77"
+    },
+    {
+      "role": "embedding",
+      "repo": "Qwen/Qwen3-Embedding-8B",
+      "path": "modules.json",
+      "revision": "807d9e22a84f48f65f5e1060faa235008f54216e",
+      "bytes": 349,
+      "sha256": "84e40c8e006c9b1d6c122e02cba9b02458120b5fb0c87b746c41e0207cf642cf"
+    },
+    {
+      "role": "embedding",
+      "repo": "Qwen/Qwen3-Embedding-8B",
+      "path": "tokenizer.json",
+      "revision": "807d9e22a84f48f65f5e1060faa235008f54216e",
+      "bytes": 11422947,
+      "sha256": "83cdf8c3a34f68862319cb1810ee7b1e2c0a44e0864ae930194ddb76bb7feb8d"
+    },
+    {
+      "role": "embedding",
+      "repo": "Qwen/Qwen3-Embedding-8B",
+      "path": "tokenizer_config.json",
+      "revision": "c0cad4727336a0576787572e60d081b4617eceef",
+      "bytes": 7256,
+      "sha256": "2f58f4bbd7bbce15d683f525954ef3a92cd82f5e06415a9c513859bf8ab72436"
+    },
+    {
+      "role": "embedding",
+      "repo": "Qwen/Qwen3-Embedding-8B",
+      "path": "vocab.json",
+      "revision": "c0cad4727336a0576787572e60d081b4617eceef",
+      "bytes": 2776833,
+      "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+    },
+    {
+      "role": "reranker",
+      "repo": "Qwen/Qwen3-Reranker-4B",
+      "path": "1_LogitScore/config.json",
+      "revision": "14f36843fc02cea94c1e0c59b6ae0ab1f9b9ebe2",
+      "bytes": 57,
+      "sha256": "73e3156450564d8a98b7e47bcf5aace0f29600828b51937da545571e84db3ff3"
+    },
+    {
+      "role": "reranker",
+      "repo": "Qwen/Qwen3-Reranker-4B",
+      "path": "chat_template.jinja",
+      "revision": "14f36843fc02cea94c1e0c59b6ae0ab1f9b9ebe2",
+      "bytes": 741,
+      "sha256": "6f682162495ec5b39fd9005c01b6aa2a74669379fe967039f1e2cbbe8752369d"
+    },
+    {
+      "role": "reranker",
+      "repo": "Qwen/Qwen3-Reranker-4B",
+      "path": "config.json",
+      "revision": "7b69b02886f1ed7ec6efa6e9a996b41246c395d9",
+      "bytes": 727,
+      "sha256": "38bff5eac700032a185745e4076eccad7aa453473cafc2a27de412cdb7b79e19"
+    },
+    {
+      "role": "reranker",
+      "repo": "Qwen/Qwen3-Reranker-4B",
+      "path": "config_sentence_transformers.json",
+      "revision": "14f36843fc02cea94c1e0c59b6ae0ab1f9b9ebe2",
+      "bytes": 325,
+      "sha256": "6a153d6696f78fd588c1c728967f0b773ea869d3c6028f151ce71ebe49140762"
+    },
+    {
+      "role": "reranker",
+      "repo": "Qwen/Qwen3-Reranker-4B",
+      "path": "generation_config.json",
+      "revision": "7b69b02886f1ed7ec6efa6e9a996b41246c395d9",
+      "bytes": 214,
+      "sha256": "81051cd3f6e77013827148d0b8a6ead93f8ac390d5ab805f849199f0af6a08db"
+    },
+    {
+      "role": "reranker",
+      "repo": "Qwen/Qwen3-Reranker-4B",
+      "path": "merges.txt",
+      "revision": "7b69b02886f1ed7ec6efa6e9a996b41246c395d9",
+      "bytes": 1671853,
+      "sha256": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5"
+    },
+    {
+      "role": "reranker",
+      "repo": "Qwen/Qwen3-Reranker-4B",
+      "path": "model-00001-of-00002.safetensors",
+      "revision": "05654501725b0890edac70ec31325cf54fd00eac",
+      "bytes": 4058781760,
+      "sha256": "cf2e87cbf71fa628961532232e04dd6c19702a0a057f5e2aff95ea1aca4fd488"
+    },
+    {
+      "role": "reranker",
+      "repo": "Qwen/Qwen3-Reranker-4B",
+      "path": "model-00002-of-00002.safetensors",
+      "revision": "05654501725b0890edac70ec31325cf54fd00eac",
+      "bytes": 3984833200,
+      "sha256": "78946d22b7f6456ea7a5358dbdf3982de36c5bac1f166a5fd58e18e31db8048a"
+    },
+    {
+      "role": "reranker",
+      "repo": "Qwen/Qwen3-Reranker-4B",
+      "path": "model.safetensors.index.json",
+      "revision": "7b69b02886f1ed7ec6efa6e9a996b41246c395d9",
+      "bytes": 32819,
+      "sha256": "18a783f197360068da36d2ff9ecffce0121542a87598fd1fef3079ead1c3cc08"
+    },
+    {
+      "role": "reranker",
+      "repo": "Qwen/Qwen3-Reranker-4B",
+      "path": "modules.json",
+      "revision": "14f36843fc02cea94c1e0c59b6ae0ab1f9b9ebe2",
+      "bytes": 280,
+      "sha256": "6f13b6b4a89e577b591b2077bca40c67c26541a6740a8809267cb474f90806a9"
+    },
+    {
+      "role": "reranker",
+      "repo": "Qwen/Qwen3-Reranker-4B",
+      "path": "sentence_bert_config.json",
+      "revision": "14f36843fc02cea94c1e0c59b6ae0ab1f9b9ebe2",
+      "bytes": 362,
+      "sha256": "3234ebd224d492cbe8d55d5ec80a3f408451c4db3005bafb64fe1c51c763e01e"
+    },
+    {
+      "role": "reranker",
+      "repo": "Qwen/Qwen3-Reranker-4B",
+      "path": "special_tokens_map.json",
+      "revision": "7b69b02886f1ed7ec6efa6e9a996b41246c395d9",
+      "bytes": 613,
+      "sha256": "76862e765266b85aa9459767e33cbaf13970f327a0e88d1c65846c2ddd3a1ecd"
+    },
+    {
+      "role": "reranker",
+      "repo": "Qwen/Qwen3-Reranker-4B",
+      "path": "tokenizer.json",
+      "revision": "7b69b02886f1ed7ec6efa6e9a996b41246c395d9",
+      "bytes": 11422654,
+      "sha256": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4"
+    },
+    {
+      "role": "reranker",
+      "repo": "Qwen/Qwen3-Reranker-4B",
+      "path": "tokenizer_config.json",
+      "revision": "7b69b02886f1ed7ec6efa6e9a996b41246c395d9",
+      "bytes": 9706,
+      "sha256": "253153d0738ceb4c668d2eff957714dd2bea0b56de772a9fdccd96cbf517e6a0"
+    },
+    {
+      "role": "reranker",
+      "repo": "Qwen/Qwen3-Reranker-4B",
+      "path": "vocab.json",
+      "revision": "7b69b02886f1ed7ec6efa6e9a996b41246c395d9",
+      "bytes": 2776833,
+      "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+    }
+  ]
+}

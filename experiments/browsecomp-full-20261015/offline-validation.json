@@ -1,0 +1,18 @@
+{
+  "tokenizer_vocab_size": 151643,
+  "standard_search": [
+    {
+      "query_id": "131",
+      "hits": 5,
+      "max_snippet_tokens": 512
+    },
+    {
+      "query_id": "1257",
+      "hits": 5,
+      "max_snippet_tokens": 512
+    }
+  ],
+  "calibration_matches_official_formula": true,
+  "configuration_checks_passed": true,
+  "new_sol_requests": 0
+}

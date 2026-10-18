@@ -1,0 +1,699 @@
+{
+  "kind": "posthoc_read_only_analysis",
+  "night_id": "20261015T102540",
+  "new_model_requests": 0,
+  "cost_definition": "generation uncached input tokens; recorded amounts exclude missing usage",
+  "baseline_categories": {
+    "basic": {
+      "n": 35,
+      "correct": 33
+    },
+    "completeness": {
+      "n": 4,
+      "correct": 4
+    },
+    "conflicting_info": {
+      "n": 4,
+      "correct": 3
+    },
+    "constrained": {
+      "n": 6,
+      "correct": 6
+    },
+    "high_level": {
+      "n": 2,
+      "correct": 1
+    },
+    "info_not_found": {
+      "n": 4,
+      "correct": 4
+    },
+    "intra_document_reasoning": {
+      "n": 8,
+      "correct": 8
+    },
+    "miscellaneous": {
+      "n": 4,
+      "correct": 4
+    },
+    "project_related": {
+      "n": 8,
+      "correct": 2
+    },
+    "semantic": {
+      "n": 25,
+      "correct": 18
+    }
+  },
+  "candidates": {
+    "v1": {
+      "n": 100,
+      "baseline_correct": 83,
+      "candidate_correct": 79,
+      "baseline_calls": 413,
+      "candidate_calls": 587,
+      "baseline_uncached": 2988999,
+      "candidate_uncached_recorded": 3731102,
+      "candidate_missing_usage": 1,
+      "recorded_cost_delta_pct": 24.827810246841842,
+      "discordants": [
+        {
+          "id": "qst_0341",
+          "category": "project_related",
+          "baseline_correct": true,
+          "candidate_correct": false,
+          "baseline_calls": 5,
+          "candidate_calls": 5,
+          "baseline_uncached": 35565,
+          "candidate_uncached": 33538,
+          "final_response_required_observed": false
+        },
+        {
+          "id": "qst_0281",
+          "category": "semantic",
+          "baseline_correct": true,
+          "candidate_correct": false,
+          "baseline_calls": 3,
+          "candidate_calls": 8,
+          "baseline_uncached": 17031,
+          "candidate_uncached": 69588,
+          "final_response_required_observed": false
+        },
+        {
+          "id": "qst_0173",
+          "category": "basic",
+          "baseline_correct": true,
+          "candidate_correct": false,
+          "baseline_calls": 2,
+          "candidate_calls": 12,
+          "baseline_uncached": 11021,
+          "candidate_uncached": 185269,
+          "final_response_required_observed": true
+        },
+        {
+          "id": "qst_0118",
+          "category": "basic",
+          "baseline_correct": false,
+          "candidate_correct": true,
+          "baseline_calls": 5,
+          "candidate_calls": 5,
+          "baseline_uncached": 23132,
+          "candidate_uncached": 29369,
+          "final_response_required_observed": false
+        },
+        {
+          "id": "qst_0116",
+          "category": "basic",
+          "baseline_correct": true,
+          "candidate_correct": false,
+          "baseline_calls": 3,
+          "candidate_calls": 12,
+          "baseline_uncached": 20384,
+          "candidate_uncached": 154366,
+          "final_response_required_observed": true
+        },
+        {
+          "id": "qst_0351",
+          "category": "project_related",
+          "baseline_correct": true,
+          "candidate_correct": false,
+          "baseline_calls": 3,
+          "candidate_calls": 5,
+          "baseline_uncached": 19041,
+          "candidate_uncached": 17328,
+          "final_response_required_observed": false
+        },
+        {
+          "id": "qst_0258",
+          "category": "semantic",
+          "baseline_correct": false,
+          "candidate_correct": true,
+          "baseline_calls": 3,
+          "candidate_calls": 6,
+          "baseline_uncached": 12475,
+          "candidate_uncached": 31449,
+          "final_response_required_observed": false
+        },
+        {
+          "id": "qst_0251",
+          "category": "semantic",
+          "baseline_correct": true,
+          "candidate_correct": false,
+          "baseline_calls": 12,
+          "candidate_calls": 12,
+          "baseline_uncached": 134924,
+          "candidate_uncached": 147833,
+          "final_response_required_observed": true
+        }
+      ],
+      "gate_file": "experiments/system-v1-20261015/v1-dev-gate.json"
+    },
+    "v2": {
+      "n": 30,
+      "baseline_correct": 26,
+      "candidate_correct": 23,
+      "baseline_calls": 115,
+      "candidate_calls": 107,
+      "baseline_uncached": 779690,
+      "candidate_uncached_recorded": 591682,
+      "candidate_missing_usage": 0,
+      "recorded_cost_delta_pct": -24.113173184214244,
+      "discordants": [
+        {
+          "id": "qst_0341",
+          "category": "project_related",
+          "baseline_correct": true,
+          "candidate_correct": false,
+          "baseline_calls": 5,
+          "candidate_calls": 5,
+          "baseline_uncached": 35565,
+          "candidate_uncached": 51948,
+          "final_response_required_observed": false
+        },
+        {
+          "id": "qst_0422",
+          "category": "conflicting_info",
+          "baseline_correct": true,
+          "candidate_correct": false,
+          "baseline_calls": 4,
+          "candidate_calls": 3,
+          "baseline_uncached": 20414,
+          "candidate_uncached": 9716,
+          "final_response_required_observed": false
+        },
+        {
+          "id": "qst_0240",
+          "category": "semantic",
+          "baseline_correct": true,
+          "candidate_correct": false,
+          "baseline_calls": 3,
+          "candidate_calls": 4,
+          "baseline_uncached": 18205,
+          "candidate_uncached": 17004,
+          "final_response_required_observed": false
+        },
+        {
+          "id": "qst_0143",
+          "category": "basic",
+          "baseline_correct": false,
+          "candidate_correct": true,
+          "baseline_calls": 6,
+          "candidate_calls": 7,
+          "baseline_uncached": 57099,
+          "candidate_uncached": 60553,
+          "final_response_required_observed": false
+        },
+        {
+          "id": "qst_0013",
+          "category": "basic",
+          "baseline_correct": true,
+          "candidate_correct": false,
+          "baseline_calls": 3,
+          "candidate_calls": 3,
+          "baseline_uncached": 17297,
+          "candidate_uncached": 10719,
+          "final_response_required_observed": false
+        }
+      ],
+      "gate_file": "experiments/system-v1-20261015/v2-panel-gate.json"
+    },
+    "v3": {
+      "n": 100,
+      "baseline_correct": 83,
+      "candidate_correct": 82,
+      "baseline_calls": 413,
+      "candidate_calls": 417,
+      "baseline_uncached": 2988999,
+      "candidate_uncached_recorded": 3126067,
+      "candidate_missing_usage": 0,
+      "recorded_cost_delta_pct": 4.585749275928164,
+      "discordants": [
+        {
+          "id": "qst_0341",
+          "category": "project_related",
+          "baseline_correct": true,
+          "candidate_correct": false,
+          "baseline_calls": 5,
+          "candidate_calls": 5,
+          "baseline_uncached": 35565,
+          "candidate_uncached": 40526,
+          "final_response_required_observed": false
+        },
+        {
+          "id": "qst_0143",
+          "category": "basic",
+          "baseline_correct": false,
+          "candidate_correct": true,
+          "baseline_calls": 6,
+          "candidate_calls": 2,
+          "baseline_uncached": 57099,
+          "candidate_uncached": 9051,
+          "final_response_required_observed": false
+        },
+        {
+          "id": "qst_0013",
+          "category": "basic",
+          "baseline_correct": true,
+          "candidate_correct": false,
+          "baseline_calls": 3,
+          "candidate_calls": 4,
+          "baseline_uncached": 17297,
+          "candidate_uncached": 24001,
+          "final_response_required_observed": false
+        },
+        {
+          "id": "qst_0250",
+          "category": "semantic",
+          "baseline_correct": true,
+          "candidate_correct": false,
+          "baseline_calls": 12,
+          "candidate_calls": 12,
+          "baseline_uncached": 119309,
+          "candidate_uncached": 196331,
+          "final_response_required_observed": true
+        },
+        {
+          "id": "qst_0351",
+          "category": "project_related",
+          "baseline_correct": true,
+          "candidate_correct": false,
+          "baseline_calls": 3,
+          "candidate_calls": 3,
+          "baseline_uncached": 19041,
+          "candidate_uncached": 24553,
+          "final_response_required_observed": false
+        },
+        {
+          "id": "qst_0197",
+          "category": "semantic",
+          "baseline_correct": false,
+          "candidate_correct": true,
+          "baseline_calls": 4,
+          "candidate_calls": 5,
+          "baseline_uncached": 24054,
+          "candidate_uncached": 36628,
+          "final_response_required_observed": false
+        },
+        {
+          "id": "qst_0258",
+          "category": "semantic",
+          "baseline_correct": false,
+          "candidate_correct": true,
+          "baseline_calls": 3,
+          "candidate_calls": 4,
+          "baseline_uncached": 12475,
+          "candidate_uncached": 28544,
+          "final_response_required_observed": false
+        }
+      ],
+      "gate_file": "experiments/system-v1-20261015/v3-dev-gate.json"
+    }
+  },
+  "source_exposure_checks": [
+    {
+      "id": "qst_0341",
+      "version": "v0",
+      "trace": "data/benchmarks/sota-20261014/enterprise-dev/traces/qst_0341.json",
+      "gold_ids": [
+        "dsid_1980f45c3fb4455f943a2b030892ae90",
+        "dsid_49fa5cfd95624dbeb6eaa535f9959470"
+      ],
+      "returned_spans": {
+        "dsid_1980f45c3fb4455f943a2b030892ae90": [
+          [
+            0,
+            8387,
+            8387
+          ],
+          [
+            4387,
+            8387,
+            8387
+          ]
+        ],
+        "dsid_49fa5cfd95624dbeb6eaa535f9959470": [
+          [
+            0,
+            11506,
+            11506
+          ]
+        ]
+      },
+      "all_checked_spans_equal_exact_corpus_text": true,
+      "target_fact_markers_seen": [
+        true,
+        true
+      ]
+    },
+    {
+      "id": "qst_0341",
+      "version": "v1",
+      "trace": "data/benchmarks/system-nightly/20261015T102540/v1/enterprise-dev/traces/qst_0341.json",
+      "gold_ids": [
+        "dsid_1980f45c3fb4455f943a2b030892ae90",
+        "dsid_49fa5cfd95624dbeb6eaa535f9959470"
+      ],
+      "returned_spans": {
+        "dsid_1980f45c3fb4455f943a2b030892ae90": [
+          [
+            2588,
+            3388,
+            8387
+          ],
+          [
+            0,
+            8387,
+            8387
+          ],
+          [
+            2588,
+            3388,
+            8387
+          ]
+        ],
+        "dsid_49fa5cfd95624dbeb6eaa535f9959470": [
+          [
+            8238,
+            9038,
+            11506
+          ],
+          [
+            0,
+            11506,
+            11506
+          ]
+        ]
+      },
+      "all_checked_spans_equal_exact_corpus_text": true,
+      "target_fact_markers_seen": [
+        true,
+        true
+      ]
+    },
+    {
+      "id": "qst_0341",
+      "version": "v2",
+      "trace": "data/benchmarks/system-nightly/20261015T102540/v2/enterprise-dev/traces/qst_0341.json",
+      "gold_ids": [
+        "dsid_1980f45c3fb4455f943a2b030892ae90",
+        "dsid_49fa5cfd95624dbeb6eaa535f9959470"
+      ],
+      "returned_spans": {
+        "dsid_1980f45c3fb4455f943a2b030892ae90": [
+          [
+            2304,
+            4304,
+            8387
+          ],
+          [
+            0,
+            8387,
+            8387
+          ],
+          [
+            6218,
+            8218,
+            8387
+          ]
+        ],
+        "dsid_49fa5cfd95624dbeb6eaa535f9959470": [
+          [
+            0,
+            11506,
+            11506
+          ],
+          [
+            8035,
+            10035,
+            11506
+          ]
+        ]
+      },
+      "all_checked_spans_equal_exact_corpus_text": true,
+      "target_fact_markers_seen": [
+        true,
+        true
+      ]
+    },
+    {
+      "id": "qst_0341",
+      "version": "v3",
+      "trace": "data/benchmarks/system-nightly/20261015T102540/v3/enterprise-dev/traces/qst_0341.json",
+      "gold_ids": [
+        "dsid_1980f45c3fb4455f943a2b030892ae90",
+        "dsid_49fa5cfd95624dbeb6eaa535f9959470"
+      ],
+      "returned_spans": {
+        "dsid_1980f45c3fb4455f943a2b030892ae90": [
+          [
+            0,
+            8387,
+            8387
+          ],
+          [
+            4387,
+            8387,
+            8387
+          ],
+          [
+            4387,
+            8387,
+            8387
+          ]
+        ],
+        "dsid_49fa5cfd95624dbeb6eaa535f9959470": [
+          [
+            0,
+            11506,
+            11506
+          ]
+        ]
+      },
+      "all_checked_spans_equal_exact_corpus_text": true,
+      "target_fact_markers_seen": [
+        true,
+        true
+      ]
+    },
+    {
+      "id": "qst_0013",
+      "version": "v0",
+      "trace": "data/benchmarks/sota-20261014/enterprise-dev/traces/qst_0013.json",
+      "gold_ids": [
+        "dsid_f1b208f3637e4987aeab371242a5bea5"
+      ],
+      "returned_spans": {
+        "dsid_f1b208f3637e4987aeab371242a5bea5": [
+          [
+            72,
+            4072,
+            10196
+          ],
+          [
+            0,
+            10196,
+            10196
+          ]
+        ]
+      },
+      "all_checked_spans_equal_exact_corpus_text": true,
+      "target_fact_markers_seen": [
+        true,
+        true
+      ]
+    },
+    {
+      "id": "qst_0013",
+      "version": "v1",
+      "trace": "data/benchmarks/system-nightly/20261015T102540/v1/enterprise-dev/traces/qst_0013.json",
+      "gold_ids": [
+        "dsid_f1b208f3637e4987aeab371242a5bea5"
+      ],
+      "returned_spans": {
+        "dsid_f1b208f3637e4987aeab371242a5bea5": [
+          [
+            0,
+            800,
+            10196
+          ],
+          [
+            0,
+            10196,
+            10196
+          ]
+        ]
+      },
+      "all_checked_spans_equal_exact_corpus_text": true,
+      "target_fact_markers_seen": [
+        true,
+        true
+      ]
+    },
+    {
+      "id": "qst_0013",
+      "version": "v2",
+      "trace": "data/benchmarks/system-nightly/20261015T102540/v2/enterprise-dev/traces/qst_0013.json",
+      "gold_ids": [
+        "dsid_f1b208f3637e4987aeab371242a5bea5"
+      ],
+      "returned_spans": {
+        "dsid_f1b208f3637e4987aeab371242a5bea5": [
+          [
+            1072,
+            3072,
+            10196
+          ],
+          [
+            0,
+            10196,
+            10196
+          ]
+        ]
+      },
+      "all_checked_spans_equal_exact_corpus_text": true,
+      "target_fact_markers_seen": [
+        true,
+        true
+      ]
+    },
+    {
+      "id": "qst_0013",
+      "version": "v3",
+      "trace": "data/benchmarks/system-nightly/20261015T102540/v3/enterprise-dev/traces/qst_0013.json",
+      "gold_ids": [
+        "dsid_f1b208f3637e4987aeab371242a5bea5"
+      ],
+      "returned_spans": {
+        "dsid_f1b208f3637e4987aeab371242a5bea5": [
+          [
+            0,
+            4000,
+            10196
+          ],
+          [
+            3800,
+            10196,
+            10196
+          ],
+          [
+            4108,
+            8108,
+            10196
+          ]
+        ]
+      },
+      "all_checked_spans_equal_exact_corpus_text": true,
+      "target_fact_markers_seen": [
+        true,
+        true
+      ]
+    },
+    {
+      "id": "qst_0118",
+      "version": "v0",
+      "trace": "data/benchmarks/sota-20261014/enterprise-dev/traces/qst_0118.json",
+      "gold_ids": [
+        "dsid_9a0982d498384adeb435a2b3938bfd76"
+      ],
+      "returned_spans": {
+        "dsid_9a0982d498384adeb435a2b3938bfd76": [
+          [
+            0,
+            4000,
+            8139
+          ],
+          [
+            0,
+            8139,
+            8139
+          ],
+          [
+            4139,
+            8139,
+            8139
+          ]
+        ]
+      },
+      "all_checked_spans_equal_exact_corpus_text": true,
+      "target_fact_markers_seen": [
+        true
+      ]
+    },
+    {
+      "id": "qst_0118",
+      "version": "v3",
+      "trace": "data/benchmarks/system-nightly/20261015T102540/v3/enterprise-dev/traces/qst_0118.json",
+      "gold_ids": [
+        "dsid_9a0982d498384adeb435a2b3938bfd76"
+      ],
+      "returned_spans": {
+        "dsid_9a0982d498384adeb435a2b3938bfd76": [
+          [
+            0,
+            4000,
+            8139
+          ],
+          [
+            0,
+            8139,
+            8139
+          ],
+          [
+            4139,
+            8139,
+            8139
+          ]
+        ]
+      },
+      "all_checked_spans_equal_exact_corpus_text": true,
+      "target_fact_markers_seen": [
+        true
+      ]
+    },
+    {
+      "id": "qst_0250",
+      "version": "v0",
+      "trace": "data/benchmarks/sota-20261014/enterprise-dev/traces/qst_0250.json",
+      "gold_ids": [
+        "dsid_3b1c14ab4cc647369b783b7abdfc32f3"
+      ],
+      "returned_spans": {
+        "dsid_3b1c14ab4cc647369b783b7abdfc32f3": [
+          [
+            200,
+            4200,
+            8735
+          ],
+          [
+            0,
+            8735,
+            8735
+          ]
+        ]
+      },
+      "all_checked_spans_equal_exact_corpus_text": true,
+      "target_fact_markers_seen": [
+        true
+      ]
+    },
+    {
+      "id": "qst_0250",
+      "version": "v3",
+      "trace": "data/benchmarks/system-nightly/20261015T102540/v3/enterprise-dev/traces/qst_0250.json",
+      "gold_ids": [
+        "dsid_3b1c14ab4cc647369b783b7abdfc32f3"
+      ],
+      "returned_spans": {},
+      "all_checked_spans_equal_exact_corpus_text": null,
+      "target_fact_markers_seen": [
+        false
+      ]
+    }
+  ],
+  "caveats": [
+    "Known development/regression samples, not unseen test results.",
+    "First valid judgements unchanged; qst_0240/qst_0351/qst_0422 have existing judgement/reference disputes.",
+    "Exposure checks are targeted examples, not a population-wide root-cause census.",
+    "One generation per configuration does not separate treatment effect from generation/judge variation."
+  ]
+}

@@ -1,0 +1,119 @@
+{
+  "created": "2026-10-15T06:19:59.306292+00:00",
+  "denominator": 2,
+  "correct": 2,
+  "accuracy_percent": 100.0,
+  "score_status": "smoke_only",
+  "accuracy_valid_for_decision": false,
+  "wilson_95_percent": [
+    34.2380227506653,
+    100.0
+  ],
+  "completed": 2,
+  "graded": 2,
+  "completed_accuracy_percent": 100.0,
+  "status_counts": {
+    "completed": 2
+  },
+  "failure_categories": {},
+  "recall_percent": 90.0,
+  "mean_search_calls": 10.0,
+  "mean_read_calls": 4.5,
+  "mean_generation_requests": 5.5,
+  "generation_requests": 11,
+  "generation_ledger_requests": 11,
+  "generation_usage": {
+    "cache_write_input_tokens": 0,
+    "cached_input_tokens": 166016,
+    "input_tokens": 244431,
+    "output_tokens": 3242,
+    "reasoning_output_tokens": 1633,
+    "total_tokens": 247673
+  },
+  "generation_missing_usage_calls": 0,
+  "judge_requests": 8,
+  "judge_sol_usage": {},
+  "judge_requests_without_response": 2,
+  "judge_openrouter_usage": {
+    "prompt_tokens": 4780,
+    "completion_tokens": 1636,
+    "total_tokens": 6416,
+    "cost": 0.00084048,
+    "is_byok": 0
+  },
+  "judge_cost_usd": 0.00084048,
+  "judge_cost_estimate_usd": 0.00084048,
+  "judge_providers": [
+    "DeepInfra"
+  ],
+  "judge": {
+    "mode": "openrouter",
+    "label": "Qwen3-32B（OpenRouter/DeepInfra fp8）裁判，与官方同一模型，量化不同",
+    "parameters": {
+      "model": "qwen/qwen3-32b",
+      "temperature": 0.7,
+      "top_p": 0.8,
+      "top_k": 20,
+      "max_tokens": 4096,
+      "reasoning": {
+        "enabled": false,
+        "exclude": false
+      },
+      "continue_final_message": true,
+      "provider": {
+        "order": [
+          "DeepInfra"
+        ],
+        "allow_fallbacks": false,
+        "data_collection": "deny"
+      }
+    },
+    "prompt_source": "scripts_evaluation/evaluate_run.py:GRADER_TEMPLATE",
+    "assistant_prefill": "<think>\n\n</think>\n\n"
+  },
+  "smoke": {
+    "parse_correct": true,
+    "accepted": true,
+    "reasoning_present": false,
+    "reasoning_chars": 0,
+    "reasoning_tokens": 0,
+    "provider": "DeepInfra"
+  },
+  "cases": [
+    {
+      "query_id": "131",
+      "status": "completed",
+      "correct": true,
+      "retrieval_recall": 1.0,
+      "evidence_hits": 6,
+      "evidence_total": 6,
+      "tool_call_counts_all_attempts": {
+        "search": 8,
+        "read": 4
+      },
+      "generation_calls_all_attempts": 5,
+      "failure_category": null
+    },
+    {
+      "query_id": "1257",
+      "status": "completed",
+      "correct": true,
+      "retrieval_recall": 0.8,
+      "evidence_hits": 4,
+      "evidence_total": 5,
+      "tool_call_counts_all_attempts": {
+        "search": 12,
+        "read": 5
+      },
+      "generation_calls_all_attempts": 6,
+      "failure_category": null
+    }
+  ],
+  "limitations": [
+    "30题固定开发样本，非官方成绩；样本点估计不能用于榜单名次判断。",
+    "失败、超时、未运行和未判定保留在固定分母；未判定是保守未答对，不冒充已判错误。",
+    "SDK内部HTTP重试不可观测；请求数是应用层计数。",
+    "召回按最终尝试检索到的全部docid对官方evidence qrels计算，再逐题平均；工具成本包括恢复前尝试。",
+    "SQLite分块FTS5与官方Lucene BM25不同；模型、工具、检索和预算均非受控单因素对照。"
+  ]
+}

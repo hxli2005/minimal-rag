@@ -1,0 +1,54 @@
+{
+  "A": {
+    "answers": 100,
+    "finished": 100,
+    "model_requests": 453,
+    "model_calls_per_question": {
+      "4": 12,
+      "3": 30,
+      "7": 4,
+      "12": 9,
+      "2": 25,
+      "6": 7,
+      "5": 8,
+      "8": 2,
+      "11": 1,
+      "10": 2
+    },
+    "missing_generation_usage": 0,
+    "tool_calls": {
+      "search": 478,
+      "read": 116
+    },
+    "protocol_errors": 0,
+    "new_tool_paths_checked": 0,
+    "unmapped_paths": 0
+  },
+  "B": {
+    "answers": 100,
+    "finished": 100,
+    "model_requests": 448,
+    "model_calls_per_question": {
+      "6": 6,
+      "3": 30,
+      "5": 7,
+      "12": 6,
+      "2": 25,
+      "8": 3,
+      "4": 12,
+      "7": 5,
+      "10": 4,
+      "9": 2
+    },
+    "missing_generation_usage": 0,
+    "tool_calls": {
+      "search": 305,
+      "read": 135,
+      "Grep": 107,
+      "Glob": 3
+    },
+    "protocol_errors": 0,
+    "new_tool_paths_checked": 5210,
+    "unmapped_paths": 0
+  }
+}

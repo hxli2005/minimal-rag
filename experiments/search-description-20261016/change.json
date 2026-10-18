@@ -1,0 +1,18 @@
+{
+  "change": "search tool description only",
+  "baseline_description": "Search BM25-ranked original passages. Keywords match any by default; all_terms=true requires every term. Quote multiword phrases. Global results contain distinct documents. scope filters an ID, title or source substring; set scope to an exact document ID to search its passages for a missing fact. Hits include surrounding original context, character offsets and document length; truncated means more of that document exists. Empty query lists documents; limit/offset paginate.",
+  "candidate_description": "Search original passages with BM25 lexical ranking. Use a complete question or informative terms that preserve the distinguishing entities, dates, locations and conditions; overly generic keywords can retrieve a different event. Words match any by default. all_terms=true requires every term and can exclude relevant wording; quote only phrases expected verbatim. If results are off-topic, vary terminology or relax restrictive terms or scope. If results look relevant, limit/offset can expose further candidates instead of repeating similar queries. Global results contain distinct documents. scope filters an ID, title or source substring; an exact document ID searches passages within that document. Hits include original context, offsets and document length; truncated means more text is available through read. Empty query lists documents.",
+  "ast_identical_except_search_description": true,
+  "unchanged_sources": {
+    "benchmark.py": true,
+    "codex_adapter.py": true,
+    "loop.py": true,
+    "benchmark_metrics.py": true,
+    "rag_judge.py": true
+  },
+  "baseline_indexed_rag_sha256": "704599d93885e2024692eba4c0d6ace80e7b4a63579db22e457f040731ac7155",
+  "candidate_indexed_rag_sha256": "becd044d4caac6d3aea6fdf1da907f70fd9c7f5c9d195b9cef2f4afff231bbb2",
+  "baseline_summary": "runs/bm25-unified-20261016/enterprise-test/summary.json",
+  "evaluation_configuration_equal_except_search_description_source": true,
+  "offline_tests_passed": 138
+}

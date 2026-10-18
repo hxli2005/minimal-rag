@@ -1,0 +1,16 @@
+{
+  "repository": "https://github.com/onyx-dot-app/EnterpriseRAG-Bench",
+  "revision": "d36685e273713975ee20299bbf1ab64165575b3c",
+  "sources": {
+    "src/prompts/answer_evaluation.py": {
+      "url": "https://raw.githubusercontent.com/onyx-dot-app/EnterpriseRAG-Bench/d36685e273713975ee20299bbf1ab64165575b3c/src/prompts/answer_evaluation.py",
+      "sha256": "46a400be52ddead8605c5e0845e4e2c1e5fca1037a08e157eae5fd747f27aeab"
+    },
+    "LICENSE": {
+      "url": "https://raw.githubusercontent.com/onyx-dot-app/EnterpriseRAG-Bench/d36685e273713975ee20299bbf1ab64165575b3c/LICENSE",
+      "sha256": "9eab95dae84867fa8ba1450e4bf34addf74e841923f4b6877f4d2df82bed3508"
+    }
+  },
+  "downloaded_on": "2026-10-12",
+  "model_calls": 0
+}

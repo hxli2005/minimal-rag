@@ -1,0 +1,514 @@
+{
+  "created": "2026-10-15T06:52:33.552368+00:00",
+  "denominator": 30,
+  "correct": 28,
+  "accuracy_percent": 93.33333333333333,
+  "score_status": "pilot",
+  "accuracy_valid_for_decision": true,
+  "wilson_95_percent": [
+    78.67654163738308,
+    98.15229762087296
+  ],
+  "completed": 30,
+  "graded": 30,
+  "completed_accuracy_percent": 93.33333333333333,
+  "status_counts": {
+    "completed": 30
+  },
+  "failure_categories": {
+    "只检索到部分证据但答错": 2
+  },
+  "recall_percent": 88.42592592592592,
+  "mean_search_calls": 21.266666666666666,
+  "mean_read_calls": 3.7666666666666666,
+  "mean_generation_requests": 9.633333333333333,
+  "generation_requests": 289,
+  "generation_ledger_requests": 289,
+  "generation_usage": {
+    "cache_write_input_tokens": 0,
+    "cached_input_tokens": 15440768,
+    "input_tokens": 17731031,
+    "output_tokens": 96469,
+    "reasoning_output_tokens": 61125,
+    "total_tokens": 17827500
+  },
+  "generation_missing_usage_calls": 0,
+  "judge_requests": 42,
+  "judge_sol_usage": {},
+  "accepted_judgements_with_zero_reasoning": 30,
+  "judge_requests_without_response": 8,
+  "judge_openrouter_usage": {
+    "prompt_tokens": 23428,
+    "completion_tokens": 4567,
+    "total_tokens": 27995,
+    "cost": 0.0031529999999999996,
+    "is_byok": 0
+  },
+  "judge_cost_usd": 0.003153,
+  "judge_cost_estimate_usd": 0.003153,
+  "judge_providers": [
+    "DeepInfra"
+  ],
+  "judge": {
+    "mode": "openrouter",
+    "label": "Qwen3-32B（OpenRouter/DeepInfra fp8）裁判，与官方同一模型，量化不同",
+    "parameters": {
+      "model": "qwen/qwen3-32b",
+      "temperature": 0.7,
+      "top_p": 0.8,
+      "top_k": 20,
+      "max_tokens": 4096,
+      "reasoning": {
+        "enabled": false,
+        "exclude": false
+      },
+      "continue_final_message": true,
+      "provider": {
+        "order": [
+          "DeepInfra"
+        ],
+        "allow_fallbacks": false,
+        "data_collection": "deny"
+      }
+    },
+    "prompt_source": "scripts_evaluation/evaluate_run.py:GRADER_TEMPLATE",
+    "assistant_prefill": "<think>\n\n</think>\n\n"
+  },
+  "smoke": {
+    "parse_correct": true,
+    "accepted": true,
+    "reasoning_present": false,
+    "reasoning_chars": 0,
+    "reasoning_tokens": 0,
+    "provider": "DeepInfra"
+  },
+  "cases": [
+    {
+      "query_id": "131",
+      "status": "completed",
+      "correct": true,
+      "retrieval_recall": 1.0,
+      "evidence_hits": 6,
+      "evidence_total": 6,
+      "tool_call_counts_all_attempts": {
+        "search": 8,
+        "read": 4
+      },
+      "generation_calls_all_attempts": 5,
+      "failure_category": null
+    },
+    {
+      "query_id": "1257",
+      "status": "completed",
+      "correct": true,
+      "retrieval_recall": 0.8,
+      "evidence_hits": 4,
+      "evidence_total": 5,
+      "tool_call_counts_all_attempts": {
+        "search": 12,
+        "read": 5
+      },
+      "generation_calls_all_attempts": 6,
+      "failure_category": null
+    },
+    {
+      "query_id": "495",
+      "status": "completed",
+      "correct": true,
+      "retrieval_recall": 1.0,
+      "evidence_hits": 2,
+      "evidence_total": 2,
+      "tool_call_counts_all_attempts": {
+        "search": 3,
+        "read": 2
+      },
+      "generation_calls_all_attempts": 4,
+      "failure_category": null
+    },
+    {
+      "query_id": "54",
+      "status": "completed",
+      "correct": true,
+      "retrieval_recall": 1.0,
+      "evidence_hits": 7,
+      "evidence_total": 7,
+      "tool_call_counts_all_attempts": {
+        "search": 7,
+        "read": 3
+      },
+      "generation_calls_all_attempts": 5,
+      "failure_category": null
+    },
+    {
+      "query_id": "1010",
+      "status": "completed",
+      "correct": true,
+      "retrieval_recall": 0.875,
+      "evidence_hits": 7,
+      "evidence_total": 8,
+      "tool_call_counts_all_attempts": {
+        "search": 11,
+        "read": 5
+      },
+      "generation_calls_all_attempts": 6,
+      "failure_category": null
+    },
+    {
+      "query_id": "1045",
+      "status": "completed",
+      "correct": true,
+      "retrieval_recall": 0.8888888888888888,
+      "evidence_hits": 8,
+      "evidence_total": 9,
+      "tool_call_counts_all_attempts": {
+        "search": 8,
+        "read": 6
+      },
+      "generation_calls_all_attempts": 7,
+      "failure_category": null
+    },
+    {
+      "query_id": "1034",
+      "status": "completed",
+      "correct": true,
+      "retrieval_recall": 1.0,
+      "evidence_hits": 5,
+      "evidence_total": 5,
+      "tool_call_counts_all_attempts": {
+        "search": 45,
+        "read": 3
+      },
+      "generation_calls_all_attempts": 17,
+      "failure_category": null
+    },
+    {
+      "query_id": "713",
+      "status": "completed",
+      "correct": true,
+      "retrieval_recall": 0.8571428571428571,
+      "evidence_hits": 6,
+      "evidence_total": 7,
+      "tool_call_counts_all_attempts": {
+        "search": 15,
+        "read": 4
+      },
+      "generation_calls_all_attempts": 8,
+      "failure_category": null
+    },
+    {
+      "query_id": "125",
+      "status": "completed",
+      "correct": true,
+      "retrieval_recall": 0.7142857142857143,
+      "evidence_hits": 5,
+      "evidence_total": 7,
+      "tool_call_counts_all_attempts": {
+        "search": 8,
+        "read": 3
+      },
+      "generation_calls_all_attempts": 7,
+      "failure_category": null
+    },
+    {
+      "query_id": "596",
+      "status": "completed",
+      "correct": true,
+      "retrieval_recall": 1.0,
+      "evidence_hits": 7,
+      "evidence_total": 7,
+      "tool_call_counts_all_attempts": {
+        "search": 6,
+        "read": 3
+      },
+      "generation_calls_all_attempts": 4,
+      "failure_category": null
+    },
+    {
+      "query_id": "469",
+      "status": "completed",
+      "correct": true,
+      "retrieval_recall": 1.0,
+      "evidence_hits": 4,
+      "evidence_total": 4,
+      "tool_call_counts_all_attempts": {
+        "search": 11,
+        "read": 3
+      },
+      "generation_calls_all_attempts": 6,
+      "failure_category": null
+    },
+    {
+      "query_id": "418",
+      "status": "completed",
+      "correct": true,
+      "retrieval_recall": 1.0,
+      "evidence_hits": 4,
+      "evidence_total": 4,
+      "tool_call_counts_all_attempts": {
+        "search": 86,
+        "read": 2
+      },
+      "generation_calls_all_attempts": 26,
+      "failure_category": null
+    },
+    {
+      "query_id": "666",
+      "status": "completed",
+      "correct": true,
+      "retrieval_recall": 0.75,
+      "evidence_hits": 6,
+      "evidence_total": 8,
+      "tool_call_counts_all_attempts": {
+        "search": 16,
+        "read": 7
+      },
+      "generation_calls_all_attempts": 10,
+      "failure_category": null
+    },
+    {
+      "query_id": "769",
+      "status": "completed",
+      "correct": true,
+      "retrieval_recall": 1.0,
+      "evidence_hits": 6,
+      "evidence_total": 6,
+      "tool_call_counts_all_attempts": {
+        "search": 62,
+        "read": 5
+      },
+      "generation_calls_all_attempts": 19,
+      "failure_category": null
+    },
+    {
+      "query_id": "814",
+      "status": "completed",
+      "correct": true,
+      "retrieval_recall": 0.8888888888888888,
+      "evidence_hits": 8,
+      "evidence_total": 9,
+      "tool_call_counts_all_attempts": {
+        "search": 11,
+        "read": 7
+      },
+      "generation_calls_all_attempts": 6,
+      "failure_category": null
+    },
+    {
+      "query_id": "972",
+      "status": "completed",
+      "correct": true,
+      "retrieval_recall": 0.875,
+      "evidence_hits": 7,
+      "evidence_total": 8,
+      "tool_call_counts_all_attempts": {
+        "search": 18,
+        "read": 4
+      },
+      "generation_calls_all_attempts": 10,
+      "failure_category": null
+    },
+    {
+      "query_id": "738",
+      "status": "completed",
+      "correct": true,
+      "retrieval_recall": 0.8571428571428571,
+      "evidence_hits": 6,
+      "evidence_total": 7,
+      "tool_call_counts_all_attempts": {
+        "search": 11,
+        "read": 6
+      },
+      "generation_calls_all_attempts": 6,
+      "failure_category": null
+    },
+    {
+      "query_id": "414",
+      "status": "completed",
+      "correct": true,
+      "retrieval_recall": 1.0,
+      "evidence_hits": 3,
+      "evidence_total": 3,
+      "tool_call_counts_all_attempts": {
+        "search": 10,
+        "read": 3
+      },
+      "generation_calls_all_attempts": 7,
+      "failure_category": null
+    },
+    {
+      "query_id": "175",
+      "status": "completed",
+      "correct": true,
+      "retrieval_recall": 1.0,
+      "evidence_hits": 5,
+      "evidence_total": 5,
+      "tool_call_counts_all_attempts": {
+        "search": 9,
+        "read": 5
+      },
+      "generation_calls_all_attempts": 8,
+      "failure_category": null
+    },
+    {
+      "query_id": "968",
+      "status": "completed",
+      "correct": true,
+      "retrieval_recall": 1.0,
+      "evidence_hits": 4,
+      "evidence_total": 4,
+      "tool_call_counts_all_attempts": {
+        "search": 1,
+        "read": 2
+      },
+      "generation_calls_all_attempts": 3,
+      "failure_category": null
+    },
+    {
+      "query_id": "560",
+      "status": "completed",
+      "correct": true,
+      "retrieval_recall": 0.5714285714285714,
+      "evidence_hits": 4,
+      "evidence_total": 7,
+      "tool_call_counts_all_attempts": {
+        "search": 3,
+        "read": 3
+      },
+      "generation_calls_all_attempts": 4,
+      "failure_category": null
+    },
+    {
+      "query_id": "810",
+      "status": "completed",
+      "correct": true,
+      "retrieval_recall": 0.75,
+      "evidence_hits": 3,
+      "evidence_total": 4,
+      "tool_call_counts_all_attempts": {
+        "search": 10,
+        "read": 3
+      },
+      "generation_calls_all_attempts": 7,
+      "failure_category": null
+    },
+    {
+      "query_id": "1068",
+      "status": "completed",
+      "correct": true,
+      "retrieval_recall": 1.0,
+      "evidence_hits": 5,
+      "evidence_total": 5,
+      "tool_call_counts_all_attempts": {
+        "search": 78,
+        "read": 5
+      },
+      "generation_calls_all_attempts": 24,
+      "failure_category": null
+    },
+    {
+      "query_id": "176",
+      "status": "completed",
+      "correct": true,
+      "retrieval_recall": 0.6666666666666666,
+      "evidence_hits": 6,
+      "evidence_total": 9,
+      "tool_call_counts_all_attempts": {
+        "search": 14,
+        "read": 3
+      },
+      "generation_calls_all_attempts": 8,
+      "failure_category": null
+    },
+    {
+      "query_id": "632",
+      "status": "completed",
+      "correct": true,
+      "retrieval_recall": 1.0,
+      "evidence_hits": 5,
+      "evidence_total": 5,
+      "tool_call_counts_all_attempts": {
+        "search": 24,
+        "read": 4
+      },
+      "generation_calls_all_attempts": 11,
+      "failure_category": null
+    },
+    {
+      "query_id": "1234",
+      "status": "completed",
+      "correct": false,
+      "retrieval_recall": 0.7,
+      "evidence_hits": 7,
+      "evidence_total": 10,
+      "tool_call_counts_all_attempts": {
+        "search": 42,
+        "read": 2
+      },
+      "generation_calls_all_attempts": 16,
+      "failure_category": "只检索到部分证据但答错"
+    },
+    {
+      "query_id": "1072",
+      "status": "completed",
+      "correct": true,
+      "retrieval_recall": 1.0,
+      "evidence_hits": 8,
+      "evidence_total": 8,
+      "tool_call_counts_all_attempts": {
+        "search": 7,
+        "read": 1
+      },
+      "generation_calls_all_attempts": 5,
+      "failure_category": null
+    },
+    {
+      "query_id": "775",
+      "status": "completed",
+      "correct": false,
+      "retrieval_recall": 0.3333333333333333,
+      "evidence_hits": 2,
+      "evidence_total": 6,
+      "tool_call_counts_all_attempts": {
+        "search": 82,
+        "read": 1
+      },
+      "generation_calls_all_attempts": 28,
+      "failure_category": "只检索到部分证据但答错"
+    },
+    {
+      "query_id": "233",
+      "status": "completed",
+      "correct": true,
+      "retrieval_recall": 1.0,
+      "evidence_hits": 5,
+      "evidence_total": 5,
+      "tool_call_counts_all_attempts": {
+        "search": 13,
+        "read": 5
+      },
+      "generation_calls_all_attempts": 10,
+      "failure_category": null
+    },
+    {
+      "query_id": "1081",
+      "status": "completed",
+      "correct": true,
+      "retrieval_recall": 1.0,
+      "evidence_hits": 9,
+      "evidence_total": 9,
+      "tool_call_counts_all_attempts": {
+        "search": 7,
+        "read": 4
+      },
+      "generation_calls_all_attempts": 6,
+      "failure_category": null
+    }
+  ],
+  "limitations": [
+    "30题固定开发样本，非官方成绩；样本点估计不能用于榜单名次判断。",
+    "失败、超时、未运行和未判定保留在固定分母；未判定是保守未答对，不冒充已判错误。",
+    "SDK内部HTTP重试不可观测；请求数是应用层计数。",
+    "召回按最终尝试检索到的全部docid对官方evidence qrels计算，再逐题平均；工具成本包括恢复前尝试。",
+    "SQLite分块FTS5与官方Lucene BM25不同；模型、工具、检索和预算均非受控单因素对照。"
+  ]
+}

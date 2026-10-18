@@ -1,0 +1,12 @@
+{
+  "official_model": "Qwen/Qwen3-32B",
+  "source": "https://huggingface.co/Qwen/Qwen3-32B/blob/main/tokenizer_config.json",
+  "enable_thinking_false_equals_prefill_before_terminal_eos": true,
+  "assistant_prefill": "<think>\n\n</think>\n\n",
+  "terminal_eos_removed_by_continue_final_message": true,
+  "validated_saved_query_ids": [
+    "131",
+    "1257"
+  ],
+  "official_grader_user_messages_unchanged": true
+}

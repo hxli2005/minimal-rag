@@ -1,0 +1,44 @@
+{
+  "first100": {
+    "denominator": 100,
+    "correct": 92,
+    "accuracy_percent": 92.0,
+    "wilson_95_percent": [
+      85.00189229905128,
+      95.89065385156194
+    ],
+    "graded": 100,
+    "completed": 100,
+    "terminal": 100,
+    "recall_percent": 85.77896825396826,
+    "status_counts": {
+      "completed": 100
+    },
+    "failure_categories": {
+      "部分检索到": 5,
+      "全部检索到但答错": 3
+    },
+    "calibration_error_percent": 0.0,
+    "mean_search": 12.95,
+    "mean_read": 3.34,
+    "mean_generation_requests": 7.29,
+    "mean_input_tokens": 296626.82,
+    "mean_cached_input_tokens": 249208.32,
+    "mean_uncached_input_tokens": 47418.5,
+    "mean_seconds": 78.94530125791731,
+    "generation_requests": 729,
+    "missing_usage_calls": 0,
+    "judge_requests": 100,
+    "judge_response_attempts": 100,
+    "judge_backfill_attempts": 0,
+    "judge_cost_usd_returned": 0.00824096,
+    "judge_requests_without_cost": 0
+  },
+  "projected_requests_for_730": 5321.7,
+  "projected_remaining_requests": 4592.7,
+  "projected_remaining_uncached_tokens": 29873655.0,
+  "projection_concurrency": 5,
+  "projected_remaining_wall_seconds": 9947.107958497581,
+  "stage_limit": 7500,
+  "stop_for_projection": false
+}

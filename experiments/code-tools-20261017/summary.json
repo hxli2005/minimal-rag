@@ -1,0 +1,289 @@
+{
+  "complete": true,
+  "dataset": "Enterprise dev100",
+  "groups": {
+    "A": {
+      "correct": 74.0,
+      "metrics": {
+        "n": 100,
+        "status": {
+          "finished": 100
+        },
+        "errors": 0,
+        "tool_errors": 0,
+        "cases_with_tool_errors": 0,
+        "protocol_errors": 0,
+        "unseen_citations": 0,
+        "correct": 0.74,
+        "completeness": 0.8313731546231546,
+        "overall": 0.734,
+        "document_recall": 0.8216312056737589,
+        "retrieved_document_recall": 0.8480496453900709,
+        "all_gold_retrieved": 0.8085106382978723,
+        "seconds": 28.92312690382969,
+        "model_calls": 4.53,
+        "tool_calls": 5.94,
+        "graded": 100,
+        "input_tokens": 13175179,
+        "cached_input_tokens": 9066880,
+        "output_tokens": 60097
+      },
+      "requests": {
+        "generation": 453,
+        "judge": 100
+      },
+      "behavior": {
+        "calls": {
+          "search": 478,
+          "read": 116
+        },
+        "questions_using_tool": {
+          "read": 58,
+          "search": 100
+        },
+        "questions_with_text_from_documents_only_seen_via_new_tools": [],
+        "new_tools_exclusive_reference_questions": [],
+        "new_tools_first_reference_questions": [],
+        "parameter_counts": {},
+        "tool_seconds": {
+          "search": {
+            "total": 285.53645800777304,
+            "median": 0.09575693700026022,
+            "p95": 1.4043659813592955
+          },
+          "read": {
+            "total": 0.01262120800674893,
+            "median": 7.710399950155988e-05,
+            "p95": 0.00021663549705408514
+          }
+        }
+      }
+    },
+    "B": {
+      "correct": 78.0,
+      "metrics": {
+        "n": 100,
+        "status": {
+          "finished": 100
+        },
+        "errors": 0,
+        "tool_errors": 1,
+        "cases_with_tool_errors": 1,
+        "protocol_errors": 0,
+        "unseen_citations": 0,
+        "correct": 0.78,
+        "completeness": 0.8798665501165501,
+        "overall": 0.7641666666666667,
+        "document_recall": 0.8960992907801418,
+        "retrieved_document_recall": 0.9225177304964539,
+        "all_gold_retrieved": 0.8829787234042553,
+        "seconds": 36.39990831158022,
+        "model_calls": 4.48,
+        "tool_calls": 5.5,
+        "graded": 100,
+        "input_tokens": 13363534,
+        "cached_input_tokens": 9419264,
+        "output_tokens": 59534
+      },
+      "requests": {
+        "generation": 448,
+        "judge": 100
+      },
+      "behavior": {
+        "calls": {
+          "search": 305,
+          "read": 135,
+          "Grep": 107,
+          "Glob": 3
+        },
+        "questions_using_tool": {
+          "read": 66,
+          "search": 100,
+          "Grep": 28,
+          "Glob": 2
+        },
+        "questions_with_text_from_documents_only_seen_via_new_tools": [
+          "qst_0112",
+          "qst_0116",
+          "qst_0139",
+          "qst_0144",
+          "qst_0156",
+          "qst_0166",
+          "qst_0173",
+          "qst_0177",
+          "qst_0180",
+          "qst_0184",
+          "qst_0203",
+          "qst_0220",
+          "qst_0234",
+          "qst_0239",
+          "qst_0250",
+          "qst_0251",
+          "qst_0281",
+          "qst_0449",
+          "qst_0474",
+          "qst_0476",
+          "qst_0481",
+          "qst_0492",
+          "qst_0493",
+          "qst_0497"
+        ],
+        "new_tools_exclusive_reference_questions": [
+          "qst_0449"
+        ],
+        "new_tools_first_reference_questions": [
+          "qst_0116",
+          "qst_0144",
+          "qst_0156",
+          "qst_0220",
+          "qst_0281",
+          "qst_0449"
+        ],
+        "parameter_counts": {
+          "Grep.output_mode": {
+            "content": 81,
+            "files_with_matches": 26
+          },
+          "Grep.head_limit": {
+            "60": 16,
+            "40": 4,
+            "100": 41,
+            "80": 17,
+            "180": 1,
+            "30": 2,
+            "70": 4,
+            "250": 7,
+            "120": 2,
+            "90": 1,
+            "160": 1,
+            "35": 2,
+            "150": 4,
+            "50": 2,
+            "400": 1,
+            "65": 1,
+            "0": 1
+          },
+          "Grep.scope": {
+            "global": 63,
+            "scoped": 44
+          }
+        },
+        "tool_seconds": {
+          "search": {
+            "total": 154.30317248706706,
+            "median": 0.35649487499904353,
+            "p95": 1.446300932992017
+          },
+          "read": {
+            "total": 0.027828960912302136,
+            "median": 8.708400127943605e-05,
+            "p95": 0.0011039999997592529
+          },
+          "Grep": {
+            "total": 1120.6265812469646,
+            "median": 10.53560612500587,
+            "p95": 22.077834829498894
+          },
+          "Glob": {
+            "total": 7.845635958001367,
+            "median": 2.5599337500025285,
+            "p95": 2.903365049698914
+          }
+        }
+      }
+    }
+  },
+  "wins": [
+    "qst_0112",
+    "qst_0143",
+    "qst_0173",
+    "qst_0116",
+    "qst_0177",
+    "qst_0203",
+    "qst_0166"
+  ],
+  "losses": [
+    "qst_0240",
+    "qst_0250",
+    "qst_0180"
+  ],
+  "ties": 90,
+  "delta_pp": 4.0,
+  "paired_bootstrap_95_pp": [
+    -2.0,
+    10.0
+  ],
+  "bootstrap_samples": 100000,
+  "seed": 20261017,
+  "by_category": {
+    "basic": {
+      "n": 35,
+      "A": 28.0,
+      "B": 33.0
+    },
+    "completeness": {
+      "n": 4,
+      "A": 4.0,
+      "B": 4.0
+    },
+    "conflicting_info": {
+      "n": 4,
+      "A": 3.0,
+      "B": 3.0
+    },
+    "constrained": {
+      "n": 6,
+      "A": 6.0,
+      "B": 6.0
+    },
+    "high_level": {
+      "n": 2,
+      "A": 1.0,
+      "B": 1.0
+    },
+    "info_not_found": {
+      "n": 4,
+      "A": 4.0,
+      "B": 4.0
+    },
+    "intra_document_reasoning": {
+      "n": 8,
+      "A": 8.0,
+      "B": 8.0
+    },
+    "miscellaneous": {
+      "n": 4,
+      "A": 4.0,
+      "B": 4.0
+    },
+    "project_related": {
+      "n": 8,
+      "A": 0.0,
+      "B": 0.0
+    },
+    "semantic": {
+      "n": 25,
+      "A": 16.0,
+      "B": 15.0
+    }
+  },
+  "decision": "candidate_for_frozen_test_not_promoted",
+  "limitations": [
+    "Known development cohort, local sol judge; not an official or SOTA score.",
+    "Single generation per question; bootstrap does not cover generation/judge resampling.",
+    "Same model-turn/time caps, not equal actual tokens; tool defaults and path bridge are treatment.",
+    "New-tool exclusive document exposure is descriptive, not causal necessity.",
+    "File listing/count do not count as original-text evidence exposure."
+  ],
+  "source_sha256": {
+    "src/minimal_rag/file_tools.py": "1ec300d22c29898fdb85cd65c17be9dad08ed354127682e528e79ec0e47a60e2",
+    "src/minimal_rag/indexed_rag.py": "becd044d4caac6d3aea6fdf1da907f70fd9c7f5c9d195b9cef2f4afff231bbb2",
+    "src/minimal_rag/loop.py": "78742611d30cf5de0eae493d947bdbcdd5a7db3597cb33cd24f085fd0c652464",
+    "src/minimal_rag/codex_adapter.py": "d713b3ca4c54740e75fb000319b0bfcc13bb09be8c31963c87ba8360c68418ed",
+    "experiments/code-tools-20261017/run.py": "7ec0728e3cc2cf2468ca91aa8016e4a366d04161227c1d3c288ae34c378907d6",
+    "experiments/src/minimal_rag_experiments/benchmark.py": "1632702c61e5b0e0c29ca51c925eb5f461aa7c58be8fea13c21ffbd8071775b1",
+    "experiments/src/minimal_rag_experiments/benchmark_metrics.py": "22c696745695c6369013526a92798c774e2a69742ab99313a903c85b5131b983",
+    "experiments/src/minimal_rag_experiments/rag_judge.py": "de6f77ca10a3354256779b992d021f20539f5b06fa4511d4eef664aea4f7ee3c",
+    "data/benchmarks/enterprise/dev.json": "423486e3ff043405c3c9a0e958fe903b43a57c55703b64753b39a90fe8f7d23f"
+  }
+}

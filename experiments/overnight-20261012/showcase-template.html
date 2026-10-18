@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Minimal RAG · 一次真实取证</title>
+<style>
+:root{color-scheme:light dark;--paper:#f7f5ef;--ink:#172b36;--muted:#57656b;--line:#d6dcd8;--accent:#007768;--soft:#e4eeea;--panel:#fff;--code:#edf0ed}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;font-size:16px;line-height:1.65}main{max-width:1080px;margin:auto;padding:32px 36px 48px}a{color:var(--accent);text-underline-offset:4px}header{display:flex;justify-content:space-between;align-items:center;gap:20px;font-size:13px;border-bottom:1px solid var(--line);padding-bottom:17px}.brand{letter-spacing:.1em;font-weight:650}.stamp{color:var(--muted)}.intro{padding:42px 0 27px}.eyebrow{color:var(--accent);font-size:12px;letter-spacing:.1em;font-weight:650}h1{font-size:clamp(28px,4vw,42px);line-height:1.25;letter-spacing:-.035em;margin:13px 0 14px;font-weight:650}.lead{max-width:740px;color:var(--muted);margin:0}.question{border-left:3px solid var(--accent);padding:6px 0 6px 19px;margin:23px 0 29px;font-size:17px;max-width:880px}.question span{display:block;color:var(--muted);font-size:12px;letter-spacing:.04em;margin-bottom:6px}.metrics{display:flex;gap:48px;flex-wrap:wrap;padding:0 0 26px;border-bottom:1px solid var(--line)}.metric strong{font-size:27px;font-weight:600;display:block;font-variant-numeric:tabular-nums}.metric span{font-size:12px;color:var(--muted)}.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:30px 0 27px}.step{font:inherit;text-align:left;border:0;border-bottom:2px solid var(--line);background:transparent;color:var(--muted);padding:10px 6px 14px;cursor:pointer;min-height:65px}.step[aria-pressed="true"]{border-bottom-color:var(--accent);color:var(--ink)}.step b{font-size:12px;display:block;color:var(--accent);font-weight:500}.step span{font-size:16px;font-weight:600}.step:focus-visible{outline:2px solid var(--accent);outline-offset:4px}.panel{min-height:345px}h2{font-size:23px;line-height:1.35;margin:0 0 9px;font-weight:600}.description{color:var(--muted);margin:0 0 20px;max-width:860px}.command{font-size:13px;background:var(--code);padding:13px 17px;white-space:pre-wrap;overflow-wrap:anywhere;border-radius:5px;font-family:ui-monospace,SFMono-Regular,monospace;margin:0 0 17px}.hits{list-style:none;margin:0;padding:0}.hits li{padding:10px 0;border-bottom:1px solid var(--line);display:flex;align-items:flex-start;gap:13px}.rank{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;min-width:19px;padding-top:3px}.hit-title{font-size:14px;overflow-wrap:anywhere}.hit-meta{font-size:12px;color:var(--muted)}.chosen{color:var(--accent);font-weight:600}.tag{font-size:11px;margin-left:8px;color:var(--accent)}.source-label{font-size:12px;color:var(--muted);margin:18px 0 8px;overflow-wrap:anywhere}.source-text{white-space:pre-wrap;overflow-wrap:anywhere;font-size:14px;line-height:1.7;font-family:ui-monospace,SFMono-Regular,monospace;margin:0;background:var(--panel);padding:20px 23px;border-left:3px solid var(--accent)}table{width:100%;border-collapse:collapse;font-size:16px}th{text-align:left;color:var(--muted);font-weight:500;font-size:12px;padding:9px 0}td{padding:12px 0;border-top:1px solid var(--line)}td:last-child{font-weight:600}.scope{background:var(--soft);color:var(--ink);padding:15px 18px;margin-top:19px;font-size:14px}details{margin-top:19px}summary{cursor:pointer;color:var(--accent);font-size:14px;padding:6px 0}.raw-answer{white-space:pre-wrap;overflow-wrap:anywhere;font:14px/1.65 ui-monospace,SFMono-Regular,monospace;color:var(--ink)}.boundaries{margin-top:32px;padding-top:20px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}.boundaries strong{color:var(--ink);font-weight:600}.links{display:flex;flex-wrap:wrap;gap:18px;margin-top:15px;font-size:13px}footer{margin-top:31px;color:var(--muted);font-size:12px;display:flex;justify-content:space-between;gap:20px}.model{font-family:ui-monospace,SFMono-Regular,monospace}
+@media(max-width:600px){main{padding:21px 19px 35px}header{align-items:flex-start;gap:12px}.stamp{text-align:right;font-size:11px}.intro{padding:30px 0 19px}.question{font-size:15px;padding-left:13px}.metrics{gap:24px}.metric strong{font-size:23px}.steps{gap:5px;margin:23px 0}.step{padding:9px 2px}.step span{font-size:14px}h2{font-size:21px}.source-text{padding:15px 13px;font-size:13px}.panel{min-height:0}footer{display:block}.links{gap:13px}td:last-child{max-width:205px}body{font-size:15px}}
+@media(prefers-color-scheme:dark){:root{--paper:#152229;--ink:#e6eae8;--muted:#a8b8bc;--line:#37494e;--accent:#83d8c2;--soft:#243d39;--panel:#1b2e36;--code:#22353d}}
+</style>
+</head>
+<body>
+<main>
+<header><span class="brand">MINIMAL RAG</span><span class="stamp">2026.10.13 · 实跑录制</span></header>
+<section class="intro"><div class="eyebrow">MODEL → TOOLS → EVIDENCE</div><h1>3 次模型调用，一条可追溯的回答。</h1><p class="lead">模型检索政策、继续读取原文，再回答时限。点击三个步骤，查看这次真实运行。</p></section>
+<div class="question"><span>本次问题</span><div id="question"></div></div>
+<section class="metrics" aria-label="实测用量"><div class="metric"><strong id="calls"></strong><span>生成调用 · 另有 2 次工具执行</span></div><div class="metric"><strong id="input"></strong><span>输入 token · 含缓存</span></div><div class="metric"><strong id="cached"></strong><span>其中缓存输入 · 不重复相加</span></div></section>
+<nav class="steps" aria-label="查看录制步骤"><button class="step" type="button" data-step="0" aria-pressed="true"><b>CALL 01</b><span>查政策</span></button><button class="step" type="button" data-step="1" aria-pressed="false"><b>CALL 02</b><span>继续读</span></button><button class="step" type="button" data-step="2" aria-pressed="false"><b>CALL 03</b><span>给答案</span></button></nav>
+<section class="panel" id="panel" aria-live="polite"></section>
+<section class="boundaries"><strong>这是录制回放，打开页面不会调用模型。</strong> 资料来自公开的合成企业语料，5 篇原文由已知成功案例人工选定。回答数值已人工与来源核对，没有为这次小库运行新增模型裁判；它不代表基准准确率。<code>finished</code> 表示模型结束回答，正确性需要另行验证。
+<div class="links"><a href="recorded-summary.json">运行摘要与用量</a><a href="documents.jsonl">5 篇原始资料</a><a href="provenance.json">来源与录制凭据</a><a href="README.md">自己运行</a></div></section>
+<footer><span>判断交给模型，能力交给工具。</span><span class="model" id="model"></span></footer>
+</main>
+<script id="recording" type="application/json">{{DATA}}</script>
+<script>
+const recording=JSON.parse(document.getElementById('recording').textContent);
+const panel=document.getElementById('panel');
+const buttons=Array.from(document.querySelectorAll('[data-step]'));
+const escapeText=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+document.getElementById('question').textContent=recording.question;
+document.getElementById('calls').textContent=recording.calls;
+document.getElementById('input').textContent=recording.input.toLocaleString('en-US');
+document.getElementById('cached').textContent=recording.cached.toLocaleString('en-US');
+document.getElementById('model').textContent=recording.model+' · high · CPU BM25';
+function show(index){
+buttons.forEach((button,i)=>button.setAttribute('aria-pressed',String(i===index)));
+if(index===0){panel.innerHTML='<h2>先找到可能相关的资料</h2><p class="description">首次检索返回 5 篇文档。目标政策排在第 4；其返回片段是原文 0–4000 字符，后面的 TTM 时限表尚未暴露。</p><pre class="command">search '+escapeText(JSON.stringify(recording.search,null,2))+'</pre><ol class="hits">'+recording.hits.map((hit,i)=>'<li><span class="rank">0'+(i+1)+'</span><div><div class="hit-title '+(hit.selected?'chosen':'')+'">'+escapeText(hit.title)+(hit.selected?'<span class="tag">随后读取</span>':'')+'</div><div class="hit-meta">原文 '+hit.offset+'–'+(hit.offset+hit.chars)+' 字符</div></div></li>').join('')+'</ol>';
+}else if(index===1){panel.innerHTML='<h2>命中文档后，继续读取规则段</h2><p class="description">模型调用 read，读取 3900–9900 字符，共 6000 字符。下面是实际返回内容中的目标段落：它同时限定了时限、跨部署等级适用范围和草案性质。</p><pre class="command">read '+escapeText(JSON.stringify(recording.read,null,2))+'</pre><div class="source-label">'+escapeText(recording.source.title)+' · 原文偏移 '+recording.source.offset+'</div><pre class="source-text">'+escapeText(recording.source.text)+'</pre>';
+}else{panel.innerHTML='<h2>回答时限，也保留适用边界</h2><p class="description">答案采用同一来源中的 TTM 规则，没有将 tier-adjusted TTF 的修复时间混入缓解时间。</p><table><thead><tr><th>严重程度</th><th>内部缓解目标</th></tr></thead><tbody><tr><td>Sev0</td><td>30 分钟</td></tr><tr><td>Sev1</td><td>2 小时</td></tr><tr><td>Sev2</td><td>1 个工作日</td></tr><tr><td>Sev3</td><td>5 个工作日，或下个计划发布批次</td></tr></tbody></table><div class="scope">适用于 Hosted、Dedicated、Private。TTM 从事件声明到恢复 SLO 或达到已记录的可接受降级状态。这些是内部草案目标，尚未成为最终客户承诺。</div><div class="source-label">回答引用：'+escapeText(recording.source.id)+'</div><details><summary>查看模型完整原文回答</summary><pre class="raw-answer">'+escapeText(recording.answer)+'</pre></details>';
+}}
+buttons.forEach((button,index)=>button.addEventListener('click',()=>show(index)));
+show(0);
+</script>
+</body>
+</html>

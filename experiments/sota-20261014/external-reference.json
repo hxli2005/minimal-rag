@@ -1,0 +1,13 @@
+{
+  "hotpotqa": {
+    "url": "https://hotpotqa.github.io/",
+    "accessed_date": "2026-10-14",
+    "section": "Leaderboard (Distractor Setting)",
+    "row": 1,
+    "system": "Beam Retrieval (single model)",
+    "entry_date": "2023-08-07",
+    "answer_em_percent": 72.69,
+    "answer_f1_percent": 85.04,
+    "scope": "Official test leaderboard; the local test100 is sampled from public distractor dev, so this is only a scale reference, not a paired comparison or rank claim."
+  }
+}

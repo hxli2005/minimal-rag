@@ -1,0 +1,4085 @@
+{
+  "scope": {
+    "dataset": "EnterpriseRAG-Bench",
+    "questions": 400,
+    "traces": 800,
+    "paired_loss_cases": 43,
+    "paired_win_cases": 17,
+    "new_model_calls": 0,
+    "production_code_changed": false,
+    "scores_changed": false
+  },
+  "score": {
+    "old_correct": 324,
+    "new_correct": 298,
+    "net_correct": -26,
+    "delta_pp": -6.5
+  },
+  "method": "Full paired trace exposure audit, manual review of all 60 changed verdicts, exact source spans for 18 pivotal facts, read-only BM25 replay of stored queries and original questions. Diagnostic primary buckets are mutually exclusive; mixed cases are explicit. No regrading.",
+  "classification": {
+    "retrieval": {
+      "loss": 30,
+      "win": 3
+    },
+    "retrieval_answer_mixed": {
+      "loss": 2,
+      "win": 0
+    },
+    "reading_answer_mixed": {
+      "loss": 1,
+      "win": 0
+    },
+    "answer_omission": {
+      "loss": 3,
+      "win": 3
+    },
+    "answer_selection": {
+      "loss": 4,
+      "win": 3
+    },
+    "judge_sensitive": {
+      "loss": 3,
+      "win": 7
+    },
+    "runtime": {
+      "loss": 0,
+      "win": 1
+    }
+  },
+  "coverage": {
+    "groups": {
+      "loss": 43,
+      "both_correct": 281,
+      "both_wrong": 59,
+      "win": 17
+    },
+    "by_category": {
+      "basic": {
+        "n": 140,
+        "old_correct": 130.0,
+        "new_correct": 122.0,
+        "groups": {
+          "loss": 10,
+          "both_correct": 120,
+          "both_wrong": 8,
+          "win": 2
+        }
+      },
+      "completeness": {
+        "n": 16,
+        "old_correct": 7.0,
+        "new_correct": 7.0,
+        "groups": {
+          "both_correct": 6,
+          "win": 1,
+          "both_wrong": 8,
+          "loss": 1
+        }
+      },
+      "conflicting_info": {
+        "n": 16,
+        "old_correct": 14.0,
+        "new_correct": 14.0,
+        "groups": {
+          "both_correct": 13,
+          "win": 1,
+          "loss": 1,
+          "both_wrong": 1
+        }
+      },
+      "constrained": {
+        "n": 24,
+        "old_correct": 21.0,
+        "new_correct": 22.0,
+        "groups": {
+          "both_correct": 21,
+          "both_wrong": 2,
+          "win": 1
+        }
+      },
+      "high_level": {
+        "n": 8,
+        "old_correct": 3.0,
+        "new_correct": 5.0,
+        "groups": {
+          "win": 2,
+          "both_wrong": 3,
+          "both_correct": 3
+        }
+      },
+      "info_not_found": {
+        "n": 16,
+        "old_correct": 16.0,
+        "new_correct": 16.0,
+        "groups": {
+          "both_correct": 16
+        }
+      },
+      "intra_document_reasoning": {
+        "n": 32,
+        "old_correct": 32.0,
+        "new_correct": 31.0,
+        "groups": {
+          "both_correct": 31,
+          "loss": 1
+        }
+      },
+      "miscellaneous": {
+        "n": 16,
+        "old_correct": 15.0,
+        "new_correct": 15.0,
+        "groups": {
+          "both_correct": 15,
+          "both_wrong": 1
+        }
+      },
+      "project_related": {
+        "n": 32,
+        "old_correct": 8.0,
+        "new_correct": 8.0,
+        "groups": {
+          "both_wrong": 20,
+          "loss": 4,
+          "both_correct": 4,
+          "win": 4
+        }
+      },
+      "semantic": {
+        "n": 100,
+        "old_correct": 78.0,
+        "new_correct": 58.0,
+        "groups": {
+          "both_correct": 52,
+          "loss": 26,
+          "win": 6,
+          "both_wrong": 16
+        }
+      }
+    },
+    "by_group": {
+      "loss": {
+        "old": {
+          "none_gold_body": 0,
+          "some_gold_body": 1,
+          "all_gold_body": 42,
+          "all_gold_full_body": 30,
+          "no_gold": 0,
+          "calls": 248,
+          "budget12": 3,
+          "slice_mismatches": 0
+        },
+        "new": {
+          "none_gold_body": 30,
+          "some_gold_body": 4,
+          "all_gold_body": 9,
+          "all_gold_full_body": 5,
+          "no_gold": 0,
+          "calls": 437,
+          "budget12": 30,
+          "slice_mismatches": 0
+        }
+      },
+      "both_correct": {
+        "old": {
+          "none_gold_body": 0,
+          "some_gold_body": 4,
+          "all_gold_body": 258,
+          "all_gold_full_body": 182,
+          "no_gold": 19,
+          "calls": 1045,
+          "budget12": 6,
+          "slice_mismatches": 0
+        },
+        "new": {
+          "none_gold_body": 1,
+          "some_gold_body": 6,
+          "all_gold_body": 255,
+          "all_gold_full_body": 167,
+          "no_gold": 19,
+          "calls": 1258,
+          "budget12": 8,
+          "slice_mismatches": 0
+        }
+      },
+      "both_wrong": {
+        "old": {
+          "none_gold_body": 13,
+          "some_gold_body": 16,
+          "all_gold_body": 27,
+          "all_gold_full_body": 19,
+          "no_gold": 3,
+          "calls": 449,
+          "budget12": 18,
+          "slice_mismatches": 0
+        },
+        "new": {
+          "none_gold_body": 16,
+          "some_gold_body": 13,
+          "all_gold_body": 27,
+          "all_gold_full_body": 17,
+          "no_gold": 3,
+          "calls": 477,
+          "budget12": 18,
+          "slice_mismatches": 0
+        }
+      },
+      "win": {
+        "old": {
+          "none_gold_body": 3,
+          "some_gold_body": 3,
+          "all_gold_body": 9,
+          "all_gold_full_body": 7,
+          "no_gold": 2,
+          "calls": 88,
+          "budget12": 2,
+          "slice_mismatches": 0
+        },
+        "new": {
+          "none_gold_body": 0,
+          "some_gold_body": 3,
+          "all_gold_body": 12,
+          "all_gold_full_body": 8,
+          "no_gold": 2,
+          "calls": 113,
+          "budget12": 0,
+          "slice_mismatches": 0
+        }
+      }
+    }
+  },
+  "tool_calls": {
+    "old": {
+      "search": 1653,
+      "read": 1016
+    },
+    "new": {
+      "search": 3342,
+      "read": 452
+    }
+  },
+  "first_query_replay": {
+    "selected_cases": 32,
+    "selection": "30 losses with no reference body plus qst_0349 and qst_0421, where the missing reference supplies a lost key fact",
+    "ranks": {
+      "question": {
+        "5": 8,
+        "20": 11,
+        "100": 16
+      },
+      "old_first": {
+        "5": 5,
+        "20": 8,
+        "100": 17
+      },
+      "new_first": {
+        "5": 0,
+        "20": 2,
+        "100": 5
+      }
+    },
+    "cases": [
+      {
+        "id": "qst_0002",
+        "target_id": "dsid_9550250a59e74f1bbd5612480b2e7100",
+        "historical_successful_query_rank": 9,
+        "queries": {
+          "question": {
+            "args": {
+              "query": "What is the name of the new metric added so SRE can track when server-side streaming sessions get finalized due to hitting the time limit?",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          },
+          "old_first": {
+            "args": {
+              "query": "server-side streaming sessions finalized time limit metric SRE",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          },
+          "new_first": {
+            "args": {
+              "query": "\"streaming\" \"finalized\" \"metric\"",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": 9
+          }
+        }
+      },
+      {
+        "id": "qst_0016",
+        "target_id": "dsid_ba7d1565b0694e359983bccaa4bf5977",
+        "historical_successful_query_rank": 66,
+        "queries": {
+          "question": {
+            "args": {
+              "query": "What is the company policy for how long contractor access should last by default before it expires, according to the access and permissions playbook?",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          },
+          "old_first": {
+            "args": {
+              "query": "access permissions playbook contractor access default expires",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": 66
+          },
+          "new_first": {
+            "args": {
+              "query": "\"access\" \"permissions\" \"playbook\" contractor",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": 42
+          }
+        }
+      },
+      {
+        "id": "qst_0077",
+        "target_id": "dsid_88b39d13bd584ef8b1422d76994808c7",
+        "historical_successful_query_rank": 30,
+        "queries": {
+          "question": {
+            "args": {
+              "query": "What is the three-step message sequence used for the new cross-language streaming startup handshake in the SDKs?",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": 11
+          },
+          "old_first": {
+            "args": {
+              "query": "cross-language streaming startup handshake SDK three step",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": 30
+          },
+          "new_first": {
+            "args": {
+              "query": "\"handshake\" \"streaming\"",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          }
+        }
+      },
+      {
+        "id": "qst_0082",
+        "target_id": "dsid_045c297ec2ef495abd66cb1f09921fc4",
+        "historical_successful_query_rank": 2,
+        "queries": {
+          "question": {
+            "args": {
+              "query": "During the year end handoff meeting, what was identified as the cause of the early December latency incident impacting some p95 requests?",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": 1
+          },
+          "old_first": {
+            "args": {
+              "query": "year end handoff meeting early December latency incident p95",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": 2
+          },
+          "new_first": {
+            "args": {
+              "query": "\"handoff\" \"December\" \"latency\"",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          }
+        }
+      },
+      {
+        "id": "qst_0092",
+        "target_id": "dsid_fa7dba9ea186436281a953c7b376bf11",
+        "historical_successful_query_rank": 74,
+        "queries": {
+          "question": {
+            "args": {
+              "query": "In the engineering rollout chat about deprecating v2, what was the start time and region for the initial canary deployment and what traffic ramp was planned?",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": 17
+          },
+          "old_first": {
+            "args": {
+              "query": "engineering rollout deprecating v2 initial canary traffic ramp",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": 74
+          },
+          "new_first": {
+            "args": {
+              "query": "\"canary\" \"v2\"",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          }
+        }
+      },
+      {
+        "id": "qst_0100",
+        "target_id": "dsid_94095ba27ce5414db28e599562c12908",
+        "historical_successful_query_rank": 34,
+        "queries": {
+          "question": {
+            "args": {
+              "query": "What change was applied to reduce the latency spike caused by a KV cache and continuous batching regression on the us-west-2 inference production cluster?",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          },
+          "old_first": {
+            "args": {
+              "query": "us-west-2 KV cache continuous batching regression latency spike",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": 34
+          },
+          "new_first": {
+            "args": {
+              "query": "\"us-west-2\" \"KV\"",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          }
+        }
+      },
+      {
+        "id": "qst_0134",
+        "target_id": "dsid_b9542668ae9b4163a932e4d16d26cd42",
+        "historical_successful_query_rank": null,
+        "queries": {
+          "question": {
+            "args": {
+              "query": "What was the suspected root cause behind the brief p99 latency spikes on the hosted chat inference route during small burst traffic?",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": 55
+          },
+          "old_first": {
+            "args": {
+              "query": "hosted chat inference p99 latency spikes small burst traffic",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          },
+          "new_first": {
+            "args": {
+              "query": "\"p99\" \"burst\"",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          }
+        }
+      },
+      {
+        "id": "qst_0150",
+        "target_id": "dsid_5af1ed23fd2a4bb3984ec368d0e3b23e",
+        "historical_successful_query_rank": 29,
+        "queries": {
+          "question": {
+            "args": {
+              "query": "What are the required permission scopes for an API key when SDK examples fail with a 401 unauthorized error during developer onboarding?",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": 36
+          },
+          "old_first": {
+            "args": {
+              "query": "SDK examples 401 unauthorized developer onboarding API key permission scopes",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": 48
+          },
+          "new_first": {
+            "args": {
+              "query": "\"401\" \"SDK\"",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          }
+        }
+      },
+      {
+        "id": "qst_0182",
+        "target_id": "dsid_d9ca33382713461aa726403f8ff7dea0",
+        "historical_successful_query_rank": 6,
+        "queries": {
+          "question": {
+            "args": {
+              "query": "During a failover between two active locations, what is the default time window where a short-lived resume credential is accepted on the destination before doing full authentication again?",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": 6
+          },
+          "old_first": {
+            "args": {
+              "query": "failover active locations short-lived resume credential default window full authentication destination",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": 6
+          },
+          "new_first": {
+            "args": {
+              "query": "\"resume\" \"failover\"",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          }
+        }
+      },
+      {
+        "id": "qst_0187",
+        "target_id": "dsid_a27715e7309c494d812c75cf03bcf916",
+        "historical_successful_query_rank": 25,
+        "queries": {
+          "question": {
+            "args": {
+              "query": "When a production model experiment shows a sustained increase in harmful output warnings for two evaluation windows, what automated actions should the platform take regarding traffic shifting and incident/oncall notifications?",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          },
+          "old_first": {
+            "args": {
+              "query": "production model experiment sustained increase harmful output warnings two evaluation windows traffic shifting incident oncall",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          },
+          "new_first": {
+            "args": {
+              "query": "\"harmful\" \"windows\"",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          }
+        }
+      },
+      {
+        "id": "qst_0190",
+        "target_id": "dsid_b02e6ce0d9814b35af846c309c25e551",
+        "historical_successful_query_rank": 18,
+        "queries": {
+          "question": {
+            "args": {
+              "query": "In the February 2026 update to our inference tuning product, what change caused older route configuration payloads to start getting rejected with a 400 error, and what field needs to be removed to fix it?",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          },
+          "old_first": {
+            "args": {
+              "query": "February 2026 inference tuning route configuration 400 rejected",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          },
+          "new_first": {
+            "args": {
+              "query": "\"February\" \"2026\" \"400\"",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          }
+        }
+      },
+      {
+        "id": "qst_0195",
+        "target_id": "dsid_de82a5f7140142f89781f2bf2d56cdca",
+        "historical_successful_query_rank": 1,
+        "queries": {
+          "question": {
+            "args": {
+              "query": "From the internal sandbox microbench in the EU West lab around May 2029, what was the estimated dollars per one million tokens for the biggest model on a single 40GB GPU when using the no-batching low-latency mode on the long output workload (about 300 tokens per response)?",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": 1
+          },
+          "old_first": {
+            "args": {
+              "query": "EU West May 2029 sandbox microbench 40GB no batching low latency 300 tokens",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": 1
+          },
+          "new_first": {
+            "args": {
+              "query": "\"microbench\" \"sandbox\"",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          }
+        }
+      },
+      {
+        "id": "qst_0201",
+        "target_id": "dsid_96e315a4f8644c8bbafe05c2e0c0b775",
+        "historical_successful_query_rank": null,
+        "queries": {
+          "question": {
+            "args": {
+              "query": "During the Feb 14, 2026 APAC region outage where vector generation requests intermittently failed with server errors due to a cache layer getting overloaded by a scheduled warmup task, what immediate mitigation did the oncall apply to reduce the cascading retries across downstream nodes?",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          },
+          "old_first": {
+            "args": {
+              "query": "Feb 14 2026 APAC vector generation cache overloaded scheduled warmup cascading retries mitigation",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          },
+          "new_first": {
+            "args": {
+              "query": "\"warmup\" \"APAC\"",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          }
+        }
+      },
+      {
+        "id": "qst_0205",
+        "target_id": "dsid_af49172aba97474aa215a460a817a2f7",
+        "historical_successful_query_rank": 10,
+        "queries": {
+          "question": {
+            "args": {
+              "query": "What fields are included in the proposed runtime metadata JSON that apps can use as the single source of truth for whether a hosted model can do streaming or tool calls, what token ceilings apply (soft vs enforced), and what the expected output format guarantees are?",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": 1
+          },
+          "old_first": {
+            "args": {
+              "query": "runtime metadata JSON streaming tool calls soft enforced token output format",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": 10
+          },
+          "new_first": {
+            "args": {
+              "query": "\"runtime\" \"metadata\" \"streaming\"",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          }
+        }
+      },
+      {
+        "id": "qst_0206",
+        "target_id": "dsid_4842bf4dbbd84d60830cf3e9704fb203",
+        "historical_successful_query_rank": 2,
+        "queries": {
+          "question": {
+            "args": {
+              "query": "In the 2027 renewal email thread about moving a customer from four capacity bands to a two level reserved plus overflow setup, what p95 response time was promised for the reranking endpoint under the base reservation assumptions?",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          },
+          "old_first": {
+            "args": {
+              "query": "2027 renewal four capacity bands two level reserved overflow reranking p95",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          },
+          "new_first": {
+            "args": {
+              "query": "\"2027\" \"renewal\" \"reranking\"",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": 40
+          }
+        }
+      },
+      {
+        "id": "qst_0210",
+        "target_id": "dsid_b4bd83b46612452e858bc02b380082e2",
+        "historical_successful_query_rank": 1,
+        "queries": {
+          "question": {
+            "args": {
+              "query": "What is the numeric rule that turns recent automated test slice failure patterns plus latency and vector drift into a single 0 to 100 release risk score that decides whether to proceed, slow down, pause, or revert a staged model change?",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": 1
+          },
+          "old_first": {
+            "args": {
+              "query": "release risk score 0 100 automated test slice failure latency vector drift proceed slow pause revert",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": 1
+          },
+          "new_first": {
+            "args": {
+              "query": "\"risk score\" \"release\"",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          }
+        }
+      },
+      {
+        "id": "qst_0212",
+        "target_id": "dsid_5085c9f4b4484f298dabd02c99d9ce03",
+        "historical_successful_query_rank": 37,
+        "queries": {
+          "question": {
+            "args": {
+              "query": "How should we set up low-noise oncall dashboards and tiered paging for a streaming text generation service so that responders can jump from a latency spike to a trace with hashed prompt references and cache hotness context and resolve issues within about 15 minutes?",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": 28
+          },
+          "old_first": {
+            "args": {
+              "query": "streaming text generation oncall dashboards tiered paging hashed prompt cache hotness 15 minutes",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": 37
+          },
+          "new_first": {
+            "args": {
+              "query": "\"oncall\" \"hotness\" \"paging\"",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          }
+        }
+      },
+      {
+        "id": "qst_0216",
+        "target_id": "dsid_c175ab6b52fe4226baac85697c562c7d",
+        "historical_successful_query_rank": 46,
+        "queries": {
+          "question": {
+            "args": {
+              "query": "In our cross team outage process, what is the expected update rhythm for the shared incident channel from the first message through containment, including when the interval should be shortened?",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          },
+          "old_first": {
+            "args": {
+              "query": "cross team outage shared incident channel first message update cadence containment shorten interval",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": 91
+          },
+          "new_first": {
+            "args": {
+              "query": "\"incident\" \"channel\" \"cadence\"",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          }
+        }
+      },
+      {
+        "id": "qst_0221",
+        "target_id": "dsid_5323aeb9f89042c9a62505d409c4d94a",
+        "historical_successful_query_rank": null,
+        "queries": {
+          "question": {
+            "args": {
+              "query": "When someone new starts at Redwood Inference, what is the target turnaround time for getting them fully set up with accounts and tools in North America versus Europe/Asia-Pacific?",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          },
+          "old_first": {
+            "args": {
+              "query": "Redwood Inference new hire onboarding accounts tools turnaround North America Europe Asia Pacific",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          },
+          "new_first": {
+            "args": {
+              "query": "\"North America\" \"onboarding\"",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          }
+        }
+      },
+      {
+        "id": "qst_0231",
+        "target_id": "dsid_5f46d65ae298435889c524bf559f4948",
+        "historical_successful_query_rank": 17,
+        "queries": {
+          "question": {
+            "args": {
+              "query": "For the healthcare client contract review about sending patient records through our connector into the vendor platform, what is the promised retention duration for ingestion related audit traces and the default way customers can obtain exports?",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          },
+          "old_first": {
+            "args": {
+              "query": "healthcare contract patient records connector ingestion audit traces retention exports",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          },
+          "new_first": {
+            "args": {
+              "query": "\"audit\" \"retention\" \"ingestion\"",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          }
+        }
+      },
+      {
+        "id": "qst_0235",
+        "target_id": "dsid_590dd1330a4046e28ac0a2f43b7910cc",
+        "historical_successful_query_rank": 26,
+        "queries": {
+          "question": {
+            "args": {
+              "query": "In the email thread about an AI service pilot for a payments company, what were the four main categories of changes their procurement and counsel asked for in the first contract markup?",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          },
+          "old_first": {
+            "args": {
+              "query": "AI service pilot payments company procurement counsel first contract markup",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          },
+          "new_first": {
+            "args": {
+              "query": "\"pilot\" \"markup\"",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          }
+        }
+      },
+      {
+        "id": "qst_0238",
+        "target_id": "dsid_e528bed025b44f71bc37a54f5a9aefcd",
+        "historical_successful_query_rank": 56,
+        "queries": {
+          "question": {
+            "args": {
+              "query": "How should I structure a small prompt experiment to reduce overconfident mistakes by mixing a couple of correct examples with one intentionally wrong example plus an immediate fix, while keeping the total examples very short and tracking things like made-up details and format compliance over a few hundred test prompts?",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": 4
+          },
+          "old_first": {
+            "args": {
+              "query": "few shot prompting negative example immediate correction overconfidence hallucination short examples experiment evaluation",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": 20
+          },
+          "new_first": {
+            "args": {
+              "query": "\"negative\" \"examples\" \"correction\"",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": 51
+          }
+        }
+      },
+      {
+        "id": "qst_0242",
+        "target_id": "dsid_3fc14ed9048e4e1f861e0632b06fc39b",
+        "historical_successful_query_rank": 10,
+        "queries": {
+          "question": {
+            "args": {
+              "query": "In the partner integration call about getting a third party AI service into another companys cloud catalog, what date did the security lead target for completing the pre publication image security smoke test?",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          },
+          "old_first": {
+            "args": {
+              "query": "partner integration cloud catalog pre publication image security smoke test",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          },
+          "new_first": {
+            "args": {
+              "query": "\"smoke test\" \"security\"",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          }
+        }
+      },
+      {
+        "id": "qst_0243",
+        "target_id": "dsid_908e8464927742829dcdfe0c6165299b",
+        "historical_successful_query_rank": 59,
+        "queries": {
+          "question": {
+            "args": {
+              "query": "In our GPU inference service that merges many request streams, what change was made to cut worst case latency spikes that happened when the attention memory footprint abruptly shifted during batch formation, while keeping median latency nearly flat?",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          },
+          "old_first": {
+            "args": {
+              "query": "GPU inference attention memory footprint batch formation worst case latency spikes median latency",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          },
+          "new_first": {
+            "args": {
+              "query": "\"latency\" \"attention\" \"footprint\"",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          }
+        }
+      },
+      {
+        "id": "qst_0263",
+        "target_id": "dsid_061c09d8eef649eba85cd1421e28a41a",
+        "historical_successful_query_rank": 61,
+        "queries": {
+          "question": {
+            "args": {
+              "query": "In the GPU inference runtime that mixes tiny chat requests with very long prompt processing, what is the target reduction for worst case per token latency on the latency sensitive traffic while keeping overall throughput loss under about ten percent?",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          },
+          "old_first": {
+            "args": {
+              "query": "GPU inference runtime tiny chat long prompt worst case per token latency throughput loss ten percent",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          },
+          "new_first": {
+            "args": {
+              "query": "GPU inference \"latency\" \"throughput\" \"long\"",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          }
+        }
+      },
+      {
+        "id": "qst_0272",
+        "target_id": "dsid_329e7ecd6b304c30b61a30e07919e008",
+        "historical_successful_query_rank": 53,
+        "queries": {
+          "question": {
+            "args": {
+              "query": "What is the default time window the company targets for routine internal approvals across operational requests?",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": 5
+          },
+          "old_first": {
+            "args": {
+              "query": "routine internal approvals operational requests default turnaround time window",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": 53
+          },
+          "new_first": {
+            "args": {
+              "query": "\"approvals\" \"business days\"",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          }
+        }
+      },
+      {
+        "id": "qst_0276",
+        "target_id": "dsid_ee6c23c178dc428bbd71af6526c70251",
+        "historical_successful_query_rank": 3,
+        "queries": {
+          "question": {
+            "args": {
+              "query": "In our model serving stack, what change was proposed to reduce cost swings when traffic mixes tiny chat style requests with much longer generations, by dynamically choosing between a few preset group sizes under latency budgets instead of waiting for one fixed threshold?",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          },
+          "old_first": {
+            "args": {
+              "query": "model serving dynamic batch sizes latency budget short chat long generations cost variance fixed threshold",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          },
+          "new_first": {
+            "args": {
+              "query": "\"batch\" \"latency\" \"cost\"",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          }
+        }
+      },
+      {
+        "id": "qst_0282",
+        "target_id": "dsid_9adc7c1c81f54e0a88d0e0bee59a6588",
+        "historical_successful_query_rank": 49,
+        "queries": {
+          "question": {
+            "args": {
+              "query": "During a traffic surge in the US East production cluster for a healthcare customer with dedicated capacity, why did conversations that were supposed to stay locked to a specific model version sometimes get served by an experimental fallback instead?",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          },
+          "old_first": {
+            "args": {
+              "query": "healthcare dedicated capacity US East traffic surge pinned model experimental fallback",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          },
+          "new_first": {
+            "args": {
+              "query": "\"US East\" \"fallback\"",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          }
+        }
+      },
+      {
+        "id": "qst_0287",
+        "target_id": "dsid_c264b5d312534f44a97cce8b6eb104b6",
+        "historical_successful_query_rank": 1,
+        "queries": {
+          "question": {
+            "args": {
+              "query": "What were the target responsiveness and peak simultaneous agent usage thresholds for the short pilot of the customer support assistant that required partial replies to appear immediately while also invoking internal lookups?",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": 1
+          },
+          "old_first": {
+            "args": {
+              "query": "customer support assistant short pilot partial replies immediately internal lookups latency concurrent agents",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": 1
+          },
+          "new_first": {
+            "args": {
+              "query": "\"pilot\" \"support\" \"streaming\"",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          }
+        }
+      },
+      {
+        "id": "qst_0298",
+        "target_id": "dsid_a9d76bcb3bc1475abc9d6f8f83a6eba8",
+        "historical_successful_query_rank": 2,
+        "queries": {
+          "question": {
+            "args": {
+              "query": "From a partner intro call with a services firm that resells and operates enterprise AI stacks, what was the expected lead time they were told for standing up an isolated customer environment in an EU region when customer key management is required?",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": 61
+          },
+          "old_first": {
+            "args": {
+              "query": "partner intro services firm resells operates enterprise AI isolated customer environment EU customer key management lead time",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": 23
+          },
+          "new_first": {
+            "args": {
+              "query": "\"partner\" \"EU\" \"key\"",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          }
+        }
+      },
+      {
+        "id": "qst_0349",
+        "target_id": "dsid_44cf2d75d70d4365914aa46947a94b1d",
+        "historical_successful_query_rank": 1,
+        "queries": {
+          "question": {
+            "args": {
+              "query": "What caused the EU-West activation funnel and onboarding email issues in late January, and which code/config changes fixed them?",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": 75
+          },
+          "old_first": {
+            "args": {
+              "query": "EU-West activation funnel onboarding email late January",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          },
+          "new_first": {
+            "args": {
+              "query": "\"EU-West\" activation onboarding",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": null
+          }
+        }
+      },
+      {
+        "id": "qst_0421",
+        "target_id": "dsid_9f2e6aa7f6c14b1db1c6f922a1d4b4d7",
+        "historical_successful_query_rank": 1,
+        "queries": {
+          "question": {
+            "args": {
+              "query": "Default TTL for the cross-account GPU warm-pool handoff handshake token?",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": 1
+          },
+          "old_first": {
+            "args": {
+              "query": "cross-account GPU warm-pool handoff handshake token TTL",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": 1
+          },
+          "new_first": {
+            "args": {
+              "query": "\"warm-pool\" \"handshake\"",
+              "limit": 100,
+              "offset": 0
+            },
+            "rank": 8
+          }
+        }
+      }
+    ]
+  },
+  "historical_successful_query_replay": {
+    "selected_cases": 43,
+    "top5": 16,
+    "top20": 23,
+    "top100": 40
+  },
+  "limitations": [
+    "Source text exposure establishes availability in the tool observations, not attention or understanding.",
+    "The old stack combined hybrid/cascade retrieval, 15 title previews and historical transport. The trace comparison cannot isolate the causal contribution of each component.",
+    "Offline ranking replay measures candidate visibility only; it is not a new agent accuracy result.",
+    "Judge-sensitive cases retain the first original verdicts; their classifications are not score corrections."
+  ],
+  "manual_review": [
+    {
+      "id": "qst_0002",
+      "direction": "loss",
+      "question_category": "basic",
+      "primary_diagnosis": "retrieval",
+      "note": "目标 stream.timebox_finalized 及 route/model 标签未进入新轨迹；旧组先见标题预览后取证，新组21次搜索后拒答。",
+      "confidence": "high",
+      "old_correct": true,
+      "new_correct": false,
+      "old_facts_supported": [
+        true,
+        true
+      ],
+      "new_facts_supported": [
+        false,
+        false
+      ],
+      "old_reference_body_count": 1,
+      "new_reference_body_count": 0,
+      "reference_count": 1,
+      "old_model_calls": 5,
+      "new_model_calls": 12,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0002.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0002.json"
+      }
+    },
+    {
+      "id": "qst_0016",
+      "direction": "loss",
+      "question_category": "basic",
+      "primary_diagnosis": "retrieval",
+      "note": "未找到被问及的权限手册，改用90天承包商政策；其他返回中的30天属于临时应急覆盖或时长分类，不能替代该默认政策。",
+      "confidence": "high",
+      "old_correct": true,
+      "new_correct": false,
+      "old_facts_supported": [
+        true
+      ],
+      "new_facts_supported": [
+        false
+      ],
+      "old_reference_body_count": 1,
+      "new_reference_body_count": 0,
+      "reference_count": 1,
+      "old_model_calls": 3,
+      "new_model_calls": 12,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0016.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0016.json"
+      }
+    },
+    {
+      "id": "qst_0050",
+      "direction": "win",
+      "question_category": "basic",
+      "primary_diagnosis": "runtime",
+      "note": "旧组生成超时无答案；新组正常完成，收益不能归于检索质量。",
+      "confidence": "high",
+      "old_correct": false,
+      "new_correct": true,
+      "old_facts_supported": [
+        false,
+        false,
+        false
+      ],
+      "new_facts_supported": [
+        true,
+        true,
+        true
+      ],
+      "old_reference_body_count": 1,
+      "new_reference_body_count": 1,
+      "reference_count": 1,
+      "old_model_calls": 3,
+      "new_model_calls": 9,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0050.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0050.json"
+      }
+    },
+    {
+      "id": "qst_0053",
+      "direction": "loss",
+      "question_category": "basic",
+      "primary_diagnosis": "answer_omission",
+      "note": "参考全文已暴露；漏写 cardinality protection mode 可完全移除 route_id，旧答案明确写出。",
+      "confidence": "high",
+      "old_correct": true,
+      "new_correct": false,
+      "old_facts_supported": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "new_facts_supported": [
+        true,
+        true,
+        false,
+        true,
+        true,
+        true,
+        true
+      ],
+      "old_reference_body_count": 1,
+      "new_reference_body_count": 1,
+      "reference_count": 1,
+      "old_model_calls": 3,
+      "new_model_calls": 6,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0053.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0053.json"
+      }
+    },
+    {
+      "id": "qst_0077",
+      "direction": "loss",
+      "question_category": "basic",
+      "primary_diagnosis": "retrieval",
+      "note": "未返回 Cross-SDK 统一握手文档，全部观察中无 CLIENT_HELLO/AUTH_OK/SERVER_READY；用泛化握手流程并拒绝精确命名。",
+      "confidence": "high",
+      "old_correct": true,
+      "new_correct": false,
+      "old_facts_supported": [
+        true
+      ],
+      "new_facts_supported": [
+        false
+      ],
+      "old_reference_body_count": 1,
+      "new_reference_body_count": 0,
+      "reference_count": 1,
+      "old_model_calls": 2,
+      "new_model_calls": 12,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0077.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0077.json"
+      }
+    },
+    {
+      "id": "qst_0082",
+      "direction": "loss",
+      "question_category": "basic",
+      "primary_diagnosis": "retrieval",
+      "note": "未返回年终交接会议，回答变成另一场自动扩容配置事故；原问题直接BM25排名1。",
+      "confidence": "high",
+      "old_correct": true,
+      "new_correct": false,
+      "old_facts_supported": [
+        true,
+        true
+      ],
+      "new_facts_supported": [
+        false,
+        false
+      ],
+      "old_reference_body_count": 1,
+      "new_reference_body_count": 0,
+      "reference_count": 1,
+      "old_model_calls": 2,
+      "new_model_calls": 12,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0082.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0082.json"
+      }
+    },
+    {
+      "id": "qst_0092",
+      "direction": "loss",
+      "question_category": "basic",
+      "primary_diagnosis": "retrieval",
+      "note": "未返回目标 eng-platform 发布线程，选用3月18日/5→20→100%的另一场发布，而目标为3月23日/1→5%。",
+      "confidence": "high",
+      "old_correct": true,
+      "new_correct": false,
+      "old_facts_supported": [
+        true,
+        true,
+        true
+      ],
+      "new_facts_supported": [
+        false,
+        false,
+        false
+      ],
+      "old_reference_body_count": 1,
+      "new_reference_body_count": 0,
+      "reference_count": 1,
+      "old_model_calls": 2,
+      "new_model_calls": 12,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0092.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0092.json"
+      }
+    },
+    {
+      "id": "qst_0100",
+      "direction": "loss",
+      "question_category": "basic",
+      "primary_diagnosis": "retrieval",
+      "note": "未返回目标事故线程，混入另一套batch size/wait/KV配置；目标的4096→2048和15→5组合没有被取到。",
+      "confidence": "high",
+      "old_correct": true,
+      "new_correct": false,
+      "old_facts_supported": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "new_facts_supported": [
+        false,
+        false,
+        false,
+        false
+      ],
+      "old_reference_body_count": 1,
+      "new_reference_body_count": 0,
+      "reference_count": 1,
+      "old_model_calls": 3,
+      "new_model_calls": 12,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0100.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0100.json"
+      }
+    },
+    {
+      "id": "qst_0128",
+      "direction": "win",
+      "question_category": "basic",
+      "primary_diagnosis": "retrieval",
+      "note": "旧组未取到v2标准，回答9–17PT；新组获得全文并答9–16 owning-team local，关键文档命中改善。",
+      "confidence": "high",
+      "old_correct": false,
+      "new_correct": true,
+      "old_facts_supported": [
+        true,
+        false,
+        false
+      ],
+      "new_facts_supported": [
+        true,
+        true,
+        true
+      ],
+      "old_reference_body_count": 0,
+      "new_reference_body_count": 1,
+      "reference_count": 1,
+      "old_model_calls": 8,
+      "new_model_calls": 6,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0128.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0128.json"
+      }
+    },
+    {
+      "id": "qst_0134",
+      "direction": "loss",
+      "question_category": "basic",
+      "primary_diagnosis": "retrieval",
+      "note": "未返回 Latency Sculptor 笔记，改答FP8布局/INT8内核切换；目标单长上下文触发的eviction-boundary机制未见。",
+      "confidence": "high",
+      "old_correct": true,
+      "new_correct": false,
+      "old_facts_supported": [
+        true,
+        true
+      ],
+      "new_facts_supported": [
+        false,
+        false
+      ],
+      "old_reference_body_count": 1,
+      "new_reference_body_count": 0,
+      "reference_count": 1,
+      "old_model_calls": 3,
+      "new_model_calls": 12,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0134.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0134.json"
+      }
+    },
+    {
+      "id": "qst_0150",
+      "direction": "loss",
+      "question_category": "basic",
+      "primary_diagnosis": "retrieval",
+      "note": "目标 Developer Onramp 文档未见，全部观察没有 inference:invoke 或 metrics:read；从其他SDK文档选了另一组scope。",
+      "confidence": "high",
+      "old_correct": true,
+      "new_correct": false,
+      "old_facts_supported": [
+        true
+      ],
+      "new_facts_supported": [
+        false
+      ],
+      "old_reference_body_count": 1,
+      "new_reference_body_count": 0,
+      "reference_count": 1,
+      "old_model_calls": 9,
+      "new_model_calls": 11,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0150.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0150.json"
+      }
+    },
+    {
+      "id": "qst_0162",
+      "direction": "loss",
+      "question_category": "basic",
+      "primary_diagnosis": "judge_sensitive",
+      "note": "两组答案几乎等义，事实向量同为[False,False,True,True,True]却一对一错；判为unsupported的route/priority及pointer-copy实际在已见原文2786:3186。",
+      "confidence": "high",
+      "old_correct": true,
+      "new_correct": false,
+      "old_facts_supported": [
+        false,
+        false,
+        true,
+        true,
+        true
+      ],
+      "new_facts_supported": [
+        false,
+        false,
+        true,
+        true,
+        true
+      ],
+      "old_reference_body_count": 1,
+      "new_reference_body_count": 1,
+      "reference_count": 1,
+      "old_model_calls": 3,
+      "new_model_calls": 3,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0162.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0162.json"
+      }
+    },
+    {
+      "id": "qst_0182",
+      "direction": "loss",
+      "question_category": "semantic",
+      "primary_diagnosis": "retrieval",
+      "note": "未返回目标gateway takeover文档，取了另一份30秒resume-token说明；返回的45秒只涉及别的熔断/传播场景。",
+      "confidence": "high",
+      "old_correct": true,
+      "new_correct": false,
+      "old_facts_supported": [
+        true,
+        true
+      ],
+      "new_facts_supported": [
+        false,
+        false
+      ],
+      "old_reference_body_count": 1,
+      "new_reference_body_count": 0,
+      "reference_count": 1,
+      "old_model_calls": 3,
+      "new_model_calls": 12,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0182.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0182.json"
+      }
+    },
+    {
+      "id": "qst_0185",
+      "direction": "win",
+      "question_category": "semantic",
+      "primary_diagnosis": "retrieval",
+      "note": "旧组缺目标邮件并混用55/30/15分配；新组取到目标全文并答40/40/20+10%，关键文档命中改善。",
+      "confidence": "high",
+      "old_correct": false,
+      "new_correct": true,
+      "old_facts_supported": [
+        false,
+        false,
+        false,
+        false
+      ],
+      "new_facts_supported": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "old_reference_body_count": 0,
+      "new_reference_body_count": 1,
+      "reference_count": 1,
+      "old_model_calls": 12,
+      "new_model_calls": 6,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0185.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0185.json"
+      }
+    },
+    {
+      "id": "qst_0187",
+      "direction": "loss",
+      "question_category": "semantic",
+      "primary_diagnosis": "retrieval",
+      "note": "未返回Optimize质量冲击矩阵，生成了泛化暂停/回退方案；75%上限、预填incident和Console通知组合缺失。",
+      "confidence": "high",
+      "old_correct": true,
+      "new_correct": false,
+      "old_facts_supported": [
+        true,
+        true,
+        true
+      ],
+      "new_facts_supported": [
+        false,
+        false,
+        false
+      ],
+      "old_reference_body_count": 1,
+      "new_reference_body_count": 0,
+      "reference_count": 1,
+      "old_model_calls": 9,
+      "new_model_calls": 12,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0187.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0187.json"
+      }
+    },
+    {
+      "id": "qst_0190",
+      "direction": "loss",
+      "question_category": "semantic",
+      "primary_diagnosis": "retrieval",
+      "note": "未返回Optimize 1.3发布说明；全部观察中无 optimize.legacy_hint，30次搜索后拒答。",
+      "confidence": "high",
+      "old_correct": true,
+      "new_correct": false,
+      "old_facts_supported": [
+        true,
+        true
+      ],
+      "new_facts_supported": [
+        false,
+        false
+      ],
+      "old_reference_body_count": 1,
+      "new_reference_body_count": 0,
+      "reference_count": 1,
+      "old_model_calls": 7,
+      "new_model_calls": 12,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0190.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0190.json"
+      }
+    },
+    {
+      "id": "qst_0191",
+      "direction": "win",
+      "question_category": "semantic",
+      "primary_diagnosis": "judge_sensitive",
+      "note": "两组核心解释几乎相同，均省略Kafka/us-west-2等，旧组全事实false、新组全true，主要为裁判尺度差异。",
+      "confidence": "high",
+      "old_correct": false,
+      "new_correct": true,
+      "old_facts_supported": [
+        false,
+        false,
+        false
+      ],
+      "new_facts_supported": [
+        true,
+        true,
+        true
+      ],
+      "old_reference_body_count": 1,
+      "new_reference_body_count": 1,
+      "reference_count": 1,
+      "old_model_calls": 3,
+      "new_model_calls": 11,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0191.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0191.json"
+      }
+    },
+    {
+      "id": "qst_0195",
+      "direction": "loss",
+      "question_category": "semantic",
+      "primary_diagnosis": "retrieval",
+      "note": "未返回目标微基准笔记且无31.6数值；34次搜索后拒答，原问题及历史首条查询直接BM25均排名1。",
+      "confidence": "high",
+      "old_correct": true,
+      "new_correct": false,
+      "old_facts_supported": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "new_facts_supported": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "old_reference_body_count": 1,
+      "new_reference_body_count": 0,
+      "reference_count": 1,
+      "old_model_calls": 3,
+      "new_model_calls": 12,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0195.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0195.json"
+      }
+    },
+    {
+      "id": "qst_0196",
+      "direction": "loss",
+      "question_category": "semantic",
+      "primary_diagnosis": "answer_selection",
+      "note": "第6轮search已返回NF4/A100/batch1/1.8x/+0.6ppl完整关键句123:256；继续搜索后回答了另一组1.65x/ROUGE指标。尾部49字符未读与答案事实无关。",
+      "confidence": "high",
+      "old_correct": true,
+      "new_correct": false,
+      "old_facts_supported": [
+        false,
+        true,
+        true,
+        true
+      ],
+      "new_facts_supported": [
+        false,
+        false,
+        false,
+        false
+      ],
+      "old_reference_body_count": 1,
+      "new_reference_body_count": 1,
+      "reference_count": 1,
+      "old_model_calls": 12,
+      "new_model_calls": 12,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0196.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0196.json"
+      }
+    },
+    {
+      "id": "qst_0201",
+      "direction": "loss",
+      "question_category": "semantic",
+      "primary_diagnosis": "retrieval",
+      "note": "未返回2月14日目标oncall线程，观察中无soft-circuit-breaker动作，34次搜索后拒答。",
+      "confidence": "high",
+      "old_correct": true,
+      "new_correct": false,
+      "old_facts_supported": [
+        true,
+        false,
+        true
+      ],
+      "new_facts_supported": [
+        false,
+        false,
+        false
+      ],
+      "old_reference_body_count": 1,
+      "new_reference_body_count": 0,
+      "reference_count": 1,
+      "old_model_calls": 3,
+      "new_model_calls": 12,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0201.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0201.json"
+      }
+    },
+    {
+      "id": "qst_0205",
+      "direction": "loss",
+      "question_category": "semantic",
+      "primary_diagnosis": "retrieval",
+      "note": "未返回正确runtime metadata提案，已见相似草案但字段不同；全部观察无soft_max_tokens/hard_max_tokens/structured_output_guarantee，原问题BM25排名1。",
+      "confidence": "high",
+      "old_correct": true,
+      "new_correct": false,
+      "old_facts_supported": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "new_facts_supported": [
+        true,
+        true,
+        false,
+        false,
+        false,
+        false
+      ],
+      "old_reference_body_count": 1,
+      "new_reference_body_count": 0,
+      "reference_count": 1,
+      "old_model_calls": 6,
+      "new_model_calls": 12,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0205.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0205.json"
+      }
+    },
+    {
+      "id": "qst_0206",
+      "direction": "loss",
+      "question_category": "semantic",
+      "primary_diagnosis": "retrieval",
+      "note": "未返回指定续约邮件，观察中无310ms承诺，30次搜索后拒答。",
+      "confidence": "high",
+      "old_correct": true,
+      "new_correct": false,
+      "old_facts_supported": [
+        true
+      ],
+      "new_facts_supported": [
+        false
+      ],
+      "old_reference_body_count": 1,
+      "new_reference_body_count": 0,
+      "reference_count": 1,
+      "old_model_calls": 10,
+      "new_model_calls": 12,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0206.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0206.json"
+      }
+    },
+    {
+      "id": "qst_0210",
+      "direction": "loss",
+      "question_category": "semantic",
+      "primary_diagnosis": "retrieval",
+      "note": "未返回Probe heatmap协议，用其他评分方案作对照并拒答；原问题BM25排名1，关键DS公式未出现。",
+      "confidence": "high",
+      "old_correct": true,
+      "new_correct": false,
+      "old_facts_supported": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "new_facts_supported": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "old_reference_body_count": 1,
+      "new_reference_body_count": 0,
+      "reference_count": 1,
+      "old_model_calls": 3,
+      "new_model_calls": 12,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0210.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0210.json"
+      }
+    },
+    {
+      "id": "qst_0212",
+      "direction": "loss",
+      "question_category": "semantic",
+      "primary_diagnosis": "retrieval",
+      "note": "未返回指定oncall storyboard，转而整合其他burn-rate方案；缺该文档的cache warmth数值和P2/P1/P0阈值，不能把泛化方案等同于题目参考。",
+      "confidence": "medium",
+      "old_correct": true,
+      "new_correct": false,
+      "old_facts_supported": [
+        true,
+        false,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "new_facts_supported": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "old_reference_body_count": 1,
+      "new_reference_body_count": 0,
+      "reference_count": 1,
+      "old_model_calls": 5,
+      "new_model_calls": 10,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0212.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0212.json"
+      }
+    },
+    {
+      "id": "qst_0213",
+      "direction": "win",
+      "question_category": "semantic",
+      "primary_diagnosis": "answer_omission",
+      "note": "两组都见全文，新组补出hosted API keys，填补旧答案的具体遗漏。",
+      "confidence": "high",
+      "old_correct": false,
+      "new_correct": true,
+      "old_facts_supported": [
+        true,
+        true,
+        false,
+        true
+      ],
+      "new_facts_supported": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "old_reference_body_count": 1,
+      "new_reference_body_count": 1,
+      "reference_count": 1,
+      "old_model_calls": 2,
+      "new_model_calls": 9,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0213.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0213.json"
+      }
+    },
+    {
+      "id": "qst_0216",
+      "direction": "loss",
+      "question_category": "semantic",
+      "primary_diagnosis": "retrieval",
+      "note": "未返回Status-Wire协议，选用了按SEV级别的另一套15/30分钟节奏；该协议的T+10/T+30及客户影响触发规则未建立。",
+      "confidence": "high",
+      "old_correct": true,
+      "new_correct": false,
+      "old_facts_supported": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "new_facts_supported": [
+        true,
+        false,
+        false,
+        false,
+        false
+      ],
+      "old_reference_body_count": 1,
+      "new_reference_body_count": 0,
+      "reference_count": 1,
+      "old_model_calls": 11,
+      "new_model_calls": 12,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0216.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0216.json"
+      }
+    },
+    {
+      "id": "qst_0221",
+      "direction": "loss",
+      "question_category": "semantic",
+      "primary_diagnosis": "retrieval",
+      "note": "未返回Employee Lifecycle手册，检索到的5/10天分别涉及设备或招聘等其他SLA，未找到US与EMEA/APAC完整分组。",
+      "confidence": "high",
+      "old_correct": true,
+      "new_correct": false,
+      "old_facts_supported": [
+        true,
+        true
+      ],
+      "new_facts_supported": [
+        false,
+        false
+      ],
+      "old_reference_body_count": 1,
+      "new_reference_body_count": 0,
+      "reference_count": 1,
+      "old_model_calls": 4,
+      "new_model_calls": 12,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0221.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0221.json"
+      }
+    },
+    {
+      "id": "qst_0230",
+      "direction": "win",
+      "question_category": "semantic",
+      "primary_diagnosis": "answer_omission",
+      "note": "两组都见全文，新组明确resume_token SSE event及resume headers，补足旧答案兼容机制。",
+      "confidence": "high",
+      "old_correct": false,
+      "new_correct": true,
+      "old_facts_supported": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        false,
+        false
+      ],
+      "new_facts_supported": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      "old_reference_body_count": 1,
+      "new_reference_body_count": 1,
+      "reference_count": 1,
+      "old_model_calls": 3,
+      "new_model_calls": 5,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0230.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0230.json"
+      }
+    },
+    {
+      "id": "qst_0231",
+      "direction": "loss",
+      "question_category": "semantic",
+      "primary_diagnosis": "retrieval",
+      "note": "未返回特定医疗客户DPA往来，其他保留期/导出材料不能建立该合同承诺，最终拒答。",
+      "confidence": "high",
+      "old_correct": true,
+      "new_correct": false,
+      "old_facts_supported": [
+        true,
+        true
+      ],
+      "new_facts_supported": [
+        false,
+        false
+      ],
+      "old_reference_body_count": 1,
+      "new_reference_body_count": 0,
+      "reference_count": 1,
+      "old_model_calls": 10,
+      "new_model_calls": 12,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0231.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0231.json"
+      }
+    },
+    {
+      "id": "qst_0235",
+      "direction": "loss",
+      "question_category": "semantic",
+      "primary_diagnosis": "retrieval",
+      "note": "未返回Greenfield Payments首轮markup邮件，选了FinWave另一份采购修改要求。",
+      "confidence": "high",
+      "old_correct": true,
+      "new_correct": false,
+      "old_facts_supported": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "new_facts_supported": [
+        false,
+        false,
+        false,
+        false
+      ],
+      "old_reference_body_count": 1,
+      "new_reference_body_count": 0,
+      "reference_count": 1,
+      "old_model_calls": 7,
+      "new_model_calls": 12,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0235.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0235.json"
+      }
+    },
+    {
+      "id": "qst_0238",
+      "direction": "loss",
+      "question_category": "semantic",
+      "primary_diagnosis": "retrieval_answer_mixed",
+      "note": "目标workbench未取到，缺其完整实验清单；同时已见的negative→why wrong→correct顺序在新答案模板中变成wrong→fix→reason，属于检索与作答混合。",
+      "confidence": "medium",
+      "old_correct": true,
+      "new_correct": false,
+      "old_facts_supported": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      "new_facts_supported": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        true,
+        true,
+        false,
+        true,
+        false,
+        false,
+        false
+      ],
+      "old_reference_body_count": 1,
+      "new_reference_body_count": 0,
+      "reference_count": 1,
+      "old_model_calls": 8,
+      "new_model_calls": 4,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0238.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0238.json"
+      }
+    },
+    {
+      "id": "qst_0242",
+      "direction": "loss",
+      "question_category": "semantic",
+      "primary_diagnosis": "retrieval",
+      "note": "未返回HaloTech集成会议，没有目标2025-03-24安全QA日期，30次搜索后拒答。",
+      "confidence": "high",
+      "old_correct": true,
+      "new_correct": false,
+      "old_facts_supported": [
+        true
+      ],
+      "new_facts_supported": [
+        false
+      ],
+      "old_reference_body_count": 1,
+      "new_reference_body_count": 0,
+      "reference_count": 1,
+      "old_model_calls": 12,
+      "new_model_calls": 12,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0242.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0242.json"
+      }
+    },
+    {
+      "id": "qst_0243",
+      "direction": "loss",
+      "question_category": "semantic",
+      "primary_diagnosis": "retrieval",
+      "note": "未返回KV-aware jitter-resilient batching变更，答成另一项kernel-selection hysteresis；工作集delta与小hold-window组合缺失。",
+      "confidence": "high",
+      "old_correct": true,
+      "new_correct": false,
+      "old_facts_supported": [
+        true,
+        true,
+        true
+      ],
+      "new_facts_supported": [
+        false,
+        false,
+        false
+      ],
+      "old_reference_body_count": 1,
+      "new_reference_body_count": 0,
+      "reference_count": 1,
+      "old_model_calls": 12,
+      "new_model_calls": 12,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0243.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0243.json"
+      }
+    },
+    {
+      "id": "qst_0256",
+      "direction": "win",
+      "question_category": "semantic",
+      "primary_diagnosis": "retrieval",
+      "note": "旧组未见目标事故，缺tokenizer-family过滤；新组取到全文后给出精确热修复规则。",
+      "confidence": "high",
+      "old_correct": false,
+      "new_correct": true,
+      "old_facts_supported": [
+        true,
+        true,
+        false
+      ],
+      "new_facts_supported": [
+        true,
+        true,
+        true
+      ],
+      "old_reference_body_count": 0,
+      "new_reference_body_count": 1,
+      "reference_count": 1,
+      "old_model_calls": 12,
+      "new_model_calls": 8,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0256.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0256.json"
+      }
+    },
+    {
+      "id": "qst_0263",
+      "direction": "loss",
+      "question_category": "semantic",
+      "primary_diagnosis": "retrieval",
+      "note": "未返回prefill/decode隔离变更，错选另一项目20–40%/p99，而目标为35–50%/p99.9。",
+      "confidence": "high",
+      "old_correct": true,
+      "new_correct": false,
+      "old_facts_supported": [
+        true,
+        true
+      ],
+      "new_facts_supported": [
+        false,
+        true
+      ],
+      "old_reference_body_count": 1,
+      "new_reference_body_count": 0,
+      "reference_count": 1,
+      "old_model_calls": 9,
+      "new_model_calls": 12,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0263.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0263.json"
+      }
+    },
+    {
+      "id": "qst_0269",
+      "direction": "loss",
+      "question_category": "semantic",
+      "primary_diagnosis": "judge_sensitive",
+      "note": "两组均写within30s而未写briefly；旧组仍判对。新组with confirmation and visible audit messaging与旧组confirmations must disclose audit语义接近，却额外判为漏warning。全文均已见，判分敏感。",
+      "confidence": "medium",
+      "old_correct": true,
+      "new_correct": false,
+      "old_facts_supported": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        false,
+        true,
+        true
+      ],
+      "new_facts_supported": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        false,
+        false,
+        true,
+        true
+      ],
+      "old_reference_body_count": 1,
+      "new_reference_body_count": 1,
+      "reference_count": 1,
+      "old_model_calls": 3,
+      "new_model_calls": 5,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0269.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0269.json"
+      }
+    },
+    {
+      "id": "qst_0272",
+      "direction": "loss",
+      "question_category": "semantic",
+      "primary_diagnosis": "retrieval",
+      "note": "未返回公司跨运营审批总手册；其他返回中的72business hours仅限定change approver，最终给了另一套48–72小时范围。",
+      "confidence": "high",
+      "old_correct": true,
+      "new_correct": false,
+      "old_facts_supported": [
+        true
+      ],
+      "new_facts_supported": [
+        false
+      ],
+      "old_reference_body_count": 1,
+      "new_reference_body_count": 0,
+      "reference_count": 1,
+      "old_model_calls": 6,
+      "new_model_calls": 12,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0272.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0272.json"
+      }
+    },
+    {
+      "id": "qst_0276",
+      "direction": "loss",
+      "question_category": "semantic",
+      "primary_diagnosis": "retrieval",
+      "note": "未返回stepped batching提案，缺有序档位/每档预算/小到大行为；泛化adaptive microbatch答案不能给出目标机制细节。",
+      "confidence": "high",
+      "old_correct": true,
+      "new_correct": false,
+      "old_facts_supported": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "new_facts_supported": [
+        true,
+        false,
+        false,
+        false,
+        true
+      ],
+      "old_reference_body_count": 1,
+      "new_reference_body_count": 0,
+      "reference_count": 1,
+      "old_model_calls": 4,
+      "new_model_calls": 12,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0276.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0276.json"
+      }
+    },
+    {
+      "id": "qst_0282",
+      "direction": "loss",
+      "question_category": "semantic",
+      "primary_diagnosis": "retrieval",
+      "note": "未返回医疗客户edge-shedding事故，改答Carousel Labs另一场pin同步/请求头事故；目标shed-tag/pin-exemption机制未见。",
+      "confidence": "high",
+      "old_correct": true,
+      "new_correct": false,
+      "old_facts_supported": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "new_facts_supported": [
+        false,
+        false,
+        false,
+        false
+      ],
+      "old_reference_body_count": 1,
+      "new_reference_body_count": 0,
+      "reference_count": 1,
+      "old_model_calls": 10,
+      "new_model_calls": 12,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0282.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0282.json"
+      }
+    },
+    {
+      "id": "qst_0287",
+      "direction": "loss",
+      "question_category": "semantic",
+      "primary_diagnosis": "retrieval",
+      "note": "未返回Kestrel两周pilot文档，观察中的500ms等数字属于其他tool-call延迟场景，原问题BM25排名1。",
+      "confidence": "high",
+      "old_correct": true,
+      "new_correct": false,
+      "old_facts_supported": [
+        true,
+        true,
+        true
+      ],
+      "new_facts_supported": [
+        false,
+        false,
+        false
+      ],
+      "old_reference_body_count": 1,
+      "new_reference_body_count": 0,
+      "reference_count": 1,
+      "old_model_calls": 4,
+      "new_model_calls": 12,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0287.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0287.json"
+      }
+    },
+    {
+      "id": "qst_0290",
+      "direction": "win",
+      "question_category": "semantic",
+      "primary_diagnosis": "judge_sensitive",
+      "note": "两组均把docs路径归于PR，事实向量相同[True,False]，却旧错新对。",
+      "confidence": "high",
+      "old_correct": false,
+      "new_correct": true,
+      "old_facts_supported": [
+        true,
+        false
+      ],
+      "new_facts_supported": [
+        true,
+        false
+      ],
+      "old_reference_body_count": 1,
+      "new_reference_body_count": 1,
+      "reference_count": 1,
+      "old_model_calls": 3,
+      "new_model_calls": 7,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0290.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0290.json"
+      }
+    },
+    {
+      "id": "qst_0291",
+      "direction": "loss",
+      "question_category": "semantic",
+      "primary_diagnosis": "answer_selection",
+      "note": "第9轮search片段已包含3101:3291的3冷/5热/string-equivalence/例外完整规则，最终仍拒答。不是全文未读导致。",
+      "confidence": "high",
+      "old_correct": true,
+      "new_correct": false,
+      "old_facts_supported": [
+        true,
+        true,
+        true
+      ],
+      "new_facts_supported": [
+        false,
+        false,
+        false
+      ],
+      "old_reference_body_count": 1,
+      "new_reference_body_count": 1,
+      "reference_count": 1,
+      "old_model_calls": 3,
+      "new_model_calls": 12,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0291.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0291.json"
+      }
+    },
+    {
+      "id": "qst_0296",
+      "direction": "loss",
+      "question_category": "semantic",
+      "primary_diagnosis": "answer_selection",
+      "note": "第11轮已见完整2712字符的Helix QBR线程和Alan demo承诺；最后一轮答成Sophie/Helios另一项demo，是已见证据选择失败。",
+      "confidence": "high",
+      "old_correct": true,
+      "new_correct": false,
+      "old_facts_supported": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "new_facts_supported": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "old_reference_body_count": 1,
+      "new_reference_body_count": 1,
+      "reference_count": 1,
+      "old_model_calls": 10,
+      "new_model_calls": 12,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0296.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0296.json"
+      }
+    },
+    {
+      "id": "qst_0298",
+      "direction": "loss",
+      "question_category": "semantic",
+      "primary_diagnosis": "retrieval",
+      "note": "未返回Tethys合作伙伴会议；相近2–4周片段是NIC兼容验证或另一HSM配置场景，未建立指定EU Private VPC承诺，最终拒答。",
+      "confidence": "high",
+      "old_correct": true,
+      "new_correct": false,
+      "old_facts_supported": [
+        true,
+        true
+      ],
+      "new_facts_supported": [
+        false,
+        false
+      ],
+      "old_reference_body_count": 1,
+      "new_reference_body_count": 0,
+      "reference_count": 1,
+      "old_model_calls": 4,
+      "new_model_calls": 12,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0298.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0298.json"
+      }
+    },
+    {
+      "id": "qst_0321",
+      "direction": "loss",
+      "question_category": "intra_document_reasoning",
+      "primary_diagnosis": "answer_omission",
+      "note": "全文已见，漏写tenant hash。原文实现说明明确by tenant hash；旧答案有，新答案仅说deterministic。",
+      "confidence": "high",
+      "old_correct": true,
+      "new_correct": false,
+      "old_facts_supported": [
+        true,
+        true
+      ],
+      "new_facts_supported": [
+        false,
+        true
+      ],
+      "old_reference_body_count": 1,
+      "new_reference_body_count": 1,
+      "reference_count": 1,
+      "old_model_calls": 3,
+      "new_model_calls": 3,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0321.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0321.json"
+      }
+    },
+    {
+      "id": "qst_0344",
+      "direction": "loss",
+      "question_category": "project_related",
+      "primary_diagnosis": "answer_omission",
+      "note": "两个被漏事实均已见：finalized completion token在事故文档2849:3004；CS communicates outcome在手册12874:12913。未读的其他区间不解释这两处遗漏。",
+      "confidence": "high",
+      "old_correct": true,
+      "new_correct": false,
+      "old_facts_supported": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "new_facts_supported": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        false,
+        true,
+        true,
+        false
+      ],
+      "old_reference_body_count": 4,
+      "new_reference_body_count": 4,
+      "reference_count": 4,
+      "old_model_calls": 6,
+      "new_model_calls": 7,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0344.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0344.json"
+      }
+    },
+    {
+      "id": "qst_0348",
+      "direction": "win",
+      "question_category": "project_related",
+      "primary_diagnosis": "judge_sensitive",
+      "note": "旧组已说明opt-in gateway-overload能力、验证tenant/route和可用policy调整；新组同样不保证功能可用。旧组因未明确tenant-scoped feature review判错，新组can explore policy adjustments获判对，同时新组缺bounded retries被视为非关键。主要是判分敏感而非新增证据。",
+      "confidence": "medium",
+      "old_correct": false,
+      "new_correct": true,
+      "old_facts_supported": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      "new_facts_supported": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        false,
+        true,
+        true
+      ],
+      "old_reference_body_count": 4,
+      "new_reference_body_count": 3,
+      "reference_count": 4,
+      "old_model_calls": 5,
+      "new_model_calls": 6,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0348.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0348.json"
+      }
+    },
+    {
+      "id": "qst_0349",
+      "direction": "loss",
+      "question_category": "project_related",
+      "primary_diagnosis": "retrieval_answer_mixed",
+      "note": "未找到正确PR文档，改用另一份同PR号描述；同时已读完邮件事故却未写restart，token rotation还只称planned。主导为检索与回答混合。",
+      "confidence": "medium",
+      "old_correct": true,
+      "new_correct": false,
+      "old_facts_supported": [
+        true,
+        false,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "new_facts_supported": [
+        true,
+        true,
+        true,
+        false,
+        true,
+        true,
+        true,
+        false,
+        false
+      ],
+      "old_reference_body_count": 3,
+      "new_reference_body_count": 2,
+      "reference_count": 3,
+      "old_model_calls": 5,
+      "new_model_calls": 4,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0349.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0349.json"
+      }
+    },
+    {
+      "id": "qst_0354",
+      "direction": "loss",
+      "question_category": "project_related",
+      "primary_diagnosis": "reading_answer_mixed",
+      "note": "审批手册已命中但只见4190:8190，关键批准人/10k或2%阈值在3115:3339，旧组read全文。final-success-only要求又已在新首轮事故片段3557:4101出现而未明确写出，属阅读与回答混合，不按缺4个参考ID机械算检索失败。",
+      "confidence": "high",
+      "old_correct": true,
+      "new_correct": false,
+      "old_facts_supported": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "new_facts_supported": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        false,
+        true,
+        true,
+        false,
+        false
+      ],
+      "old_reference_body_count": 5,
+      "new_reference_body_count": 4,
+      "reference_count": 8,
+      "old_model_calls": 4,
+      "new_model_calls": 8,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0354.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0354.json"
+      }
+    },
+    {
+      "id": "qst_0356",
+      "direction": "loss",
+      "question_category": "project_related",
+      "primary_diagnosis": "answer_selection",
+      "note": "虽然缺一份owner争议文档，但两项失分SLA都在已见matrix中；新答案甚至写出45分钟/3工作日，却优先推荐另一份60分钟/24小时政策。属证据冲突选择。",
+      "confidence": "medium",
+      "old_correct": true,
+      "new_correct": false,
+      "old_facts_supported": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "new_facts_supported": [
+        true,
+        true,
+        false,
+        false
+      ],
+      "old_reference_body_count": 4,
+      "new_reference_body_count": 3,
+      "reference_count": 4,
+      "old_model_calls": 8,
+      "new_model_calls": 10,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0356.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0356.json"
+      }
+    },
+    {
+      "id": "qst_0357",
+      "direction": "win",
+      "question_category": "project_related",
+      "primary_diagnosis": "judge_sensitive",
+      "note": "两组都明确验证org/entitlement/SKU维度映射，并把billing adjustments交给marketplace机制；新答案也未直接写credit/refund词。旧判漏两事实，新判全支持，主要为裁判语义尺度差异。",
+      "confidence": "medium",
+      "old_correct": false,
+      "new_correct": true,
+      "old_facts_supported": [
+        true,
+        true,
+        true,
+        false,
+        true,
+        false
+      ],
+      "new_facts_supported": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "old_reference_body_count": 2,
+      "new_reference_body_count": 3,
+      "reference_count": 3,
+      "old_model_calls": 7,
+      "new_model_calls": 9,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0357.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0357.json"
+      }
+    },
+    {
+      "id": "qst_0366",
+      "direction": "win",
+      "question_category": "project_related",
+      "primary_diagnosis": "answer_selection",
+      "note": "关键隔离与共享依赖证据两组均已见；新答案把routing isolation放在首位，改变旧答案shared dependencies first的优先级并改善表达。",
+      "confidence": "medium",
+      "old_correct": false,
+      "new_correct": true,
+      "old_facts_supported": [
+        false,
+        false,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "new_facts_supported": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "old_reference_body_count": 7,
+      "new_reference_body_count": 8,
+      "reference_count": 9,
+      "old_model_calls": 6,
+      "new_model_calls": 9,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0366.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0366.json"
+      }
+    },
+    {
+      "id": "qst_0380",
+      "direction": "win",
+      "question_category": "project_related",
+      "primary_diagnosis": "answer_selection",
+      "note": "旧组已见正确x-redwood-template-tags规范，却选择另一份X-Redwood-Template实现；新组正确选择目标KPI规范，属于证据选择改善。",
+      "confidence": "high",
+      "old_correct": false,
+      "new_correct": true,
+      "old_facts_supported": [
+        false,
+        false,
+        true,
+        true,
+        false
+      ],
+      "new_facts_supported": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "old_reference_body_count": 2,
+      "new_reference_body_count": 2,
+      "reference_count": 2,
+      "old_model_calls": 7,
+      "new_model_calls": 6,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0380.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0380.json"
+      }
+    },
+    {
+      "id": "qst_0399",
+      "direction": "win",
+      "question_category": "constrained",
+      "primary_diagnosis": "judge_sensitive",
+      "note": "两组都把TTL缩短列为follow-up；旧判为未实施而错，新判为包含follow-up而对，判分尺度改变。",
+      "confidence": "high",
+      "old_correct": false,
+      "new_correct": true,
+      "old_facts_supported": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        false,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "new_facts_supported": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "old_reference_body_count": 1,
+      "new_reference_body_count": 1,
+      "reference_count": 1,
+      "old_model_calls": 3,
+      "new_model_calls": 6,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0399.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0399.json"
+      }
+    },
+    {
+      "id": "qst_0414",
+      "direction": "win",
+      "question_category": "conflicting_info",
+      "primary_diagnosis": "judge_sensitive",
+      "note": "两组都说Sep1 correction、不是持续OOM，也都没明确复述旧OOM假设，旧错新对，属于判分敏感。",
+      "confidence": "medium",
+      "old_correct": false,
+      "new_correct": true,
+      "old_facts_supported": [
+        true,
+        true,
+        false,
+        true,
+        true
+      ],
+      "new_facts_supported": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "old_reference_body_count": 1,
+      "new_reference_body_count": 1,
+      "reference_count": 2,
+      "old_model_calls": 3,
+      "new_model_calls": 2,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0414.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0414.json"
+      }
+    },
+    {
+      "id": "qst_0421",
+      "direction": "loss",
+      "question_category": "conflicting_info",
+      "primary_diagnosis": "retrieval",
+      "note": "只取到旧协议180秒，未取到2025更新手册667:757明确120秒(原180)；原问题BM25排名1，实际首query目标排名8未返回。",
+      "confidence": "high",
+      "old_correct": true,
+      "new_correct": false,
+      "old_facts_supported": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "new_facts_supported": [
+        false,
+        false,
+        false,
+        true,
+        true,
+        true
+      ],
+      "old_reference_body_count": 2,
+      "new_reference_body_count": 1,
+      "reference_count": 2,
+      "old_model_calls": 3,
+      "new_model_calls": 2,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0421.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0421.json"
+      }
+    },
+    {
+      "id": "qst_0433",
+      "direction": "win",
+      "question_category": "completeness",
+      "primary_diagnosis": "judge_sensitive",
+      "note": "两组事实向量完全相同，缺少同三项细节；旧组判核心遗漏，新组视为非关键而判对。",
+      "confidence": "high",
+      "old_correct": false,
+      "new_correct": true,
+      "old_facts_supported": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        false,
+        true,
+        false,
+        true,
+        true,
+        true,
+        false
+      ],
+      "new_facts_supported": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        false,
+        true,
+        false,
+        true,
+        true,
+        true,
+        false
+      ],
+      "old_reference_body_count": 6,
+      "new_reference_body_count": 6,
+      "reference_count": 6,
+      "old_model_calls": 5,
+      "new_model_calls": 5,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0433.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0433.json"
+      }
+    },
+    {
+      "id": "qst_0442",
+      "direction": "loss",
+      "question_category": "completeness",
+      "primary_diagnosis": "judge_sensitive",
+      "note": "原文明确Prefer console-api first，与新答案一致；旧答案也写prefer，且同样没明说security-fix例外却获判对。全文已见，主要是参考/裁判约束不一致，不改分。",
+      "confidence": "medium",
+      "old_correct": true,
+      "new_correct": false,
+      "old_facts_supported": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        false,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "new_facts_supported": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        false,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        false,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "old_reference_body_count": 8,
+      "new_reference_body_count": 8,
+      "reference_count": 8,
+      "old_model_calls": 6,
+      "new_model_calls": 4,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0442.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0442.json"
+      }
+    },
+    {
+      "id": "qst_0471",
+      "direction": "win",
+      "question_category": "high_level",
+      "primary_diagnosis": "answer_selection",
+      "note": "旧组首搜已包含参考mission wording，但最终选了另一个mission版本；新组选择与参考一致的表述，属于已见来源选择（无参考ID题）。",
+      "confidence": "medium",
+      "old_correct": false,
+      "new_correct": true,
+      "old_facts_supported": [
+        false
+      ],
+      "new_facts_supported": [
+        true
+      ],
+      "old_reference_body_count": 0,
+      "new_reference_body_count": 0,
+      "reference_count": 0,
+      "old_model_calls": 3,
+      "new_model_calls": 3,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0471.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0471.json"
+      }
+    },
+    {
+      "id": "qst_0473",
+      "direction": "win",
+      "question_category": "high_level",
+      "primary_diagnosis": "answer_omission",
+      "note": "旧组观察已含air-gapped Private部署证据，但答案遗漏；新答案明确写出air-gapped，属于补全回答（无参考ID题）。",
+      "confidence": "high",
+      "old_correct": false,
+      "new_correct": true,
+      "old_facts_supported": [
+        false,
+        true,
+        true,
+        true
+      ],
+      "new_facts_supported": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "old_reference_body_count": 0,
+      "new_reference_body_count": 0,
+      "reference_count": 0,
+      "old_model_calls": 3,
+      "new_model_calls": 6,
+      "trace_paths": {
+        "old": "data/benchmarks/sota-20261014/enterprise-test/traces/qst_0473.json",
+        "new": "runs/bm25-unified-20261016/enterprise-test/traces/qst_0473.json"
+      }
+    }
+  ],
+  "verified_fact_spans": [
+    {
+      "id": "qst_0053",
+      "document_id": "dsid_87ef890a0795443bb74815e8a6378405",
+      "anchor": "drop route_id completely",
+      "anchor_span": [
+        3244,
+        3268
+      ],
+      "source_line_span": [
+        3209,
+        3347
+      ],
+      "source_line": "Logan Wright: agree w/ N=50. also: drop route_id completely if route_count exceeds cap and the system is in “cardinality protection mode”.",
+      "exposure": {
+        "old": [
+          {
+            "event_index": 3,
+            "model_turn": 2,
+            "tool": "read",
+            "returned_offset": 0,
+            "returned_end": 8850
+          }
+        ],
+        "new": [
+          {
+            "event_index": 9,
+            "model_turn": 4,
+            "tool": "search",
+            "returned_offset": 0,
+            "returned_end": 4000
+          }
+        ]
+      }
+    },
+    {
+      "id": "qst_0162",
+      "document_id": "dsid_a3fdfc45905f46f3988ad13f55ecce93",
+      "anchor": "Policy hot-reload mutates the route/priority indices",
+      "anchor_span": [
+        2924,
+        2976
+      ],
+      "source_line_span": [
+        2786,
+        3186
+      ],
+      "source_line": "Sticky-shard pointer (in-memory bucket reference) is validated only by shard id but not by tenant id during fast-path credit application. Policy hot-reload mutates the route/priority indices while a shard transfer copies pointers; combined these can produce a transient pointer that points at an unrelated tenant's bucket. Enforcement fast-path accepts the cache without full tenant-level validation.",
+      "exposure": {
+        "old": [
+          {
+            "event_index": 3,
+            "model_turn": 2,
+            "tool": "read",
+            "returned_offset": 0,
+            "returned_end": 4839
+          }
+        ],
+        "new": [
+          {
+            "event_index": 3,
+            "model_turn": 2,
+            "tool": "search",
+            "returned_offset": 30,
+            "returned_end": 4030
+          }
+        ]
+      }
+    },
+    {
+      "id": "qst_0196",
+      "document_id": "dsid_3413f1905a0740d88b66c196b54f4df5",
+      "anchor": "NF4 PTQ on 7B gives ~1.8x",
+      "anchor_span": [
+        125,
+        150
+      ],
+      "source_line_span": [
+        123,
+        256
+      ],
+      "source_line": "- NF4 PTQ on 7B gives ~1.8x token throughput improvement vs fp16 at batch=1 on A100, loss ~+0.6 ppl for story prompts (small sample).",
+      "exposure": {
+        "old": [
+          {
+            "event_index": 12,
+            "model_turn": 5,
+            "tool": "search",
+            "returned_offset": 0,
+            "returned_end": 4000
+          },
+          {
+            "event_index": 28,
+            "model_turn": 10,
+            "tool": "search",
+            "returned_offset": 0,
+            "returned_end": 4000
+          },
+          {
+            "event_index": 32,
+            "model_turn": 11,
+            "tool": "read",
+            "returned_offset": 0,
+            "returned_end": 4049
+          }
+        ],
+        "new": [
+          {
+            "event_index": 14,
+            "model_turn": 6,
+            "tool": "search",
+            "returned_offset": 0,
+            "returned_end": 4000
+          }
+        ]
+      }
+    },
+    {
+      "id": "qst_0269",
+      "document_id": "dsid_fad07fd45c964078ba757dfd8d79ee51",
+      "anchor": "UI must surface confirmation",
+      "anchor_span": [
+        2534,
+        2562
+      ],
+      "source_line_span": [
+        2465,
+        2596
+      ],
+      "source_line": "Security teams require audit logs for rollback and routing actions — UI must surface confirmation and note that actions are audited",
+      "exposure": {
+        "old": [
+          {
+            "event_index": 1,
+            "model_turn": 1,
+            "tool": "search",
+            "returned_offset": 0,
+            "returned_end": 4000
+          },
+          {
+            "event_index": 3,
+            "model_turn": 2,
+            "tool": "read",
+            "returned_offset": 0,
+            "returned_end": 5545
+          }
+        ],
+        "new": [
+          {
+            "event_index": 6,
+            "model_turn": 2,
+            "tool": "search",
+            "returned_offset": 0,
+            "returned_end": 4000
+          },
+          {
+            "event_index": 8,
+            "model_turn": 3,
+            "tool": "read",
+            "returned_offset": 0,
+            "returned_end": 5545
+          },
+          {
+            "event_index": 10,
+            "model_turn": 3,
+            "tool": "search",
+            "returned_offset": 1488,
+            "returned_end": 5488
+          }
+        ]
+      }
+    },
+    {
+      "id": "qst_0269",
+      "document_id": "dsid_fad07fd45c964078ba757dfd8d79ee51",
+      "anchor": "auto-expand up to 30 seconds",
+      "anchor_span": [
+        2266,
+        2294
+      ],
+      "source_line_span": [
+        2184,
+        2310
+      ],
+      "source_line": "Panel will default to collapsed in tenant overview; tenants with active incidents auto-expand up to 30 seconds after page load",
+      "exposure": {
+        "old": [
+          {
+            "event_index": 1,
+            "model_turn": 1,
+            "tool": "search",
+            "returned_offset": 0,
+            "returned_end": 4000
+          },
+          {
+            "event_index": 3,
+            "model_turn": 2,
+            "tool": "read",
+            "returned_offset": 0,
+            "returned_end": 5545
+          }
+        ],
+        "new": [
+          {
+            "event_index": 6,
+            "model_turn": 2,
+            "tool": "search",
+            "returned_offset": 0,
+            "returned_end": 4000
+          },
+          {
+            "event_index": 8,
+            "model_turn": 3,
+            "tool": "read",
+            "returned_offset": 0,
+            "returned_end": 5545
+          },
+          {
+            "event_index": 10,
+            "model_turn": 3,
+            "tool": "search",
+            "returned_offset": 1488,
+            "returned_end": 5488
+          }
+        ]
+      }
+    },
+    {
+      "id": "qst_0291",
+      "document_id": "dsid_38ddce87e36046df9749d9883dbfeeda",
+      "anchor": "Determinism: pinned prompt outputs",
+      "anchor_span": [
+        3101,
+        3135
+      ],
+      "source_line_span": [
+        3101,
+        3291
+      ],
+      "source_line": "Determinism: pinned prompt outputs stable across 3 cold-starts and 5 warm-starts (string-level equivalence for structured fields), except for explicit stochastic fields documented in prompts",
+      "exposure": {
+        "old": [
+          {
+            "event_index": 3,
+            "model_turn": 2,
+            "tool": "read",
+            "returned_offset": 0,
+            "returned_end": 6655
+          }
+        ],
+        "new": [
+          {
+            "event_index": 30,
+            "model_turn": 9,
+            "tool": "search",
+            "returned_offset": 1509,
+            "returned_end": 5509
+          }
+        ]
+      }
+    },
+    {
+      "id": "qst_0296",
+      "document_id": "dsid_0d7ec9095f1b41fba11cca1c8887bc2c",
+      "anchor": "Alan Eng: I can do a 2-min demo GIF",
+      "anchor_span": [
+        868,
+        903
+      ],
+      "source_line_span": [
+        868,
+        1024
+      ],
+      "source_line": "Alan Eng: I can do a 2-min demo GIF of the new onboarding dashboard (performance + user journeys) to put in the pack. Will need the account id to anonymize.",
+      "exposure": {
+        "old": [
+          {
+            "event_index": 15,
+            "model_turn": 7,
+            "tool": "search",
+            "returned_offset": 0,
+            "returned_end": 2712
+          },
+          {
+            "event_index": 18,
+            "model_turn": 8,
+            "tool": "read",
+            "returned_offset": 0,
+            "returned_end": 2712
+          },
+          {
+            "event_index": 22,
+            "model_turn": 9,
+            "tool": "search",
+            "returned_offset": 0,
+            "returned_end": 2712
+          }
+        ],
+        "new": [
+          {
+            "event_index": 35,
+            "model_turn": 11,
+            "tool": "search",
+            "returned_offset": 0,
+            "returned_end": 2712
+          }
+        ]
+      }
+    },
+    {
+      "id": "qst_0321",
+      "document_id": "dsid_6e44a32c61cb464cb7a702a8ddcf04b6",
+      "anchor": "deterministic by tenant hash",
+      "anchor_span": [
+        2790,
+        2818
+      ],
+      "source_line_span": [
+        2314,
+        2985
+      ],
+      "source_line": "High-level approach: 1) Define compact breadcrumb schema (string-safe, CSV-friendly for event streams). 2) Inject breadcrumb span/field from routing service at decision points; each hop appends a compact token describing node_id|policy|score|chosen_variant|latency_ms; hops concatenated in order. 3) Emit a final breadcrumb event to telemetry pipeline with decision_id and summary fields; include link to full trace/span ids. 4) Add sampling knobs in routing config (percent, deterministic by tenant hash) and retention tiering upstream. 5) Console: lightweight renderer that expands tokens into human labels and maps chosen_variant IDs to model names via catalog lookup.",
+      "exposure": {
+        "old": [
+          {
+            "event_index": 1,
+            "model_turn": 1,
+            "tool": "search",
+            "returned_offset": 1080,
+            "returned_end": 5080
+          }
+        ],
+        "new": [
+          {
+            "event_index": 1,
+            "model_turn": 1,
+            "tool": "search",
+            "returned_offset": 0,
+            "returned_end": 4000
+          }
+        ]
+      }
+    },
+    {
+      "id": "qst_0344",
+      "document_id": "dsid_a5a5235d973e421c870e11ceea4887ed",
+      "anchor": "For customer reporting, use finalized",
+      "anchor_span": [
+        2851,
+        2888
+      ],
+      "source_line_span": [
+        2849,
+        2952
+      ],
+      "source_line": "- For customer reporting, use finalized completion token metrics (request end) for streaming workloads:",
+      "exposure": {
+        "old": [
+          {
+            "event_index": 1,
+            "model_turn": 1,
+            "tool": "search",
+            "returned_offset": 153,
+            "returned_end": 4153
+          },
+          {
+            "event_index": 4,
+            "model_turn": 2,
+            "tool": "read",
+            "returned_offset": 0,
+            "returned_end": 6106
+          },
+          {
+            "event_index": 5,
+            "model_turn": 2,
+            "tool": "search",
+            "returned_offset": 1487,
+            "returned_end": 5487
+          },
+          {
+            "event_index": 15,
+            "model_turn": 5,
+            "tool": "search",
+            "returned_offset": 1487,
+            "returned_end": 5487
+          }
+        ],
+        "new": [
+          {
+            "event_index": 1,
+            "model_turn": 1,
+            "tool": "search",
+            "returned_offset": 2106,
+            "returned_end": 6106
+          },
+          {
+            "event_index": 5,
+            "model_turn": 2,
+            "tool": "search",
+            "returned_offset": 2106,
+            "returned_end": 6106
+          },
+          {
+            "event_index": 6,
+            "model_turn": 2,
+            "tool": "read",
+            "returned_offset": 0,
+            "returned_end": 6106
+          }
+        ]
+      }
+    },
+    {
+      "id": "qst_0344",
+      "document_id": "dsid_409618a3958944f9b78362ed7e01bb33",
+      "anchor": "CS communicates outcome to customer",
+      "anchor_span": [
+        12877,
+        12912
+      ],
+      "source_line_span": [
+        12874,
+        12913
+      ],
+      "source_line": "6) CS communicates outcome to customer.",
+      "exposure": {
+        "old": [
+          {
+            "event_index": 11,
+            "model_turn": 4,
+            "tool": "read",
+            "returned_offset": 0,
+            "returned_end": 15156
+          }
+        ],
+        "new": [
+          {
+            "event_index": 8,
+            "model_turn": 3,
+            "tool": "search",
+            "returned_offset": 11156,
+            "returned_end": 15156
+          },
+          {
+            "event_index": 23,
+            "model_turn": 6,
+            "tool": "read",
+            "returned_offset": 11500,
+            "returned_end": 14300
+          }
+        ]
+      }
+    },
+    {
+      "id": "qst_0349",
+      "document_id": "dsid_44cf2d75d70d4365914aa46947a94b1d",
+      "anchor": "Make the server-side emission the single source",
+      "anchor_span": [
+        854,
+        901
+      ],
+      "source_line_span": [
+        852,
+        934
+      ],
+      "source_line": "- Make the server-side emission the single source of truth for `signup_completed`.",
+      "exposure": {
+        "old": [
+          {
+            "event_index": 7,
+            "model_turn": 3,
+            "tool": "search",
+            "returned_offset": 0,
+            "returned_end": 4000
+          },
+          {
+            "event_index": 11,
+            "model_turn": 4,
+            "tool": "read",
+            "returned_offset": 0,
+            "returned_end": 4734
+          }
+        ],
+        "new": []
+      }
+    },
+    {
+      "id": "qst_0349",
+      "document_id": "dsid_21d6b99dc771418287d61444f373852e",
+      "anchor": "config change + restart",
+      "anchor_span": [
+        3855,
+        3878
+      ],
+      "source_line_span": [
+        3850,
+        3896
+      ],
+      "source_line": "ETA: config change + restart within 2–3 hours.",
+      "exposure": {
+        "old": [
+          {
+            "event_index": 1,
+            "model_turn": 1,
+            "tool": "search",
+            "returned_offset": 1549,
+            "returned_end": 5549
+          },
+          {
+            "event_index": 4,
+            "model_turn": 2,
+            "tool": "read",
+            "returned_offset": 0,
+            "returned_end": 6015
+          },
+          {
+            "event_index": 5,
+            "model_turn": 2,
+            "tool": "search",
+            "returned_offset": 1549,
+            "returned_end": 5549
+          },
+          {
+            "event_index": 8,
+            "model_turn": 3,
+            "tool": "search",
+            "returned_offset": 1549,
+            "returned_end": 5549
+          }
+        ],
+        "new": [
+          {
+            "event_index": 1,
+            "model_turn": 1,
+            "tool": "search",
+            "returned_offset": 0,
+            "returned_end": 4000
+          },
+          {
+            "event_index": 4,
+            "model_turn": 2,
+            "tool": "read",
+            "returned_offset": 0,
+            "returned_end": 6015
+          },
+          {
+            "event_index": 8,
+            "model_turn": 3,
+            "tool": "search",
+            "returned_offset": 181,
+            "returned_end": 4181
+          }
+        ]
+      }
+    },
+    {
+      "id": "qst_0354",
+      "document_id": "dsid_602422b841b94f5c8089555015df0ed8",
+      "anchor": "Any retroactive change to ledger totals",
+      "anchor_span": [
+        3117,
+        3156
+      ],
+      "source_line_span": [
+        3115,
+        3232
+      ],
+      "source_line": "| Any retroactive change to ledger totals for a closed/issued invoice | Laura Bennett + Emily Stone + Michael Grant |",
+      "exposure": {
+        "old": [
+          {
+            "event_index": 3,
+            "model_turn": 2,
+            "tool": "read",
+            "returned_offset": 0,
+            "returned_end": 16000
+          }
+        ],
+        "new": []
+      }
+    },
+    {
+      "id": "qst_0354",
+      "document_id": "dsid_602422b841b94f5c8089555015df0ed8",
+      "anchor": "Customer credit/refund due to metering error",
+      "anchor_span": [
+        3235,
+        3279
+      ],
+      "source_line_span": [
+        3233,
+        3339
+      ],
+      "source_line": "| Customer credit/refund due to metering error (>$10k or >2% of invoice) | Laura Bennett + Michael Grant |",
+      "exposure": {
+        "old": [
+          {
+            "event_index": 3,
+            "model_turn": 2,
+            "tool": "read",
+            "returned_offset": 0,
+            "returned_end": 16000
+          }
+        ],
+        "new": []
+      }
+    },
+    {
+      "id": "qst_0354",
+      "document_id": "dsid_2f1f0358b85148f19d38f619891bfb15",
+      "anchor": "ensure the final successful attempt is the only billable",
+      "anchor_span": [
+        4020,
+        4076
+      ],
+      "source_line_span": [
+        3557,
+        4101
+      ],
+      "source_line": "2026-02-09 08:06 PT — Cole Summers (Billing Hooks) — Root cause found: on stream retry/fallback, we emit a usage event on the first attempt when the stream aborts, then emit another usage event on the retry attempt. Downstream billing aggregation does not enforce \"single billable event per (account_id, idempotency_key, api_operation)\" and treats both as billable. We should mark the first attempt as non-billable (or billable=false, attempt_status=aborted) and ensure the final successful attempt is the only billable event under idempotency.",
+      "exposure": {
+        "old": [
+          {
+            "event_index": 1,
+            "model_turn": 1,
+            "tool": "search",
+            "returned_offset": 3448,
+            "returned_end": 7448
+          }
+        ],
+        "new": [
+          {
+            "event_index": 1,
+            "model_turn": 1,
+            "tool": "search",
+            "returned_offset": 3448,
+            "returned_end": 7448
+          }
+        ]
+      }
+    },
+    {
+      "id": "qst_0356",
+      "document_id": "dsid_5217b3a64c4a433c89ba2a3186dea82a",
+      "anchor": "TTM 45 min, TTF 3 business days",
+      "anchor_span": [
+        13970,
+        14001
+      ],
+      "source_line_span": [
+        13936,
+        14004
+      ],
+      "source_line": "- SLA (Dedicated Sev1 typical): **TTM 45 min, TTF 3 business days**.",
+      "exposure": {
+        "old": [
+          {
+            "event_index": 4,
+            "model_turn": 2,
+            "tool": "read",
+            "returned_offset": 3500,
+            "returned_end": 14900
+          }
+        ],
+        "new": [
+          {
+            "event_index": 5,
+            "model_turn": 2,
+            "tool": "read",
+            "returned_offset": 0,
+            "returned_end": 14900
+          }
+        ]
+      }
+    },
+    {
+      "id": "qst_0421",
+      "document_id": "dsid_9f2e6aa7f6c14b1db1c6f922a1d4b4d7",
+      "anchor": "Handshake tokens now default to TTL 120",
+      "anchor_span": [
+        669,
+        708
+      ],
+      "source_line_span": [
+        667,
+        757
+      ],
+      "source_line": "- Handshake tokens now default to TTL 120 seconds (was 180s) due to replay-risk hardening.",
+      "exposure": {
+        "old": [
+          {
+            "event_index": 1,
+            "model_turn": 1,
+            "tool": "search",
+            "returned_offset": 0,
+            "returned_end": 4000
+          },
+          {
+            "event_index": 3,
+            "model_turn": 2,
+            "tool": "read",
+            "returned_offset": 0,
+            "returned_end": 4000
+          }
+        ],
+        "new": []
+      }
+    },
+    {
+      "id": "qst_0442",
+      "document_id": "dsid_2db615f2f6f14cbfae67c62b3c976b27",
+      "anchor": "Prefer: deploy console-api first",
+      "anchor_span": [
+        766,
+        798
+      ],
+      "source_line_span": [
+        764,
+        817
+      ],
+      "source_line": "* Prefer: deploy console-api first, then console-web.",
+      "exposure": {
+        "old": [
+          {
+            "event_index": 1,
+            "model_turn": 1,
+            "tool": "search",
+            "returned_offset": 0,
+            "returned_end": 2691
+          },
+          {
+            "event_index": 8,
+            "model_turn": 3,
+            "tool": "read",
+            "returned_offset": 0,
+            "returned_end": 2691
+          }
+        ],
+        "new": [
+          {
+            "event_index": 4,
+            "model_turn": 2,
+            "tool": "search",
+            "returned_offset": 0,
+            "returned_end": 2691
+          }
+        ]
+      }
+    }
+  ],
+  "sources": {
+    "old_summary": {
+      "path": "data/benchmarks/sota-20261014/enterprise-test/summary.json",
+      "sha256": "41dc9fc65dc1cdbb21650f8bf1bc52a5a02c4b7b7cd34b81525bb9888c292e96"
+    },
+    "new_summary": {
+      "path": "runs/bm25-unified-20261016/enterprise-test/summary.json",
+      "sha256": "584f1f184817c47881a6719a7aae4bdd5640ec3204a3ed408042ea69e92df3a6"
+    },
+    "corpus": "data/benchmarks/enterprise/corpus.sqlite",
+    "question_file": "data/benchmarks/enterprise/test.json",
+    "duplicate_aliases": "data/benchmarks/enterprise/duplicate-id-aliases.json",
+    "private_audit": "runs/bm25-unified-20261016/diagnosis/"
+  }
+}

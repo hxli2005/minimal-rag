@@ -1,0 +1,35 @@
+{
+  "model_calls": 0,
+  "kind": "retrospective_original_character_exposure",
+  "groups": {
+    "dev_wrong": {
+      "n": 22,
+      "all_reference_seen_failed": 10,
+      "all_reference_fully_exposed_failed": 3,
+      "median_minimum_character_fraction_when_all_ids_seen": 0.918279942446597,
+      "mismatched_source_slices": 0,
+      "alias_text_variant_slices": 1
+    },
+    "cdl_losses": {
+      "n": 48,
+      "all_reference_seen_failed": 21,
+      "all_reference_fully_exposed_failed": 12,
+      "median_minimum_character_fraction_when_all_ids_seen": 1.0,
+      "mismatched_source_slices": 0,
+      "alias_text_variant_slices": 0
+    }
+  },
+  "limitations": [
+    "Fraction of document characters is not fraction of answer facts covered.",
+    "Full document exposure does not prove attention, reasoning or correct interpretation.",
+    "Reference IDs are fixed historical labels; alternative legitimate evidence is not excluded."
+  ],
+  "source": {
+    "path": "runs/overnight-20261012/exposure-audit.json",
+    "sha256": "f4e710e4eb54d288a082126dc0f8a4ae9d8688d33947e96ed791b5be9b02b7cb"
+  },
+  "raw_detail": {
+    "path": "runs/evidence/exposure-audit-20261012.json",
+    "sha256": "a44b70da6381ab9fe65f79ae2b1f033ede9049a1e6ba5a3cbfb910130f2023fc"
+  }
+}

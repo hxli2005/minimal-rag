@@ -1,0 +1,21 @@
+{
+  "version": "v1",
+  "parent": "v0",
+  "benefit": "Simpler shared current core and BM25 assembly",
+  "reuse": {
+    "browsecomp_dev": "data/benchmarks/browsecomp-plus/full-20261015/A-lean"
+  },
+  "enterprise": {
+    "adapter": "current",
+    "retrieval": "bm25",
+    "excerpt_chars": 800,
+    "variant": "v6-e800"
+  },
+  "browsecomp": {
+    "adapter": "current",
+    "retrieval": "bm25",
+    "excerpt_chars": 800
+  },
+  "expected_requests": 2750,
+  "expected_seconds": 4800
+}

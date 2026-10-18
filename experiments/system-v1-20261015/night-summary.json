@@ -1,0 +1,295 @@
+{
+  "night_plan": {
+    "night_id": "20261015T102540",
+    "start_at": "2026-10-15T10:25:40-07:00",
+    "deadline_at": "2026-10-15T18:25:40-07:00",
+    "timezone": "America/Los_Angeles",
+    "start_commit": "0251d06f241a84a204a434fe1549e01ac1964eff",
+    "branch": "codex/standalone-rag",
+    "night_anchor": "v0",
+    "initial_current_best": "v0",
+    "sol_limit": 10000,
+    "exploration_limit": 9000,
+    "cleanup_reserve": 1000,
+    "max_candidates": 3,
+    "stage_limits": {
+      "panel": 600,
+      "dev": 1400,
+      "test": 2800,
+      "attribution": 700,
+      "finance": 500,
+      "hotpot": 0
+    },
+    "generation_concurrency": 5,
+    "judge_concurrency": 1,
+    "no_new_candidate_minutes": 90,
+    "no_new_generation_minutes": 30,
+    "bootstrap_samples": 10000,
+    "bootstrap_seed": 20261016,
+    "primary_benchmarks": [
+      "enterprise",
+      "browsecomp"
+    ],
+    "sample_sizes": {
+      "panel": 60,
+      "dev": 200,
+      "test": 400
+    },
+    "anchor_sources": {
+      "enterprise_dev": "data/benchmarks/sota-20261014/enterprise-dev",
+      "enterprise_test": "data/benchmarks/sota-20261014/enterprise-test",
+      "browsecomp": "data/benchmarks/browsecomp-plus/full-20261015/A"
+    },
+    "post_final_sol_limit": 7000
+  },
+  "state": {
+    "status": "frozen",
+    "night_anchor": "v0",
+    "current_best": "v3",
+    "candidates": [
+      {
+        "version": "v1",
+        "parent": "v0",
+        "status": "rejected",
+        "started": "2026-10-15T10:38:46.816782-07:00",
+        "reason": "dev_gate",
+        "ended": "2026-10-15T10:56:30.310232-07:00"
+      },
+      {
+        "version": "v2",
+        "parent": "v0",
+        "status": "rejected",
+        "started": "2026-10-15T10:59:58.281744-07:00",
+        "reason": "panel_gate",
+        "ended": "2026-10-15T11:06:44.550508-07:00"
+      },
+      {
+        "version": "v3",
+        "parent": "v0",
+        "status": "adopted",
+        "started": "2026-10-15T11:10:52.778586-07:00",
+        "reason": "explicit_user_acceptance_after_review",
+        "ended": "2026-10-15T11:41:02.332726-07:00",
+        "original_status": "rejected",
+        "original_reason": "dev_gate",
+        "decision_at": "2026-10-15T19:12:03.967358-07:00",
+        "decision_record": "experiments/system-v3-20261015/adoption.json"
+      }
+    ],
+    "automation_id": "automation",
+    "updated": "2026-10-15T19:12:03.967358-07:00",
+    "active_candidate": null,
+    "pid": 56030,
+    "stage": null,
+    "final_version": "v3",
+    "freeze_at": "2026-10-15T11:43:12.353814-07:00",
+    "stop_reason": "candidate_limit",
+    "final_counts": {
+      "total": 1340,
+      "exploration": 1340,
+      "openrouter": 0
+    },
+    "finance_status": "not_run_for_v3_no_new_experiments",
+    "hotpot_requests": 0,
+    "post_final_status": "completed",
+    "automation_status": "PAUSED",
+    "gpu_active": false,
+    "final_report": "experiments/reports/system-nightly-20261015T102540.md",
+    "original_frozen_selection": {
+      "version": "v0",
+      "freeze_at": "2026-10-15T11:43:12.353814-07:00",
+      "reason": "candidate_limit"
+    },
+    "selection_decision": "experiments/system-v3-20261015/adoption.json",
+    "selection_decided_at": "2026-10-15T19:12:03.967358-07:00",
+    "original_finance_status": "skipped_final_equals_anchor"
+  },
+  "by_candidate": {
+    "v1": {
+      "roles": {
+        "generation": 587,
+        "judge": 99
+      },
+      "stages": {
+        "panel": 193,
+        "dev": 493
+      },
+      "requests": 686
+    },
+    "v2": {
+      "roles": {
+        "generation": 107,
+        "judge": 30
+      },
+      "stages": {
+        "panel": 137
+      },
+      "requests": 137
+    },
+    "v3": {
+      "roles": {
+        "generation": 417,
+        "judge": 100
+      },
+      "stages": {
+        "panel": 148,
+        "dev": 369
+      },
+      "requests": 517
+    }
+  },
+  "final_primary": {
+    "enterprise_dev": 82,
+    "enterprise_test": null,
+    "browsecomp_dev": 93,
+    "browsecomp_full_proxy_percent": 92.65,
+    "version": "v3",
+    "enterprise_test_status": "not_run_for_v3",
+    "browsecomp_result_source": "unchanged A configuration; reused existing answers"
+  },
+  "scoring": "Local sol judge for Enterprise; frozen proxy Qwen/DeepInfra fp8 for BrowseComp selection. Official BF16 A result is in post_final; it does not overwrite frozen gate scores.",
+  "new_experiment_usage": {
+    "per_candidate": {
+      "v1": {
+        "generation": {
+          "calls": 587,
+          "missing_usage": 1,
+          "cache_write_input_tokens": 0,
+          "cached_input_tokens": 7707392,
+          "input_tokens": 11438494,
+          "output_tokens": 73609,
+          "reasoning_output_tokens": 9205,
+          "total_tokens": 11512103
+        },
+        "judge": {
+          "calls": 99,
+          "missing_usage": 0,
+          "cache_write_input_tokens": 0,
+          "cached_input_tokens": 76032,
+          "input_tokens": 434959,
+          "output_tokens": 12594,
+          "reasoning_output_tokens": 5213,
+          "total_tokens": 447553
+        }
+      },
+      "v2": {
+        "generation": {
+          "calls": 107,
+          "missing_usage": 0,
+          "cache_write_input_tokens": 0,
+          "cached_input_tokens": 857728,
+          "input_tokens": 1449410,
+          "output_tokens": 15289,
+          "reasoning_output_tokens": 2457,
+          "total_tokens": 1464699
+        },
+        "judge": {
+          "calls": 30,
+          "missing_usage": 0,
+          "cache_write_input_tokens": 0,
+          "cached_input_tokens": 47872,
+          "input_tokens": 131807,
+          "output_tokens": 3859,
+          "reasoning_output_tokens": 1728,
+          "total_tokens": 135666
+        }
+      },
+      "v3": {
+        "generation": {
+          "calls": 417,
+          "missing_usage": 0,
+          "cache_write_input_tokens": 0,
+          "cached_input_tokens": 6822144,
+          "input_tokens": 9948211,
+          "output_tokens": 57182,
+          "reasoning_output_tokens": 8362,
+          "total_tokens": 10005393
+        },
+        "judge": {
+          "calls": 100,
+          "missing_usage": 0,
+          "cache_write_input_tokens": 0,
+          "cached_input_tokens": 152064,
+          "input_tokens": 439027,
+          "output_tokens": 13158,
+          "reasoning_output_tokens": 5853,
+          "total_tokens": 452185
+        }
+      }
+    },
+    "total_recorded": {
+      "calls": 1340,
+      "missing_usage": 1,
+      "input_tokens": 23841908,
+      "cached_input_tokens": 15663232,
+      "output_tokens": 175691,
+      "reasoning_output_tokens": 32818,
+      "total_tokens": 24017599,
+      "uncached_input_tokens": 8178676
+    },
+    "boundary": "Includes new generation and judge attempts only; excludes reused historical results and outer Codex chat; missing usage is not zero."
+  },
+  "post_final": {
+    "selected": "v0/A",
+    "official_BrowseComp_accuracy_percent": 93.01,
+    "official_A_correct": 772,
+    "official_A_n": 830,
+    "new_sol_requests": 0,
+    "gpu_stopped": true,
+    "private_payload_removed": true,
+    "paid_storage_gb": 0,
+    "automation_paused": true,
+    "bill_status": "pending_daily_settlement",
+    "report": "experiments/reports/browsecomp-final-20261015.md",
+    "selection_at_scoring": "v0/A; later v3 adoption changes only the Enterprise adapter, not the A configuration or answers"
+  },
+  "selection_decision": {
+    "version": "v3",
+    "status": "adopted",
+    "decision_basis": "explicit_user_acceptance_after_review",
+    "decided_at": "2026-10-15T19:12:03.967358-07:00",
+    "user_instruction": "v3可以通过，之前标准太严",
+    "previous_selection": "v0",
+    "current_best": "v3",
+    "night_anchor": "v0",
+    "scope": "Accept v3 as the current system and next optimization baseline; no new experiment or automation restart.",
+    "configuration": "experiments/system-v1-20261015/v3.json",
+    "original_dev_gate": "experiments/system-v1-20261015/v3-dev-gate.json",
+    "original_gate_passed": false,
+    "evidence": {
+      "enterprise_dev_correct": 82,
+      "enterprise_dev_n": 100,
+      "baseline_enterprise_dev_correct": 83,
+      "paired_wins": 3,
+      "paired_losses": 4,
+      "combined_delta_pp": -0.5,
+      "combined_bootstrap_95_pp": [
+        -3,
+        2
+      ],
+      "enterprise_uncached": 3126067,
+      "baseline_enterprise_uncached": 2988999,
+      "enterprise_missing_usage": 0,
+      "benefit": "Both primary benchmarks use the current adapter; Enterprise no longer restores the historical adapter."
+    },
+    "boundaries": {
+      "enterprise_test400": "not_run_for_v3",
+      "historical_enterprise_test400": {
+        "version": "v0",
+        "correct": 324,
+        "n": 400
+      },
+      "browsecomp": "Same A configuration and reused answers as v0; existing official result remains attributed to A.",
+      "original_cost_gate": "undetermined; unchanged",
+      "global_numeric_gate_change": null,
+      "future_new_experiments_authorized": false
+    },
+    "new_model_requests": 0
+  },
+  "original_final_primary": {
+    "enterprise_dev": 83,
+    "enterprise_test": 324,
+    "browsecomp_dev": 93,
+    "browsecomp_full_proxy_percent": 92.65
+  }
+}

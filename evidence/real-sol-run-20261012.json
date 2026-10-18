@@ -1,0 +1,33 @@
+{
+  "date": "2026-10-12",
+  "kind": "actual_model_run_example_not_benchmark_score",
+  "model": "gpt-6.1-sol",
+  "result": {
+    "status": "finished",
+    "sources": [
+      "dsid_c83811391709468fa9534e6495c205e3"
+    ]
+  },
+  "generation_calls": 3,
+  "judge_calls": 1,
+  "generation_usage": {
+    "cache_write_input_tokens": 0,
+    "cached_input_tokens": 0,
+    "input_tokens": 28880,
+    "output_tokens": 261,
+    "reasoning_output_tokens": 0,
+    "total_tokens": 29141
+  },
+  "source": {
+    "path": "runs/overnight-20261012/results/enterprise/agent/qst_0105.json",
+    "sha256": "3e4922f46ec6447cde6a05fece1c5b32e36cdb8b75001d2a86a33c875b660df9"
+  },
+  "limitations": [
+    "One known dev example, different generation budgets, no overall superiority or SOTA claim.",
+    "Synthetic enterprise documents, draft proposed policy."
+  ],
+  "raw_detail": {
+    "path": "runs/evidence/real-sol-run-20261012.json",
+    "sha256": "86267003707521fa6d04e3fa428dbdda3d256e902185c5ad568941781ac05887"
+  }
+}

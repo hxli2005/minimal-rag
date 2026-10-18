@@ -1,0 +1,59 @@
+# 冒烟与冻结记录
+
+- 2026-10-14：按本轮监督者指令只执行冒烟与冻结，正式运行留待后续；本轮指令覆盖 brief 中自动启动夜间正式运行的安排。
+- 2026-10-14：已核实分支为 codex/standalone-rag 且起始工作区干净；原始产物写入 data/benchmarks/sota-20261014/，只提交实验脚本、核对摘要及冻结配置。
+- 2026-10-14：依次前台执行 Enterprise dev 前 3 题、FinanceBench dev 前 2 题、HotpotQA dev 前 2 题；若 sol 调用受沙箱网络阻断，立即停止且不绕过。
+- 2026-10-14：Enterprise 使用 brief 参数及 --concurrency 3 --limit 3 启动，本地三个检索模型加载完成，已生成 smoke-enterprise/config.json 与 code.json。
+- 2026-10-14：Enterprise 在 rag_optimization_eval.py:261 的 AsyncCodex 初始化阶段退出（exit 1）：openai_codex.errors.TransportClosedError: Codex process closed stdout；stderr 含 could not create PATH aliases: Operation not permitted (os error 1)、用户配置 network is ignored，以及 Error: Operation not permitted (os error 1)；尚未进入 account、题目生成或裁判，不能将此认定为网络故障。
+- 2026-10-14：鉴于 SDK 被本地权限阻断，按不绕过沙箱的要求停止；不改 CODEX_HOME、不重试、不启动 FinanceBench/HotpotQA 或正式运行；保留失败记录供监督者判断。
+- 2026-10-14：本阶段未完成，配置 diff 脚本、count_requests.py、frozen.json 和冻结 commit 均未制作；不把未经冒烟验证的系统标为已冻结，核心、检索、提示与裁判代码均未修改。
+- 2026-10-14：监督者接管外部在线运行，本轮仅完成离线工具与 pending_smoke 草案，明确不运行 runner.main、不初始化 SDK、不 commit；前述未制作状态由本轮离线产物更新。
+- 2026-10-14：runner 没有独立配置构造函数，因此 generate_config_only.py 通过 AST 复用 main 中构造 config 的原代码及原 argparse，截断在 config_path 赋值前并移除 AsyncCodex 导入；不复制另一套配置、不加载模型。
+- 2026-10-14：FinanceBench dev 前 2 题配置已写入 smoke-financebench-config-only/config.json；离线提取生成的 Enterprise/HotpotQA 配置分别与监督者保留的 sandbox-blocked/config.json 全字段相等，验证提取边界正确。
+- 2026-10-14：配置核对允许生成 model、映射后等价的路径、经本地题集验证的 dev 前缀或完整 test 范围，以及 brief 明定的并发；源码 SHA 差异不自动豁免，以免把现有实现变化藏在目录迁移中。
+- 2026-10-14：三个基准检索参数（含模型 id/revision、candidates/rerank、preview/prefilter）、系统提示、格式提示、裁判提示及 kernel_sha256 全部一致；Enterprise 有 7 项不允许的源码指纹差异，FinanceBench/HotpotQA 各有 5 项，完整清单保存在 config-diff-*.json。
+- 2026-10-14：源码快照抽查显示 fusion/preview/cascade 的差异仅为 import 路径，但 agent/retriever/hybrid 存在拆分或作用域检索等实现变化；本轮不改业务代码、不豁免指纹差异，留监督者裁决。
+- 2026-10-14：count_requests.py 从 traces/*.json 的 model_runs 与全部 judge_attempts[*].runs 计数（包含失败、重试及已落盘 started），仅在缺失 judge_attempts 时回退 judge_runs，避免重复累加成功裁判。
+- 2026-10-14：完成题数要求生成 finished 且已有裁判或 EM/F1；基础设施失败题数指仍未恢复的异常题，另报曾发生异常的题数和工具错误，超时单独计数；未完成题保留在 requested 分母。
+- 2026-10-14：历史 Enterprise 自检为完成 400、正确 311、生成 1796、裁判 400、总请求 2196；生成来自 astra，因此实际 sol 请求为 400，基础设施失败/超时 0，另有 2 题发生后已恢复的工具异常。
+- 2026-10-14：请求统计只覆盖应用层已持久化尝试；SDK 内部 HTTP 重试和尚未落盘的在途调用不在 trace 中，运行中读数是下界，不虚报精确底层请求预算。
+- 2026-10-14：compare.py 直接复用 compare_rag_holdout.paired（10000 次、seed 20261012），要求完整且相同题目集合；召回缺失值逐对排除并报告有效分母，Enterprise 按题型重复配对统计。
+- 2026-10-14：Enterprise vs CDL 离线自检精确复现 311/400 vs 346/400、差 -8.75 pp、95% 区间 [-12.5,-5.0] pp、胜/负/平 13/48/339；平均生成 4.49，生成输入 token 53049193。
+- 2026-10-14：frozen.json 仅为 pending_smoke 草案，保存 E-dev/H-test/F-test/E-test 完整命令、预算、顺序与 E-test 门槛；配置不允许项仍阻塞冻结，在线冒烟由监督者执行。
+- 2026-10-14：发现 brief 的“限流后并发减半并 --resume”与 runner 全字段 config 相等检查冲突；只记入 docs/issues.md 与冻结草案，不改 runner，不转去处理恢复实现。
+- 2026-10-14：四条正式命令通过离线配置构造校验，题数分别为 100/100/100/400，并发为 3/2/2/3，三个 test 均为 known_regression 且无 limit；未执行任何命令中的 runner。
+- 2026-10-14：额外用历史 FinanceBench/HotpotQA 验证统计字段，分别复现 81/100 和 EM 0.78/F1 0.871；本轮四个 Python 脚本编译通过，git diff --check 通过，未新建测试套件。
+- 2026-10-14：收尾发现工作区并行新增 freeze.py、run_frozen.py、start_run.py、summarize.py；它们不属于本轮离线改动，保持原样，不执行、不提交。
+- 2026-10-14：最终校验时并行流程已归档本轮 pending_smoke 草案至 data/benchmarks/sota-20261014/offline-draft/frozen.json，并用外部三项冒烟及 run_frozen.py 历史快照装配结果替换 experiments/sota-20261014/frozen.json；归档草案的状态与四条原生命令已核实，保留新版不覆盖，本轮 7/5/5 差异清单仅针对原生 runner 的 sandbox-blocked/config-only 配置。
+
+- 2026-10-14：当前用户明确授权执行 brief 至全部交付，覆盖此前只做冒烟的旧安排；当前执行权限为 unrestricted/never，按原命令重试 SDK，不更换 CODEX_HOME。
+- 2026-10-14：断点盘点仅有两个 sandbox-blocked 配置目录、没有题目轨迹与活动进程；保留旧目录，新冒烟使用 smoke-enterprise、smoke-financebench、smoke-hotpotqa，因此没有重跑已完成题。
+- 2026-10-14：核对以提示、裁判提示、检索参数及模型 revision 为准；源码重构造成的 hash 差异另作源码 diff 审核，不把历史目录迁移误判为参数改变。若有不能恢复的行为差异，停止对应基准。
+- 2026-10-14：源码核对确认当前适配器增加 final_response_required，属于真实提示变化；新 run_frozen.py 从对应历史 code.json 装配 transport/retriever/hybrid，仅迁移 import 和路径，继续调用指定 rag_optimization_eval；src 核心不改。三套历史适配器一致，当前 run_agent 与历史 AST 完全相同。Finance/Hotpot 的历史 hybrid 也按各自快照恢复（Enterprise 多了线程锁）。
+- 2026-10-14：首个 shell 后台启动进程在写出任何配置前消失，log 为空、无请求证据；改用 Popen(start_new_session=True) 执行 nohup 保持脱离终端，不改变实验参数。
+- 2026-10-14：官方 HotpotQA 页面当前 distractor 第一行 Beam Retrieval（2023-08-07），Answer EM 72.69 / F1 85.04；URL https://hotpotqa.github.io/，仅作不同测试集量级参照。
+- 2026-10-14：历史装配 Enterprise 已生成 3/3（各 2、3、3 次调用），无错误且观察文档召回均 1.0；启动 FinanceBench/HotpotQA 各 2 题冒烟，等待全部裁判或 EM 后冻结。
+- 2026-10-14：请求预算采用 runner 的外层 SDK 调用数，失败及所有 judge_attempts 均计入且不重复计算 judge_runs；底层服务内部 HTTP 重试不可见，报告明确此边界。轮询脚本只读统计，不加入预算包装层。
+- 2026-10-14：用户补充总目标是把项目整体做强（评测、极简架构与实现均重要）；本轮仍先交付冻结实验，不中途扩题或调参，后续取舍依据实测质量与复杂度收益。
+- 2026-10-14：E-dev 正式运行将复用同配置已完成的 3 道冒烟轨迹及首次裁判，不重复生成；其 11 次请求计入 E-dev 预算。Finance/Hotpot 冒烟属 dev，与 test 不重叠。
+- 2026-10-14 10:26 PDT：全部在线冒烟通过：Enterprise 3/3 正确、11 次请求；FinanceBench 2/2 完成、8 次请求；HotpotQA 2/2 完成、6 次请求；无基础设施失败。
+- 2026-10-14 10:26 PDT：同目录出现离线准备草案（pending_smoke）及旧 blocked-config 检查；已逐项审核并采用更完整的 count_requests.py，其余草案保留到 data/benchmarks/sota-20261014/offline-draft，正式 frozen.json 以已完成在线冒烟和恢复历史装配后的核对为准。
+- 2026-10-14 10:27 PDT：冻结提交 7b31397 完成；E-dev 与 H-test 已 nohup 脱离终端启动（PID 425/426），E-dev 复用 3 道冒烟；下一次正式轮询不早于 10:32 PDT。
+- 2026-10-14 10:38 PDT：H-test 100/100 完成，EM75.0/F1 86.7333，229 次生成、0 裁判、输入1,160,612；不达78/87门槛。相对历史 EM 差-3pp、95%[-7,0]，0胜3负97平；F1差-0.3667pp、95%[-1.7333,1.1]。
+- 2026-10-14 10:38 PDT：从100份原始回答重新运行官方EM/F1，全部与summary一致；三道EM退步为全名遗漏或修饰词差异，保留首次回答及官方评分，不调参补跑。H完成后已启动F-test（PID5332）；E-dev已生成39/100、157次请求、无失败。
+- 2026-10-14 10:44 PDT：补充离线源码审计：三个基准装配后的 adapter/retriever/hybrid 所有顶层类与函数 AST 均与各自历史 code.json 一致，变化仅 import、ROOT/default模型路径；当前核心循环也已核验一致。
+- 2026-10-14 11:11 PDT：F-test 100/100 完成，正确82、完整度/overall79%；对Dewey+8pp、95%[0,16]，13胜5负82平，达到预设门槛；对历史v6+1pp、95%[-3,5]。285生成+100裁判=385请求，无失败；从原始judgement重算所有正确性/完整度/overall，吻合。
+- 2026-10-14 11:11 PDT：E-dev 正确83/100、基础设施失败0，过82/100门槛，决定启动E-test400；对历史astra cascade -2pp、95%[-7,3]，2胜4负94平；对CDL -5pp、95%[-11,1]。413生成+100裁判=513请求，无失败；原始judgement全部重算吻合，不根据dev结果调参。
+- 2026-10-14 11:11 PDT：F-test摘要提交574fba2，E-dev摘要提交d1cfab3；E-test400已按冻结命令nohup启动（PID15977），请求上限3200，后续每5–10分钟轮询。
+- 2026-10-14 11:20 PDT：E-test首轮检查24题正常生成、2题单次模型请求180秒超时（qst_0437/qst_0050），共98已记录请求；未发现限流，保留超时题为未完成/计错且留在400分母，不重跑，继续其余题。正式config与冻结参数核对通过。
+- 2026-10-14 11:21 PDT：汇总明确区分 accounted/scored 与成功完成；超时题可自动计错但不算completed，token仅汇总SDK返回的用量，缺用量请求另计。此修正只影响报告口径，不改变runner、答案或评分。
+- 2026-10-14：只读核对E-dev的2胜4负：qst_0422两组同有March2026/RBAC附加表述却获不同裁判理由；qst_0351两组同缺kill-switch限制、facts均false，整题却一错一对。其余退步含来源选择或关键细节遗漏。保留所有首次分数，不重评；-2pp不能单独归因为模型能力，见enterprise-dev-discordance-audit.json。
+- 2026-10-14 12:05 PDT：E-test继续运行（PID15977），140题正常生成，2题既有超时，632次已持久化请求；尚未集中裁判，无限流。轮询明细持续写入data/benchmarks/sota-20261014/polls.jsonl，已完成题未重跑。
+- 2026-10-14 13:04 PDT：E-test仍运行（PID15977），300题正常生成、2题既有超时、1325次请求，无新增失败或限流；剩余98题尚未完成生成，集中裁判未开始。继续原冻结配置。
+- 2026-10-14 13:57 PDT：E-test生成结束，398题finished、2题TimeoutError；400分母不变，集中裁判已计83题，累计1911请求。无新失败/限流，等待全部首次评分后生成摘要和报告。
+- 2026-10-14 14:15 PDT：E-test全部400题已计分：398正常完成、2超时计错；324/400=81%，完整度88.3165%、overall79.1587%、引用document recall89.5015%（376题）、观察召回93.5052%。
+- 2026-10-14 14:15 PDT：E-test相对CDL -5.50pp，95%[-8.75,-2.25]，11胜33负356平，未达门槛；相对历史v6 +3.25pp，95%[0.25,6.25]，25胜12负363平。只认系统组合提升，不归因于sol单项。1830生成+398裁判=2228请求，2失败均计入，2次缺token用量。
+- 2026-10-14 14:16 PDT：400份原始judgement重新计算正确率/完整度/overall与summary一致；三项最终只有FinanceBench达预设准SOTA门槛（1/3）。全部独立应用请求3369次（E-dev513、H229、F385、E-test2228、额外F/H冒烟14），E冒烟11已包含在E-dev，不重复计数；全部分项低于上限，无限流、无裁判重试。
+- 2026-10-14：交付判断：统一sol没有全面胜过历史模型；保留极简核心和历史成绩，不将本轮直接提升为产品默认或官方SOTA声明。下一步建议在dev优先诊断semantic/project_related的证据覆盖与回答完整性，理由是它们贡献与CDL净差22题中的20题；本轮不追加实验。
+- 2026-10-14：最终核验通过：所有摘要来源SHA匹配、题目ID完整配对、胜负差与分母一致、企业原始引用召回重算吻合、704个独立题目集合无重叠（E冒烟3题复用且逐字节相同）、报告/README/记分板本地链接有效、git diff --check和实验脚本语法检查通过；src与models相对起点无变化。
+- 2026-10-14：报告为一张三行表、五条要点；README新增本轮列，记分板新增统一sol节及全指标/题型/成本表，问题清单保留裁判波动、超时、请求可见性和并发resume限制。全部后台评测进程已退出，原始结果留在data，准备最终文档提交，不推送。

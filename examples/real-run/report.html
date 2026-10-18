@@ -1,0 +1,1295 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+<title>故障调查交接单 · Minimal RAG</title><style>
+:root{color-scheme:light;--ink:#172c33;--muted:#607078;--line:#dce5e5;--accent:#136d67;--paper:#fff;--bg:#f2f6f5}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.8 system-ui,-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
+header{background:#142f35;color:#f4f8f6;padding:40px max(24px,calc((100vw - 1180px)/2)) 32px}header p{max-width:880px;color:#d1dfdf}
+.eyebrow{font-size:12px;letter-spacing:.18em;color:#81cbc0}h1{font-size:32px;line-height:1.4;margin:12px 0}h2{font-size:19px;margin:0 0 14px}h3{font-size:16px;margin:0}
+main{max-width:1228px;margin:auto;padding:24px}.notice{padding:14px 18px;background:#fff5da;border:1px solid #e9d5a0;border-radius:10px;margin-bottom:20px}
+.grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(300px,1fr);gap:24px;align-items:start}.card{padding:24px;background:var(--paper);border:1px solid var(--line);border-radius:12px;margin-bottom:16px}
+.status,.pill{display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px}.status{background:#d9eee7;color:#185944}.pill{background:#eaf1f0;color:var(--accent);margin-right:6px}
+.muted{color:var(--muted);font-size:13px}.stats{display:flex;gap:20px;flex-wrap:wrap;margin-top:20px}.stats strong{font-size:23px}.stats span{display:block;font-size:12px;color:#b1ccca}
+ul{padding-left:20px;margin-bottom:0}li{margin-bottom:14px}li:last-child{margin-bottom:0}a{color:var(--accent)}a.cite{background:#e7f2ee;border-radius:4px;text-decoration:none;padding:0 5px;font-size:12px;font-weight:650;white-space:nowrap}
+details{scroll-margin-top:20px}summary{cursor:pointer;line-height:1.5;overflow-wrap:anywhere}details[open] summary{margin-bottom:15px}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f4f7f6;border:1px solid var(--line);border-radius:8px;padding:14px;font:12px/1.7 ui-monospace,monospace;max-height:520px;overflow:auto}
+.source{overflow-wrap:anywhere;font-size:12px;color:var(--muted)}.pending{border-left:3px solid #ceac64;padding-left:12px;list-style:none;margin-left:-20px}.step{padding:9px 0;border-bottom:1px solid var(--line)}.step:last-child{border:0}
+.warning{color:#9c442c}footer{padding:10px 0 30px;color:var(--muted);font-size:12px}@media(max-width:850px){.grid{grid-template-columns:1fr}h1{font-size:27px}main{padding:16px}.card{padding:20px}}
+</style></head><body>
+<header><div class="eyebrow">MINIMAL RAG / SUPPORT → ONCALL</div><h1>故障调查交接单</h1>
+<p>请为 Northwind 的值班工程师整理交接：Runtime 1.21 开启 kernel auto-selection v2 后，Dedicated L40S 长上下文请求 p99 回退。历史上采取了什么缓解，怎样核查恢复，在什么条件下才能重新开启 v2？明确当前仍需确认的信息。</p><span class="status">待人工复核</span>
+<div class="stats"><div><strong>4</strong><span>引用的原文片段</span></div><div><strong>4</strong><span>模型外层调用</span></div>
+<div><strong>4 / 12</strong><span>本次调用 / 共享上限</span></div></div></header>
+<main><div class="notice">片段来源检查通过不等于结论正确。该简报须人工复核，未连接现场监控或执行处置。</div><div class="grid"><div><section class="card"><h2>事件与影响</h2><ul><li class="pending">待核查：本稿供人工交接，不构成恢复结论；当前部署、遥测和健康状态不可见，用户所报“开启 v2 后 p99 回退”尚不能确认为本次根因。</li><li class="finding">历史工单：2026-02-20，Northwind Analytics 的 nw-analytics-ded-01（us-east），NVIDIA L40S/SM89、550.54.14/CUDA 12.4、Runtime 1.21.0-canary.3。约20k prompt、256–512 decode tokens 下，p99 从1.20/v1的约4.8–5.4s升至8.9–10.6s；影响≥约16k prompt，&lt;4k基本不受影响，p50/p90、错误率基本稳定，未报告正确性问题。<a class="cite" href="#source-E16">E16</a></li></ul></section><section class="card"><h2>原因与证据</h2><ul><li class="finding">历史1%采样显示 LONG/L40S 约78%选择 fa3_fused_prefill_sm89，v1基线为 fa2_triton_prefill_sm89；20k prompt 的 prefill_ms +62%，decode_ms 在±3%内，池利用率、排队和节点限流检查正常。支持选择路径相关性，不证明当前同因。<a class="cite" href="#source-E16">E16</a></li><li class="finding">2026-02-21推测 LONG 分类阈值及SM89上fa3评分过激，550.54.14/CUDA 12.4交互仍属可能；2/22临时RCA归于L40S长prefill选择。此前H100优先POC与L40S事件范围不同，不能以H100/A100表现替代L40S验证。<a class="cite" href="#source-E16">E16</a><a class="cite" href="#source-E12">E12</a></li></ul></section><section class="card"><h2>已采取的缓解</h2><ul><li class="finding">2026-02-20 20:41Z记录：该池 llama-3.1-70b-instruct、llama-3.1-8b-instruct 禁用v2，约90s热重载；增加 l40s_sm89 AND LONG 禁选 fa3_fused_prefill_sm89。pin fa2仅为“若支持”的提议，未见执行确认。<a class="cite" href="#source-E16">E16</a></li><li class="finding">21:10Z客户确认约10分钟内改善，18–22k prompt 的p99约5.3–5.8s，无新错误；工单称回到基线，但数值并非严格等同此前4.8–5.4s，不能据此认定今天已恢复。<a class="cite" href="#source-E16">E16</a></li></ul></section><section class="card"><h2>核查与恢复条件</h2><ul><li class="finding">由接手工程师核对目标实例日志确为v1/被gate禁用、热重载及deny命中；按SKU/seq bucket比较p95/p99、错误率和kernel分布是否回归v1，区分prefill/decode。补20–50条代表请求trace、ID/时间、长度直方图、输出上限、并发及MIG状态；这些是核查建议，非已执行。<a class="cite" href="#source-E17">E17</a><a class="cite" href="#source-E16">E16</a></li><li class="finding">Northwind窄条件：客户deny保留至1.21 GA；确认pr-28522落地、1.21.1发布且部署，L40S长上下文基准绿色、该驱动组合完成验证，才安排本池30–60 min受控canary；LONG p99回退&gt;10%即回滚，须明确窗口及看板。<a class="cite" href="#source-E16">E16</a></li><li class="finding">通用Dedicated启用还需客户明确opt-in及记录回滚联系人；推广GA要求SLO gates至少一个完整流量周期绿色。这些不替代上述客户条件；H100 POC提出的30 min、p99≤基线+3%、错误不增、分布稳定，也不能套作L40S重启阈值。<a class="cite" href="#source-E17">E17</a><a class="cite" href="#source-E12">E12</a></li></ul></section><section class="card"><h2>未知与交接</h2><ul><li class="pending">待核查：当前版本、模型、池/区域、驱动/CUDA、gate/deny/pin实际状态及实时遥测；当前是否仍存在长prefill回退，或排队/饱和等其他原因。</li><li class="pending">待核查：补丁发布部署及本池canary结果、客户就绪确认、回滚联系人/窗口；现有记录只有内部验证与安排测试计划，无当前批准、完成证据或ETA。<a class="cite" href="#source-E16">E16</a><a class="cite" href="#source-E17">E17</a></li><li class="finding">标识须核对，不可直接改写：工单使用us-east、l40s_sm89及上述3.1模型ID，runbook示例为us-east-1、nvidia-l40s、llama-3-70b-instruct；需确认实际控制面映射避免规则漏匹配。<a class="cite" href="#source-E16">E16</a><a class="cite" href="#source-E19">E19</a></li></ul></section>
+<details class="card"><summary>检索与读取记录 · 8 步</summary><div class="step">search {&quot;query&quot;:&quot;Northwind&quot;,&quot;limit&quot;:6}</div><div class="step">search {&quot;query&quot;:&quot;\&quot;1.21\&quot; \&quot;L40S\&quot;&quot;,&quot;all_terms&quot;:true,&quot;limit&quot;:5}</div><div class="step">read {&quot;document_id&quot;:&quot;dsid_db83694d8fbe459dac9964665ab38ca9&quot;,&quot;offset&quot;:0,&quot;limit&quot;:16000}</div><div class="step">search {&quot;query&quot;:&quot;rollback readiness threshold&quot;,&quot;scope&quot;:&quot;dsid_47be1728c0f14038af3d711575245ba8&quot;,&quot;limit&quot;:3}</div><div class="step">read {&quot;document_id&quot;:&quot;dsid_abfb68dde21f4fd2aa7d70c472447f89&quot;,&quot;limit&quot;:10000}</div><div class="step">read {&quot;document_id&quot;:&quot;dsid_16003ee4fada406da751b9bedb93d5ce&quot;,&quot;offset&quot;:4300,&quot;limit&quot;:6000}</div><div class="step">search {&quot;query&quot;:&quot;kernel-selection-v2-override-and-rollback-runbook&quot;,&quot;limit&quot;:2}</div><div class="step">search {&quot;query&quot;:&quot;Northwind \&quot;1.21.1\&quot;&quot;,&quot;all_terms&quot;:true,&quot;limit&quot;:3}</div></details>
+<details class="card"><summary>检查范围与运行状态</summary><p>结构与引用片段来源检查通过。结论含义、当前适用性与处置授权仍须人工核查。</p><p class="muted">耗时 91.002 秒。预算计量的是外层适配器调用；不是 token 或订阅额度上限。未执行运维操作。</p></details>
+</div><aside><h2>检查原文证据</h2><p class="muted">引用定位到实际返回的片段。片段指纹不表示整篇文档版本或当前事实已获验证。</p><details class="card" id="source-E12" open><summary><span class="pill">E12</span>Northwind x Redwood - POC check-in (perf results + tail latency)</summary><p class="source">enterprise://fireflies/dsid_db83694d8fbe459dac9964665ab38ca9<br>原文字符 0–16000<br>片段 SHA-256：99241d26efabe993…</p><pre>summary:
+POC weekly check-in focused on reviewing the benchmark spreadsheet (A100/H100/L40S runs) and explaining the p99 behavior for long-context summarization workloads. Redwood walked through how runtime 1.21 kernel auto-selection v2 behaves across seq-length buckets and why one L40S result set showed a tail spike likely due to a mis-bucket / fallback kernel on long prefill. Customer asked about determinism, how to reproduce selection decisions, and what knobs exist to pin/override kernels during rollout. Team aligned on running a dedicated pool test on an H100-only pool first (then mixed A100), using Northwind’s actual prompt distribution and a fixed concurrency target, with Redwood providing the exact runtime flags/telemetry queries and an allowlist config to keep v2 controlled.
+
+topics:
+Benchmark spreadsheet review: p50/p95/p99 latency deltas vs baseline
+Long-context prefill vs decode behavior and seq-length bucketing
+GPU SKU differences (H100 vs A100 80GB vs L40S) and stability
+Kernel auto-selection v2 determinism, telemetry, and sampling overhead
+Plan for a Dedicated pool test and rollout guardrails / rollback
+
+questions:
+For long-context (16k–32k) prompts, what specific kernel is being selected and can we force it for an A/B run?
+If we move to Dedicated, can we request an H100-only pool and avoid mixed SKUs during the POC?
+How do we know selection decisions are deterministic across restarts / across hosts?
+What are the rollback triggers you recommend (p99 delta threshold, error rate)?
+Can Redwood share the exact dashboard queries / fields to break down p99 by seq bucket and GPU SKU?
+
+next_steps:
+Redwood to send a sanitized export of the benchmark table with notes on the L40S anomaly and the long-context bucket definitions.
+Northwind to provide a 24h histogram of prompt lengths (prefill tokens) and target concurrency / throughput goal for the dedicated test.
+Redwood to set up a Dedicated trial plan for an H100-only pool and propose a 2-hour canary window to run the same scenario suite.
+Redwood to share runtime flags for selection tracing + a minimal telemetry sampling config suitable for POC.
+Schedule a 30-min follow-up after the dedicated run to review p99 and decide on next model/GPU configuration.
+
+action_items:
+Markus Klein (Redwood) - Email dedicated pool options + proposed H100 SKU(s) and region choices - Due 2026-02-20
+Isabella Rossi (Redwood) - Add annotation in the spreadsheet for the L40S long-prefill run (suspected fallback kernel) + rerun microbench if needed - Due 2026-02-21
+Omar El-Sayed (Redwood) - Send telemetry field list + dashboard links/queries for kernel selection breakdown (model/GPU/seq bucket) - Due 2026-02-20
+Priya Shah (Northwind) - Share prompt-length distribution + current p99 SLO target and acceptable regression budget - Due 2026-02-20
+Nina Patel (Northwind) - Confirm whether any driver/CUDA constraints exist in their environment for Private later (even if Dedicated first) - Due 2026-02-24
+
+transcript:
+Meeting: Northwind x Redwood - POC check-in (perf results + tail latency)
+Recorded: 2026-02-19 16:00 PST
+Duration: 47 minutes
+Attendees:
+- Markus Klein (Redwood)
+- Omar El-Sayed (Redwood)
+- Isabella Rossi (Redwood)
+- Lauren Bishop (Redwood)
+- Priya Shah (Northwind)
+- David Lin (Northwind)
+- Nina Patel (Northwind)
+- Tom Becker (Northwind)
+
+Auto-generated notes (may be inaccurate)
+Summary: Reviewed benchmark spreadsheet and tail latency concerns. Aligned on dedicated pool test plan (H100 first) with controlled rollout of kernel selection v2.
+
+Transcript
+
+[00:00] Markus (Redwood): Hey everyone. Can you all hear me okay?
+[00:03] Priya (Northwind): Yep, good.
+[00:04] Omar (Redwood): Yeah, loud and clear.
+[00:06] Tom (Northwind): Yep.
+[00:07] Markus (Redwood): Cool. So today we said we’d spend most of the time on the perf sheet you all were updating and specifically the p99 questions on long-context summarization. Isabella’s here because she was looking at the SKU-specific stuff, and Omar can talk telemetry and the tail.
+[00:22] Priya (Northwind): Great. We have the spreadsheet open. The tab “v1 vs v2 - Feb 18” is the one.
+
+[00:30] Isabella (Redwood): Yep, I’m on that tab. I might reference row numbers but… I know they move.
+[00:35] David (Northwind): No worries.
+
+[00:38] Markus (Redwood): Priya, do you want to recap what you’re seeing that’s worrying you?
+[00:43] Priya (Northwind): Sure. So overall the median is fine, p50 is like better in most cases. But the p99 on the 16k to 32k bucket, on L40S specifically, jumped. It’s like, I wrote down, baseline p99 was ~2.1 seconds and then v2 run is like 2.9, 3.0 seconds. It’s enough that it would blow our internal SLO if that’s real.
+[01:05] Nina (Northwind): And just to add, it’s not every run. It was like one of the canary runs. But it’s scary because in production you don’t get to pick when you hit the p99.
+
+[01:16] Omar (Redwood): Yep. That’s the right instinct. Tail is where surprises hide.
+[01:19] Isabella (Redwood): Also just to sanity check, that’s the “long prefill, short decode” scenario right? The summarization prompts that are huge inputs but then you only generate like, what, 200 tokens.
+[01:28] David (Northwind): Exactly. We pass a big document, ask for structured summary, output is short.
+
+[01:34] Omar (Redwood): Okay. So the important nuance: that workload is dominated by prefill, not decode. A lot of people mentally map “LLM latency” to decode tokens/sec, but here it’s prefill time. Kernel selection v2 explicitly buckets based on a prefill/decode regime signal. If that signal mis-classifies a request—like it thinks it’s a balanced decode workload—it can pick a kernel that’s great for steady decode but not great for huge prefill.
+[01:58] Priya (Northwind): That’s basically what we’re worried about. So is this misclassification, or is it just L40S being like… weaker?
+
+[02:06] Isabella (Redwood): I think it’s a combo. L40S is a different memory and different “best” kernel in the long prefill. But in the run you’re pointing at, the candidate set for L40S had one kernel denylists in our internal notes for a specific driver. I’m not 100% sure what driver you were on.
+[02:22] Nina (Northwind): We used the default in your image. I think it was CUDA 12.2? Driver… I can pull it.
+[02:28] Markus (Redwood): That’d help. We also can send you the “print runtime env” command so it’s in the logs.
+
+[02:35] Priya (Northwind): But even if it’s driver, our reality is we might land on those drivers in Dedicated too, unless we control it.
+[02:42] Lauren (Redwood): In Dedicated we can control the driver stack per pool, yes. That’s one of the benefits. We can say “H100 pool with driver X” and keep it pinned during POC.
+[02:52] Tom (Northwind): That’s helpful.
+
+[02:55] Omar (Redwood): Let me propose how to interpret the sheet. If you look at H100 numbers: p95 and p99 improved or stayed flat across most buckets. A100 also mostly improved. The L40S has the outlier in long prefill. That pattern suggests it’s not “v2 is generally unstable”, it’s “on that SKU and regime, one selection path is suboptimal”. Which is fixable with allow/deny rules, and also by making the long-prefill threshold more conservative.
+
+[03:20] Priya (Northwind): So for our POC, can we just… avoid L40S? Because we don’t need it. We’d rather spend money on fewer, faster GPUs and have stable tail.
+[03:28] Markus (Redwood): Yes, that’s exactly what we were going to suggest. Start with H100-only dedicated pool, run your scenario suite, validate p99. Then optionally test A100 80GB if cost matters. L40S is more “cost optimized” but it’s not necessary for your first pass.
+[03:44] David (Northwind): We put L40S in because we saw it in some public benchmarks and it’s available in our cloud account, but we can drop it.
+
+[03:53] Isabella (Redwood): And to be clear, we don’t have a philosophical issue with L40S, it’s just more sensitive to kernel choice in the long-prefill case.
+
+[04:01] Nina (Northwind): Okay, but long term, if we did end up with mixed fleets, how does v2 handle heterogenous? Like will it pick different kernels for different SKUs consistently?
+[04:10] Omar (Redwood): Yes. v2 keys on GPU SKU, model family, and seq bucket. That’s the “three-axis” thing. So the decision is not “one kernel for all”. It’s “for this model family, on this GPU type, in this regime, pick kernel K”. And we emit telemetry so you can actually see the distribution.
+
+[04:29] Priya (Northwind): We saw in the notes from last time something about determinism. Can you clarify that? We had a bad experience elsewhere where the “auto tuning” changed its mind.
+[04:38] Omar (Redwood): Totally. We’re not doing online learned tuning in the hot path. It’s rule-based plus a registry. So given the same inputs—model hash/version, GPU SKU normalized, and the extracted seq regime—you get the same decision. There’s no randomness. The only way it changes is if you change the config or the registry version, or you roll out a new runtime.
+[04:59] David (Northwind): What about, like, if the scheduler passes in “observed distribution hints” and that changes over time? Does that change selection?
+[05:07] Omar (Redwood): Good catch. There is an optional hint channel. In Dedicated we can either turn it off or keep it read-only for stability. And even if it’s on, it’s still deterministic per window, but the window could drift if your traffic mix changes. For your POC we can lock it down: use request-local features only, no adaptive hints.
+[05:27] Priya (Northwind): That sounds good. Lock it down please.
+
+[05:30] Markus (Redwood): Isabella, can you walk through what you think happened in that L40S spike? Like, plain English.
+[05:36] Isabella (Redwood): Yeah. So the long-context run: you have big input, short output. v2 tries to detect that and chooses a “prefill-optimized” kernel. On H100/A100 it does. On L40S, the registry has a fallback order. One of the candidates is “fast in median” but has a tail risk when prefill is huge and the workspace gets tight. If it falls back to that kernel—either because the preferred kernel is missing for that driver or it’s marked unstable—then you see occasional long outliers.
+[06:06] Nina (Northwind): Workspace gets tight meaning memory?
+[06:09] Isabella (Redwood): Yeah, like scratch memory and sometimes you get fragmentation. I’m simplifying, but yes.
+
+[06:15] Priya (Northwind): So if we do H100-only, we basically bypass this whole path.
+[06:20] Isabella (Redwood): Pretty much.
+
+[06:23] Tom (Northwind): Okay. But how do we trust that H100 won’t have some other weird corner? We don’t have a huge test budget.
+[06:32] Omar (Redwood): We can define clear canary criteria. For example: run 30 minutes of your workload replay on the dedicated pool with v2 on, compare against v1 pinned kernel selection or v1 selector. We set thresholds: p99 must be within, say, +3% of baseline or better; error rate must not increase; and the selection distribution should be stable. If any threshold trips, we flip the gate.
+[06:57] Priya (Northwind): When you say “flip the gate”, you mean we can disable v2 without redeploying?
+[07:02] Lauren (Redwood): Yes. In Dedicated, it’s a config toggle per model / per pool. It’s basically hot reload.
+[07:08] Nina (Northwind): That’s good.
+
+[07:10] David (Northwind): Can we also force a kernel just for the experiment? Like A/B exact same kernel and see if it’s selection overhead.
+[07:18] Isabella (Redwood): Yes. There’s a CLI flag that forces kernel choice and can dump the selection trace. I’ll send you the exact flag name after this. It’s something like `--force_kernel=` and `--dump_selector_trace`.
+[07:31] Omar (Redwood): And selection overhead is tiny, like microseconds to low milliseconds depending on sampling. The bigger overhead is telemetry if you log every request. So we sample. For POC we can do 0.1% sampling but always sample “slow requests” above a threshold.
+[07:49] Priya (Northwind): Always sample slow ones would be ideal.
+
+[07:52] Markus (Redwood): Let’s talk dedicated plan. Lauren, can you outline what we can offer in terms of GPUs and regions for the next week?
+[08:00] Lauren (Redwood): Yeah. In us-west we can do an 8xH100 pool pretty quickly, or a 4xH100 if you want smaller. Alternatively A100 80GB is more plentiful. My recommendation: 4xH100 first for the test, because your traffic in POC is not huge. Then if you want to scale and see throughput stability, we can expand to 8x.
+[08:22] Tom (Northwind): We’d rather do 4 first.
+[08:25] Priya (Northwind): Agreed.
+
+[08:27] Nina (Northwind): Any chance of H100 PCIe vs SXM differences? We’ve seen those show up.
+[08:33] Isabella (Redwood): Good question. Yes, there are differences. In our registry we normalize SKU. But the dedicated offering is typically H100 SXM for the 8x nodes. For 4x, it can vary. Lauren, what’s available?
+[08:47] Lauren (Redwood): For the trial we can do SXM in an 8x chassis but allocate you 4 GPUs worth of capacity, or we do a smaller PCIe node. It depends on the timing. I’ll confirm and email.
+[09:00] Priya (Northwind): Please confirm. We’d prefer consistency over absolute cheapest.
+
+[09:07] Markus (Redwood): Okay. Now, spreadsheet. David, you ran the mixed workload too, right? The one with 70% short prompts, 30% long docs.
+[09:16] David (Northwind): Yeah. That one looked fine. p99 didn’t move much. That’s why we were confused why the long-only scenario spiked.
+[09:25] Omar (Redwood): That actually fits. In mixed workloads, the scheduler batching can smooth some of the tail. But in long-only, every request is heavy prefill and you can’t “hide” the worst case behind cheap ones.
+[09:39] Nina (Northwind): Also in mixed you might have fewer concurrent long ones, depending on arrival.
+[09:44] Omar (Redwood): Exactly.
+
+[09:46] Priya (Northwind): For our production, it’s mostly long-only during certain hours. It’s batch summarization.
+[09:52] Markus (Redwood): That’s important. So our POC should mirror that: sustained long-only, steady concurrency.
+
+[10:00] Tom (Northwind): What concurrency are you thinking?
+[10:03] Priya (Northwind): Our job runner typically does 32 concurrent docs per worker cluster. But we can scale.
+[10:10] Omar (Redwood): Let’s pick a target throughput. For example “X docs/minute at p99 &lt; Y seconds”. If you tell us your SLO and volume, we can propose concurrency.
+[10:22] Priya (Northwind): Our internal SLO is p99 under 2.4 seconds for the 16k-32k bucket. Volume is like 200k docs/day but it’s spiky.
+[10:34] Markus (Redwood): Got it.
+
+[10:36] David (Northwind): Also, we’re doing structured output. Does that change kernel selection? It shouldn’t, but just asking.
+[10:43] Isabella (Redwood): It shouldn’t affect kernel selection, no. That’s more on decoding constraints and logit processing, but kernel selection is at attention / matmul level and depends on shapes.
+
+[10:56] Priya (Northwind): So what do we need to provide you before you can set up the dedicated test?
+[11:01] Lauren (Redwood): Two things: region preference, and whether you need any special networking like VPC peering for the POC. If it’s just hitting the dedicated endpoint over TLS, we can start without private networking.
+[11:13] Nina (Northwind): For the POC, public endpoint is fine. For prod we’ll want VPC, but not for this.
+[11:19] Lauren (Redwood): Great, that speeds it up.
+
+[11:22] Omar (Redwood): And from the perf side, we need the prompt length distribution and the exact “max output tokens” you set. Because that affects the prefill/decode regime signal.
+[11:33] David (Northwind): We can share a histogram. We have it in Datadog. I can export.
+[11:38] Priya (Northwind): I’ll send it.
+
+[11:41] Markus (Redwood): Let’s do the tail latency mechanics question: How do we verify the kernel selection per request? Omar?
+[11:48] Omar (Redwood): There are two methods. One is telemetry: we emit a “kernel_selection” event with fields like selected kernel id, gpu sku, model family tag, seq bucket, and whether it wa</pre></details><details class="card" id="source-E16" open><summary><span class="pill">E16</span>p99 latency regression on long-context requests after Runtime 1.21 canary (Kernel auto-selection v2) on L40S</summary><p class="source">enterprise://jira/dsid_abfb68dde21f4fd2aa7d70c472447f89<br>原文字符 0–7288<br>片段 SHA-256：ad49ed87a718aecc…</p><pre>description:
+Issue summary
+- Customer reports p99 latency regression for long-context summarization workloads immediately after we enabled Runtime 1.21 canary on their Dedicated pool. Regression appears only for long-context requests (&gt;= ~16k prompt tokens) and only on NVIDIA L40S.
+
+Impact
+- Customer-visible tail latency increase on long-context routes.
+- Reported baseline (Runtime 1.20 / selector v1): p99 ~4.8–5.4s @ ~20k prompt tokens, 256–512 decode tokens.
+- After canary (Runtime 1.21 / selector v2 enabled): p99 ~8.9–10.6s for same workload; p50/p90 mostly unchanged.
+- No correctness issues reported. Error rate stable.
+
+Customer context
+- Northwind Analytics uses Redwood Dedicated for long-context summarization (document ingestion + map-reduce style prompts). Workload is bursty but within reserved throughput.
+
+Environment
+- Dedicated pool: nw-analytics-ded-01
+- Region: us-east
+- GPU SKU: NVIDIA L40S (SM89)
+- Driver/CUDA: 550.54.14 / CUDA 12.4
+- Runtime: 1.21.0-canary.3
+- Feature: Kernel auto-selection v2 enabled via canary gate for Llama family
+
+Steps to reproduce (as reported)
+1) Send chat.completions with large prompts (~16k–32k tokens) and max_output_tokens 256–512.
+2) Observe p99 latency increase vs previous runtime.
+3) Short prompts (&lt;4k) appear unaffected.
+
+Observed signals
+- Regressions correlate with selector choosing a different prefill kernel under v2 for the LONG seq bucket on L40S.
+- Telemetry shows increased time in prefill stage; decode stage stable.
+
+Example request IDs (customer-provided)
+- req_7f2d5c8f2d8a4e1e (2026-02-20 18:12:44Z)
+- req_3c19a0d91fb44b26 (2026-02-20 18:17:09Z)
+
+Initial hypothesis
+- Mis-selection in v2 for long-context prefill on L40S (SKU mapping + seq-bucket thresholds) causing fallback to a kernel variant with worse long-context characteristics on SM89.
+
+Logs/snippets (redacted)
+- Selection trace (sampled):
+  - model_family=llama
+  - seq_bucket=LONG
+  - gpu_sku=l40s_sm89
+  - chosen_prefill_kernel=fa3_fused_prefill_sm89 (candidate_score=0.71)
+  - fallback_prefill_kernel=fa2_triton_prefill_sm89
+  - chosen_decode_kernel=fa2_decode_sm89
+- Perf counters summary (internal): prefill_ms +62% at 20k prompt; decode_ms within +/-3%.
+
+Requested outcome
+- Immediate mitigation (restore previous tail latency) and a safe path to re-enable v2 once fixed/guarded.
+
+comments:
+2026-02-20 18:33Z — Markus Klein (Reporter)
+Customer escalation via email + Slack connect: p99 long-context lat doubled after today’s canary. Asking for quick rollback guidance; they have an exec demo on 2/22.
+
+Customer notes:
+- Only on L40S pool
+- Only long prompts
+- They can tolerate slightly worse average latency but not p99 spikes.
+2026-02-20 18:52Z — Omar El-Sayed (Assignee)
+Acknowledged. Pulling selector telemetry for nw-analytics-ded-01. Initial glance: selection distribution changed for llama LONG bucket on sm89; prefill kernel differs from 1.20.
+
+Actions:
+- Requested 10 representative request IDs + timestamps.
+- Asked SRE (Sean) to confirm no cluster-level saturation/noisy neighbor signals.
+2026-02-20 19:15Z — Sean Gallagher
+Checked pool health: GPU utilization and queueing normal; no node-level throttling. Error rate stable. Regression isolated to request execution time, not scheduling.
+
+Dashboards:
+- latency.p99 long_context route jumped right after canary rollout marker.
+- No increase in retry/timeout.
+2026-02-20 19:44Z — Omar El-Sayed
+Captured selection traces (sampling 1%). Correlation is strong:
+- LONG bucket on L40S is picking `fa3_fused_prefill_sm89` ~78% of time; baseline v1 effectively picked `fa2_triton_prefill_sm89`.
+- The fa3 variant looks fine on H100/A100 but is underperforming on L40S for long prefill.
+
+Next step: apply runbook mitigation: disable v2 for (model=llama-3.1-70b-instruct, region=us-east, pool=nw-analytics-ded-01) OR pin prefill kernel for LONG bucket.
+2026-02-20 20:02Z — Benji Okafor
+Control-plane supports per-model deny for v2 with hot reload. I can push a rule scoped to that pool + model family. Confirm desired scope:
+- Deny v2 for llama family on L40S in us-east for this dedicated pool only (least blast radius).
+- Alternatively, add kernel deny for fa3_fused_prefill_sm89 when seq_bucket=LONG.
+
+Recommend starting with v2 disable for llama + L40S until we confirm fix.
+2026-02-20 20:20Z — Omar El-Sayed
+Proceed with: v2 disabled for llama-3.1-70b-instruct + llama-3.1-8b-instruct on pool nw-analytics-ded-01 (us-east). Also pin prefill kernel to fa2_triton_prefill_sm89 for LONG bucket as a belt-and-suspenders if supported.
+
+Linking runbook section: kernel-selection-v2-override-and-rollback-runbook (Disable by model/pool).
+2026-02-20 20:41Z — Benji Okafor
+Mitigation applied:
+- Feature gate update propagated (hot reload complete in ~90s).
+- Confirmed selector_v2_enabled=false for targeted models on nw-analytics-ded-01.
+
+Added temporary deny entry:
+- match: gpu_sku=l40s_sm89 AND seq_bucket=LONG
+- action: disallow prefill kernel fa3_fused_prefill_sm89
+
+Monitoring p99 now.
+2026-02-20 21:10Z — Markus Klein
+Customer confirms improvement within ~10 minutes. New measurements:
+- p99 back to ~5.3–5.8s @ 18–22k prompts
+- No new errors
+They’re asking for RCA + when they can safely re-enable v2.
+2026-02-21 09:05Z — Yuki Sato
+Root cause likely threshold bug in LONG bucket classification for mixed workloads + overly aggressive scoring weight for fa3 on SM89. We saw similar anomaly in earlier thread.
+
+We have a fix in progress to adjust long-context prefill decision rule and add SKU-specific penalty (L40S) for fa3 until validated.
+- Target PR: pr-28522-fix-regression-in-long-context-prefill-kernel-choice
+
+Also recommend keeping deny in place for driver 550.54.14 until we complete validation (possible interaction with CUDA 12.4).
+2026-02-22 16:30Z — Omar El-Sayed
+Posted interim RCA summary to customer (via Markus):
+- Regression introduced by selector v2 prefill kernel choice on L40S for long prompts
+- Decode unaffected; no correctness impact
+- Mitigation applied (v2 disabled + kernel deny)
+
+Asked customer if they can provide a sanitized prompt-length histogram; will help confirm seq-bucket boundaries.
+2026-02-24 11:12Z — Omar El-Sayed
+Validated fix behavior in internal perf suite for L40S long-context scenarios. Plan:
+- Keep customer-specific deny in place through 1.21 GA.
+- Re-enable v2 only after patch release (1.21.1) and a canary on their pool with explicit rollback window.
+
+Customer agreed to schedule test next week.
+
+resolution:
+Mitigated by disabling Kernel auto-selection v2 for affected Llama models on the customer’s Dedicated L40S pool (nw-analytics-ded-01, us-east) and adding a temporary kernel deny rule preventing selection of fa3_fused_prefill_sm89 for LONG seq bucket on L40S. Customer confirmed p99 latency returned to pre-canary baseline. No errors/correctness regressions observed.
+
+next_steps:
+Ship/land pr-28522 and include in Runtime 1.21.1 patch notes; ensure L40S long-context benchmarks are green before recommending re-enable.
+Coordinate a controlled re-enable canary for Northwind (30–60 min window) with dashboards + explicit rollback trigger (p99 regression &gt;10% for LONG bucket).
+Audit selector v2 scoring defaults for SM89 and update known-issues list to call out L40S long-context prefill kernel sensitivity until validated.</pre></details><details class="card" id="source-E17" open><summary><span class="pill">E17</span>Runtime 1.21 Release Notes: Kernel Auto-Selection v2</summary><p class="source">enterprise://confluence/dsid_16003ee4fada406da751b9bedb93d5ce<br>原文字符 4300–8873<br>片段 SHA-256：cb4fcad1192d13c3…</p><pre>n cost is in the **single-digit microseconds** range, and sampling-controlled telemetry overhead is negligible at default settings.
+
+Performance regressions should be treated as a **P0** if they increase p99 tail latency beyond rollout budgets (see SLO gates / dashboards).
+
+---
+
+## Compatibility Notes
+- Supported GPU families in rollout scope: **A100, H100, L40S**.
+- MIG: supported, but SKU normalization is strict; ensure the runtime reports a normalized `gpu_sku` consistent with the control plane rules.
+- Private deployments pinned to constrained GPU types should validate with the benchmark matrix before enabling v2 globally.
+
+---
+
+## Known Limitations / Risks
+1) **Long-context misclassification risk (prefill-heavy)**
+   - Very long prefill requests (e.g., summarization with large context windows) are sensitive to incorrect bucketing.
+   - If you observe tail spikes concentrated in long-context routes, disable v2 for the affected model(s) and region, then collect selection traces.
+
+2) **Driver/CUDA guardrails**
+   - Selector v2 is automatically disabled on specific driver/CUDA combinations that have not completed validation.
+   - If you are running a nonstandard driver stack (common in some on-prem installs), confirm you are not implicitly falling back to v1.
+
+3) **Telemetry cardinality**
+   - New fields can increase metric cardinality if dashboards are queried without the recommended grouping limits.
+   - Follow the dashboard spec for safe group-bys (model family / SKU / seq bucket) and avoid raw model-id group-bys unless sampled and capped.
+
+4) **Kernel availability differences by SKU**
+   - Some optimized kernels are SKU-specific. v2’s fallback rules are explicit, but you may see different kernel distributions between A100 and H100 under identical traffic.
+
+---
+
+## Rollout / Enablement Guidance
+Recommended staged rollout order:
+1. Enable v2 in **Hosted canary** for a small model allowlist.
+2. Expand allowlist by model family + SKU cohorts (monitor p95/p99 and error rates).
+3. Enable in **Dedicated pools** with explicit customer opt-in and documented rollback contact.
+4. Promote to broader GA once SLO gates are green for at least one full traffic cycle.
+
+Default enablement approach:
+- Start with `kernel_selection.v2.model_allowlist` and keep a conservative denylist for known-sensitive long-context models until validated.
+
+---
+
+## Rollback Instructions (Fast Path)
+If you suspect a latency regression, elevated error rate, or unexpected kernel distribution shift, roll back v2 using the smallest-scoped change that resolves impact.
+
+### Hosted / Dedicated (control plane gate)
+1. Disable v2 for the affected scope (start with model + region):
+   - Set `kernel_selection.v2.enabled=false` (scoped) OR remove the model from the v2 allowlist.
+2. Confirm hot reload applied:
+   - Verify the selector mode in runtime logs: `kernel_selection_mode=v1` (or `v2 disabled by gate`).
+3. Validate recovery:
+   - Monitor p95/p99 latency and error rate panels in the Kernel Selection v2 rollout dashboards.
+   - Confirm kernel distribution shifts back to expected v1 baselines.
+
+### Private (customer-managed runtime config)
+1. Set `kernel_selection.v2.enabled=false` and/or `kernel_selection.mode=v1` in `runtime.yaml`.
+2. Restart the runtime service (or reload config if supported in the deployment).
+3. Validate with the customer’s canary route:
+   - Compare p99 latency for long-context traffic before/after.
+
+### If immediate mitigation is required
+- Pin a kernel only as a temporary measure:
+  - Use `--force-kernel=&lt;kernel_id&gt;` (or equivalent config) for the impacted route/model while investigating.
+  - Open a follow-up issue to remove the pin once denylist or thresholds are corrected.
+
+---
+
+## Troubleshooting Checklist
+When filing an issue or escalating to oncall/runtime-kernels, include:
+- Model id + model family
+- GPU SKU (normalized) + whether MIG is used
+- Driver/CUDA version tuple
+- Workload description (prefill-heavy vs decode-heavy; typical context lengths)
+- Selection traces (`--dump-kernel-selection`) for 20–50 representative requests
+- Dashboard links: latency deltas + selection distribution by SKU/seq bucket
+
+---
+
+## Ownership / Contacts
+- Runtime Kernels: **Hiro Tanaka**, **Yuki Sato**
+- Perf/correctness guardrails: **Noah Patel**
+- Tail latency + observability: **Omar El-Sayed**, **Allison Grant**
+- Control-plane feature gates: **Ethan Park**
+- Release train: **Connor O&#x27;Brien**
+
+For operational procedures and scoped overrides, follow: **Kernel Selection v2 Override and Rollback Runbook** (linked above).</pre></details><details class="card" id="source-E19" open><summary><span class="pill">E19</span>Kernel Auto-Selection v2 — Override and Rollback Runbook</summary><p class="source">enterprise://confluence/dsid_8761a5900a7f422e8a2606576740f2bc<br>原文字符 0–4000<br>片段 SHA-256：bf8c23be0f1a3a39…</p><pre>## Purpose
+This runbook describes how oncall can safely override or roll back **Kernel Auto-Selection v2** (&quot;selector v2&quot;) when it causes tail-latency regressions, stability issues, or correctness risks. It covers:
+- Disabling v2 by **model**, **GPU SKU**, and/or **region** (Hosted, Dedicated, Private)
+- Pinning a specific kernel (temporary mitigation)
+- Safe rollback procedure (fast + staged)
+- Validation steps using dashboards and logs
+
+**Primary goals:** restore p95/p99 latency and error rates to baseline while preserving correctness and preventing fleet-wide disruption.
+
+---
+
+## Scope / when to use
+Use this runbook when any of the following are true during canary or production:
+- p99 latency regression attributed to kernel selection (common: long-context prefill misclassification)
+- Elevated runtime errors (CUDA illegal memory access, miscompiled kernel, launch failures) correlated with a chosen kernel/SKU
+- Throughput instability or jitter that correlates with selection distribution changes
+- Customer escalation requiring immediate mitigation (Dedicated/Private pools with constrained SKUs)
+
+**Do not use** this runbook for general GPU/node instability, scheduler overload, or non-kernel runtime crashes unless kernel selection has been implicated.
+
+---
+
+## Ownership / escalation
+**Oncall owns mitigation**, Runtime Kernels owns root cause.
+
+- Runtime Oncall: #eng-oncall (primary)
+- Runtime Kernels: #eng-runtime (paging if rollback required)
+- SRE: #eng-sre (paging if SLO breach / incident)
+- Releases: #eng-releases (if changes impact runtime 1.21 rollout windows)
+
+Escalate immediately if:
+- Any correctness regression suspected (bad outputs, determinism broken)
+- Crash-looping exceeds 2% of pods in a region/pool
+- You need to disable v2 globally in Hosted prod
+
+---
+
+## Preconditions / access
+You need:
+- Access to **Control Plane feature gates** and runtime config (prod breakglass if applicable)
+- Dashboard access (Kernel Selection v2 Rollout dashboards)
+- Log access for serving runtime pods
+
+Tools referenced:
+- `rwctl` (Redwood internal CLI)
+- Runtime admin endpoint (read-only + safe config reload)
+
+If `rwctl` is unavailable, use the Control Plane Console: **Console → Runtime → Feature Gates**.
+
+---
+
+## Definitions
+- **v1**: existing kernel selection behavior (baseline)
+- **v2**: kernel selection logic keyed on model family + sequence regime + GPU SKU
+- **Gate**: enable/disable selector v2
+- **Allowlist / denylist**: model- or SKU-scoped enablement rules
+- **Pin**: force a specific kernel choice (override), bypassing selector ranking
+
+### Canonical identifiers
+Use canonical forms to avoid mismatches:
+- **Region:** `us-east-1`, `us-west-2`, `eu-central-1`
+- **GPU SKU:** normalized string e.g. `nvidia-a100-80gb`, `nvidia-h100-sxm`, `nvidia-l40s`
+- **Model ID:** `llama-3-70b-instruct`, `mistral-large-2407`, `qwen2-72b-instruct`, `gemma-2-27b-it`
+
+If SKU naming is ambiguous (MIG / cloud instance mapping), see: &quot;GPU SKU normalization&quot; in the debugging playbook.
+
+---
+
+## Quick decision tree (2 minutes)
+1) **Is this isolated to one model OR one SKU OR one region?**
+   - Yes → Disable v2 narrowly (model/SKU/region) OR pin kernel
+   - No → Disable v2 at environment scope (Hosted prod or pool-wide) and page Runtime Kernels
+
+2) **Are there runtime errors (not just latency)?**
+   - Yes → Prefer **denylisting** the kernel/SKU combination (or disabling v2 for that SKU) rather than pinning.
+
+3) **Is there a customer impact in Dedicated/Private?**
+   - Yes → Prefer **pool-specific** disable or pin; avoid global Hosted changes unless needed.
+
+---
+
+## Primary levers
+You have four safe mitigation levers (in preferred order):
+1) **Disable v2 for a model in a region** (least blast radius)
+2) **Disable v2 for a GPU SKU in a region/pool**
+3) **Pin a kernel for a model+SKU+seq bucket** (fast workaround, higher risk)
+4) **Disable v2 globally** (largest blast radius; requires notification)
+
+---
+
+## Step 0 — Confirm it is selector v2
+Before changing gat</pre></details><details class="card" id="source-E1" ><summary><span class="pill">E1</span>Northwind x Redwood - POC check-in (perf results + tail latency)</summary><p class="source">enterprise://fireflies/dsid_db83694d8fbe459dac9964665ab38ca9<br>原文字符 20129–24129<br>片段 SHA-256：e7e4da2ce81f4ec2…</p><pre> In telemetry we normalize the SKU string and include memory size and whether MIG is enabled. For Dedicated we will avoid MIG for this test.
+[16:43] Nina (Northwind): Please avoid MIG.
+[16:45] Lauren (Redwood): Yep.
+
+[16:47] Tom (Northwind): Timeline: can we do the dedicated test next week?
+[16:52] Lauren (Redwood): I believe so. If we can get approval today, we can aim for Tuesday or Wednesday. Markus and I will follow up with exact times.
+[17:02] Priya (Northwind): Tuesday works.
+
+[17:05] Omar (Redwood): For the long-context anomaly, we’re also going to rerun that L40S scenario internally with a stricter long-prefill threshold, just to confirm it goes away. But again, you don’t need L40S for the decision.
+[17:21] Priya (Northwind): Appreciate it.
+
+[17:23] (crosstalk)
+[17:24] Speaker 1: Sorry, one sec—
+[17:25] Nina (Northwind): Go ahead, David.
+[17:27] David (Northwind): Just wondering: do you cache the kernel selection per model and bucket? Like to avoid recomputing per request.
+[17:35] Isabella (Redwood): Yes, there’s a cache keyed on (model, gpu sku, seq bucket, a couple flags). So after warmup it’s basically a lookup.
+[17:45] David (Northwind): Great.
+
+[17:47] Markus (Redwood): Okay, let’s outline the concrete plan.
+[17:50] Markus (Redwood): Step 1: Northwind sends us prompt length histogram, max output tokens, and target p99 SLO. Step 2: Redwood provisions 4xH100 Dedicated in us-west, confirm SXM vs PCIe. Step 3: We run baseline with v1 pinned selection for 30 minutes. Step 4: Enable v2 gate for your model only, run same load. Step 5: Compare p95/p99 and selection distribution; decide go/no-go.
+
+[18:18] Priya (Northwind): That’s good.
+[18:20] Nina (Northwind): What tool do you want us to use to generate load? We have Locust.
+[18:25] Omar (Redwood): Locust is fine. We can also provide a simple Python harness. But use what you already trust.
+[18:33] Priya (Northwind): We’ll use our harness.
+
+[18:36] Lauren (Redwood): On networking, since it’s public endpoint for now, you can start as soon as the pool is up.
+[18:42] Tom (Northwind): Great.
+
+[18:44] Omar (Redwood): I’ll send you the telemetry fields and a couple queries: break down p99 by seq bucket, and show fallback rate by GPU. Also a “top kernels by count” view.
+[18:58] Priya (Northwind): Perfect.
+
+[19:01] Markus (Redwood): Any procurement blockers for the dedicated trial?
+[19:05] Tom (Northwind): Not yet. We’re still in evaluation. If this looks good, we’ll move fast.
+[19:10] Markus (Redwood): Okay.
+
+[19:12] Priya (Northwind): One last question: does enabling v2 change cost?
+[19:16] Markus (Redwood): Not directly. It may reduce latency which often reduces GPU time per request, so cost could improve. But pricing is based on the dedicated commit, not per request.
+[19:28] Priya (Northwind): Right.
+
+[19:30] Nina (Northwind): For hosted vs dedicated: if we decide dedicated, we still can keep the same API surface?
+[19:35] Lauren (Redwood): Yes, same API, different endpoint and capacity guarantees.
+
+[19:41] (pause)
+[19:42] Markus (Redwood): Cool. We’ve got about 5 minutes—anything else on the tail latency explanation that we didn’t cover?
+[19:49] Priya (Northwind): No, that was clear. The main takeaway is: start H100-only, keep deterministic, use allowlist, and monitor fallback rate.
+[19:58] Omar (Redwood): Exactly.
+
+[20:01] Markus (Redwood): Great. We’ll follow up via email with (1) the dedicated pool details, (2) the updated spreadsheet notes, and (3) the telemetry/query bundle. Thanks everyone.
+[20:12] Priya (Northwind): Thanks.
+[20:13] Nina (Northwind): Thank you.
+[20:14] Tom (Northwind): Thanks all.
+
+(Transcript continued with light scheduling / goodbye chatter)
+
+[20:20] Lauren (Redwood): Priya, Tuesday morning or afternoon works better?
+[20:23] Priya (Northwind): Afternoon.
+[20:25] Markus (Redwood): Okay we’ll propose 2pm PT.
+[20:28] Priya (Northwind): Sounds good.
+[20:30] Omar (Redwood): I’ll get you the queries today.
+[20:32] Priya (Northwind): Great.
+
+End of recording</pre></details><details class="card" id="source-E2" ><summary><span class="pill">E2</span>Escalation: 429 handling + retry storms from SDK clients (Northwind AI)</summary><p class="source">enterprise://gmail/dsid_a4bf9cb21b004bc9b12b8905c66896a4<br>原文字符 5827–9827<br>片段 SHA-256：448784eb5da00770…</p><pre>T
+Subject: Re: Escalation: 429 handling + retry storms from SDK clients
+
+Jumping in with details.
+
+SDK versions:
+- redwood-sdk-typescript: 2.18.0
+- redwood-sdk-go: 0.9.4
+
+Workload is mostly non-streaming chat completions, with ~15% streaming.
+
+Example request_ids from 429 responses:
+- rw_req_01HTZVY4JH0X6P2D7R1B3MZB4Q
+- rw_req_01HTZVZ0A3P9K3VY2C1G9Q2Y8N
+- rw_req_01HTZW1K8J5B9Q8D0Q4S6D8W1P
+
+Attached:
+- northwind-prod-429-sample-logs.txt (shows retry loop every ~200–400ms)
+- northwind-har-2026-02-05.json (one 429 response; I don’t see Retry-After header)
+
+Let us know if you want raw pcap, but HAR should show headers.
+
+Thanks,
+Ravi
+
+—
+Ravi Desai
+Senior Software Engineer
+Northwind AI
+
+
+
+From: Nikhil Sharma &lt;nikhil@redwoodinference.com&gt;
+To: Ravi Desai &lt;ravi.desai@northwind.ai&gt;
+Cc: Alyssa Kim &lt;alyssa.kim@northwind.ai&gt;, Monica Patel &lt;monica@redwoodinference.com&gt;, Ethan Park &lt;ethan@redwoodinference.com&gt;
+Date: Thu, Feb 5, 2026 at 12:27 PM PST
+Subject: Re: Escalation: 429 handling + retry storms from SDK clients
+
+Ravi/Alyssa — this is super helpful, thank you.
+
+We can confirm quickly:
+- Your HAR confirms the missing Retry-After header on that 429 path.
+- The ~200–400ms loop aligns with our “no Retry-After + minimal delay” fallback in older SDK codepaths.
+
+Immediate workaround (today):
+- TS: set max_retries to 0 or 1 temporarily for your highest-volume services (especially those behind autoscalers that can amplify retry storms).
+- Go: same guidance; until the patch, don’t rely on automatic 429 backoff.
+
+We’re going to:
+- Correlate those request_ids with platform logs.
+- Prioritize rollout of the gateway change that guarantees Retry-After on 429.
+- Get you the patch versions for TS/Go that (a) parse Retry-After reliably, and (b) apply exponential backoff w/ jitter + a hard cap.
+
+We’ll send an ETA by EOD today.
+
+Nikhil
+
+
+
+From: Monica Patel &lt;monica@redwoodinference.com&gt;
+To: Alyssa Kim &lt;alyssa.kim@northwind.ai&gt;, Ravi Desai &lt;ravi.desai@northwind.ai&gt;
+Cc: Nikhil Sharma &lt;nikhil@redwoodinference.com&gt;, Ethan Park &lt;ethan@redwoodinference.com&gt;
+Date: Fri, Feb 6, 2026 at 11:27 AM PST
+Subject: Re: Escalation: 429 handling + retry storms from SDK clients
+
+Alyssa/Ravi — follow-up with concrete next steps + timeline.
+
+Platform (gateway):
+- Ethan’s team is rolling out the change to always include Retry-After on 429 responses (including the endpoint path shown in your HAR). Target rollout: early next week, phased by region. This is tracked under ENG-5130 on our side.
+
+SDK patches:
+- TypeScript: we have a patch queued to (1) parse Retry-After in both seconds and HTTP-date format, and (2) enforce jittered exponential backoff with a max attempt cap across all request types (streaming + non-streaming). Target release: 2.18.1.
+- Go: patch queued to respect Retry-After and avoid immediate retry loops when the header is missing; also aligns retryable-code classification. Target release: 0.9.5.
+
+What we recommend you do until those are live:
+1) Reduce 429 retries to 0–1 on your highest throughput services.
+2) Add client-side throttling so you don’t rely on server-side 429 as your primary control loop.
+3) Log request_id + retry_count per request so we can debug quickly if anything persists.
+
+If you’re open to it, we can also add you to the beta channel once the SDK builds are ready (so you can validate in staging before production).
+
+Monica
+
+—
+Monica Patel
+Director, SDK Engineering
+Redwood Inference
+
+
+On Thu, Feb 5, 2026 at 12:03 PM Ravi Desai &lt;ravi.desai@northwind.ai&gt; wrote:
+&gt; Jumping in with details.
+&gt; 
+&gt; SDK versions:
+&gt; - redwood-sdk-typescript: 2.18.0
+&gt; - redwood-sdk-go: 0.9.4
+&gt; 
+&gt; Workload is mostly non-streaming chat completions, with ~15% streaming.
+&gt; 
+&gt; Example request_ids from 429 responses:
+&gt; - rw_req_01HTZVY4JH0X6P2D7R1B3MZB4Q
+&gt; - rw_req_01HTZVZ0A3P9K3VY2C1G9Q2Y8N
+&gt; - rw_req_01HTZW1K8J5B9Q8D0Q4S6D8W1P
+&gt; 
+&gt; Attached:
+&gt; - northwind-prod-429-sample-logs.txt
+&gt; - northwind-har-2026-02-05.json
+&gt; 
+&gt; Let us know if you want raw pcap, but HAR should show headers.</pre></details><details class="card" id="source-E3" ><summary><span class="pill">E3</span>Northwind Analytics - technical deep dive: tail latency + KV cache behavior</summary><p class="source">enterprise://fireflies/dsid_21066424d3cc4f3a956a77a7a5f5b0fb<br>原文字符 0–4000<br>片段 SHA-256：3a5f9fbf6dda33be…</p><pre>transcript:
+MEETING HEADER (Fireflies)
+Title: Northwind Analytics - technical deep dive: tail latency + KV cache behavior
+Date: Jan 14, 2026
+Time: 10:06 AM - 11:02 AM PT
+Duration: 56 minutes
+Participants:
+- Nikhil Sharma (Redwood Inference)
+- Omar El-Sayed (Redwood Inference)
+- Mateo Alvarez (Redwood Inference)
+- Sean Gallagher (Redwood Inference)
+- Allison Grant (Redwood Inference)
+- Priya Desai (Northwind Analytics)
+- Evan Brooks (Northwind Analytics)
+- Jing Wu (Northwind Analytics)
+- Tomás Alvarez (Northwind Analytics)
+
+AUTO-GENERATED SUMMARY
+Northwind described burst-driven p99 latency spikes in chat-style workloads with mixed prompt lengths, plus occasional GPU OOM / request shedding on their current stack. Redwood walked through how KV cache allocation patterns and fragmentation can create tail latency under churn, especially when long-lived sessions coexist with short requests and cancellation/retry behavior. Redwood outlined planned runtime improvements: fragmentation measurement, budgeted compaction integrated with the scheduler, and tier-aware eviction (LRU-ish) with kill-switches and observability. Discussion covered what signals to capture (decode vs prefill timing, allocator arena health, bytes moved), and how to run a benchmark that reproduces Northwind’s traffic shape.
+
+TOPICS
+- What “tail latency” looks like in mixed-length decode workloads
+- KV cache basics (pages/blocks), long-lived allocations, churn, cancellations
+- Fragmentation: why it happens, what it costs, why it triggers at the wrong time
+- Compaction: incremental vs background, budgets, scheduler integration
+- Eviction policy: tier-aware + LRU, pinned sessions, prefix caching interactions
+- Guardrails: backpressure, kill-switch, rollback criteria, metrics
+- Benchmark ask + what Redwood needs from Northwind
+
+QUESTIONS (captured)
+- Can Redwood separate prefill latency from decode latency per request? (Yes, and we can share how we instrument it.)
+- How does compaction avoid stalling decode? (Budgeted moves tied to scheduler boundaries; can pause under load.)
+- Does eviction affect correctness or output stability? (No correctness change; could impact cache hit rates, which affects latency/cost.)
+- Can Dedicated/VPC reduce tail by avoiding noisy neighbors? (Often helps, but fragmentation is still a per-process issue; runtime fixes matter either way.)
+
+TRANSCRIPT
+[00:00] Nikhil Sharma: Cool. I think we’re all here. Thanks for making time. This is Nikhil on product at Redwood. We wanted to do a deeper technical session on the tail latency you’ve been seeing, and specifically KV cache behavior, because that’s the place we think a lot of the burst p99 comes from. Quick intros?
+
+[00:17] Priya Desai: Yep. Priya, I run platform engineering here. I’m the one who’s been yelling about p99s, so, hi.
+
+[00:23] Evan Brooks: Evan, ML infra. I’m mostly on the model serving side, GPUs, that stuff.
+
+[00:28] Jing Wu: Jing, SRE. I’m here to translate the alerts into human language.
+
+[00:32] Tomás Alvarez: Tomás, security and compliance. I’m mostly listening unless we end up in VPC or key management land.
+
+[00:39] Mateo Alvarez: Hey all, Mateo. I lead serving runtime engineering at Redwood. (Different Alvarez, no relation.)
+
+[00:45] Omar El-Sayed: Omar, KV cache / memory systems on the runtime side.
+
+[00:49] Sean Gallagher: Sean, SRE at Redwood. I’m the one who gets paged when tail latency goes sideways.
+
+[00:54] Allison Grant: Allison, observability standards. Metrics, dashboards, alerts.
+
+[01:00] Nikhil Sharma: Great. Priya, do you want to set context? Like what you’re seeing, and what “bad” looks like for you.
+
+[01:08] Priya Desai: Sure. So we have a chat product. It’s mostly internal analysts, but at peak we’ll get, like, a bunch of people running similar workflows at once. It’s bursty. Our p50 is fine. Even p95 is fine. Then p99 goes to, like, 6–12 seconds. Sometimes more. And it’s not every hour, it’s like, you know, 10 minutes of pain.
+
+[01:31] Priya Desai: We also som</pre></details><details class="card" id="source-E4" ><summary><span class="pill">E4</span>NorthWind: Subprocessor mapping &amp; transfer audit playbook</summary><p class="source">enterprise://gmail/dsid_edb5b4c653d640b894f9f3af2ef0121f<br>原文字符 200–4200<br>片段 SHA-256：4058f3a21f52a513…</p><pre>ubprocessor mapping &amp; transfer audit playbook\n\nHi Liam / Ana,\n\nThanks again for the time this week. As part of the NDA-onboard and the procurement review, Legal at NorthWind asked us to produce a concise transfer &amp; audit playbook so they can satisfy their internal GDPR reviewers. To move quickly, could you share the following artifacts by EOD Monday (we can extend if needed):\n\n- Subprocessor inventory (CSV or spreadsheet) with country of operation, contract party, and processor contact.\n- Any transfer mapping diagram you already have (where data leaves EU, SCCs in place, and which entity holds the contract).\n- Your completed DPO questionnaire (we&#x27;ve attached a template previously; if you have one, that works).\n- Any current audit/assurance artifacts you can share (SOC/ISO extracts, KMS wrap diagrams, log retention statements).\n\nSpecific asks from NorthWind Legal: they want an Art. 30 register excerpt showing categories of processing tied to the processors, and a short paragraph on how audit access would be provided for a scoped compliance assessment (sample evidence requested: agent account logs for a 30-day window, KMS key access control list, and SCCs annex references).\n\nWe&#x27;re preparing a short internal playbook on our side (mapping, expected evidence list, and proposed on-site vs remote checklist) and will circulate it to you for alignment before any formal audit kickoff. If there are any processors where you cannot provide direct evidence (e.g., subcontracted by a third-party), please flag those and include the contractual flow.\n\nAttachments: blank DPO questionnaire (for reference)\n\nProposed timeline:\n- Monday: inventory + transfer diagram + questionnaire\n- Wed: Redwood returns draft Art. 30 excerpt + audit scope proposal\n- Next Mon: 30-min alignment call with NorthWind Legal if needed\n\nWould 10:00–10:30 CET next Tuesday for a call work for you?\n\nThanks,\nCamila Reyes\nSenior Privacy &amp; Compliance Manager\nRedwood Inference\ncamila.reyes@redwood.com\n+1 415 555 0198\n&quot;, &quot;From: Liam O&#x27;Connor &lt;liam.oconnor@northwind.com&gt;\nTo: Camila Reyes &lt;camila.reyes@redwood.com&gt;\nCc: Ana Silva &lt;ana.silva@northwind.com&gt;, NorthWind Legal &lt;legal@northwind.com&gt;\nDate: Fri, 12 Jan 2028 09:51:00 -0500\nSubject: Re: NorthWind: Subprocessor mapping &amp; transfer audit playbook\n\nCamila — thanks, attaching what we have.\n\nSummary:\n- Attached: northwind_subprocessor_inventory.csv (includes country and contract owner), transfer-mapping-diagram.png, and the DPO questionnaire filled.\n- Notes: A subset of our processors are contracted through NorthWind EU Ltd (Dublin); others are procured by regional teams. We flagged the ones that route outside the EEA in column G of the CSV.\n- Audit access: for scoped remote reviews we can provide role-based log exports (we typically deliver a 30‑day slice in CSV), and we can run a KMS key access report but need 5 business days for internal approvals.\n\nOpen items:\n1) We do not currently have a standalone Art.30 register extract that matches the exact structure you requested — we use an internal inventory that maps to our ERP. If Redwood can draft an excerpt based on the CSV, that would speed things up.\n2) If your auditors need SCC references, we can provide the signed annex pages but need redaction for commercial terms.\n\nI&#x27;ve attached the three files and cc&#x27;d legal. Let me know if you&#x27;d like us to fill any additional templates.\n\nBest,\nLiam O&#x27;Connor\nHead of Platform Security\nNorthWind Health\nliam.oconnor@northwind.com\n+44 20 7946 0123\n\nAttachments: northwind_subprocessor_inventory.csv (CSV), transfer-mapping-diagram.png (image), dpo-questionnaire-filled.pdf (PDF)\n&quot;, &quot;From: Camila Reyes &lt;camila.reyes@redwood.com&gt;\nTo: Marissa Cole &lt;marissa.cole@redwood.com&gt;, Karthik Iyer &lt;karthik.iyer@redwood.com&gt;, Logan Wright &lt;logan.wright@redwood.com&gt;\nCc: \nDate: Fri, 12 Jan 2028 11:20:00 -0500\nSubject: Fwd: NorthWind: Subprocessor mapping &amp; transfer audit playbook — immediate actions\n\nTe</pre></details><details class="card" id="source-E5" ><summary><span class="pill">E5</span>Re: Procurement kickoff - support &amp; escalation information for Northwind</summary><p class="source">enterprise://gmail/dsid_e3cc8c407093481887b43546912253f7<br>原文字符 0–4000<br>片段 SHA-256：d30c356f8f710858…</p><pre>[&#x27;From: Emma Johnson &lt;emma.johnson@northwind.io&gt;\nTo: lauren_bishop &lt;lauren_bishop@redwood.ai&gt;, monica_patel &lt;monica_patel@redwood.ai&gt;\nCc: procurement@northwind.io\nDate: Thu, 12 Feb 2026 15:05:00 -0800\nSubject: Procurement kickoff - support &amp; escalation info request\n\nHi Lauren / Monica,\n\nWe\&#x27;re kicking off vendor setup for Redwood this week as part of our integration with Northwind\&#x27;s developer platform. Procurement has two immediate asks so we can move the PO through our systems by Feb 20:  \n\n1) A concise &quot;support &amp; escalation&quot; checklist we can attach to the purchase order (support contacts, on-call, escalation tiers, expected response times).\n2) Confirmation of uptime/SLA targets for hosted API and any differences for dedicated capacity, plus the process for reporting incidents and opening tickets.\n\nI\&#x27;ve attached our partially filled onboarding form (Northwind_Onboarding_Form_filled.pdf) — we filled the company side but left the vendor support section blank for you to complete.\n\nCould you send the checklist and any supporting docs today or early tomorrow? Legal/IT will need the SLA summary to greenlight payment terms.\n\nThanks — happy to jump on a 20 min call if that\&#x27;s easier.\n\nEmma Johnson\nProcurement Manager | Northwind.io\nemma.johnson@northwind.io | +1 415-555-0192\n\nAttachments: Northwind_Onboarding_Form_filled.pdf\n&#x27;, &#x27;From: lauren_bishop &lt;lauren_bishop@redwood.ai&gt;\nTo: Emma Johnson &lt;emma.johnson@northwind.io&gt;\nCc: monica_patel &lt;monica_patel@redwood.ai&gt;, aditya_rao &lt;aditya_rao@redwood.ai&gt;, stephanie_nguyen &lt;stephanie_nguyen@redwood.ai&gt;\nDate: Thu, 12 Feb 2026 16:40:00 -08:00\nSubject: Re: Procurement kickoff - support &amp; escalation info request\n\nHi Emma — thanks for the form and the heads-up. Looping in Monica (AE) and Aditya (Sales Engineering) to pull together the specific items. Stephanie from Finance will cover PO &amp; invoicing details.\n\nPlanned deliverables:\n- Redwood support &amp; escalation checklist (contacts + escalation matrix + expected response windows)\n- SLA summary (hosted vs dedicated capacity)\n- Invoice / PO instructions and tax docs\n\nWe should be able to get the checklist and SLA summary to you by end of day tomorrow (Feb 13). If you still need a call, I can make time Friday morning PST.\n\nBest,\nLauren Bishop\nHead of Customer Programs | Redwood Inference\nlauren_bishop@redwood.ai | +1 206-555-0144\n\n&#x27;, &quot;From: monica_patel &lt;monica_patel@redwood.ai&gt;\nTo: Emma Johnson &lt;emma.johnson@northwind.io&gt;, lauren_bishop &lt;lauren_bishop@redwood.ai&gt;\nCc: aditya_rao &lt;aditya_rao@redwood.ai&gt;\nDate: Fri, 13 Feb 2026 09:18:00 -08:00\nSubject: Redwood - initial support &amp; escalation checklist (draft)\n\nHi Emma — attaching a draft checklist and SLA summary for procurement. High level items below; full version attached as Redwood_Support_Roster_v1.pdf and SLA_summary_table.csv.\n\nSupport &amp; Escalation checklist (summary):\n- Primary support channel: support@redwood.ai (ticketing portal + auto-triage)\n- Response tiers:\n  - P1 (service down): initial response within 15 minutes (24/7), engineering mobilized; target restoration time depends on incident type but we provide continuous updates\n  - P2 (degraded but partial functionality): initial response within 1 hour (business hours), escalation to SE as needed\n  - P3 (general questions / feature requests): initial response within 1 business day\n- Escalation matrix:\n  - Level 1: Support agent -&gt; Level 2: On-call SE (pager) -&gt; Level 3: Incident lead (CSM + engineering director)\n- On-call &amp; Pager: 24/7 on-call rotation for P1 incidents; contact via PagerDuty (primary) or +1 888-555-0210\n- Status &amp; incident reporting: public status page + direct incident notifications to designated contacts via email and SMS\n\nSLA highlights (hosted API):\n- Monthly uptime target: 99.9% (standard hosted)\n- Dedicated capacity (reserved): 99.95% uptime SLA (available via Dedicated agreements)\n- Credits: pro-rated service credits for rolling 3rd-party measured downti</pre></details><details class="card" id="source-E6" ><summary><span class="pill">E6</span>Technical deep dive - runtime performance + kernel selection (Redwood x Northwind)</summary><p class="source">enterprise://fireflies/dsid_47be1728c0f14038af3d711575245ba8<br>原文字符 0–4000<br>片段 SHA-256：b85ebb2b9e9ad921…</p><pre>Fireflies.ai - Meeting Transcript
+
+Title: Technical deep dive - runtime performance + kernel selection (Redwood x Northwind)
+Date: 2026-02-05
+Time: 10:00 AM - 10:56 AM PT
+Duration: 56 minutes
+Meeting ID: ff-20260205-ntw-td-9931
+
+Attendees
+- Markus Klein (Redwood Inference)
+- Omar El-Sayed (Redwood Inference)
+- Yuki Sato (Redwood Inference)
+- Ethan Park (Redwood Inference)
+- Priya Nair (Northwind Analytics)
+- Danielle Chen (Northwind Analytics)
+- Alex Romero (Northwind Analytics)
+- Tom Bowers (Northwind Analytics)
+
+Summary (auto-generated)
+Northwind asked for a deeper walkthrough of how Redwood selects GPU kernels at runtime, specifically around long-context summarization workloads and heterogeneous GPU fleets. Redwood explained kernel auto-selection v2 signals (model family/arch tags, sequence-length regime, GPU SKU normalization), fallback hierarchy, determinism guarantees, and rollout safety controls (feature gates, per-model allow/deny lists, rapid rollback, manual pinning). The group aligned on running a small benchmark matrix on A100 and L40S, with realistic prompt/decode distributions and tail latency monitoring.
+
+Topics (auto-generated)
+- Kernel selection: what it is, where it runs, and what inputs it uses
+- GPU SKU mapping (A100 variants, MIG, cloud instance naming)
+- Long-context performance: prefill vs decode regime and tail latency risk
+- Safety mechanisms: fallbacks, determinism/replay, gates, rollback
+- Benchmark plan + what data Northwind needs to provide
+
+Questions (auto-generated)
+- How do you prevent non-deterministic selection decisions across replicas?
+- Can we force/pin a kernel for a specific model and GPU in Dedicated?
+- What happens if a kernel is missing or unstable on one SKU?
+- How do you detect long-context misclassification before it hits p99?
+
+Transcript
+
+[00:00] Markus Klein: Alright, cool. Folks can hear me okay?
+
+[00:03] Priya Nair: Yep, loud and clear.
+
+[00:05] Markus Klein: Great. Thanks everyone for making time. This one is intended to be more technical than our last call. Omar and Yuki are here from runtime, Ethan from control plane. We can go deep on kernel selection, especially long context.
+
+[00:18] Danielle Chen: Perfect. Yeah, we’re basically trying to de-risk tail latency. Our summarization jobs are like, 12k to 30k input tokens, and then maybe 300 to 1200 output tokens. It’s prefill heavy.
+
+[00:30] Omar El-Sayed: Yep, that’s the classic “prefill dominates” shape. And that’s exactly where bad kernel choice shows up as p99 spikes, not necessarily average.
+
+[00:39] Tom Bowers: And just to set context, we’re an enterprise. We have to answer questions like, can you roll back quickly and can we control it per region. We can’t just yolo a new thing.
+
+[00:49] Markus Klein: Totally. That’s why we wanted Ethan on.
+
+[00:52] Alex Romero: Also we’re comparing to… we’ve tested vLLM on our side, and TensorRT-LLM on a few nodes. So we’re trying to understand what Redwood’s doing differently, or what knobs we’ll get.
+
+[01:03] Markus Klein: Makes sense. Omar, do you wanna start with the “what is kernel selection” for us, like the two-minute overview?
+
+[01:10] Omar El-Sayed: Sure. So, in our runtime we have multiple kernel implementations for key parts of attention and related ops. Depending on model architecture and workload regime, different kernels win. Kernel auto-selection is the module that picks, for a given request, which kernel variant to run.
+
+[01:27] Omar El-Sayed: In v2 specifically, we key selection on three buckets of signals: one, model family/architecture tags (like Llama-style vs Mistral-style, Qwen variants, Gemma-ish), two, sequence-length regime which we treat separately for prefill vs decode behavior, and three, GPU SKU, because H100 vs A100 vs L40S can change the winner.
+
+[01:51] Priya Nair: When you say “request”, do you literally decide per request? Or per model load, like at startup?
+
+[01:57] Yuki Sato: Good question. We decide at request time, but in practice we cache decisions</pre></details><details class="card" id="source-E7" ><summary><span class="pill">E7</span>p99 latency regression on long-context requests after Runtime 1.21 canary (Kernel auto-selection v2) on L40S</summary><p class="source">enterprise://jira/dsid_abfb68dde21f4fd2aa7d70c472447f89<br>原文字符 3288–7288<br>片段 SHA-256：88324b592fa224c8…</p><pre>route jumped right after canary rollout marker.
+- No increase in retry/timeout.
+2026-02-20 19:44Z — Omar El-Sayed
+Captured selection traces (sampling 1%). Correlation is strong:
+- LONG bucket on L40S is picking `fa3_fused_prefill_sm89` ~78% of time; baseline v1 effectively picked `fa2_triton_prefill_sm89`.
+- The fa3 variant looks fine on H100/A100 but is underperforming on L40S for long prefill.
+
+Next step: apply runbook mitigation: disable v2 for (model=llama-3.1-70b-instruct, region=us-east, pool=nw-analytics-ded-01) OR pin prefill kernel for LONG bucket.
+2026-02-20 20:02Z — Benji Okafor
+Control-plane supports per-model deny for v2 with hot reload. I can push a rule scoped to that pool + model family. Confirm desired scope:
+- Deny v2 for llama family on L40S in us-east for this dedicated pool only (least blast radius).
+- Alternatively, add kernel deny for fa3_fused_prefill_sm89 when seq_bucket=LONG.
+
+Recommend starting with v2 disable for llama + L40S until we confirm fix.
+2026-02-20 20:20Z — Omar El-Sayed
+Proceed with: v2 disabled for llama-3.1-70b-instruct + llama-3.1-8b-instruct on pool nw-analytics-ded-01 (us-east). Also pin prefill kernel to fa2_triton_prefill_sm89 for LONG bucket as a belt-and-suspenders if supported.
+
+Linking runbook section: kernel-selection-v2-override-and-rollback-runbook (Disable by model/pool).
+2026-02-20 20:41Z — Benji Okafor
+Mitigation applied:
+- Feature gate update propagated (hot reload complete in ~90s).
+- Confirmed selector_v2_enabled=false for targeted models on nw-analytics-ded-01.
+
+Added temporary deny entry:
+- match: gpu_sku=l40s_sm89 AND seq_bucket=LONG
+- action: disallow prefill kernel fa3_fused_prefill_sm89
+
+Monitoring p99 now.
+2026-02-20 21:10Z — Markus Klein
+Customer confirms improvement within ~10 minutes. New measurements:
+- p99 back to ~5.3–5.8s @ 18–22k prompts
+- No new errors
+They’re asking for RCA + when they can safely re-enable v2.
+2026-02-21 09:05Z — Yuki Sato
+Root cause likely threshold bug in LONG bucket classification for mixed workloads + overly aggressive scoring weight for fa3 on SM89. We saw similar anomaly in earlier thread.
+
+We have a fix in progress to adjust long-context prefill decision rule and add SKU-specific penalty (L40S) for fa3 until validated.
+- Target PR: pr-28522-fix-regression-in-long-context-prefill-kernel-choice
+
+Also recommend keeping deny in place for driver 550.54.14 until we complete validation (possible interaction with CUDA 12.4).
+2026-02-22 16:30Z — Omar El-Sayed
+Posted interim RCA summary to customer (via Markus):
+- Regression introduced by selector v2 prefill kernel choice on L40S for long prompts
+- Decode unaffected; no correctness impact
+- Mitigation applied (v2 disabled + kernel deny)
+
+Asked customer if they can provide a sanitized prompt-length histogram; will help confirm seq-bucket boundaries.
+2026-02-24 11:12Z — Omar El-Sayed
+Validated fix behavior in internal perf suite for L40S long-context scenarios. Plan:
+- Keep customer-specific deny in place through 1.21 GA.
+- Re-enable v2 only after patch release (1.21.1) and a canary on their pool with explicit rollback window.
+
+Customer agreed to schedule test next week.
+
+resolution:
+Mitigated by disabling Kernel auto-selection v2 for affected Llama models on the customer’s Dedicated L40S pool (nw-analytics-ded-01, us-east) and adding a temporary kernel deny rule preventing selection of fa3_fused_prefill_sm89 for LONG seq bucket on L40S. Customer confirmed p99 latency returned to pre-canary baseline. No errors/correctness regressions observed.
+
+next_steps:
+Ship/land pr-28522 and include in Runtime 1.21.1 patch notes; ensure L40S long-context benchmarks are green before recommending re-enable.
+Coordinate a controlled re-enable canary for Northwind (30–60 min window) with dashboards + explicit rollback trigger (p99 regression &gt;10% for LONG bucket).
+Audit selector v2 scoring defaults for SM89 and update known-issues list to call out L40S long-context prefill kernel sensitivity until validated.</pre></details><details class="card" id="source-E8" ><summary><span class="pill">E8</span>Northwind Analytics (LLM)</summary><p class="source">enterprise://hubspot/dsid_f5db113b21114efe8f65c736ab8319ac<br>原文字符 2102–6102<br>片段 SHA-256：add51aa2a5d64797…</p><pre>n we pin a kernel or roll back? Is it per model? per GPU?&quot;
+  - &quot;Is selection deterministic given the same inputs, or can two identical requests pick different kernels?&quot;
+  - &quot;What telemetry do we get back to explain why a kernel was chosen?&quot;
+- We explained the plan: SKU-aware mapping + feature gates + allow/deny lists; selection telemetry (chosen kernel + candidate set + feature signals) sampled to avoid overhead; and explicit fallbacks when kernels are missing/unstable on a SKU.
+
+Security / compliance notes
+- Requirements flagged: SSO/SAML (Okta), audit logs exportable to their SIEM, KMS integration, configurable retention controls, and data residency (US-only for first phase).
+- They will run a standard security review during POC if we move to a VPC/Dedicated test.
+
+POC plan (proposed)
+- Timeline (agreed direction, dates still being pinned):
+  - Week of 2026-03-03: Dedicated pool smoke test (L40S-first) + baseline on v1 selector.
+  - Week of 2026-03-10: Enable kernel selection v2 behind allowlist for the summarization model(s); compare p95/p99 + throughput stability on mixed workloads.
+  - Week of 2026-03-17: Add A100 pool run + long-context (32k/64k) stress; validate no correctness regressions; document any pin/denylist rules needed.
+  - End of March: security review + commercial proposal if perf is green.
+
+Recent activity timeline
+- 2026-02-05 (Fireflies): technical deep dive on runtime performance + kernel selection; discussed GPU SKU sensitivity, determinism expectations, and how overrides would work in a Dedicated/VPC setting.
+- 2026-02-12 (Gmail thread): internal Redwood risk review re: runtime 1.21 + kernel auto-selection v2 rollout safety; shared high-level approach and emphasized feature gates + rapid rollback.
+- 2026-02-19 (Fireflies): POC check-in; reviewed preliminary perf table (v1 vs v2) and highlighted one long-context anomaly; agreed to rerun with L40S-specific settings and stricter workload separation.
+- 2026-02-24: Northwind sent initial GPU inventory + driver/CUDA versions; asked for a written runbook-style summary (&quot;what to do if p99 spikes&quot;) for their oncall.
+
+Risks / watchouts
+- Long-context prefill is the sensitive path; they want explicit guardrails to avoid any rule misclassification that would cause tail-latency spikes.
+- Strong preference for explainability vs a learned scorer; wants rule ordering/fallback behavior documented.
+- Telemetry overhead concern: they will accept sampling but want enough fidelity during the POC to attribute regressions to selection decisions vs model variance.
+
+Open questions
+- Confirm exact target model(s) and quantization constraints for summarization (they referenced &quot;open weights&quot; but didn’t commit on a family).
+- Confirm whether they can split interactive vs offline summarization into separate pools (would reduce mixed-workload interference).
+- Confirm data residency scope (US-only vs US+EU) for 2H.
+
+Internal notes / references
+- Related signals: SUP-31842 is a similar long-context latency regression report we handled during runtime 1.21 canary; we used per-model disable/pin as mitigation. INT-10411 tracks a metric/cardinality issue that caused a noisy alert (relevant to how we expose kernel-selection telemetry dashboards).
+- Next internal action: have Omar El-Sayed + Marcus Reed produce a short POC-ready perf readout focused on L40S/A100 and 32k/64k context buckets, plus a concise override/rollback checklist suitable for customer oncall.
+
+next_step:
+Schedule Dedicated pool test on L40S + A100 (their target SKUs) with Redwood runtime 1.21 + kernel auto-selection v2 behind allowlist; share perf report and recommended pin/override policy for long-context summarization.
+
+blockers:
+Need confidence on p99 latency for 32k-64k context on L40S (no H100 in near term).
+Security questionnaire pending (SSO/SAML details, audit log retention, data residency commitments).
+Concern about kernel auto-selection nondeterminism / tail spikes; wants clear rollback + override story for POC.</pre></details><details class="card" id="source-E9" ><summary><span class="pill">E9</span>Cross-sku MIG clock interlock: kernel prioritization and attention tiling for H100/L40S/A10</summary><p class="source">enterprise://linear/dsid_ebcaefa6757344f7881b9d123e97807f<br>原文字符 0–3488<br>片段 SHA-256：087423ab8a98ce2e…</p><pre>description:
+Background: multi-tenant inference workloads on H100/L40S/A10 show volatile tail latency during MIG consolidation and clock domain shifts. Current kernel selection heuristics assume static clock/perf profiles and do not account for transient P2P/NVLink contention or mixed quantized/FP16 execution paths. Goal: implement a cross-sku clock-interlock and kernel prioritization layer plus an attention-tiling policy that adapts prefill/decode scheduling to MIG partitioning and real-time clock governors. Success metrics: 95th percentile latency reduction of 15-25% on mixed small/long-sequence workloads across MIG partitions; token cost neutral or improved; no regression in throughput for long-batch offline workloads.
+
+acceptance_criteria:
+Kernel router uses live clock and MIG fragmentation signals to rank candidate kernels before scheduling
+Attention tiler adjusts tile size and KV alignment to reduce L2 thrash on L40S without increasing decode latency &gt; 5%
+Prefill/decode interleave window introduced to avoid clock-rebalance stalls during MIG reconfigure and reduces 95th latency by &gt;=15% in benchmark suite
+Automated telemetry demonstrates correct fallback to a quantized-kernel-fusion path on A10 when H100/L40S capacity constrained
+End-to-end e2e perf tests and canary on dedicated pool show no increase in error rate or CPU OOMs
+
+work_notes:
+2025-01-18: RFC written; linked design doc with microbenchmarks. Trade-offs considered: aggressive prefill batching vs latency-sensitive interleaving. Decision: hybrid interleaving with dynamic cutover thresholds.
+2025-01-22: Infra experiment on staging with synthetic chat workload; observed 28% 95th latency spike when MIG fragmentation &gt;60% during background training noise.
+2025-01-25: Implemented clock-interlock event listener in runtime and exposed telemetry flag runtime.clock_interlock.enabled (off by default).
+2025-01-29: Prototyped kernel-ranking heuristic that weights (kernel_peak_bw, current_device_clock, nvlink_util, mig_fragment_score). Initial synthetic results: 12% 95th reduction on H100-only trials.
+2025-02-01: L40S attention tiler patch submitted; adjusts attn_tile to favor smaller tiles when L2 miss rate &gt; 18%. PR: github.com/redwood-inference/runtime/pull/4921
+2025-02-03: End-to-end benchmark ran against mixed H100/L40S/A10 pool with prefill+decode interleave window set to 40ms; 95th improved by 17% and token cost decreased 3% on median. Noted small throughput regression on long-batch profiles (~4%).
+Next steps: add NVLink P2P fallback handshake to kernel router; integrate autoswitch thresholds from telemetry; create canary rollout plan for dedicated customers and a gated feature flag for runtime-1.21 release.
+
+risks_and_mitigations:
+Risk: aggressive kernel switching can increase warmup overhead. Mitigation: add hysteresis and min residency time per kernel selection.
+Risk: L40S micro-tiling may regress throughput on long static batches. Mitigation: enable tiler only when L2 miss + latency SLO signals are present.
+Risk: MIG reconfigure race during runtime may cause transient errors. Mitigation: gate reconfigure events via interlock and drain inflight prefill windows before topology changes.
+
+qa_plan:
+Add unit tests for kernel router ranking weights and simulated clock events
+Run full perf suite on multi-sku lab (H100/L40S/A10) with and without background NVSwitch load
+Canary rollout to dedicated pool group &#x27;perf-canary-02&#x27; with telemetry thresholds for automatic rollback</pre></details><details class="card" id="source-E10" ><summary><span class="pill">E10</span>Runtime 1.21 Launch Brief (Draft) — Kernel Auto-Selection v2 + Rollout Plan</summary><p class="source">enterprise://google_drive/dsid_94b0d0306935482d820e38d0bd986139<br>原文字符 0–4000<br>片段 SHA-256：416f0b9f9609954a…</p><pre>Slide 1 — Title
+Runtime 1.21 Launch Brief (Draft)
+Primary feature: Kernel auto-selection v2 (gated)
+Prepared by: Release Engineering (Connor O’Brien)
+Audience: Runtime, SRE, Control Plane, Perf/Evals, Support, PM
+Last updated: 2026-02-23
+
+Slide 2 — Why this release / Executive summary
+What’s shipping:
+- Runtime 1.21 includes kernel auto-selection v2 behind feature gates (default OFF unless allowlisted).
+- Expanded kernel selection signals: model family/arch, seq-length regime (prefill vs decode characteristics), GPU SKU.
+- Explicit fallback hierarchy + denylist for known-bad kernel/SKU/driver combos.
+- Telemetry + dashboards for selection decisions and p95/p99 deltas.
+- Determinism/replay tests and policy integration for predictable behavior.
+
+What success looks like:
+- Lower p95/p99 latency + improved throughput stability on heterogeneous fleets (A100/H100/L40S).
+- Zero correctness regressions; deterministic selection under identical inputs.
+- Safe staged rollout with rapid rollback and per-model/per-region overrides.
+
+Slide 3 — Scope: what’s in 1.21
+Core runtime changes:
+- v2 selector decision logic + interface updates (candidate generation, scoring/rules, fallback).
+- Model-family classifier integration (architecture tags / variants).
+- Seq-length bucketing + prefill/decode regime heuristics.
+- GPU SKU-aware kernel registry + normalization (including variants/MIG where applicable).
+- Guardrail: auto-disable v2 on known-unstable driver/CUDA combos.
+
+Ops / safety:
+- Feature gate plumbing (environment/region/model allowlist + denylist, hot reload).
+- Oncall tooling: force kernel, dump selection trace, pin/override.
+- Deterministic replay tests wired into CI.
+
+Observability:
+- Per-request selection telemetry events (sampled) + aggregated metrics.
+- Rollout dashboards: selection distribution + latency deltas + error rate correlation.
+
+Out of scope (explicitly NOT in 1.21):
+- Learned selection model / ML-based scoring.
+- Automatic cross-region failover policies driven by selection output (kept separate).
+- Any default-on behavior across all hosted traffic.
+
+Slide 4 — Kernel auto-selection v2: key highlights (talk track)
+Problem statement (v1):
+- v1 selection is insufficiently SKU-aware and under-reacts to long-context regimes.
+- Tail latency spikes observed when long-context workloads are misclassified or when kernels behave differently across drivers.
+
+v2 improvements:
+- Feature signals: (1) model family/architecture (Llama/Mistral/Qwen/Gemma/variants), (2) seq bucket / regime hints, (3) GPU SKU.
+- Decision rules are explicit + debuggable; telemetry captures “why” (features + candidate set).
+- Fallback hierarchy prevents hard failures when a preferred kernel is missing/unstable.
+- Determinism: selection depends only on declared inputs; replay tests guarantee identical selection.
+
+Slide 5 — Config / gates (how we control blast radius)
+Gate layers (evaluated in order):
+1) Global gate: kernel_selection_v2.enabled (per env)
+2) Driver/CUDA guardrail gate: kernel_selection_v2.blocked_driver_versions
+3) GPU SKU allow/deny: kernel_selection_v2.gpu_sku_rules
+4) Model allowlist/denylist: kernel_selection_v2.model_rules
+5) Region/cluster policy: kernel_selection_v2.region_rules
+6) Manual override: forced kernel / disable v2 via runtime flags (for debugging)
+
+Default posture for GA:
+- Enabled only for explicit allowlisted model families + GPU SKUs in hosted canary clusters.
+- Dedicated/Private: opt-in only (customer readiness review required).
+
+Slide 6 — Rollout plan (staged)
+Phase 0 — Preflight (complete/ongoing):
+- Merge behind gates + CI determinism tests
+- Dashboards live + sampling policy validated
+- Bench matrix coverage complete for key model families + seq distributions + SKUs
+
+Phase 1 — Hosted canary (Week 1):
+- 1 region, 1–2 canary clusters
+- Allowlist: 1–2 model families, conservative seq buckets
+- Monitor: selection distribution, p95/p99, errors, fallback rate
+
+Phase 2 — Hosted expansion (Week 2):
+- Add 1–2 regions; expand allow</pre></details><details class="card" id="source-E11" ><summary><span class="pill">E11</span>Runtime 1.21 Release Notes: Kernel Auto-Selection v2</summary><p class="source">enterprise://confluence/dsid_16003ee4fada406da751b9bedb93d5ce<br>原文字符 0–4000<br>片段 SHA-256：4f48539d1b08a315…</p><pre>## Summary
+Runtime **1.21** introduces **Kernel Auto-Selection v2** (&quot;selector v2&quot;) for GPU inference kernels. The selector chooses the best available kernel **per request** using a deterministic, explainable rule-based policy keyed on:
+- **Model family / architecture** (e.g., Llama-like vs Mistral-like vs Qwen-like)
+- **Sequence-length regime** (prefill-heavy, decode-heavy, mixed; plus long-context buckets)
+- **GPU SKU** (e.g., A100 vs H100 vs L40S; including normalization of common cloud instance naming)
+
+This release is focused on reducing **p95/p99 latency** and improving **throughput stability** across heterogeneous fleets without correctness regressions.
+
+Selector v2 is shipped **behind feature gates** and includes fast rollback, per-model allow/deny controls, and guardrails for known-unstable driver/CUDA combinations.
+
+---
+
+## What’s New in 1.21
+### 1) Kernel Auto-Selection v2 (gated)
+- Expanded feature extraction: model-family tags + seq-length buckets + GPU SKU normalization.
+- Explicit fallback hierarchy when a preferred kernel is unavailable or denied on a SKU.
+- Deterministic decision logic and replay tests (same inputs =&gt; same kernel choice).
+
+### 2) Selection Telemetry (sampled)
+New per-request telemetry is available (sampling-controlled) to support debugging and rollout monitoring:
+- chosen kernel
+- candidate set (capped)
+- feature vector (model family, seq bucket, gpu sku)
+- fallback reason (if applicable)
+
+### 3) Operator Controls &amp; Debugging
+- Force kernel selection for reproductions and customer escalations.
+- Dump selection traces locally (or in canary pods) for triage.
+- Hot-reloadable allow/deny rules (control plane) for fast mitigation.
+
+---
+
+## Configuration / Flags
+Selector v2 is **off by default** in Runtime 1.21 unless enabled by the control plane gate or local runtime config (Dedicated/Private).
+
+### Feature gates (Hosted / Dedicated via control plane)
+Gate key:
+- **kernel_selection.v2.enabled**
+
+Scoped overrides supported:
+- by model (exact model id)
+- by model family (architecture tag)
+- by region
+- by GPU SKU
+
+### Runtime config (Dedicated / Private)
+The following keys are supported in `runtime.yaml` (or equivalent env var mapping).
+
+**Core toggles**
+- `kernel_selection.mode`: `v1` | `v2` | `auto` (default: `auto`)
+- `kernel_selection.v2.enabled`: `true` | `false` (default: `false`)
+
+**Allow/Deny lists (hot reload where supported)**
+- `kernel_selection.v2.model_allowlist`: comma-separated model ids
+- `kernel_selection.v2.model_denylist`: comma-separated model ids
+- `kernel_selection.v2.gpu_sku_denylist`: comma-separated normalized SKUs (e.g., `A100-80GB`, `H100-SXM`, `L40S`)
+- `kernel_selection.v2.driver_denylist`: comma-separated driver/CUDA tuples (example: `535.104.05+cuda12.2`)
+
+**Telemetry**
+- `kernel_selection.telemetry.enabled`: `true` | `false` (default: `true`)
+- `kernel_selection.telemetry.sample_rate`: float 0.0–1.0 (default: `0.01`)
+- `kernel_selection.telemetry.max_candidates`: integer (default: `6`)
+
+### Runtime CLI flags (debug / reproduction)
+Available in `redwood-runtime` binaries starting 1.21:
+- `--kernel-selection=v1|v2|auto`
+- `--force-kernel=&lt;kernel_id&gt;` (disables auto-selection)
+- `--dump-kernel-selection=&lt;path&gt;` (writes per-request selection traces)
+- `--kernel-selection-telemetry-sample-rate=&lt;0.0-1.0&gt;`
+
+Notes:
+- Forcing a kernel is intended for debugging and should not be used as a steady-state configuration unless directed by the runbook.
+- Telemetry sampling does **not** affect selection behavior and does not introduce nondeterminism into decisions.
+
+---
+
+## Expected Performance Impact
+Observed improvements vary by model family, GPU SKU, and workload mix.
+
+In internal benchmark coverage (A100/H100/L40S) with representative prompt/decode distributions:
+- **p95 latency:** typically **3–12% improvement** on mixed workloads; larger wins on SKU/model pairs where v1 frequently fell back to conservative kernels.
+- **p99 latency:** typically **2–10% improvement** when the workl</pre></details><details class="card" id="source-E13" ><summary><span class="pill">E13</span>Technical deep dive - runtime performance + kernel selection (Redwood x Northwind)</summary><p class="source">enterprise://fireflies/dsid_47be1728c0f14038af3d711575245ba8<br>原文字符 25244–29244<br>片段 SHA-256：75c5563a3fbb73cb…</p><pre>rk, we can probably do it without VPC if we’re not sending data. But for later production, yes.
+
+[24:29] Markus Klein: Great.
+
+[24:31] Tom Bowers: One more: data residency. For now, US is fine.
+
+[24:35] Markus Klein: Cool.
+
+[24:38] Alex Romero: Since we mentioned competitors—Together, SageMaker endpoints—one thing they struggle with is “explain why performance changed.” Your telemetry seems to help.
+
+[24:48] Omar El-Sayed: That’s the goal. The “selection trace” is basically “why.”
+
+[24:53] Danielle Chen: Are dashboards included or extra?
+
+[24:57] Markus Klein: In Dedicated, you get baseline dashboards. For deeper retention it can be an add-on, but for POC we’ll make sure you have what you need.
+
+[25:06] Priya Nair: Ok.
+
+[25:08] (crosstalk)
+
+[25:09] Danielle Chen: Sorry, one more technical: does selection happen before compilation or after? Like, do you compile per kernel?
+
+[25:17] Yuki Sato: Selection happens at runtime before execution, but after we know the model config. Some kernels have compiled variants. We keep a compilation cache keyed on model+kernel+sku and reuse.
+
+[25:32] Alex Romero: So if kernel changes, you might hit compile overhead?
+
+[25:36] Yuki Sato: Potentially on first use, yes. That’s another reason we avoid flapping and we cache decisions.
+
+[25:44] Omar El-Sayed: And in canary we warm it up before measuring.
+
+[25:49] Danielle Chen: Great.
+
+[25:52] Priya Nair: I think we’ve got what we need. Can we recap deliverables?
+
+[25:57] Markus Klein: Sure, let’s do a recap now and then we can use remaining time for any last Qs.
+
+[26:03] Markus Klein: Redwood side: we’ll send benchmark harness instructions, plus recommended prompt/decode distributions for long-context summarization. We’ll provision a Dedicated test pool in us-east with A100-80GB and L40S. We’ll set v2 behind a gate, hints off, and run v1 vs v2 comparisons focusing on prefill p95/p99.
+
+[26:27] Markus Klein: Northwind side: you’ll confirm target GPUs and whether MIG is enabled. You’ll share sanitized length distributions and concurrency targets. And then we schedule a follow-up to review results.
+
+[26:40] Priya Nair: Sounds right.
+
+[26:42] Tom Bowers: And you’ll also share how rollback works, like the admin control and audit.
+
+[26:47] Ethan Park: Yep, I’ll include that in a note.
+
+[26:51] Omar El-Sayed: I’ll send the telemetry field list and recommended sampling for canary.
+
+[26:56] Yuki Sato: And I’ll send the driver guardrail summary for the SKUs you care about.
+
+[27:01] Danielle Chen: Perfect.
+
+[27:04] Alex Romero: While we have you, can I ask something about L40S? We saw weirdness around attention “flash” kernel. Do you use flash attention?
+
+[27:13] Yuki Sato: We have flash-style kernels, yes. But exact implementation differs by SKU and driver. Some combinations are on denylist. So for L40S we might pick a different kernel than on A100.
+
+[27:28] Alex Romero: Cool. That’s what we wanted.
+
+[27:31] Priya Nair: Ok, last question for me: if we later go Private deployment, does the same selector exist?
+
+[27:38] Markus Klein: Yes. Same runtime, same selection logic. Control plane differs but the knobs exist. For air-gapped, we ship the policy config with the package.
+
+[27:50] Tom Bowers: Good.
+
+[27:52] Markus Klein: Anything else?
+
+[27:54] Danielle Chen: Not from me.
+
+[27:56] Alex Romero: No, good.
+
+[27:58] Priya Nair: All good.
+
+[28:00] Markus Klein: Great. We’ll follow up tomorrow with the recap and proposed benchmark schedule. Thanks all.
+
+[28:07] (meeting continues with light scheduling chatter; transcript truncated by Fireflies)
+
+Notes
+- During the call, Redwood referenced internal dashboard panels: selection distribution by model/GPU/seq bucket, prefill/decode latency breakdowns, and rollback trigger thresholds.
+- Northwind indicated primary workload: long-context summarization (12k-30k input tokens) with moderate decode (300-1200 output tokens) and sensitivity to p99.
+- Benchmark to prioritize A100-80GB and L40S; MIG considerations to be confirmed.
+</pre></details><details class="card" id="source-E14" ><summary><span class="pill">E14</span>Technical deep dive - runtime performance + kernel selection (Redwood x Northwind)</summary><p class="source">enterprise://fireflies/dsid_47be1728c0f14038af3d711575245ba8<br>原文字符 2807–6807<br>片段 SHA-256：afde27009a774c1a…</p><pre>lex Romero: Also we’re comparing to… we’ve tested vLLM on our side, and TensorRT-LLM on a few nodes. So we’re trying to understand what Redwood’s doing differently, or what knobs we’ll get.
+
+[01:03] Markus Klein: Makes sense. Omar, do you wanna start with the “what is kernel selection” for us, like the two-minute overview?
+
+[01:10] Omar El-Sayed: Sure. So, in our runtime we have multiple kernel implementations for key parts of attention and related ops. Depending on model architecture and workload regime, different kernels win. Kernel auto-selection is the module that picks, for a given request, which kernel variant to run.
+
+[01:27] Omar El-Sayed: In v2 specifically, we key selection on three buckets of signals: one, model family/architecture tags (like Llama-style vs Mistral-style, Qwen variants, Gemma-ish), two, sequence-length regime which we treat separately for prefill vs decode behavior, and three, GPU SKU, because H100 vs A100 vs L40S can change the winner.
+
+[01:51] Priya Nair: When you say “request”, do you literally decide per request? Or per model load, like at startup?
+
+[01:57] Yuki Sato: Good question. We decide at request time, but in practice we cache decisions. The selector outputs a decision based on a normalized feature vector. Most of those are stable for many requests: model id + gpu sku + seq bucket. So it’s more like “per regime,” not every time doing heavy computation.
+
+[02:18] Danielle Chen: And your v1 did what?
+
+[02:21] Yuki Sato: v1 was simpler, basically a mostly static mapping keyed on model class and a couple hard-coded thresholds. It didn’t account for SKU differences well, and it treated sequence length too coarsely. It worked for the middle of the distribution but we saw edge cases on long context.
+
+[02:39] Omar El-Sayed: And also v1 had weaker observability. So when you got a latency spike, you couldn’t easily answer “which kernel did we pick” without attaching a profiler.
+
+[02:49] Alex Romero: So v2 is rules? Or some ML thing?
+
+[02:53] Yuki Sato: Rules. We debated a learned scorer, but for safety and explainability and rollback, we landed on rule-based with explicit fallbacks. It’s still a “scoring” concept internally, but it’s deterministic rules and precedence, not a trained model.
+
+[03:10] Priya Nair: Deterministic… like, identical inputs always produce identical output kernel choice?
+
+[03:15] Yuki Sato: Yes. Given the same model metadata, same GPU normalized SKU, same seq bucket inputs, you get the same selection. We’ve added replay tests to ensure that. We also version the rules so if we change thresholds, it’s tracked.
+
+[03:30] Tom Bowers: What about multi-tenant? Like if another customer is running something weird, does it influence our selection?
+
+[03:35] Omar El-Sayed: No. There’s no global learning. The only “dynamic” input can be scheduler hints about observed seq distribution, but those are local to the pool and still deterministic given the hint input. And you can disable that if you want.
+
+[03:49] Ethan Park: Also from the control plane side, for Dedicated you can lock policy. You can say “always use v1 selector” or “use v2 only for these models.” There’s no cross-account mixing.
+
+[04:01] Danielle Chen: Let’s go into the seq bucket thing. Because our problem is long context. How do you bucket?
+
+[04:07] Yuki Sato: We extract prompt length (prefill tokens) and also we estimate expected decode length using either the max_tokens setting or observed from recent traffic. Then we classify into regimes.
+
+[04:19] Yuki Sato: Simplifying a bit: short, medium, long context for prefill; and small vs large decode. For prefill, long context triggers kernels optimized for memory bandwidth and larger tile sizes. The key bug we saw in early testing was misclassifying “very long prompt, small decode” as “mixed,” which picked a kernel optimized for decode throughput but had worse prefill tail.
+
+[04:42] Omar El-Sayed: And that’s exactly the p99 symptom: average ok, but at the long tail you get a 1.5x</pre></details><details class="card" id="source-E15" ><summary><span class="pill">E15</span>Technical deep dive - runtime performance + kernel selection (Redwood x Northwind)</summary><p class="source">enterprise://fireflies/dsid_47be1728c0f14038af3d711575245ba8<br>原文字符 13935–17935<br>片段 SHA-256：7018d069dc646c51…</p><pre>ection.
+
+[12:18] Priya Nair: Wait, scheduler hints? Like it tells selector “this pool is mostly long context”?
+
+[12:23] Omar El-Sayed: Exactly. It’s basically a rolling window of observed prompt lengths and decode lengths. The selector can choose a kernel that is more stable for that mix.
+
+[12:35] Danielle Chen: But does that make it non-deterministic over time?
+
+[12:39] Yuki Sato: The selection is deterministic given the hint input, but the hint input changes with traffic. So if you want strict replayability, you can either log the hint state or disable hint-based selection. For enterprise we often recommend disabling hints initially.
+
+[12:57] Tom Bowers: For us, simpler is better.
+
+[13:00] Markus Klein: Yeah, we can start with hints off, v2 gated, and then if we want to squeeze perf, we can add hints.
+
+[13:08] Alex Romero: Can you talk about overhead? Like, does evaluating selector add latency? We’re very sensitive.
+
+[13:14] Yuki Sato: It’s tiny. The selector is on the order of microseconds. The bigger risk is telemetry overhead if you emit too much. That’s why we sample. We also cache decisions per (model, sku, seq bucket) so repeated requests don’t even re-evaluate the full rule path.
+
+[13:32] Omar El-Sayed: We have microbench data showing selector+telemetry stays under a small fraction of a millisecond at default sampling.
+
+[13:42] Danielle Chen: Ok. Let’s talk failover. If the selected kernel is wrong, do you auto fallback mid-request?
+
+[13:49] Yuki Sato: Not mid-request, no. That would be complex and potentially non-deterministic. The fallback hierarchy is applied at selection time. If a kernel fails at runtime (like an error), we fail the request and the system can retry with a safe kernel depending on policy. But we try to avoid that by denylists.
+
+[14:09] Priya Nair: So if we see errors, we disable v2 quickly.
+
+[14:12] Ethan Park: Exactly. And the rollback path is: disable v2 for model X on sku Y in region Z, or globally. That reverts to v1 mapping.
+
+[14:25] Tom Bowers: And audit log shows who changed it.
+
+[14:27] Ethan Park: Yep.
+
+[14:30] Markus Klein: Maybe it’s helpful if we describe what “v2 rollout” looks like in Dedicated. Ethan?
+
+[14:36] Ethan Park: Sure. You’d have a feature gate, off by default. Then you can enable for a single model version, in one region, for a small percentage of traffic. You can also do allowlist/denylist. If metrics regress beyond your thresholds, you flip it off. Changes are quick and reversible.
+
+[14:56] Danielle Chen: When you say percentage, how do you route? Sticky per request? per pod?
+
+[15:01] Ethan Park: Typically per pod or per shard of the pool, so it’s stable. We avoid per-request randomization for determinism and to reduce noise.
+
+[15:12] Alex Romero: Great. Now, we also care about cost. L40S is cheaper. But long context on L40S might be slower. Does v2 help there?
+
+[15:20] Omar El-Sayed: It can. L40S tends to have different sweet spots. With v2, we pick kernels tuned for that SKU which can reduce variance. It won’t magically beat H100, but it reduces p99 spikes and makes throughput more predictable.
+
+[15:36] Priya Nair: How do you measure “predictable”?
+
+[15:39] Omar El-Sayed: Standard deviation of per-request latency, plus p95/p99 gap. We also look at queueing time under load. Mis-selection can cause queueing cascades.
+
+[15:52] Danielle Chen: That’s the big one. Cascades.
+
+[15:55] Omar El-Sayed: Yep.
+
+[15:58] (crosstalk)
+
+[16:00] Markus Klein: Sorry, go ahead Danielle.
+
+[16:02] Danielle Chen: No, just +1. We’ve seen that in Triton too, where one slow request blocks the batch.
+
+[16:07] Omar El-Sayed: Exactly. So for your summarization workload, we’ll focus on the long-context prefill regime.
+
+[16:15] Alex Romero: What models do you assume we’ll use? We’re currently evaluating Llama 3-ish 70B, and also a smaller 8B for some tasks.
+
+[16:24] Markus Klein: Redwood supports those families. Yuki, anything on model-family tagging?
+
+[16:30] Yuki Sato: Yeah. We tag by architecture b</pre></details><details class="card" id="source-E18" ><summary><span class="pill">E18</span>Epic: Kernel auto-selection v2 (model family + seq regime + GPU SKU) with safe rollout and observability</summary><p class="source">enterprise://linear/dsid_df992c0193694ff0bdbf04ec5434b09a<br>原文字符 1508–5508<br>片段 SHA-256：82313818ed111e99…</p><pre>errides
+
+Out of scope
+- Learned model for kernel selection (ADR chooses rule-based for explainability/rollback)
+- New kernels themselves beyond mapping/selection (kernel implementations tracked separately)
+
+Success metrics (GA gates)
+- Correctness: zero known correctness regressions; deterministic selection verified in CI and spot-checked in prod replay
+- Perf: no p95 regression &gt; 1% and no p99 regression &gt; 2% on covered canary scenarios; targeted improvements on at least 60% of high-volume routes (see benchmark matrix)
+- Stability: reduction in p99 volatility for mixed workloads (scheduler-integrated hints enabled)
+- Ops: dashboards live + alerting tuned; rollback tested; oncall runbook validated during canary
+
+Rollout plan (phased)
+1) Discovery + design
+- Design doc + ADR
+- Finalize feature set, rule ordering, fallback hierarchy, determinism requirements
+
+2) Implementation behind gates
+- Land v2 selector, GPU-SKU registry, telemetry, and deterministic tests behind runtime flag
+
+3) Perf characterization + regression hardening
+- Expand benchmark matrix; run on A100/H100/L40S; tune thresholds for long-context tail latency
+- Microbench overhead limits: selector eval + telemetry within agreed CPU budget
+
+4) Staged canary rollout
+- Hosted: start 1% traffic for allowlisted models/regions, then 5%/25%/50%
+- Dedicated: enable per-pool (opt-in), then expand to default for validated SKUs
+- Rapid rollback: disable v2 by model/GPU/region; pin kernel via override; denylist updates hot-reload
+
+5) GA
+- Default-on for Hosted for allowlisted models; Dedicated enablement per pool/SKU; publish release notes and runbooks
+
+Key artifacts
+- Confluence design: sources/confluence/eng-serving-runtime/kernel-and-scheduling/kernel-auto-selection-v2-design.json
+- ADR: sources/confluence/architecture-and-standards/decision-records/adr-017-kernel-auto-selection-v2-features-and-fallbacks.json
+- Benchmark matrix: sources/confluence/eng-serving-runtime/benchmarking-and-perf-suite/kernel-selection-v2-benchmark-matrix.json
+- Debug playbook: sources/confluence/eng-serving-runtime/profiling-playbook/debugging-kernel-selection-and-launch-config.json
+- Override/rollback runbook: sources/confluence/eng-serving-runtime/runbooks/kernel-selection-v2-override-and-rollback-runbook.json
+- Known issues: sources/confluence/eng-serving-runtime/known-issues/kernel-selection-v2-known-issues-and-workarounds.json
+- Determinism + telemetry standards: sources/confluence/architecture-and-standards/performance-standards/kernel-selection-determinism-and-telemetry-standards.json
+- Dashboard spec: sources/confluence/eng-platform/dashboards-and-alerts/kernel-selection-v2-rollout-dashboards.json
+- SRE SLO impact: sources/confluence/eng-sre/slo-and-error-budgets/kernel-selection-v2-slo-impact-assessment.json
+- Release note draft: sources/confluence/eng-serving-runtime/release-notes/runtime-1-21-kernel-auto-selection-v2.json
+
+Engineering links (implementation PRs)
+- Core decision logic: sources/github/redwood/pr-28411-kernel-autoselection-v2-core-decision-logic.json
+- Model family classifier: sources/github/redwood/pr-28428-add-model-family-classifier-for-kernel-selection.json
+- Seq regime bucketing: sources/github/redwood/pr-28439-seq-length-bucketing-and-prefill-decode-signal.json
+- GPU SKU registry + fallback: sources/github/redwood/pr-28452-gpu-sku-aware-kernel-registry-and-fallback.json
+- Feature gate/config plumbing: sources/github/redwood/pr-28460-feature-gate-kernel-selection-v2-and-config-plumbing.json
+- Telemetry events: sources/github/redwood/pr-28466-add-kernel-selection-telemetry-events.json
+- Determinism/replay tests: sources/github/redwood/pr-28473-selector-determinism-and-replay-tests.json
+- Debug flags (force kernel + dump selection): sources/github/redwood/pr-28481-runtime-cli-flag-to-force-kernel-and-dump-selection.json
+- Guardrail disable on unstable driver versions: sources/github/redwood/pr-28495-guardrail-disable-v2-on-known-unstable-driver-versions.json
+- Scheduler </pre></details></aside></div>
+<footer>资料由调用方提供；本工具未连接现场监控，交接内容与处置条件须人工复核。完整运行记录见同名 JSON 文件。</footer></main></body></html>

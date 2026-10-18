@@ -1,0 +1,34 @@
+{
+  "semantic_questions": 25,
+  "natural_recall20": 0.44,
+  "missed": 14,
+  "completed": 14,
+  "queries_replayed": 169,
+  "buckets": {
+    "ranking_21_to_200": 2,
+    "not_in_natural200_or_pre_exposure_queries": 2,
+    "query_rewrite_recovers_before_gold_exposure": 10
+  },
+  "model_calls": 0,
+  "gpu": false,
+  "limits": [
+    "Queries after original gold exposure are labelled and excluded from bridge counts.",
+    "Old queries were adaptive to a hybrid system, not a fresh BM25-only run.",
+    "Known dev analysis, no answer-quality claim or parameter promotion."
+  ],
+  "manual_primary_labels": {
+    "terminology_gap": 7,
+    "ranking_competition": 4,
+    "source_and_keyword_focus": 1,
+    "entity_identification": 2
+  },
+  "natural_top200_contains_gold": 8,
+  "pre_exposure_queries": 158,
+  "replay_top20_matches_cached": true,
+  "recommendation": "Expose corpus terminology and source facets to model-driven search; evaluate rare-term constraints before another full embedding build. Moderate confidence, no fresh QA gain established.",
+  "classification_basis": "Manual primary labels from question, original gold text, natural ranks and replay results; plausible mechanisms, not causal intervention.",
+  "raw_detail": {
+    "path": "runs/evidence/semantic-replay-20261013.json",
+    "sha256": "214ec4736d8e97f4b92d5352f158c45ae65b23d04f563b5edcb08dc7c10d157e"
+  }
+}

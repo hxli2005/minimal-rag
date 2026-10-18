@@ -1,0 +1,20 @@
+{
+  "date": "2026-10-13",
+  "kind": "current_dev24_error_source_audit",
+  "model_calls": 0,
+  "limits": [
+    "Targeted known-failure analysis; anchor queries/selection are retrospective, not a natural retrieval score.",
+    "Original results and references unchanged. Source presence and character exposure do not prove model attention."
+  ],
+  "retrospective_kernel_query": {
+    "query": "\"kernel\" \"selection\" \"architecture\"",
+    "all_terms": true,
+    "top_document_id": "dsid_d070c692ea7f4dafa48b93e8c7df8bfa",
+    "title": "Kernel Selection Architecture Overview (Serving Runtime)",
+    "note": "Diagnostic query derived after inspecting the missed factor; not a natural recall result."
+  },
+  "raw_detail": {
+    "path": "runs/evidence/current-errors-20261013.json",
+    "sha256": "c85537041aa8b155878253d45d8d09514856803c52a881cb5b6a7bea90166a15"
+  }
+}

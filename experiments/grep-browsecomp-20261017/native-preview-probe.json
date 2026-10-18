@@ -1,0 +1,12 @@
+{
+  "flags": [
+    "--max-columns",
+    "500",
+    "--max-columns-preview"
+  ],
+  "replay_scope": "Only the five known matching files; no model calls.",
+  "returned_lines": 5,
+  "nolan_text_visible": true,
+  "output_chars": 2986,
+  "limitation": "max-columns-preview shows the beginning of the line, not a window centered on the match; a late match can remain hidden behind an omission marker."
+}

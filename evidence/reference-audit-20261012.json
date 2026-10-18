@@ -1,0 +1,16 @@
+{
+  "date": "2026-10-12",
+  "kind": "manual_reference_and_evidence_audit",
+  "model_calls": 0,
+  "scores_changed": false,
+  "limits": [
+    "Selection is targeted known failures, not a representative error estimate.",
+    "Raw source vs gold/judge discrepancies are flags requiring adjudication, not automatic correct labels.",
+    "The Console runbook has both preference wording and an ordered procedure; do not declare its reference invalid from one quote.",
+    "Four later gold-only failures audited on 2026-10-13; genuine omissions and reference/judge scope flags can overlap in the same answer. No aggregate score correction or causal proportion inferred."
+  ],
+  "raw_detail": {
+    "path": "runs/evidence/reference-audit-20261012.json",
+    "sha256": "3e53243d72ae4cd05ec8773a782625b0d3f8fce407388d9ba51d8123988b627e"
+  }
+}

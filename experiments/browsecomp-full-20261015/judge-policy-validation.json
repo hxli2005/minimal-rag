@@ -1,0 +1,9 @@
+{
+  "network_failures_do_not_exhaust_response_cap": true,
+  "judge_429_only_reduces_judge": true,
+  "generation_concurrency_stays_5": true,
+  "backfill_keeps_all_attempts": true,
+  "first_valid_judgement_not_repeated": true,
+  "three_received_responses_stop_retry": true,
+  "external_model_calls": 0
+}

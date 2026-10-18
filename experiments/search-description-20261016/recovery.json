@@ -1,0 +1,61 @@
+{
+  "resumed_utc": "2026-10-16T14:33:24.723649+00:00",
+  "authorization": "用户：继续跑完实验",
+  "configuration_changed": false,
+  "completed_answers_preserved": 64,
+  "valid_judgements_preserved": 46,
+  "pending_completed_answers_to_judge": 18,
+  "interrupted_generation_attempts": [
+    {
+      "id": "qst_0026",
+      "path": "runs/search-description-20261016/enterprise-test/interrupted-20261016/qst_0026.json",
+      "error": "TransportClosedError",
+      "generation_requests": 4,
+      "tool_calls": {
+        "search": 4
+      },
+      "reason": "Interrupted by explicit user stop; no completed answer. Regenerate once after user authorized finishing the experiment."
+    },
+    {
+      "id": "qst_0447",
+      "path": "runs/search-description-20261016/enterprise-test/interrupted-20261016/qst_0447.json",
+      "error": "TransportClosedError",
+      "generation_requests": 5,
+      "tool_calls": {
+        "search": 11,
+        "read": 1
+      },
+      "reason": "Interrupted by explicit user stop; no completed answer. Regenerate once after user authorized finishing the experiment."
+    },
+    {
+      "id": "qst_0236",
+      "path": "runs/search-description-20261016/enterprise-test/interrupted-20261016/qst_0236.json",
+      "error": "TransportClosedError",
+      "generation_requests": 4,
+      "tool_calls": {
+        "search": 3
+      },
+      "reason": "Interrupted by explicit user stop; no completed answer. Regenerate once after user authorized finishing the experiment."
+    },
+    {
+      "id": "qst_0428",
+      "path": "runs/search-description-20261016/enterprise-test/interrupted-20261016/qst_0428.json",
+      "error": "AttributeError",
+      "generation_requests": 3,
+      "tool_calls": {
+        "search": 2
+      },
+      "reason": "Interrupted by explicit user stop; no completed answer. Regenerate once after user authorized finishing the experiment."
+    },
+    {
+      "id": "qst_0199",
+      "path": "runs/search-description-20261016/enterprise-test/interrupted-20261016/qst_0199.json",
+      "error": "AttributeError",
+      "generation_requests": 1,
+      "tool_calls": {},
+      "reason": "Interrupted by explicit user stop; no completed answer. Regenerate once after user authorized finishing the experiment."
+    }
+  ],
+  "archived_generation_requests": 17,
+  "pending_judge_transport_error": "qst_0308 retains its failed judge attempt; only judging resumes, without regenerating answer."
+}

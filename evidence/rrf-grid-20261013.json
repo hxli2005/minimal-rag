@@ -1,0 +1,563 @@
+{
+  "kind": "posthoc_cached_document_fusion_grid",
+  "date": "2026-10-13",
+  "model_calls": 0,
+  "gpu": false,
+  "settings": "12 fixed grids: k10/30/60/100 × dense weight0.5/1/2; lexical weight1; same100+100 candidates and20 outputdocs.",
+  "selection_rule": "Max selection semantic@20 subject to no selection overall@20 regression vs equalRRF60; then overall@20, fewer changed parameters. No validation-based reselection.",
+  "partition": "Exact original dev-index parity halves used before tonight BM25 replay; both now known dev, not untouched.",
+  "baseline100_rankings_reproduced": true,
+  "chosen": "k100/dense1",
+  "chosen_groups": {
+    "selection/semantic": {
+      "n": 9,
+      "recall5": 0.5555555555555556,
+      "recall20": 0.8888888888888888
+    },
+    "selection/all": {
+      "n": 47,
+      "recall5": 0.17375886524822695,
+      "recall20": 0.2375886524822695
+    },
+    "validation/semantic": {
+      "n": 16,
+      "recall5": 0.8125,
+      "recall20": 0.875
+    },
+    "validation/all": {
+      "n": 47,
+      "recall5": 0.3102836879432624,
+      "recall20": 0.3421985815602837
+    },
+    "all/semantic": {
+      "n": 25,
+      "recall5": 0.72,
+      "recall20": 0.88
+    },
+    "all/all": {
+      "n": 94,
+      "recall5": 0.24202127659574468,
+      "recall20": 0.2898936170212766
+    }
+  },
+  "baseline_groups": {
+    "selection/semantic": {
+      "n": 9,
+      "recall5": 0.5555555555555556,
+      "recall20": 0.7777777777777778
+    },
+    "selection/all": {
+      "n": 47,
+      "recall5": 0.17375886524822695,
+      "recall20": 0.21631205673758866
+    },
+    "validation/semantic": {
+      "n": 16,
+      "recall5": 0.8125,
+      "recall20": 0.875
+    },
+    "validation/all": {
+      "n": 47,
+      "recall5": 0.3102836879432624,
+      "recall20": 0.3421985815602837
+    },
+    "all/semantic": {
+      "n": 25,
+      "recall5": 0.72,
+      "recall20": 0.84
+    },
+    "all/all": {
+      "n": 94,
+      "recall5": 0.24202127659574468,
+      "recall20": 0.27925531914893614
+    }
+  },
+  "candidates": {
+    "k10/dense0.5": {
+      "k": 10,
+      "dense_weight": 0.5,
+      "groups": {
+        "selection/semantic": {
+          "n": 9,
+          "recall5": 0.6666666666666666,
+          "recall20": 0.6666666666666666
+        },
+        "selection/all": {
+          "n": 47,
+          "recall5": 0.17375886524822695,
+          "recall20": 0.1950354609929078
+        },
+        "validation/semantic": {
+          "n": 16,
+          "recall5": 0.625,
+          "recall20": 0.875
+        },
+        "validation/all": {
+          "n": 47,
+          "recall5": 0.2570921985815603,
+          "recall20": 0.3421985815602837
+        },
+        "all/semantic": {
+          "n": 25,
+          "recall5": 0.64,
+          "recall20": 0.8
+        },
+        "all/all": {
+          "n": 94,
+          "recall5": 0.2154255319148936,
+          "recall20": 0.26861702127659576
+        }
+      }
+    },
+    "k10/dense1": {
+      "k": 10,
+      "dense_weight": 1.0,
+      "groups": {
+        "selection/semantic": {
+          "n": 9,
+          "recall5": 0.6666666666666666,
+          "recall20": 0.7777777777777778
+        },
+        "selection/all": {
+          "n": 47,
+          "recall5": 0.17375886524822695,
+          "recall20": 0.21631205673758866
+        },
+        "validation/semantic": {
+          "n": 16,
+          "recall5": 0.625,
+          "recall20": 0.8125
+        },
+        "validation/all": {
+          "n": 47,
+          "recall5": 0.2570921985815603,
+          "recall20": 0.32092198581560283
+        },
+        "all/semantic": {
+          "n": 25,
+          "recall5": 0.64,
+          "recall20": 0.8
+        },
+        "all/all": {
+          "n": 94,
+          "recall5": 0.2154255319148936,
+          "recall20": 0.26861702127659576
+        }
+      }
+    },
+    "k10/dense2": {
+      "k": 10,
+      "dense_weight": 2.0,
+      "groups": {
+        "selection/semantic": {
+          "n": 9,
+          "recall5": 0.4444444444444444,
+          "recall20": 0.7777777777777778
+        },
+        "selection/all": {
+          "n": 47,
+          "recall5": 0.13120567375886524,
+          "recall20": 0.21631205673758866
+        },
+        "validation/semantic": {
+          "n": 16,
+          "recall5": 0.3125,
+          "recall20": 0.8125
+        },
+        "validation/all": {
+          "n": 47,
+          "recall5": 0.13652482269503546,
+          "recall20": 0.32092198581560283
+        },
+        "all/semantic": {
+          "n": 25,
+          "recall5": 0.36,
+          "recall20": 0.8
+        },
+        "all/all": {
+          "n": 94,
+          "recall5": 0.13386524822695037,
+          "recall20": 0.26861702127659576
+        }
+      }
+    },
+    "k30/dense0.5": {
+      "k": 30,
+      "dense_weight": 0.5,
+      "groups": {
+        "selection/semantic": {
+          "n": 9,
+          "recall5": 0.6666666666666666,
+          "recall20": 0.6666666666666666
+        },
+        "selection/all": {
+          "n": 47,
+          "recall5": 0.1950354609929078,
+          "recall20": 0.1950354609929078
+        },
+        "validation/semantic": {
+          "n": 16,
+          "recall5": 0.6875,
+          "recall20": 0.875
+        },
+        "validation/all": {
+          "n": 47,
+          "recall5": 0.2783687943262411,
+          "recall20": 0.3421985815602837
+        },
+        "all/semantic": {
+          "n": 25,
+          "recall5": 0.68,
+          "recall20": 0.8
+        },
+        "all/all": {
+          "n": 94,
+          "recall5": 0.23670212765957446,
+          "recall20": 0.26861702127659576
+        }
+      }
+    },
+    "k30/dense1": {
+      "k": 30,
+      "dense_weight": 1.0,
+      "groups": {
+        "selection/semantic": {
+          "n": 9,
+          "recall5": 0.5555555555555556,
+          "recall20": 0.7777777777777778
+        },
+        "selection/all": {
+          "n": 47,
+          "recall5": 0.17375886524822695,
+          "recall20": 0.21631205673758866
+        },
+        "validation/semantic": {
+          "n": 16,
+          "recall5": 0.75,
+          "recall20": 0.875
+        },
+        "validation/all": {
+          "n": 47,
+          "recall5": 0.28900709219858156,
+          "recall20": 0.3421985815602837
+        },
+        "all/semantic": {
+          "n": 25,
+          "recall5": 0.68,
+          "recall20": 0.84
+        },
+        "all/all": {
+          "n": 94,
+          "recall5": 0.23138297872340424,
+          "recall20": 0.27925531914893614
+        }
+      }
+    },
+    "k30/dense2": {
+      "k": 30,
+      "dense_weight": 2.0,
+      "groups": {
+        "selection/semantic": {
+          "n": 9,
+          "recall5": 0.5555555555555556,
+          "recall20": 0.6666666666666666
+        },
+        "selection/all": {
+          "n": 47,
+          "recall5": 0.1524822695035461,
+          "recall20": 0.1950354609929078
+        },
+        "validation/semantic": {
+          "n": 16,
+          "recall5": 0.375,
+          "recall20": 0.8125
+        },
+        "validation/all": {
+          "n": 47,
+          "recall5": 0.15780141843971632,
+          "recall20": 0.3102836879432624
+        },
+        "all/semantic": {
+          "n": 25,
+          "recall5": 0.44,
+          "recall20": 0.76
+        },
+        "all/all": {
+          "n": 94,
+          "recall5": 0.1551418439716312,
+          "recall20": 0.2526595744680851
+        }
+      }
+    },
+    "k60/dense0.5": {
+      "k": 60,
+      "dense_weight": 0.5,
+      "groups": {
+        "selection/semantic": {
+          "n": 9,
+          "recall5": 0.6666666666666666,
+          "recall20": 0.6666666666666666
+        },
+        "selection/all": {
+          "n": 47,
+          "recall5": 0.1950354609929078,
+          "recall20": 0.1950354609929078
+        },
+        "validation/semantic": {
+          "n": 16,
+          "recall5": 0.8125,
+          "recall20": 0.875
+        },
+        "validation/all": {
+          "n": 47,
+          "recall5": 0.3102836879432624,
+          "recall20": 0.3421985815602837
+        },
+        "all/semantic": {
+          "n": 25,
+          "recall5": 0.76,
+          "recall20": 0.8
+        },
+        "all/all": {
+          "n": 94,
+          "recall5": 0.2526595744680851,
+          "recall20": 0.26861702127659576
+        }
+      }
+    },
+    "k60/dense1": {
+      "k": 60,
+      "dense_weight": 1.0,
+      "groups": {
+        "selection/semantic": {
+          "n": 9,
+          "recall5": 0.5555555555555556,
+          "recall20": 0.7777777777777778
+        },
+        "selection/all": {
+          "n": 47,
+          "recall5": 0.17375886524822695,
+          "recall20": 0.21631205673758866
+        },
+        "validation/semantic": {
+          "n": 16,
+          "recall5": 0.8125,
+          "recall20": 0.875
+        },
+        "validation/all": {
+          "n": 47,
+          "recall5": 0.3102836879432624,
+          "recall20": 0.3421985815602837
+        },
+        "all/semantic": {
+          "n": 25,
+          "recall5": 0.72,
+          "recall20": 0.84
+        },
+        "all/all": {
+          "n": 94,
+          "recall5": 0.24202127659574468,
+          "recall20": 0.27925531914893614
+        }
+      }
+    },
+    "k60/dense2": {
+      "k": 60,
+      "dense_weight": 2.0,
+      "groups": {
+        "selection/semantic": {
+          "n": 9,
+          "recall5": 0.5555555555555556,
+          "recall20": 0.6666666666666666
+        },
+        "selection/all": {
+          "n": 47,
+          "recall5": 0.1524822695035461,
+          "recall20": 0.1950354609929078
+        },
+        "validation/semantic": {
+          "n": 16,
+          "recall5": 0.5625,
+          "recall20": 0.875
+        },
+        "validation/all": {
+          "n": 47,
+          "recall5": 0.225177304964539,
+          "recall20": 0.33156028368794327
+        },
+        "all/semantic": {
+          "n": 25,
+          "recall5": 0.56,
+          "recall20": 0.8
+        },
+        "all/all": {
+          "n": 94,
+          "recall5": 0.18882978723404256,
+          "recall20": 0.2632978723404255
+        }
+      }
+    },
+    "k100/dense0.5": {
+      "k": 100,
+      "dense_weight": 0.5,
+      "groups": {
+        "selection/semantic": {
+          "n": 9,
+          "recall5": 0.5555555555555556,
+          "recall20": 0.7777777777777778
+        },
+        "selection/all": {
+          "n": 47,
+          "recall5": 0.17375886524822695,
+          "recall20": 0.21631205673758866
+        },
+        "validation/semantic": {
+          "n": 16,
+          "recall5": 0.8125,
+          "recall20": 0.875
+        },
+        "validation/all": {
+          "n": 47,
+          "recall5": 0.3102836879432624,
+          "recall20": 0.3421985815602837
+        },
+        "all/semantic": {
+          "n": 25,
+          "recall5": 0.72,
+          "recall20": 0.84
+        },
+        "all/all": {
+          "n": 94,
+          "recall5": 0.24202127659574468,
+          "recall20": 0.27925531914893614
+        }
+      }
+    },
+    "k100/dense1": {
+      "k": 100,
+      "dense_weight": 1.0,
+      "groups": {
+        "selection/semantic": {
+          "n": 9,
+          "recall5": 0.5555555555555556,
+          "recall20": 0.8888888888888888
+        },
+        "selection/all": {
+          "n": 47,
+          "recall5": 0.17375886524822695,
+          "recall20": 0.2375886524822695
+        },
+        "validation/semantic": {
+          "n": 16,
+          "recall5": 0.8125,
+          "recall20": 0.875
+        },
+        "validation/all": {
+          "n": 47,
+          "recall5": 0.3102836879432624,
+          "recall20": 0.3421985815602837
+        },
+        "all/semantic": {
+          "n": 25,
+          "recall5": 0.72,
+          "recall20": 0.88
+        },
+        "all/all": {
+          "n": 94,
+          "recall5": 0.24202127659574468,
+          "recall20": 0.2898936170212766
+        }
+      }
+    },
+    "k100/dense2": {
+      "k": 100,
+      "dense_weight": 2.0,
+      "groups": {
+        "selection/semantic": {
+          "n": 9,
+          "recall5": 0.5555555555555556,
+          "recall20": 0.6666666666666666
+        },
+        "selection/all": {
+          "n": 47,
+          "recall5": 0.17375886524822695,
+          "recall20": 0.1950354609929078
+        },
+        "validation/semantic": {
+          "n": 16,
+          "recall5": 0.625,
+          "recall20": 0.875
+        },
+        "validation/all": {
+          "n": 47,
+          "recall5": 0.24645390070921985,
+          "recall20": 0.33156028368794327
+        },
+        "all/semantic": {
+          "n": 25,
+          "recall5": 0.6,
+          "recall20": 0.8
+        },
+        "all/all": {
+          "n": 94,
+          "recall5": 0.21010638297872342,
+          "recall20": 0.2632978723404255
+        }
+      }
+    }
+  },
+  "limits": [
+    "Original failed Qwen gate and full-build decision unchanged.",
+    "Post-hoc known sample with injected semantic references; no full-corpus or QA score.",
+    "Existing reference omissions limit overall guardrail. No new encodings or model loading."
+  ],
+  "paired20": {
+    "selection/semantic": {
+      "n": 9,
+      "wins": 1,
+      "losses": 0,
+      "ties": 8
+    },
+    "selection/all": {
+      "n": 47,
+      "wins": 1,
+      "losses": 0,
+      "ties": 46
+    },
+    "validation/semantic": {
+      "n": 16,
+      "wins": 0,
+      "losses": 0,
+      "ties": 16
+    },
+    "validation/all": {
+      "n": 47,
+      "wins": 0,
+      "losses": 0,
+      "ties": 47
+    },
+    "all/semantic": {
+      "n": 25,
+      "wins": 1,
+      "losses": 0,
+      "ties": 24
+    },
+    "all/all": {
+      "n": 94,
+      "wins": 1,
+      "losses": 0,
+      "ties": 93
+    }
+  },
+  "decision": "Reject promotion: k100 gain is confined to selection; validation semantic/all both unchanged. Whole semantic88% is only+8pp vsBM25, still below original+10pp gate; original failed gate untouched.",
+  "default_changed": false,
+  "source": {
+    "path": "runs/qwen3-chunk-scale-20261012/records.json",
+    "sha256": "4ee80c589e7da7bc36ab35d8cfd8a9307e3d710ce091717fc5f35ba58e379785"
+  },
+  "validation_semantic_gain20": 0.0,
+  "raw_detail": {
+    "path": "runs/evidence/rrf-grid-20261013.json",
+    "sha256": "e8f58200649784baecd121ef7f7c006b94776fad41466f63c342a1d7e569d944"
+  }
+}

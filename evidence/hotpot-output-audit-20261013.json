@@ -1,0 +1,17 @@
+{
+  "date": "2026-10-13",
+  "kind": "manual_output_convention_diagnostic",
+  "model_calls": 0,
+  "n": 12,
+  "all_gold_sentences_exposed": 12,
+  "scores_changed": false,
+  "limits": [
+    "Manual identity/abbreviation interpretation is not an alternative score or blind semantic judge.",
+    "Official EM10/12 and F190.74% retained; no ID-specific postprocessing or retries.",
+    "Given distractor context only, not whole-Wikipedia retrieval."
+  ],
+  "raw_detail": {
+    "path": "runs/evidence/hotpot-output-audit-20261013.json",
+    "sha256": "fbdfeb8eedd3f0b66048bb8d2e3549913a7bdbe486613de7d5202f62c142e017"
+  }
+}

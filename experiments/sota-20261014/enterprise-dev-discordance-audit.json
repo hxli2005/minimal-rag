@@ -1,0 +1,232 @@
+{
+  "scope": "Post-hoc read-only review of six correctness-discordant dev100 cases; no model requests, regrading, score edits or test tuning.",
+  "cases": [
+    {
+      "id": "qst_0422",
+      "change": "wins",
+      "interpretation": "Judge inconsistency: both answers contain March 2026 and RBAC/sensitive-field additions; the historical judge rejects these while the sol judge accepts them. The sol answer also spells out the old override.",
+      "judgements": {
+        "astra": {
+          "correct": false,
+          "facts_supported": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false
+          ],
+          "reason": "The candidate supports all core retention and Legal Hold facts, but invents a March 2026 update date and additional RBAC and sensitive-field requirements not present in the reference."
+        },
+        "sol": {
+          "correct": true,
+          "facts_supported": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "reason": "The candidate correctly distinguishes the deprecated super-admin override from the current Legal Hold exception, including tenant enablement, legal_hold_id, and immutable logging with a ticket reference. It does not claim a current super-admin bypass or specify retention durations or cutoff dates."
+        }
+      },
+      "traces": {
+        "astra": "data/benchmarks/optimization-20261012/enterprise-dev100-bge-cascade-preview/traces/qst_0422.json",
+        "sol": "data/benchmarks/sota-20261014/enterprise-dev/traces/qst_0422.json"
+      }
+    },
+    {
+      "id": "qst_0351",
+      "change": "wins",
+      "interpretation": "Judge inconsistency: both grades mark the same kill-switch restriction fact false, but the historical grade treats that omission as fatal and the new grade does not.",
+      "judgements": {
+        "astra": {
+          "correct": false,
+          "facts_supported": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false,
+            true
+          ],
+          "reason": "The candidate covers the diagnostic distinctions and primary mitigations, but omits the required guidance to use a kill switch only when normal pause or rollback cannot take effect."
+        },
+        "sol": {
+          "correct": true,
+          "facts_supported": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false,
+            true
+          ],
+          "reason": "The candidate covers the core diagnostic distinctions and cause-specific mitigations, including containment and long-term safeguards. It omits the restriction that a kill switch should be used only when normal pause or rollback cannot take effect, but does not recommend inappropriate kill-switch use."
+        }
+      },
+      "traces": {
+        "astra": "data/benchmarks/optimization-20261012/enterprise-dev100-bge-cascade-preview/traces/qst_0351.json",
+        "sol": "data/benchmarks/sota-20261014/enterprise-dev/traces/qst_0351.json"
+      }
+    },
+    {
+      "id": "qst_0375",
+      "change": "losses",
+      "interpretation": "Coverage difference: new grade additionally marks broader-control propagation timing unsupported; both miss the dashboard disabled-versus-fallback requirement.",
+      "judgements": {
+        "astra": {
+          "correct": true,
+          "facts_supported": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false,
+            true,
+            true,
+            true,
+            true
+          ],
+          "reason": "The candidate covers the enforcement distinction and baseline verification through logs, dashboards, and audit history. It does not explicitly instruct oncall to confirm the dashboard’s dominant outcome is disabled rather than fallback, including a kill-switch reason when applicable."
+        },
+        "sol": {
+          "correct": false,
+          "facts_supported": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false,
+            true,
+            false,
+            true,
+            true,
+            true,
+            true
+          ],
+          "reason": "The enforcement distinction and most verification steps align. However, the candidate does not explicitly verify broader-control propagation timing in audit history, or confirm on dashboards that disabled—not fallback—is the dominant outcome with the appropriate kill-switch reason and scope."
+        }
+      },
+      "traces": {
+        "astra": "data/benchmarks/optimization-20261012/enterprise-dev100-bge-cascade-preview/traces/qst_0375.json",
+        "sol": "data/benchmarks/sota-20261014/enterprise-dev/traces/qst_0375.json"
+      }
+    },
+    {
+      "id": "qst_0143",
+      "change": "losses",
+      "interpretation": "Substantive answer difference: sol omits canary rollout and RDMA restart and leads with a different MTU mitigation option.",
+      "judgements": {
+        "astra": {
+          "correct": true,
+          "facts_supported": [
+            true,
+            true,
+            true,
+            false
+          ],
+          "reason": "The candidate gives the correct mitigation, canary rollout, and RDMA restart. It mentions stabilization but omits avoiding jumbo-frame drops."
+        },
+        "sol": {
+          "correct": false,
+          "facts_supported": [
+            true,
+            false,
+            false,
+            false
+          ],
+          "reason": "The candidate mentions temporarily lowering compute NIC MTU to 1500, but omits the small canary rollout, restarting RDMA, and the goal of avoiding jumbo-frame drops to stabilize RDMA traffic."
+        }
+      },
+      "traces": {
+        "astra": "data/benchmarks/optimization-20261012/enterprise-dev100-bge-cascade-preview/traces/qst_0143.json",
+        "sol": "data/benchmarks/sota-20261014/enterprise-dev/traces/qst_0143.json"
+      }
+    },
+    {
+      "id": "qst_0222",
+      "change": "losses",
+      "interpretation": "Source/page selection difference: sol names a different reference page and template section; first grade retained without auditing gold validity.",
+      "judgements": {
+        "astra": {
+          "correct": true,
+          "facts_supported": [
+            true,
+            true,
+            true
+          ],
+          "reason": "The candidate identifies the correct Confluence page, covers all requested policy areas and approval/SLAs, and names the canonical templates section."
+        },
+        "sol": {
+          "correct": false,
+          "facts_supported": [
+            false,
+            true,
+            false
+          ],
+          "reason": "The candidate describes the relevant policy coverage, but identifies a different page title and directs users to 'Templates & Attachments' rather than 'Templates and artifacts (canonical)'."
+        }
+      },
+      "traces": {
+        "astra": "data/benchmarks/optimization-20261012/enterprise-dev100-bge-cascade-preview/traces/qst_0222.json",
+        "sol": "data/benchmarks/sota-20261014/enterprise-dev/traces/qst_0222.json"
+      }
+    },
+    {
+      "id": "qst_0258",
+      "change": "losses",
+      "interpretation": "Coverage difference: sol describes handshakes and pressure but omits the explicit TLS handshake-timeout statement present in astra.",
+      "judgements": {
+        "astra": {
+          "correct": true,
+          "facts_supported": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "reason": "The candidate captures the triggering workload overlap, scale-in-driven prewarm churn, handshake and accept-queue pressure, NVMe checkpoint write amplification, and resulting worker disruption and gateway failures. Its qualification of scale-in evidence does not negate the stated causal contribution."
+        },
+        "sol": {
+          "correct": false,
+          "facts_supported": [
+            true,
+            true,
+            true,
+            false,
+            true,
+            true
+          ],
+          "reason": "The candidate captures the trigger, warmer churn, and disk-I/O failure chain, but does not state that warmup churn caused repeated TLS handshake timeouts, leaving that core mechanism incomplete."
+        }
+      },
+      "traces": {
+        "astra": "data/benchmarks/optimization-20261012/enterprise-dev100-bge-cascade-preview/traces/qst_0258.json",
+        "sol": "data/benchmarks/sota-20261014/enterprise-dev/traces/qst_0258.json"
+      }
+    }
+  ],
+  "conclusion": "The -2pp dev difference combines answer/source-selection differences and visible judge-boundary inconsistency. One run cannot separate model effects from sampling/judge variation; no observed assembly mismatch."
+}

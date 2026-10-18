@@ -1,0 +1,22 @@
+{
+  "n": 25,
+  "model_calls": 0,
+  "full_corpus_bm25_recall5": 0.36,
+  "full_corpus_bm25_recall20": 0.44,
+  "sample_bm25_recall20": 0.8,
+  "same_question_set": true,
+  "note": "CPU read-only full existing lexical index, same semantic25 natural questions. No Qwen full index or full hybrid result.",
+  "source": {
+    "path": "runs/overnight-20261012/full-bm25-calibration/summary.json",
+    "sha256": "861e1aaf383f3911b8b28abeda9736857db3b07fabb08080d0bacf08aa20ded8"
+  },
+  "limits": [
+    "Same natural questions and title2/porter implementation, but different corpus scope; no direct QA score.",
+    "Sample deliberately includes semantic references; other labels absent in sampled corpus.",
+    "No complete Qwen full index; full hybrid score unknown."
+  ],
+  "raw_detail": {
+    "path": "runs/evidence/full-bm25-calibration-20261013.json",
+    "sha256": "c23d36f507a04f58f768a48f806421744513d888ffe72e298dd8f20d7771b56c"
+  }
+}

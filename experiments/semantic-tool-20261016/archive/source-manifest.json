@@ -1,0 +1,7 @@
+{
+  "archived_at": 1792230126.6945589,
+  "reason": "User explicitly stopped the experiment and abandoned the added vector index/tool",
+  "source_files": 63,
+  "source_archive": "experiments/semantic-tool-20261016/archive/source-before-removal.tar.gz",
+  "source_archive_sha256": "33b57c4eae7f073dd037c2ab9c41d007b9f5946a914566f21b4c33cc3d691ad8"
+}

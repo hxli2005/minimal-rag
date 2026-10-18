@@ -1,0 +1,38 @@
+{
+  "dataset": "onyx-dot-app/EnterpriseRAG-Bench",
+  "source": "data/benchmarks/enterprise/corpus.sqlite",
+  "curation": "Target source and four first-query distractors from a known successful dev trace; not a representative retrieval evaluation.",
+  "ids": [
+    "dsid_c83811391709468fa9534e6495c205e3",
+    "dsid_5217b3a64c4a433c89ba2a3186dea82a",
+    "dsid_7e040d2cbc934aafbdb677b7e28b3011",
+    "dsid_906b259999474f3ea37a0b1f21b583ba",
+    "dsid_cc21f740e3ba4a229a36367b5f922a24"
+  ],
+  "documents": 5,
+  "license": "MIT, see THIRD_PARTY_NOTICES.md",
+  "question_id": "qst_0105",
+  "new_model_calls_at_preparation": 0,
+  "real_run": {
+    "source": "runs/overnight-20261012/cloneable-showcase/report.json",
+    "model": "gpt-6.1-sol",
+    "generation_calls": 3,
+    "result_status": "finished",
+    "input_tokens": 25079,
+    "scoring": "Manual source check only, no new model judge or benchmark score."
+  },
+  "fixture_sha256": "a6ad9ee84b3a28c5a86799515b0ad11a92df8a7085e4aeb57ec55b434dc2455d",
+  "recorded_run_sha256": "338380095a780be5d840fb47f320b70dff625355c4ab8721bfea4c95362fe9a3",
+  "visual_report": {
+    "path": "examples/sol-demo/report.html",
+    "sha256": "f25559bf61a09503852ffba31e796cbadebc97b6ba392a6905a143ff27e7647d",
+    "preview": "examples/sol-demo/preview.png",
+    "rendering": "Static interactive replay of retained recording; no new generation or grading.",
+    "validation": "Playwright CLI: all3 steps and full-answer expansion; desktop1280, mobile360/320, dark theme visually inspected; measured horizontal overflow0 at1280/360/320; fresh page console0 errors/warnings. After review, raw traces moved to runs/ and the raw-data link became a summary link; that text-only revision was not re-rendered in a browser.",
+    "source_excerpt_exact_match": true,
+    "excerpt_offset": 4911,
+    "new_model_calls": 0,
+    "limits": "Browser verification used temporary local HTTP; direct file opening not separately exercised by automated browser, whose file protocol is blocked."
+  },
+  "raw_recorded_run": "runs/evidence/sol-demo-recorded-run.json"
+}

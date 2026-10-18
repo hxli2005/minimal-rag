@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "minimal-rag"
+version = "0.1.0"
+description = "A small, inspectable Agentic RAG engine with reproducible retrieval and evaluation"
+requires-python = ">=3.12"
+dependencies = ["pydantic==2.13.5"]
+
+[project.optional-dependencies]
+codex = ["openai-codex==0.160.0"]
+benchmarks = ["httpx==0.28.1", "pymupdf==1.28.2", "pyarrow==26.0.0", "huggingface-hub==1.33.0"]
+test = ["pytest==9.1.1", "pytest-asyncio==1.4.0"]
+
+[project.scripts]
+minimal-rag = "minimal_rag.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+minimal_rag = ["fixtures/*.jsonl", "fixtures/*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--import-mode=importlib"
+asyncio_mode = "auto"
+markers = ["live: uses an external model and consumes allowance", "integration: requires downloaded models or benchmark assets"]

@@ -1,0 +1,2 @@
+{"id":"install","title":"Example installation guide","text":"This is a fictional sample corpus. Install the Acme client with the stable package. Configure its endpoint before connecting.","source":"example://install"}
+{"id":"timeout","title":"Example connection troubleshooting","text":"This is a fictional sample corpus. If the connection times out, check the endpoint and network access. Collect the client version and request identifier for further investigation.","source":"example://timeout"}

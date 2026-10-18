@@ -1,0 +1,157 @@
+{
+  "all_equal": true,
+  "replayed_searches": 24,
+  "new_model_calls": 0,
+  "core_changed_from_pre_refactor_head": {
+    "indexed_rag": false,
+    "codex_adapter": false,
+    "loop": false
+  },
+  "budgets_equal": true,
+  "records": [
+    {
+      "query_id": "414",
+      "equal": true,
+      "seconds": 1.0032963749981718,
+      "trace_sha256": "dd3ef2f8ab17882037678d23a325e504077c6340fca05d230d981d9648d7dc25"
+    },
+    {
+      "query_id": "414",
+      "equal": true,
+      "seconds": 0.010759541000879835,
+      "trace_sha256": "dd3ef2f8ab17882037678d23a325e504077c6340fca05d230d981d9648d7dc25"
+    },
+    {
+      "query_id": "221",
+      "equal": true,
+      "seconds": 0.14297858300051303,
+      "trace_sha256": "e67581aee1427d775350e859db7a7e338711eddfa6250c51e204c485afee0bb9"
+    },
+    {
+      "query_id": "221",
+      "equal": true,
+      "seconds": 0.14278475000173785,
+      "trace_sha256": "e67581aee1427d775350e859db7a7e338711eddfa6250c51e204c485afee0bb9"
+    },
+    {
+      "query_id": "543",
+      "equal": true,
+      "seconds": 0.23078391699891654,
+      "trace_sha256": "6fffcba6bdd99b64aa67eccb9f9954f1e9133f10d6275dccae2cc4ece1f4ef1b"
+    },
+    {
+      "query_id": "543",
+      "equal": true,
+      "seconds": 0.04047891699883621,
+      "trace_sha256": "6fffcba6bdd99b64aa67eccb9f9954f1e9133f10d6275dccae2cc4ece1f4ef1b"
+    },
+    {
+      "query_id": "472",
+      "equal": true,
+      "seconds": 0.18982491700080573,
+      "trace_sha256": "07ec5c3f2ddb110789b11bf51ef4a41e67322ac300ad8c9ab46d3ff7eb110884"
+    },
+    {
+      "query_id": "472",
+      "equal": true,
+      "seconds": 0.16890724999757367,
+      "trace_sha256": "07ec5c3f2ddb110789b11bf51ef4a41e67322ac300ad8c9ab46d3ff7eb110884"
+    },
+    {
+      "query_id": "553",
+      "equal": true,
+      "seconds": 0.010729958001320483,
+      "trace_sha256": "a4c3fe6ccb3bede107ae0947e51f84e7fe7a7efea19c0ca88412d6406dba8380"
+    },
+    {
+      "query_id": "553",
+      "equal": true,
+      "seconds": 0.022918375001609093,
+      "trace_sha256": "a4c3fe6ccb3bede107ae0947e51f84e7fe7a7efea19c0ca88412d6406dba8380"
+    },
+    {
+      "query_id": "60",
+      "equal": true,
+      "seconds": 0.2167338330000348,
+      "trace_sha256": "368450caa591d9f5b5b9fc6c7f8ba069934e359a99db7b4b357c728e0afc3f92"
+    },
+    {
+      "query_id": "60",
+      "equal": true,
+      "seconds": 0.0032117079972522333,
+      "trace_sha256": "368450caa591d9f5b5b9fc6c7f8ba069934e359a99db7b4b357c728e0afc3f92"
+    },
+    {
+      "query_id": "764",
+      "equal": true,
+      "seconds": 0.1731300840001495,
+      "trace_sha256": "150287541a8848852f636b12c96b2d21dedf9587cb091f8a90489190b71021d4"
+    },
+    {
+      "query_id": "764",
+      "equal": true,
+      "seconds": 0.2362265000010666,
+      "trace_sha256": "150287541a8848852f636b12c96b2d21dedf9587cb091f8a90489190b71021d4"
+    },
+    {
+      "query_id": "435",
+      "equal": true,
+      "seconds": 0.46772300000156974,
+      "trace_sha256": "8a441caa59da7afb34c4e2ace163311796e01588a727ef7abe8f5c01ec9eb78a"
+    },
+    {
+      "query_id": "435",
+      "equal": true,
+      "seconds": 0.06320012500145822,
+      "trace_sha256": "8a441caa59da7afb34c4e2ace163311796e01588a727ef7abe8f5c01ec9eb78a"
+    },
+    {
+      "query_id": "655",
+      "equal": true,
+      "seconds": 0.16063004200259456,
+      "trace_sha256": "c7613f6dc92a1cf2f49ce36ef041060608ba4bb74b3ed733ea2cb120706a1fd5"
+    },
+    {
+      "query_id": "655",
+      "equal": true,
+      "seconds": 0.003544707997207297,
+      "trace_sha256": "c7613f6dc92a1cf2f49ce36ef041060608ba4bb74b3ed733ea2cb120706a1fd5"
+    },
+    {
+      "query_id": "788",
+      "equal": true,
+      "seconds": 0.022023624998837477,
+      "trace_sha256": "15beea7d91dc0d0d76901a930f6ef85ca7a38293b9c57515e87aabbfd809d714"
+    },
+    {
+      "query_id": "788",
+      "equal": true,
+      "seconds": 0.05773679199774051,
+      "trace_sha256": "15beea7d91dc0d0d76901a930f6ef85ca7a38293b9c57515e87aabbfd809d714"
+    },
+    {
+      "query_id": "1068",
+      "equal": true,
+      "seconds": 0.17501729099967633,
+      "trace_sha256": "db00a28dd937e71a01a5f89b4549181dd2e0a7766055d8a0c063b692f451eafd"
+    },
+    {
+      "query_id": "1068",
+      "equal": true,
+      "seconds": 0.1767804580013035,
+      "trace_sha256": "db00a28dd937e71a01a5f89b4549181dd2e0a7766055d8a0c063b692f451eafd"
+    },
+    {
+      "query_id": "666",
+      "equal": true,
+      "seconds": 0.3952326250000624,
+      "trace_sha256": "14246943da43a2ec42a069d331b354f2029061e9fab7162585de056e70da1e41"
+    },
+    {
+      "query_id": "666",
+      "equal": true,
+      "seconds": 0.5554352500003006,
+      "trace_sha256": "14246943da43a2ec42a069d331b354f2029061e9fab7162585de056e70da1e41"
+    }
+  ]
+}

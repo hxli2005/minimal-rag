@@ -1,0 +1,127 @@
+{
+  "groups": {
+    "code-tools-20261017": {
+      "A": {
+        "wrong": 26,
+        "buckets": {
+          "some_reference_docs_missing": [
+            "qst_0375",
+            "qst_0377",
+            "qst_0369",
+            "qst_0351"
+          ],
+          "all_reference_docs_have_some_text_exposed": [
+            "qst_0341",
+            "qst_0374",
+            "qst_0118",
+            "qst_0413",
+            "qst_0248",
+            "qst_0376",
+            "qst_0176",
+            "qst_0368",
+            "qst_0003"
+          ],
+          "none_of_reference_docs_seen": [
+            "qst_0112",
+            "qst_0143",
+            "qst_0222",
+            "qst_0173",
+            "qst_0234",
+            "qst_0116",
+            "qst_0177",
+            "qst_0197",
+            "qst_0203",
+            "qst_0184",
+            "qst_0166",
+            "qst_0251"
+          ],
+          "no_reference_labels": [
+            "qst_0474"
+          ]
+        },
+        "categories": {
+          "project_related": 8,
+          "basic": 7,
+          "semantic": 9,
+          "conflicting_info": 1,
+          "high_level": 1
+        }
+      },
+      "B": {
+        "wrong": 22,
+        "buckets": {
+          "some_reference_docs_missing": [
+            "qst_0375",
+            "qst_0377",
+            "qst_0369",
+            "qst_0376"
+          ],
+          "all_reference_docs_have_some_text_exposed": [
+            "qst_0341",
+            "qst_0374",
+            "qst_0240",
+            "qst_0118",
+            "qst_0413",
+            "qst_0248",
+            "qst_0180",
+            "qst_0176",
+            "qst_0351",
+            "qst_0368",
+            "qst_0003"
+          ],
+          "none_of_reference_docs_seen": [
+            "qst_0222",
+            "qst_0250",
+            "qst_0234",
+            "qst_0197",
+            "qst_0184",
+            "qst_0251"
+          ],
+          "no_reference_labels": [
+            "qst_0474"
+          ]
+        },
+        "categories": {
+          "project_related": 8,
+          "semantic": 10,
+          "basic": 2,
+          "conflicting_info": 1,
+          "high_level": 1
+        }
+      }
+    },
+    "grep-browsecomp-20261017": {
+      "A": {
+        "wrong": 2,
+        "buckets": {
+          "some_reference_docs_missing": [
+            "418",
+            "775"
+          ]
+        },
+        "categories": {
+          "browsecomp": 2
+        }
+      },
+      "B": {
+        "wrong": 2,
+        "buckets": {
+          "none_of_reference_docs_seen": [
+            "666"
+          ],
+          "some_reference_docs_missing": [
+            "775"
+          ]
+        },
+        "categories": {
+          "browsecomp": 2
+        }
+      }
+    }
+  },
+  "limitations": [
+    "Document-level exposure is not proof that every required fact reached the model.",
+    "Missing reference documents can reflect query/planning failures as well as retriever limitations.",
+    "Enterprise B is the historical three-tool experiment, not the current Grep-only candidate."
+  ]
+}
