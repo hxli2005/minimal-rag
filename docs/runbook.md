@@ -1,5 +1,7 @@
 # 运行指南
 
+首次使用请先看[自己的资料与真实问答：快速开始](quickstart.md)，从离线演示、两篇样例建库到 API 问答。下方保留完整运行参数与实验记录。
+
 Python 3.12＋。核心命令只有 `demo`、`index`、`search`、`ask`。`ask` 和所有 benchmark 的当前入口共用纯 BM25 的 `IndexedKnowledgeBase`、`search/read` 工具、模型适配器和核心循环。
 
 ## 项目展示页部署

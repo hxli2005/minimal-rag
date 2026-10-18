@@ -109,7 +109,7 @@ python3.12 -m venv .venv
 .venv/bin/python -m minimal_rag demo
 ```
 
-It builds a real SQLite index from bundled samples and replays search → read → cited answer. For real questions, building your own index and API configuration, see the [runbook](docs/runbook.md).
+It builds a real SQLite index from bundled samples and replays search → read → cited answer. Next: [index your own documents and ask a live model](docs/quickstart.md). Detailed runtime and evaluation notes are in the [runbook](docs/runbook.md).
 
 ## Design decisions
 
