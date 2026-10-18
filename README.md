@@ -24,6 +24,7 @@
 <p align="center">
   <a href="https://hxli2005.github.io/minimal-rag/"><b>Website</b></a> ·
   <a href="https://hxli2005.github.io/minimal-rag/notes/search-read/">Interface case study</a> ·
+  <a href="https://medium.com/@lihaoxiang05/the-rag-result-list-is-not-the-evidence-4982b28986db">Medium edition</a> ·
   <a href="#results">Results</a> ·
   <a href="#quick-start">Quick start</a> ·
   <a href="REPRODUCE.md">Reproduce</a> ·
